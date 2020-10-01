@@ -1,4 +1,6 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:toplu_hesaplayici/kdvHesaplayicisi.dart';
 import 'package:toplu_hesaplayici/vucutKitleEndeksi.dart';
@@ -10,9 +12,14 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
+    return DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => MaterialApp(
+        locale: DevicePreview.of(context).locale,
+        builder: DevicePreview.appBuilder,
+        debugShowCheckedModeBanner: false,
+        home: HomePage(),
+      ),
     );
   }
 }
@@ -31,9 +38,9 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.blue[900],
           title: Text("Hesaplayici"),
           centerTitle: true,
-          leading: GestureDetector(
-            child: Icon(Icons.info),
-            onTap: () {
+          leading: IconButton(
+            icon: Icon(Icons.info),
+            onPressed: () {
               showCupertinoModalPopup(
                   context: context,
                   builder: (context) => AlertDialog(
@@ -44,14 +51,12 @@ class _HomePageState extends State<HomePage> {
         ),
         body: GridView.count(
           crossAxisCount: 2,
-
           crossAxisSpacing: 20,
           children: [
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: RaisedButton(
                 color: Colors.white,
-
                 onPressed: () {
                   Navigator.push(
                       context,
@@ -61,8 +66,15 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image(image: AssetImage("assets/percentage.png"),height: 70,),
-                    Text("Kdv Hesaplayıcı",style: TextStyle(fontSize: 20),textAlign: TextAlign.center,)
+                    Image(
+                      image: AssetImage("assets/percentage.png"),
+                      height: 70,
+                    ),
+                    Text(
+                      "Kdv Hesaplayıcı",
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.center,
+                    )
                   ],
                 ),
               ),
@@ -71,24 +83,27 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(10.0),
               child: RaisedButton(
                 color: Colors.white,
-
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                          builder: (context) => KitleEndeksi()));
+
+                  Navigator.push(context,
+                      CupertinoPageRoute(builder: (context) => KitleEndeksi()));
                 },
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image(image: AssetImage("assets/love.png"),height: 70,),
-                    Text("Vücut Kitle Endekssi",style: TextStyle(fontSize: 20),textAlign: TextAlign.center,)
+                    Image(
+                      image: AssetImage("assets/love.png"),
+                      height: 70,
+                    ),
+                    Text(
+                      "Vücut Kitle Endeksi",
+                      style: TextStyle(fontSize: 18),
+                      textAlign: TextAlign.center,
+                    )
                   ],
                 ),
               ),
             ),
-
-
           ],
         ));
   }

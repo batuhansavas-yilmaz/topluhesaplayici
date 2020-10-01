@@ -28,6 +28,17 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Transform(
+          alignment: FractionalOffset.center,
+          transform: Matrix4.rotationZ(-80.10),
+          child: Container(
+            child: IconButton(
+                icon: Icon(Icons.arrow_drop_down_circle_rounded),
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
+          ),
+        ),
         backgroundColor: Colors.blue[900],
         title: Text("Kdv Hesaplayicisi"),
       ),
@@ -37,7 +48,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15.0),
+            padding: const EdgeInsets.only(left: 10, right: 10, bottom:2.0),
             child: Column(
               children: [
                 Row(
@@ -46,10 +57,11 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Container(
-                          decoration: BoxDecoration(boxShadow: [
-                            BoxShadow(
-                                offset: Offset(0.50, 1.85), blurRadius: 2)
-                          ],
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                    offset: Offset(0.50, 1.85), blurRadius: 2)
+                              ],
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10)),
                           child: TextField(
@@ -102,37 +114,30 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: RaisedButton(
-                        color: Colors.white,
-                        onPressed: () {
-                          setState(() {
-                            //Burda yatığımız , hesapla butonuna bastığımızda  t1 ve t2 nesnelerine yazılan verilerin,
-                            //hesaptutar ve hesapOran nesnelerine aktarılmasını sağladık.
-                            //Bu sayede hesap tutar ve hesap oran nesnelerini kullanarak matematiksel işlemleri yapabildik.
-                            hesapTutar = double.parse(t1.text);
-                            hesapOran = double.parse(t2.text);
-                            //kdv haric
-                            HarcikenKdvTutari =
-                                (hesapTutar * (hesapOran / 100));
-                            haricTutar = hesapTutar;
-                            toplamHaricTutar = HarcikenKdvTutari + haricTutar;
-                            //kdvdahil
-                            dahilTutar = hesapTutar / ((hesapOran / 100) + 1);
-                            dahilkenKdvTutari = hesapTutar - dahilTutar;
-                            toplamDahilTutar = hesapTutar;
-                          });
-                        },
-                        child: Text(
-                          "Hesapla",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                    )
-                  ],
+                RaisedButton(
+                  color: Colors.white,
+                  onPressed: () {
+                    setState(() {
+                      //Burda yatığımız , hesapla butonuna bastığımızda  t1 ve t2 nesnelerine yazılan verilerin,
+                      //hesaptutar ve hesapOran nesnelerine aktarılmasını sağladık.
+                      //Bu sayede hesap tutar ve hesap oran nesnelerini kullanarak matematiksel işlemleri yapabildik.
+                      hesapTutar = double.parse(t1.text);
+                      hesapOran = double.parse(t2.text);
+                      //kdv haric
+                      HarcikenKdvTutari = (hesapTutar * (hesapOran / 100));
+                      haricTutar = hesapTutar;
+                      toplamHaricTutar = HarcikenKdvTutari + haricTutar;
+                      //kdvdahil
+                      dahilTutar = hesapTutar / ((hesapOran / 100) + 1);
+                      dahilkenKdvTutari = hesapTutar - dahilTutar;
+                      toplamDahilTutar = hesapTutar;
+                    });
+                  },
+                  child: Text(
+                    "Hesapla",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20),
+                  ),
                 ),
               ],
             ),
@@ -147,7 +152,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                         child: Container(
                           color: Colors.white,
                           child: Padding(
-                            padding: const EdgeInsets.all(4.0),
+                            padding: const EdgeInsets.all(2.0),
                             child: Text(
                               "KDV Hariç Hesaplama",
                               textAlign: TextAlign.center,
@@ -160,62 +165,68 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                   ),
                   Column(
                     children: [
-                      Row(
-                        children: [
-                          Expanded(
-                              flex: 3,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 4, top: 2),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                flex: 3,
                                 child: Text(
                                   "Ara Toplam",
                                   style: stil,
-                                ),
-                              )),
-                          Expanded(
-                            child: Text(
-                              haricTutar.toStringAsFixed(2),
-                              style: stil,
+                                )),
+                            Expanded(
+                              child: Text(
+                                haricTutar.toStringAsFixed(2),
+                                style: stil,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                              flex: 3,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                      Divider(
+                        color: Colors.black,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left:4,),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                flex: 3,
                                 child: Text(
                                   "KDV Tutarı",
                                   style: stil,
-                                ),
-                              )),
-                          Expanded(
-                            child: Text(
-                              HarcikenKdvTutari.toStringAsFixed(2),
-                              style: stil,
+                                )),
+                            Expanded(
+                              child: Text(
+                                HarcikenKdvTutari.toStringAsFixed(2),
+                                style: stil,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                              flex: 3,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                      Divider(
+                        color: Colors.black,
+                      ),
+                      Padding(
+    padding: const EdgeInsets.only(left:4,bottom: 2),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                flex: 3,
                                 child: Text(
                                   "Toplam Tutar",
                                   style: stil,
-                                ),
-                              )),
-                          Expanded(
-                            child: Text(
-                              toplamHaricTutar.toStringAsFixed(2),
-                              style: stil,
+                                )),
+                            Expanded(
+                              child: Text(
+                                toplamHaricTutar.toStringAsFixed(2),
+                                style: stil,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -229,7 +240,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                         child: Container(
                           color: Colors.white,
                           child: Padding(
-                            padding: const EdgeInsets.all(4.0),
+                            padding: const EdgeInsets.all(2.0),
                             child: Text(
                               "KDV Dahil Hesaplama",
                               textAlign: TextAlign.center,
@@ -242,62 +253,71 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                   ),
                   Column(
                     children: [
-                      Row(
-                        children: [
-                          Expanded(
-                              flex: 3,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 4, top: 2),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                flex: 3,
                                 child: Text(
                                   "Ara Toplam",
                                   style: stil,
-                                ),
-                              )),
-                          Expanded(
-                            child: Text(
-                              dahilTutar.toStringAsFixed(2),
-                              style: stil,
+                                )),
+                            Expanded(
+                              child: Text(
+                                dahilTutar.toStringAsFixed(2),
+                                style: stil,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                              flex: 3,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                      Divider(
+                        color: Colors.black,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 4),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                flex: 3,
                                 child: Text(
                                   "KDV Tutarı",
                                   style: stil,
-                                ),
-                              )),
-                          Expanded(
-                            child: Text(
-                              dahilkenKdvTutari.toStringAsFixed(2),
-                              style: stil,
+                                )),
+                            Expanded(
+                              child: Text(
+                                dahilkenKdvTutari.toStringAsFixed(2),
+                                style: stil,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                              flex: 3,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                      Divider(
+                        color: Colors.black,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 4),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                flex: 3,
                                 child: Text(
                                   "Toplam Tutar",
                                   style: stil,
-                                ),
-                              )),
-                          Expanded(
-                            child: Text(
-                              toplamDahilTutar.toStringAsFixed(2),
-                              style: stil,
+                                )),
+                            Expanded(
+                              child: Text(
+                                toplamDahilTutar.toStringAsFixed(2),
+                                style: stil,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.black,
                       ),
                     ],
                   ),
