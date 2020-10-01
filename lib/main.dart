@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image(image: AssetImage("assets/love.png"),height: 70,),
-                    Text("Vücut Kitle Endeksi",style: TextStyle(fontSize: 20),textAlign: TextAlign.center,)
+                    Text("Vücut Kitle Endekssi",style: TextStyle(fontSize: 20),textAlign: TextAlign.center,)
                   ],
                 ),
               ),
