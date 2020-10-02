@@ -1,20 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'endeksYorum.dart';
 
 class KitleEndeksi extends StatefulWidget {
   @override
-  _KitleEndeksiState createState() => _KitleEndeksiState();
+  KitleEndeksiState createState() => KitleEndeksiState();
 }
 
-class _KitleEndeksiState extends State<KitleEndeksi> {
+class KitleEndeksiState extends State<KitleEndeksi> {
   TextEditingController kg = TextEditingController(text: "");
   TextEditingController boy = TextEditingController(text: "");
   double kG = 0;
   double boY = 0;
-  double sonuc = 0.00;
+  static double sonuc = 0.00;
+  static String sonucMetin = "";
 
   @override
   Widget build(BuildContext context) {
+    Yorum.yorum();
     return Scaffold(
       backgroundColor: Colors.blue[100],
       appBar: AppBar(
@@ -152,11 +155,6 @@ class _KitleEndeksiState extends State<KitleEndeksi> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Card(
               child: ListTile(
-                title: Text(
-                  sonuc.toStringAsFixed(2),
-                  style: TextStyle(fontSize: 40),
-                  textAlign: TextAlign.center,
-                ),
                 leading: Text(
                   "Sonuç :",
                   style: TextStyle(
@@ -164,9 +162,28 @@ class _KitleEndeksiState extends State<KitleEndeksi> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                title: Text(
+                  sonuc.toStringAsFixed(2),
+                  style: TextStyle(fontSize: 40),
+                ),
               ),
             ),
           ),
+         ListTile(
+            title: Text(
+              "Yorumsal Sonuç",
+              style: TextStyle(fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
+            subtitle: Column(
+              children: [Divider(color: Colors.black,),
+                Text(
+                  sonucMetin,
+                  style: TextStyle(fontSize: 13, color: Colors.black),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
