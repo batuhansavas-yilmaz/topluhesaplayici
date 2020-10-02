@@ -41,12 +41,27 @@ class _HomePageState extends State<HomePage> {
         title: Text("HesapMatik"),
         centerTitle: true,
         leading: IconButton(
+          tooltip: "Bilgi",
           icon: Icon(Icons.info),
           onPressed: () {
             showCupertinoModalPopup(
                 context: context,
                 builder: (context) => AlertDialog(
-                      title: Text("53"),
+                      title: Text("HesapMatik v1.0"),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Destek: ",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          Text("batuhansavasyilmaztr@gmail.com",
+                              style: TextStyle(fontSize: 12.20)),
+                        ],
+                      ),actions: [
+                  IconButton(tooltip: "Kapat",icon: Icon(Icons.close),onPressed: (){Navigator.pop(context);},)
+                ]
                     ));
           },
         ),
@@ -85,10 +100,9 @@ class _HomePageState extends State<HomePage> {
               height: 70,
             ),
           ),
+
         ],
       ),
     );
   }
 }
-
-

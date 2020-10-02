@@ -8,7 +8,7 @@ class Yorum{
       KitleEndeksiState.sonucMetin =
       "Zayıfsınız. Biraz kilo almanızda fayda var, ama tabiki de sağlıklı bir şekilde.";
     } else if (KitleEndeksiState.sonuc < 24.99) {
-      KitleEndeksiState.sonucMetin = "Kilonuz normal. Yediklerinize dikkat etmeyi ihmal etmeyin lütfen. ";
+      KitleEndeksiState.sonucMetin = "Kilonuz normal. Fakat yine de yediklerinize dikkat etmeyi ihmal etmeyin lütfen. ";
     } else if (KitleEndeksiState.sonuc < 29.99) {
       KitleEndeksiState.sonucMetin = "Fazla kilolarınızdan kurtulmanız gerekli.";
     } else if (KitleEndeksiState.sonuc < 34.99) {
@@ -16,7 +16,7 @@ class Yorum{
       "Birinci derecede obezsiniz. Yediğinize dikkat edip bir diyetisyene başvurmanız gerekli.";
     } else if (KitleEndeksiState.sonuc < 44.99) {
       KitleEndeksiState.sonucMetin =
-      "İkinci derecede obezsiniz. Kalp ve damar hastalıkları riskiniz var. Bir diyetisyene başvurmanız gerekli";
+      "İkinci derecede obezsiniz. Kalp ve damar hastalıkları riskiniz var. Bir diyetisyene başvurmanız gerekli.";
     }else {
       KitleEndeksiState.sonucMetin =
       "Üçüncü derecede obezsiniz. Bu da morbid obezite demek. Acil olarak bir diyetisyene başvurmanız gerekli.";

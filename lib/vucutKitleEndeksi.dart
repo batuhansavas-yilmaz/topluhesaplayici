@@ -25,7 +25,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
           alignment: FractionalOffset.center,
           transform: Matrix4.rotationZ(-80.10),
           child: Container(
-            child: IconButton(
+            child: IconButton(tooltip: "Geri",
                 icon: Icon(Icons.arrow_drop_down_circle_rounded),
                 onPressed: () {
                   Navigator.pop(context);
@@ -114,45 +114,43 @@ class KitleEndeksiState extends State<KitleEndeksi> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: RaisedButton(
-                  color: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Hesapla",
-                      style: TextStyle(fontSize: 30),
+                child: Container(decoration: BoxDecoration(boxShadow: [
+                  BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
+                ],),
+                  child: RaisedButton(
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Hesapla",
+                        style: TextStyle(fontSize: 30),
+                      ),
                     ),
+                    onPressed: () {
+                      setState(() {
+                        showCupertinoModalPopup(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                    title: Text("Uyarı"),
+                                    content: Text(
+                                        "Edindiğiniz Sonuçlar Formulize Olarak Doğru Olsa Bile Sağlığınız Açısından En Güvenilir Sonuçlar İçin Diyetisyenlerden Yardım Almanızı Öneririz."),
+                                    actions: [
+                                      IconButton(tooltip: "Kapat",icon: Icon(Icons.close),onPressed: (){Navigator.pop(context);},)
+                                    ]));
+                        kG = double.parse(kg.text);
+                        boY = double.parse(boy.text);
+                        sonuc = kG / ((boY / 100) * (boY / 100));
+                        print(sonuc);
+                      });
+                    },
                   ),
-                  onPressed: () {
-                    setState(() {
-                      showCupertinoModalPopup(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                                  title: Text("Uyarı"),
-                                  content: Text(
-                                      "Edindiğiniz Sonuçlar Formulize Olarak Doğru Olsa Bile Sağlığınız Açısından En Güvenilir Sonuçlar İçin Diyetisyenlerden Yardım Almanızı Öneririz."),
-                                  actions: [
-                                    FlatButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Icon(Icons.close))
-                                  ]));
-                      kG = double.parse(kg.text);
-                      boY = double.parse(boy.text);
-                      sonuc = kG / ((boY / 100) * (boY / 100));
-                      print(sonuc);
-                    });
-                  },
                 ),
               ),
             ],
           ),
-          SizedBox(
-            height: 40,
-          ),
+
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.only(left: 20,right:20,top:10),
             child: Card(
               child: ListTile(
                 leading: Text(
@@ -179,7 +177,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
               children: [Divider(color: Colors.black,),
                 Text(
                   sonucMetin,
-                  style: TextStyle(fontSize: 13, color: Colors.black),
+                  style: TextStyle(fontSize: 15.58, color: Colors.black),
                 ),
               ],
             ),
