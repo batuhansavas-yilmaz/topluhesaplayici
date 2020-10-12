@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toplu_hesaplayici/main.dart';
 
 class KdvHesaplayicisi extends StatefulWidget {
   @override
@@ -39,10 +40,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                 }),
           ),
         ),
-        backgroundColor: Colors.blue[900],
+        backgroundColor: Renkler.appBarRenk,
         title: Text("Kdv Hesaplayicisi"),
       ),
-      backgroundColor: Colors.blue[100],
+      backgroundColor: Renkler.arkaPlanRenk,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
@@ -115,9 +116,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                   ],
                 ),
                 RaisedButton(
-                  color: Colors.white,
+color: Colors.white,
                   onPressed: () {
-                    setState(() {
+                    setState(() {FocusScope.of(context).requestFocus(new FocusNode());
                       //Burda yatığımız , hesapla butonuna bastığımızda  t1 ve t2 nesnelerine yazılan verilerin,
                       //hesaptutar ve hesapOran nesnelerine aktarılmasını sağladık.
                       //Bu sayede hesap tutar ve hesap oran nesnelerini kullanarak matematiksel işlemleri yapabildik.
@@ -150,13 +151,13 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                     children: [
                       Expanded(
                         child: Container(
-                          color: Colors.white,
+                          color: Renkler.appBarRenk,
                           child: Padding(
                             padding: const EdgeInsets.all(2.0),
                             child: Text(
                               "KDV Hariç Hesaplama",
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 20),
+                              style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
@@ -210,7 +211,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                         color: Colors.black,
                       ),
                       Padding(
-    padding: const EdgeInsets.only(left:4,bottom: 2),
+                       padding: const EdgeInsets.only(left:4,bottom: 2),
                         child: Row(
                           children: [
                             Expanded(
@@ -238,13 +239,13 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                     children: [
                       Expanded(
                         child: Container(
-                          color: Colors.white,
+                          color: Renkler.appBarRenk,
                           child: Padding(
                             padding: const EdgeInsets.all(2.0),
                             child: Text(
                               "KDV Dahil Hesaplama",
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 20),
+                              style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),

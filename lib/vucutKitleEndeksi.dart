@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:toplu_hesaplayici/main.dart';
 import 'endeksYorum.dart';
 
 class KitleEndeksi extends StatefulWidget {
@@ -19,7 +20,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
   Widget build(BuildContext context) {
     Yorum.yorum();
     return Scaffold(
-      backgroundColor: Colors.blue[100],
+      backgroundColor: Renkler.arkaPlanRenk,
       appBar: AppBar(
         leading: Transform(
           alignment: FractionalOffset.center,
@@ -33,7 +34,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
           ),
         ),
         title: Text("Vücut Kitle Endeksi "),
-        backgroundColor: Colors.blue[900],
+        backgroundColor: Renkler.appBarRenk,
       ),
       body: Column(
         children: [
@@ -127,7 +128,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                       ),
                     ),
                     onPressed: () {
-                      setState(() {
+                      setState(() { FocusScope.of(context).requestFocus(new FocusNode());// klavye kapatıcı
                         showCupertinoModalPopup(
                             context: context,
                             builder: (context) => AlertDialog(

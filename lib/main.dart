@@ -35,9 +35,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[100],
+      backgroundColor: Renkler.arkaPlanRenk ,
       appBar: AppBar(
-        backgroundColor: Colors.blue[900],
+        backgroundColor: Renkler.appBarRenk,
         title: Text("HesapMatik"),
         centerTitle: true,
         leading: IconButton(
@@ -105,4 +105,12 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+
+class Renkler{
+
+  static Color appBarRenk = Color(0xff2b363b);
+  static Color arkaPlanRenk = Color(0xfff8f6f6);
+
 }
