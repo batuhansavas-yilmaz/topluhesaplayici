@@ -115,36 +115,32 @@ class KitleEndeksiState extends State<KitleEndeksi> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Container(decoration: BoxDecoration(boxShadow: [
-                  BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
-                ],),
-                  child: RaisedButton(
-                    color: Colors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Hesapla",
-                        style: TextStyle(fontSize: 30),
-                      ),
+                child: RaisedButton(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Hesapla",
+                      style: TextStyle(fontSize: 30),
                     ),
-                    onPressed: () {
-                      setState(() { FocusScope.of(context).requestFocus(new FocusNode());// klavye kapatıcı
-                        showCupertinoModalPopup(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                                    title: Text("Uyarı"),
-                                    content: Text(
-                                        "Edindiğiniz Sonuçlar Formulize Olarak Doğru Olsa Bile Sağlığınız Açısından En Güvenilir Sonuçlar İçin Diyetisyenlerden Yardım Almanızı Öneririz."),
-                                    actions: [
-                                      IconButton(tooltip: "Kapat",icon: Icon(Icons.close),onPressed: (){Navigator.pop(context);},)
-                                    ]));
-                        kG = double.parse(kg.text);
-                        boY = double.parse(boy.text);
-                        sonuc = kG / ((boY / 100) * (boY / 100));
-                        print(sonuc);
-                      });
-                    },
                   ),
+                  onPressed: () {
+                    setState(() { FocusScope.of(context).requestFocus(new FocusNode());// klavye kapatıcı
+                      showCupertinoModalPopup(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                  title: Text("Uyarı"),
+                                  content: Text(
+                                      "Edindiğiniz Sonuçlar Formulize Olarak Doğru Olsa Bile Sağlığınız Açısından En Güvenilir Sonuçlar İçin Diyetisyenlerden Yardım Almanızı Öneririz."),
+                                  actions: [
+                                    IconButton(tooltip: "Kapat",icon: Icon(Icons.close),onPressed: (){Navigator.pop(context);},)
+                                  ]));
+                      kG = double.parse(kg.text);
+                      boY = double.parse(boy.text);
+                      sonuc = kG / ((boY / 100) * (boY / 100));
+                      print(sonuc);
+                    });
+                  },
                 ),
               ),
             ],

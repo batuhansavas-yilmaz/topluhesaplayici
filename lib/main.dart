@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:toplu_hesaplayici/kdvHesaplayicisi.dart';
 import 'package:toplu_hesaplayici/vucutKitleEndeksi.dart';
 import 'GorevButonlari.dart';
+import 'akvaryum.dart';
 
 void main() {
   runApp(MyApp());
@@ -35,9 +36,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Renkler.arkaPlanRenk ,
+      backgroundColor: Colors.blue.shade50,
       appBar: AppBar(
-        backgroundColor: Renkler.appBarRenk,
+        backgroundColor: Colors.blueAccent.shade700
+        ,
         title: Text("HesapMatik"),
         centerTitle: true,
         leading: IconButton(
@@ -47,26 +49,32 @@ class _HomePageState extends State<HomePage> {
             showCupertinoModalPopup(
                 context: context,
                 builder: (context) => AlertDialog(
-                      title: Text("HesapMatik v1.0"),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Destek: ",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          Text("batuhansavasyilmaztr@gmail.com",
-                              style: TextStyle(fontSize: 12.20)),
-                        ],
-                      ),actions: [
-                  IconButton(tooltip: "Kapat",icon: Icon(Icons.close),onPressed: (){Navigator.pop(context);},)
-                ]
-                    ));
+                        title: Text("HesapMatik v1.0"),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Destek: ",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            Text("batuhansavasyilmaztr@gmail.com",
+                                style: TextStyle(fontSize: 12.20)),
+                          ],
+                        ),
+                        actions: [
+                          IconButton(
+                            tooltip: "Kapat",
+                            icon: Icon(Icons.close),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          )
+                        ]));
           },
         ),
       ),
-      body: GridView.count(
+      body: GridView.count(primary: false,
         crossAxisCount: 2,
         crossAxisSpacing: 20,
         children: [
@@ -100,17 +108,47 @@ class _HomePageState extends State<HomePage> {
               height: 70,
             ),
           ),
-
+          GorevButonlari(
+            image: Image.asset(
+              "assets/aquarium.png",
+              width: 75,
+              height: 75,
+            ),
+            text: Text(
+              "Akvaryum Litre Hesaplayıcı",
+              style: TextStyle(fontSize: 15),
+              textAlign: TextAlign.center,
+            ),
+            navigator: () {
+              setState(() {
+                Navigator.push(context, CupertinoPageRoute(builder: (context)=>Aquarium()));
+              });
+            },
+          ),
+          GorevButonlari(
+            image: Image.asset(
+              "assets/uzunluk.png",
+              width: 75,
+              height: 75,
+            ),
+            text: Text(
+              "Uzunluk Ölçü Birimi Dönüştürücü",
+              style: TextStyle(fontSize: 14),
+              textAlign: TextAlign.center,
+            ),
+            navigator: () {
+              setState(() {
+                Navigator.push(context, CupertinoPageRoute(builder: (context)=>Aquarium()));
+              });
+            },
+          ),
         ],
       ),
     );
   }
 }
 
-
-class Renkler{
-
-  static Color appBarRenk = Color(0xff2b363b);
-  static Color arkaPlanRenk = Color(0xfff8f6f6);
-
+class Renkler {
+  static Color appBarRenk = Colors.blueAccent.shade700;
+  static Color arkaPlanRenk = Colors.blue.shade50;
 }
