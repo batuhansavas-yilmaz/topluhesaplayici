@@ -1,8 +1,10 @@
+
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:toplu_hesaplayici/kdvHesaplayicisi.dart';
+import 'package:toplu_hesaplayici/zraporu.dart';
 import 'package:toplu_hesaplayici/vucutKitleEndeksi.dart';
 import 'GorevButonlari.dart';
 import 'akvaryum.dart';
@@ -14,16 +16,12 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => MaterialApp(
+    return MaterialApp(
         title: "HesapMatik",
-        locale: DevicePreview.of(context).locale,
-        builder: DevicePreview.appBuilder,
+
         debugShowCheckedModeBanner: false,
         home: HomePage(),
-      ),
-    );
+      );
   }
 }
 
@@ -127,18 +125,18 @@ class _HomePageState extends State<HomePage> {
           ),
           GorevButonlari(
             image: Image.asset(
-              "assets/uzunluk.png",
-              width: 75,
-              height: 75,
+              "assets/zraporu.png",
+              width: 85,
+              height: 85,
             ),
             text: Text(
-              "Uzunluk Ölçü Birimi Dönüştürücü",
-              style: TextStyle(fontSize: 14),
+              "Eksik Z Raporu Bulma",
+              style: TextStyle(fontSize: 15),
               textAlign: TextAlign.center,
             ),
             navigator: () {
               setState(() {
-                Navigator.push(context, CupertinoPageRoute(builder: (context)=>Aquarium()));
+                Navigator.push(context, CupertinoPageRoute(builder: (context)=>ZRaporu()));
               });
             },
           ),

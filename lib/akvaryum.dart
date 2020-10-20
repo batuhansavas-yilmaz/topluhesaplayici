@@ -20,7 +20,7 @@ class _AquariumState extends State<Aquarium> {
   Widget build(BuildContext context) {
     return Scaffold(backgroundColor: Renkler.arkaPlanRenk,
       appBar: AppBar(
-        centerTitle:true,title:Text("Akvaryum"),
+        title:Text("Akvaryum"),
         leading: Transform(
           alignment: FractionalOffset.center,
           transform: Matrix4.rotationZ(-80.10),
@@ -169,9 +169,9 @@ class _AquariumState extends State<Aquarium> {
               children: [
                 Text(
                     "Akvaryumunuzun kapasitesi : ",
-                    style: TextStyle(fontSize: 20)),Text(
+                    style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),Text(
                     "${sonuc.toStringAsFixed(2)} Litre ",
-                    style: TextStyle(fontSize: 20),textAlign: TextAlign.center,),
+                    style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
               ],
             ),
           ),

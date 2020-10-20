@@ -148,19 +148,17 @@ class KitleEndeksiState extends State<KitleEndeksi> {
 
           Padding(
             padding: const EdgeInsets.only(left: 20,right:20,top:10),
-            child: Card(
-              child: ListTile(
-                leading: Text(
-                  "Sonuç :",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+            child: ListTile(
+              leading: Text(
+                "Sonuç :",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
-                title: Text(
-                  sonuc.toStringAsFixed(2),
-                  style: TextStyle(fontSize: 40),
-                ),
+              ),
+              title: Text(
+                sonuc.toStringAsFixed(2),
+                style: TextStyle(fontSize: 40),
               ),
             ),
           ),
