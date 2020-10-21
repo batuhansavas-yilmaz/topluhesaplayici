@@ -65,7 +65,7 @@ class _AquariumState extends State<Aquarium> {
                     child: TextField(
                       controller: derinlik_,
                       style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.numberWithOptions(decimal: true),
                       decoration: InputDecoration(
                         hintText: "Derinlik",
                         hintStyle: TextStyle(
@@ -92,7 +92,7 @@ class _AquariumState extends State<Aquarium> {
                     child: TextField(
                       controller: en_,
                       style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.numberWithOptions(decimal: true),
                       decoration: InputDecoration(
                         hintText: "En",
                         hintStyle: TextStyle(
@@ -119,7 +119,7 @@ class _AquariumState extends State<Aquarium> {
                     child: TextField(
                       controller: uzunluk_,
                       style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.numberWithOptions(decimal: true),
                       decoration: InputDecoration(
                         hintText: "Uzunluk",
                         hintStyle: TextStyle(

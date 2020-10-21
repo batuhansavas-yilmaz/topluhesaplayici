@@ -90,7 +90,7 @@ class _ZRaporuState extends State<ZRaporu> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10)),
                         child: TextField(controller: k1,
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.numberWithOptions(decimal: true),
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                           decoration: InputDecoration(
@@ -129,7 +129,7 @@ class _ZRaporuState extends State<ZRaporu> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10)),
                         child: TextField(controller:tutar,
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.numberWithOptions(decimal: true),
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                           decoration: InputDecoration(
@@ -184,7 +184,7 @@ class _ZRaporuState extends State<ZRaporu> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10)),
                         child: TextField(controller:k2,
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.numberWithOptions(decimal: true),
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                           decoration: InputDecoration(

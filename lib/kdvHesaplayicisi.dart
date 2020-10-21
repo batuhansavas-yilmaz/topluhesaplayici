@@ -66,7 +66,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10)),
                           child: TextField(
-                            keyboardType: TextInputType.number,
+                            keyboardType: TextInputType.numberWithOptions(decimal: true),
                             controller: t1,
                             style: TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.bold),
@@ -96,7 +96,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             ]),
                         child: TextField(
                           controller: t2,
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.numberWithOptions(decimal: true),
                           style: TextStyle(
                               fontSize: 25, fontWeight: FontWeight.bold),
                           decoration: InputDecoration(

@@ -17,11 +17,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-          title: "HesapMatik",
-
-          debugShowCheckedModeBanner: false,
-          home: HomePage(),
-
+      title: "HesapMatik",
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
     );
   }
 }
@@ -29,26 +27,23 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
-
 }
 
 class _HomePageState extends State<HomePage> {
-
   @override
-  void initState(){
+  void initState() {
     super.initState();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
   }
-  Widget build(BuildContext context) {
 
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Renkler.arkaPlanRenk,
       appBar: AppBar(
-        backgroundColor: Renkler.appBarRenk
-        ,
+        backgroundColor: Renkler.appBarRenk,
         title: Text("HesapMatik"),
         centerTitle: true,
         leading: IconButton(
@@ -83,6 +78,7 @@ class _HomePageState extends State<HomePage> {
           },
         ),
       ),
+
       body: GridView.count(primary: false,
         crossAxisCount: 2,
         crossAxisSpacing: 20,

@@ -66,7 +66,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                           controller: kg,
                           style: TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold),
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.numberWithOptions(decimal: true),
                           decoration: InputDecoration(
                             hintText: "Kilo",
                             hintStyle: TextStyle(
@@ -97,7 +97,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                           controller: boy,
                           style: TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold),
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.numberWithOptions(decimal: true),
                           decoration: InputDecoration(
                             hintText: "Boy(cm)",
                             hintStyle: TextStyle(
@@ -138,7 +138,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                       kG = double.parse(kg.text);
                       boY = double.parse(boy.text);
                       sonuc = kG / ((boY / 100) * (boY / 100));
-                      print(sonuc);
+
                     });
                   },
                 ),
