@@ -1,7 +1,7 @@
+import 'package:flutter/services.dart';
 
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:toplu_hesaplayici/kdvHesaplayicisi.dart';
 import 'package:toplu_hesaplayici/zraporu.dart';
@@ -17,26 +17,37 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: "HesapMatik",
+          title: "HesapMatik",
 
-        debugShowCheckedModeBanner: false,
-        home: HomePage(),
-      );
+          debugShowCheckedModeBanner: false,
+          home: HomePage(),
+
+    );
   }
 }
 
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
+
 }
 
 class _HomePageState extends State<HomePage> {
+
   @override
+  void initState(){
+    super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
   Widget build(BuildContext context) {
+
     return Scaffold(
-      backgroundColor: Colors.blue.shade50,
+      backgroundColor: Renkler.arkaPlanRenk,
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent.shade700
+        backgroundColor: Renkler.appBarRenk
         ,
         title: Text("HesapMatik"),
         centerTitle: true,
@@ -92,19 +103,21 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           GorevButonlari(
-            navigator: () {
-              Navigator.push(context,
-                  CupertinoPageRoute(builder: (context) => KitleEndeksi()));
-            },
+            image: Image.asset(
+              "assets/zraporu.png",
+              width: 85,
+              height: 85,
+            ),
             text: Text(
-              "Vücut Kitle Endeksi",
-              style: TextStyle(fontSize: 18),
+              "Eksik Z Raporu Bulma",
+              style: TextStyle(fontSize: 15),
               textAlign: TextAlign.center,
             ),
-            image: Image(
-              image: AssetImage("assets/love.png"),
-              height: 70,
-            ),
+            navigator: () {
+              setState(() {
+                Navigator.push(context, CupertinoPageRoute(builder: (context)=>ZRaporu()));
+              });
+            },
           ),
           GorevButonlari(
             image: Image.asset(
@@ -124,21 +137,19 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           GorevButonlari(
-            image: Image.asset(
-              "assets/zraporu.png",
-              width: 85,
-              height: 85,
-            ),
+            navigator: () {
+              Navigator.push(context,
+                  CupertinoPageRoute(builder: (context) => KitleEndeksi()));
+            },
             text: Text(
-              "Eksik Z Raporu Bulma",
-              style: TextStyle(fontSize: 15),
+              "Vücut Kitle Endeksi",
+              style: TextStyle(fontSize: 18),
               textAlign: TextAlign.center,
             ),
-            navigator: () {
-              setState(() {
-                Navigator.push(context, CupertinoPageRoute(builder: (context)=>ZRaporu()));
-              });
-            },
+            image: Image(
+              image: AssetImage("assets/love.png"),
+              height: 70,
+            ),
           ),
         ],
       ),
@@ -147,6 +158,6 @@ class _HomePageState extends State<HomePage> {
 }
 
 class Renkler {
-  static Color appBarRenk = Colors.blueAccent.shade700;
+  static Color appBarRenk = Colors.blue[900];
   static Color arkaPlanRenk = Colors.blue.shade50;
 }

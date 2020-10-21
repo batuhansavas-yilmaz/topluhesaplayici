@@ -10,7 +10,7 @@ class Yorum{
     } else if (KitleEndeksiState.sonuc < 24.99) {
       KitleEndeksiState.sonucMetin = "Kilonuz normal. Fakat yine de yediklerinize dikkat etmeyi ihmal etmeyin lütfen. ";
     } else if (KitleEndeksiState.sonuc < 29.99) {
-      KitleEndeksiState.sonucMetin = "Fazla kilolarınızdan kurtulmanız gerekli.";
+      KitleEndeksiState.sonucMetin = "Fazla kilolarınızdan kurtulmanız gerekli. Aksi halde kilolarınız başınıza dert açabilir.";
     } else if (KitleEndeksiState.sonuc < 34.99) {
       KitleEndeksiState.sonucMetin =
       "Birinci derecede obezsiniz. Yediğinize dikkat edip bir diyetisyene başvurmanız gerekli.";

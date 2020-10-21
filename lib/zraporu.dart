@@ -49,13 +49,12 @@ class _ZRaporuState extends State<ZRaporu> {
                 children: [
                   Text(
                     "Bu Hesaplama Sadece Tek Tip Kdv Oranı\nİçeren Z Raporları İçin Kullanılabilir.",
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold)
                   ),
                 ],
               ),
-              SizedBox(
-                height: 10,
-              ),
+
+              Divider(color:Colors.black),
               Row(
                 children: [
                   Expanded(
@@ -76,7 +75,7 @@ class _ZRaporuState extends State<ZRaporu> {
                               ]));},
                         child: Text(
                     "Eksik Rapor/Raporlardan Bir Sonraki Raporun Kümülatif Toplamı\nÖrnek İçin Yazıya Dokunun",
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.center,style:TextStyle(fontSize:12)
                   ),
                       )),
                   Expanded(
@@ -93,14 +92,14 @@ class _ZRaporuState extends State<ZRaporu> {
                         child: TextField(controller: k1,
                           keyboardType: TextInputType.number,
                           style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold),
+                              fontSize: 18, fontWeight: FontWeight.bold),
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                             hintText: "Kümülatif",
                             hintStyle: TextStyle(
-                                fontSize: 25,
+                                fontSize: 20,
                                 fontStyle: FontStyle.italic,
                                 fontWeight: FontWeight.normal),
                           ),
@@ -116,7 +115,7 @@ class _ZRaporuState extends State<ZRaporu> {
                   Expanded(
                       child: Text(
                     "İlk Satırda Kümülatifini Yazdığımız Raporun Toplam Tutarı",
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.center,style:TextStyle(fontSize:12)
                   )),
                   Expanded(
                     child: Padding(
@@ -132,14 +131,14 @@ class _ZRaporuState extends State<ZRaporu> {
                         child: TextField(controller:tutar,
                           keyboardType: TextInputType.number,
                           style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold),
+                              fontSize: 18, fontWeight: FontWeight.bold),
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                             hintText: "Tutar",
                             hintStyle: TextStyle(
-                                fontSize: 25,
+                                fontSize: 20,
                                 fontStyle: FontStyle.italic,
                                 fontWeight: FontWeight.normal),
                           ),
@@ -170,7 +169,7 @@ class _ZRaporuState extends State<ZRaporu> {
                                 ]));},
                         child: Text(
                     "Eksik Rapor/Raporlardan Bir Önceki Raporun Kümülatif Toplamı\nÖrnek İçin Yazıya Dokunun",
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.center,style:TextStyle(fontSize:12)
                   ),
                       )),
                   Expanded(
@@ -187,14 +186,14 @@ class _ZRaporuState extends State<ZRaporu> {
                         child: TextField(controller:k2,
                           keyboardType: TextInputType.number,
                           style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold),
+                              fontSize: 18, fontWeight: FontWeight.bold),
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                             hintText: "Kümülatif",
                             hintStyle: TextStyle(
-                                fontSize: 25,
+                                fontSize: 20,
                                 fontStyle: FontStyle.italic,
                                 fontWeight: FontWeight.normal),
                           ),
@@ -218,13 +217,13 @@ class _ZRaporuState extends State<ZRaporu> {
                   color: Colors.white,
                   child: Text(
                     "Hesapla",
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 17),
                   ),
                 ),
               ]),
               Row(children: [
-                Expanded(child: Text("Eksik Rapor/Raporlardaki Toplam Tutar :",textAlign:TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),)),
-                Expanded(child: Text(sonuc.toStringAsFixed(2),textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25))),
+                Expanded(child: Text("Eksik Rapor/Raporlardaki Toplam Tutar :",textAlign:TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 13.50),)),
+                Expanded(child: Text(sonuc.toStringAsFixed(2),textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20))),
 
               ])
             ],
