@@ -1,6 +1,3 @@
-import 'package:device_preview/device_preview.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 
 import 'package:flutter/cupertino.dart';
 
@@ -153,11 +150,11 @@ class _HomePageState extends State<HomePage> {
               height: 70,
             ),
           ),
-          GorevButonlari(text:Text(" "),image: Center(
+          GorevButonlari(text:Text(""),image: Center(
             child: Container(alignment: Alignment.center,
               child: Image(
                   image: AssetImage("assets/loading.png"),
-                  height: 70,),
+                  height: 80,),
             ),
           ),
             navigator: () {

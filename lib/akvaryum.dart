@@ -227,7 +227,7 @@ class _AquariumState extends State<Aquarium> {
                       children: [
                         Text(
                           "Bitkili Akvaryum : " +
-                              bitkili.toStringAsFixed(0) +
+                              bitkili.toStringAsFixed(1) +
                               " Watt",
                           style: TextStyle(
                             fontSize: 15,
@@ -237,7 +237,7 @@ class _AquariumState extends State<Aquarium> {
                         ),
                         Text(
                           "Bitkisiz Akvaryum : " +
-                              bitkisiz.toStringAsFixed(0) +
+                              bitkisiz.toStringAsFixed(1) +
                               " Watt",
                           style: TextStyle(
                             fontSize: 15,
@@ -310,7 +310,7 @@ class _AquariumState extends State<Aquarium> {
                       textAlign: TextAlign.center,
                     ),
                     subtitle: Text(
-                      "${isitici.toStringAsFixed(0)} Watt",
+                      "${isitici.toStringAsFixed(1)} Watt",
                       style:
                           TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
@@ -354,7 +354,7 @@ class _AquariumState extends State<Aquarium> {
                         Expanded(
                           flex: 2,
                           child: Text(
-                            "İstediğiniz Kalınlık İçin Gerekli Kum : ${kumKg.toStringAsFixed(0)} Kg",
+                            "İstediğiniz Kalınlık İçin Gerekli Kum : ${kumKg.toStringAsFixed(1)} Kg",
                             style: TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
