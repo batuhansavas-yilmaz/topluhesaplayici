@@ -40,10 +40,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                 }),
           ),
         ),
-        backgroundColor: Renkler.appBarRenk,
+
         title: Text("Kdv Hesaplayicisi"),
       ),
-      backgroundColor: Renkler.arkaPlanRenk,
+
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
@@ -116,22 +116,22 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                   ],
                 ),
                 RaisedButton(
-color: Colors.white,
+                  color: Colors.white,
                   onPressed: () {
                     setState(() {FocusScope.of(context).requestFocus(new FocusNode());
-                      //Burda yatığımız , hesapla butonuna bastığımızda  t1 ve t2 nesnelerine yazılan verilerin,
-                      //hesaptutar ve hesapOran nesnelerine aktarılmasını sağladık.
-                      //Bu sayede hesap tutar ve hesap oran nesnelerini kullanarak matematiksel işlemleri yapabildik.
-                      hesapTutar = double.parse(t1.text);
-                      hesapOran = double.parse(t2.text);
-                      //kdv haric
-                      HarcikenKdvTutari = (hesapTutar * (hesapOran / 100));
-                      haricTutar = hesapTutar;
-                      toplamHaricTutar = HarcikenKdvTutari + haricTutar;
-                      //kdvdahil
-                      dahilTutar = hesapTutar / ((hesapOran / 100) + 1);
-                      dahilkenKdvTutari = hesapTutar - dahilTutar;
-                      toplamDahilTutar = hesapTutar;
+                    //Burda yatığımız , hesapla butonuna bastığımızda  t1 ve t2 nesnelerine yazılan verilerin,
+                    //hesaptutar ve hesapOran nesnelerine aktarılmasını sağladık.
+                    //Bu sayede hesap tutar ve hesap oran nesnelerini kullanarak matematiksel işlemleri yapabildik.
+                    hesapTutar = double.parse(t1.text);
+                    hesapOran = double.parse(t2.text);
+                    //kdv haric
+                    HarcikenKdvTutari = (hesapTutar * (hesapOran / 100));
+                    haricTutar = hesapTutar;
+                    toplamHaricTutar = HarcikenKdvTutari + haricTutar;
+                    //kdvdahil
+                    dahilTutar = hesapTutar / ((hesapOran / 100) + 1);
+                    dahilkenKdvTutari = hesapTutar - dahilTutar;
+                    toplamDahilTutar = hesapTutar;
                     });
                   },
                   child: Text(
@@ -151,7 +151,7 @@ color: Colors.white,
                     children: [
                       Expanded(
                         child: Container(
-                          color: Renkler.appBarRenk,
+color:Colors.blue[900],
                           child: Padding(
                             padding: const EdgeInsets.all(2.0),
                             child: Text(
@@ -211,7 +211,7 @@ color: Colors.white,
                         color: Colors.black,
                       ),
                       Padding(
-                       padding: const EdgeInsets.only(left:4,bottom: 2),
+                        padding: const EdgeInsets.only(left:4,bottom: 2),
                         child: Row(
                           children: [
                             Expanded(
@@ -239,7 +239,7 @@ color: Colors.white,
                     children: [
                       Expanded(
                         child: Container(
-                          color: Renkler.appBarRenk,
+                          color:Colors.blue[900],
                           child: Padding(
                             padding: const EdgeInsets.all(2.0),
                             child: Text(
@@ -328,6 +328,7 @@ color: Colors.white,
           ),
         ],
       ),
+
     );
   }
 }

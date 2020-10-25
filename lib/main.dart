@@ -1,3 +1,5 @@
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -16,10 +18,16 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "HesapMatik",
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
+    return DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => MaterialApp(locale: DevicePreview.of(context).locale,builder: DevicePreview.appBuilder,
+        theme: ThemeData(
+            primaryColor: Colors.blue[900],
+            scaffoldBackgroundColor: Colors.blue.shade50),
+        title: "HesapMatik",
+        debugShowCheckedModeBanner: false,
+        home: HomePage(),
+      ),
     );
   }
 }
@@ -31,19 +39,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
-  void initState() {
-    super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-  }
+  // void initState() {
+  //   super.initState();
+  //   SystemChrome.setPreferredOrientations([
+  //     DeviceOrientation.portraitUp,
+  //     DeviceOrientation.portraitDown,
+  //   ]);
+  // }
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Renkler.arkaPlanRenk,
       appBar: AppBar(
-        backgroundColor: Renkler.appBarRenk,
         title: Text("HesapMatik"),
         centerTitle: true,
         leading: IconButton(
@@ -78,8 +84,8 @@ class _HomePageState extends State<HomePage> {
           },
         ),
       ),
-
-      body: GridView.count(primary: false,
+      body: GridView.count(
+        primary: false,
         crossAxisCount: 2,
         crossAxisSpacing: 20,
         children: [
@@ -111,7 +117,8 @@ class _HomePageState extends State<HomePage> {
             ),
             navigator: () {
               setState(() {
-                Navigator.push(context, CupertinoPageRoute(builder: (context)=>ZRaporu()));
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => ZRaporu()));
               });
             },
           ),
@@ -128,7 +135,8 @@ class _HomePageState extends State<HomePage> {
             ),
             navigator: () {
               setState(() {
-                Navigator.push(context, CupertinoPageRoute(builder: (context)=>Aquarium()));
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => Aquarium()));
               });
             },
           ),
@@ -147,13 +155,46 @@ class _HomePageState extends State<HomePage> {
               height: 70,
             ),
           ),
+          GorevButonlari(text:Text(""),image: Transform( alignment: FractionalOffset.center,
+    transform: Matrix4.rotationZ(-1),
+            child: Container(
+              child: Image(
+                  image: AssetImage("assets/loading.png"),
+                  height: 100,),
+            ),
+          ),
+            navigator: () {
+              setState(() {
+                showCupertinoModalPopup(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                        title: Text("Siz Seçin"),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Eklenmesini İstediğiniz Yeni Hesaplayıcılar İçin Bizimle İletişime Geçebilirsiniz",
+                              style: TextStyle(fontSize: 16),
+                            ),SizedBox(height: 10,),
+                            Text("batuhansavasyilmaztr@gmail.com",
+                                style: TextStyle(fontSize: 12.20)),
+                          ],
+                        ),
+                        actions: [
+                          IconButton(
+                            tooltip: "Kapat",
+                            icon: Icon(Icons.close),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          )
+                        ]));
+              });
+            },
+          ),
         ],
       ),
     );
   }
-}
-
-class Renkler {
-  static Color appBarRenk = Colors.blue[900];
-  static Color arkaPlanRenk = Colors.blue.shade50;
 }

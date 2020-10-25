@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'main.dart';
+void main() {
+  runApp(MaterialApp(home: Aquarium()));
+}
 
 class Aquarium extends StatefulWidget {
   @override
@@ -15,12 +17,15 @@ class _AquariumState extends State<Aquarium> {
   double derinlik = 0.00;
   double uzunluk = 0.00;
   double sonuc = 0.00;
+  double bitkisiz = 0.00, bitkili = 0.00;
+  double filtrasyonMin = 0.00, filtrasyonMax = 0.00;
+  double isitici = 0.00;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: Renkler.arkaPlanRenk,
+    return Scaffold(
       appBar: AppBar(
-        title:Text("Akvaryum"),
+        title: Text("Akvaryum"),
         leading: Transform(
           alignment: FractionalOffset.center,
           transform: Matrix4.rotationZ(-80.10),
@@ -33,9 +38,9 @@ class _AquariumState extends State<Aquarium> {
                 }),
           ),
         ),
-        backgroundColor: Renkler.appBarRenk,
       ),
-      body: Column(
+      body: ListView(
+        primary: false,
         children: [
           Wrap(
             children: [
@@ -48,11 +53,14 @@ class _AquariumState extends State<Aquarium> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal:8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
               children: [
                 Expanded(
-                  child: Container(margin:EdgeInsets.only(right:5,),
+                  child: Container(
+                    margin: EdgeInsets.only(
+                      right: 5,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       boxShadow: [
@@ -64,8 +72,10 @@ class _AquariumState extends State<Aquarium> {
                     ),
                     child: TextField(
                       controller: derinlik_,
-                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                      keyboardType: TextInputType.numberWithOptions(decimal: true),
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      keyboardType:
+                          TextInputType.numberWithOptions(decimal: true),
                       decoration: InputDecoration(
                         hintText: "Derinlik",
                         hintStyle: TextStyle(
@@ -79,7 +89,8 @@ class _AquariumState extends State<Aquarium> {
                   ),
                 ),
                 Expanded(
-                  child: Container(margin:EdgeInsets.only(left:5,right:5),
+                  child: Container(
+                    margin: EdgeInsets.only(left: 5, right: 5),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       boxShadow: [
@@ -91,8 +102,10 @@ class _AquariumState extends State<Aquarium> {
                     ),
                     child: TextField(
                       controller: en_,
-                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                      keyboardType: TextInputType.numberWithOptions(decimal: true),
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      keyboardType:
+                          TextInputType.numberWithOptions(decimal: true),
                       decoration: InputDecoration(
                         hintText: "En",
                         hintStyle: TextStyle(
@@ -106,7 +119,8 @@ class _AquariumState extends State<Aquarium> {
                   ),
                 ),
                 Expanded(
-                  child: Container(margin:EdgeInsets.only(left:5),
+                  child: Container(
+                    margin: EdgeInsets.only(left: 5),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       boxShadow: [
@@ -118,8 +132,10 @@ class _AquariumState extends State<Aquarium> {
                     ),
                     child: TextField(
                       controller: uzunluk_,
-                      style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                      keyboardType: TextInputType.numberWithOptions(decimal: true),
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      keyboardType:
+                          TextInputType.numberWithOptions(decimal: true),
                       decoration: InputDecoration(
                         hintText: "Uzunluk",
                         hintStyle: TextStyle(
@@ -146,7 +162,7 @@ class _AquariumState extends State<Aquarium> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       "Hesapla",
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 20),
                     ),
                   ),
                   onPressed: () {
@@ -157,6 +173,11 @@ class _AquariumState extends State<Aquarium> {
                       en = double.parse(en_.text);
                       derinlik = double.parse(derinlik_.text);
                       sonuc = (uzunluk * en * derinlik) / 1000;
+                      bitkisiz = sonuc * 0.25;
+                      bitkili = sonuc * 0.50;
+                      filtrasyonMin = sonuc * 2.50;
+                      filtrasyonMax = sonuc * 4.75;
+                      isitici = sonuc * 0.6667;
                     });
                   },
                 ),
@@ -165,13 +186,147 @@ class _AquariumState extends State<Aquarium> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(mainAxisAlignment: MainAxisAlignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                    "Akvaryumunuzun kapasitesi : ",
-                    style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),Text(
-                    "${sonuc.toStringAsFixed(2)} Litre ",
-                    style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+                Card(
+                  child: ListTile(
+                    title: Text(
+                      "Akvaryumunuzun Kapasitesi",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    subtitle: Text(
+                      "${sonuc.toStringAsFixed(0)} Litre ",
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Card(
+                  child: ListTile(
+                    title: Text(
+                      "Tavsiye Edilen Işık Gücü",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    subtitle: Column(
+                      children: [
+                        Text(
+                          "Bitkili Akvaryum : " +
+                              bitkili.toStringAsFixed(0) +
+                              " Watt",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          "Bitkisiz Akvaryum : " +
+                              bitkisiz.toStringAsFixed(0) +
+                              " Watt",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Card(
+                  child: ListTile(
+                    title: Text(
+                      "Filtrasyon",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    subtitle: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Minimum : ${filtrasyonMin.toStringAsFixed(1)}",
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              " litre/saat",
+                              style: TextStyle(
+                                  fontSize: 11, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Maximum : ${filtrasyonMax.toStringAsFixed(1)}",
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              " litre/saat",
+                              style: TextStyle(
+                                  fontSize: 11, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Card(
+                  child: ListTile(
+                    title: Text(
+                      "Tavsiye Edilen Isıtıcı Gücü",
+                      style:
+                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    subtitle: Text(
+                      "${isitici.toStringAsFixed(0)} Watt",
+                      style:
+                      TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),SizedBox(
+                  height: 10,
+                ),Card(
+                  child: ListTile(
+                    title: Text(
+                      "Tavsiye Edilen Isıtıcı Gücü",
+                      style:
+                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    subtitle: Text(
+                      "${isitici.toStringAsFixed(0)} Watt",
+                      style:
+                      TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

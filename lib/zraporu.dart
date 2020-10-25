@@ -35,10 +35,10 @@ class _ZRaporuState extends State<ZRaporu> {
                 }),
           ),
         ),
-        backgroundColor: Renkler.appBarRenk,
+
         title: Text("Eksik Z Raporu"),
       ),
-      backgroundColor: Renkler.arkaPlanRenk,
+
       body: Column(children: [
         Padding(
           padding: const EdgeInsets.all(8.0),

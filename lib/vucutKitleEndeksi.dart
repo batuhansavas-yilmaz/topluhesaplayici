@@ -20,7 +20,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
   Widget build(BuildContext context) {
     Yorum.yorum();
     return Scaffold(
-      backgroundColor: Renkler.arkaPlanRenk,
+
       appBar: AppBar(
         leading: Transform(
           alignment: FractionalOffset.center,
@@ -34,7 +34,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
           ),
         ),
         title: Text("Vücut Kitle Endeksi "),
-        backgroundColor: Renkler.appBarRenk,
+
       ),
       body: Column(
         children: [
