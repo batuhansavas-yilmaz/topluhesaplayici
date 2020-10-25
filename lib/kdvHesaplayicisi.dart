@@ -168,19 +168,15 @@ color:Colors.blue[900],
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 4, top: 2),
-                        child: Row(
+                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(
-                                flex: 3,
-                                child: Text(
-                                  "Ara Toplam",
-                                  style: stil,
-                                )),
-                            Expanded(
-                              child: Text(
-                                haricTutar.toStringAsFixed(2),
-                                style: stil,
-                              ),
+                            Text(
+                              "Ara Toplam",
+                              style: stil,
+                            ),
+                            Text(
+                              haricTutar.toStringAsFixed(2),
+                              style: stil,
                             ),
                           ],
                         ),
@@ -190,19 +186,15 @@ color:Colors.blue[900],
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left:4,),
-                        child: Row(
+                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(
-                                flex: 3,
-                                child: Text(
-                                  "KDV Tutarı",
-                                  style: stil,
-                                )),
-                            Expanded(
-                              child: Text(
-                                HarcikenKdvTutari.toStringAsFixed(2),
-                                style: stil,
-                              ),
+                            Text(
+                              "KDV Tutarı",
+                              style: stil,
+                            ),
+                            Text(
+                              HarcikenKdvTutari.toStringAsFixed(2),
+                              style: stil,
                             ),
                           ],
                         ),
@@ -212,19 +204,15 @@ color:Colors.blue[900],
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left:4,bottom: 2),
-                        child: Row(
+                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(
-                                flex: 3,
-                                child: Text(
-                                  "Toplam Tutar",
-                                  style: stil,
-                                )),
-                            Expanded(
-                              child: Text(
-                                toplamHaricTutar.toStringAsFixed(2),
-                                style: stil,
-                              ),
+                            Text(
+                              "Toplam Tutar",
+                              style: stil,
+                            ),
+                            Text(
+                              toplamHaricTutar.toStringAsFixed(2),
+                              style: stil,
                             ),
                           ],
                         ),
@@ -256,19 +244,15 @@ color:Colors.blue[900],
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 4, top: 2),
-                        child: Row(
+                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(
-                                flex: 3,
-                                child: Text(
-                                  "Ara Toplam",
-                                  style: stil,
-                                )),
-                            Expanded(
-                              child: Text(
-                                dahilTutar.toStringAsFixed(2),
-                                style: stil,
-                              ),
+                            Text(
+                              "Ara Toplam",
+                              style: stil,
+                            ),
+                            Text(
+                              dahilTutar.toStringAsFixed(2),
+                              style: stil,
                             ),
                           ],
                         ),
@@ -278,19 +262,15 @@ color:Colors.blue[900],
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 4),
-                        child: Row(
+                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(
-                                flex: 3,
-                                child: Text(
-                                  "KDV Tutarı",
-                                  style: stil,
-                                )),
-                            Expanded(
-                              child: Text(
-                                dahilkenKdvTutari.toStringAsFixed(2),
-                                style: stil,
-                              ),
+                            Text(
+                              "KDV Tutarı",
+                              style: stil,
+                            ),
+                            Text(
+                              dahilkenKdvTutari.toStringAsFixed(2),
+                              style: stil,
                             ),
                           ],
                         ),
@@ -300,19 +280,15 @@ color:Colors.blue[900],
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 4),
-                        child: Row(
+                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(
-                                flex: 3,
-                                child: Text(
-                                  "Toplam Tutar",
-                                  style: stil,
-                                )),
-                            Expanded(
-                              child: Text(
-                                toplamDahilTutar.toStringAsFixed(2),
-                                style: stil,
-                              ),
+                            Text(
+                              "Toplam Tutar",
+                              style: stil,
+                            ),
+                            Text(
+                              toplamDahilTutar.toStringAsFixed(2),
+                              style: stil,
                             ),
                           ],
                         ),
