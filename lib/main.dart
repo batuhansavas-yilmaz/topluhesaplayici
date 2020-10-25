@@ -18,16 +18,14 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => MaterialApp(locale: DevicePreview.of(context).locale,builder: DevicePreview.appBuilder,
+    return  MaterialApp(
         theme: ThemeData(
             primaryColor: Colors.blue[900],
             scaffoldBackgroundColor: Colors.blue.shade50),
         title: "HesapMatik",
         debugShowCheckedModeBanner: false,
         home: HomePage(),
-      ),
+
     );
   }
 }
@@ -95,7 +93,7 @@ class _HomePageState extends State<HomePage> {
               height: 70,
             ),
             text: Text(
-              "Kdv Hesaplayıcı",
+              "Kdv",
               style: TextStyle(fontSize: 18),
               textAlign: TextAlign.center,
             ),
@@ -111,7 +109,7 @@ class _HomePageState extends State<HomePage> {
               height: 85,
             ),
             text: Text(
-              "Eksik Z Raporu Bulma",
+              "Eksik Z Raporu",
               style: TextStyle(fontSize: 15),
               textAlign: TextAlign.center,
             ),
@@ -129,7 +127,7 @@ class _HomePageState extends State<HomePage> {
               height: 75,
             ),
             text: Text(
-              "Akvaryum Litre Hesaplayıcı",
+              "Akvaryum",
               style: TextStyle(fontSize: 15),
               textAlign: TextAlign.center,
             ),
@@ -155,12 +153,11 @@ class _HomePageState extends State<HomePage> {
               height: 70,
             ),
           ),
-          GorevButonlari(text:Text(""),image: Transform( alignment: FractionalOffset.center,
-    transform: Matrix4.rotationZ(-1),
-            child: Container(
+          GorevButonlari(text:Text(" "),image: Center(
+            child: Container(alignment: Alignment.center,
               child: Image(
                   image: AssetImage("assets/loading.png"),
-                  height: 100,),
+                  height: 70,),
             ),
           ),
             navigator: () {
