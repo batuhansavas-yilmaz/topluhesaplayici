@@ -36,7 +36,7 @@ class _ZRaporuState extends State<ZRaporu> {
           ),
         ),
 
-        title: Text("Eksik Z Raporu"),
+        title: Text("Eksik Z Raporu Bulma"),
       ),
 
       body: Column(children: [

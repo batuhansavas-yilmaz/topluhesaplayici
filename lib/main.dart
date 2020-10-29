@@ -1,11 +1,13 @@
-
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:toplu_hesaplayici/kdvHesaplayicisi.dart';
 import 'package:toplu_hesaplayici/zraporu.dart';
 import 'package:toplu_hesaplayici/vucutKitleEndeksi.dart';
 import 'GorevButonlari.dart';
+import 'admobIslemleri.dart';
 import 'akvaryum.dart';
 
 void main() {
@@ -15,14 +17,13 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-        theme: ThemeData(
-            primaryColor: Colors.blue[900],
-            scaffoldBackgroundColor: Colors.blue.shade50),
-        title: "HesapMatik",
-        debugShowCheckedModeBanner: false,
-        home: HomePage(),
-
+    return MaterialApp(
+      theme: ThemeData(
+          primaryColor: Colors.blue[900],
+          scaffoldBackgroundColor: Colors.blue.shade50),
+      title: "HesapMatik",
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
     );
   }
 }
@@ -34,15 +35,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
-  // void initState() {
-  //   super.initState();
-  //   SystemChrome.setPreferredOrientations([
-  //     DeviceOrientation.portraitUp,
-  //     DeviceOrientation.portraitDown,
-  //   ]);
-  // }
+  BannerAd myBanner;
+
+  void initState() {super.initState();
+    AdmobIslemleri.admobInitialize();
+    myBanner = AdmobIslemleri.buildBannerAd();
+    myBanner.load();
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
+
+  void dispose() {
+    myBanner.dispose();
+    super.dispose();
+  }
 
   Widget build(BuildContext context) {
+    myBanner.show();
     return Scaffold(
       appBar: AppBar(
         title: Text("HesapMatik"),
@@ -150,42 +162,55 @@ class _HomePageState extends State<HomePage> {
               height: 70,
             ),
           ),
-          GorevButonlari(text:Text(""),image: Center(
-            child: Container(alignment: Alignment.center,
-              child: Image(
+          GorevButonlari(
+            text: Text(""),
+            image: Center(
+              child: Container(
+                alignment: Alignment.center,
+                child: Image(
                   image: AssetImage("assets/loading.png"),
-                  height: 80,),
+                  height: 80,
+                ),
+              ),
             ),
-          ),
             navigator: () {
               setState(() {
                 showCupertinoModalPopup(
                     context: context,
                     builder: (context) => AlertDialog(
-                        title: Text("Siz Seçin"),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Eklenmesini İstediğiniz Yeni Hesaplayıcılar İçin Bizimle İletişime Geçebilirsiniz",
-                              style: TextStyle(fontSize: 16),
-                            ),SizedBox(height: 10,),
-                            Text("batuhansavasyilmaztr@gmail.com",
-                                style: TextStyle(fontSize: 12.20)),
-                          ],
-                        ),
-                        actions: [
-                          IconButton(
-                            tooltip: "Kapat",
-                            icon: Icon(Icons.close),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          )
-                        ]));
+                            title: Text("Siz Seçin"),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Eklenmesini İstediğiniz Yeni Hesaplayıcılar İçin Bizimle İletişime Geçebilirsiniz",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text("batuhansavasyilmaztr@gmail.com",
+                                    style: TextStyle(fontSize: 12.20)),
+                              ],
+                            ),
+                            actions: [
+                              IconButton(
+                                tooltip: "Kapat",
+                                icon: Icon(Icons.close),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              )
+                            ]));
               });
             },
+          ), SizedBox(
+            height: 10,
+          ), SizedBox(
+            height: 10,
+          ), SizedBox(
+            height: 10,
           ),
         ],
       ),

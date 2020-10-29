@@ -41,7 +41,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
           ),
         ),
 
-        title: Text("Kdv Hesaplayicisi"),
+        title: Text("KDV Hesaplayıcısı"),
       ),
 
       body: Column(
