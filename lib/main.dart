@@ -1,5 +1,7 @@
+
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +12,7 @@ import 'GorevButonlari.dart';
 import 'admobIslemleri.dart';
 import 'akvaryum.dart';
 
+
 void main() {
   runApp(MyApp());
 }
@@ -17,13 +20,15 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
-      theme: ThemeData(
-          primaryColor: Colors.blue[900],
-          scaffoldBackgroundColor: Colors.blue.shade50),
-      title: "HesapMatik",
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
+        theme: ThemeData(
+            primaryColor: Colors.blue[900],
+            scaffoldBackgroundColor: Colors.blue.shade50),
+        title: "HesapMatik",
+        debugShowCheckedModeBanner: false,
+        home: HomePage(),
+
     );
   }
 }
@@ -37,7 +42,8 @@ class _HomePageState extends State<HomePage> {
   @override
   BannerAd myBanner;
 
-  void initState() {super.initState();
+  void initState() {
+    super.initState();
     AdmobIslemleri.admobInitialize();
     myBanner = AdmobIslemleri.buildBannerAd();
     myBanner.load();
@@ -54,6 +60,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget build(BuildContext context) {
+
     myBanner.show();
     return Scaffold(
       appBar: AppBar(
@@ -66,7 +73,7 @@ class _HomePageState extends State<HomePage> {
             showCupertinoModalPopup(
                 context: context,
                 builder: (context) => AlertDialog(
-                        title: Text("HesapMatik v1.0"),
+                        title: Text("HesapMatik v2.0"),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -205,7 +212,14 @@ class _HomePageState extends State<HomePage> {
                             ]));
               });
             },
-          ), SizedBox(
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          SizedBox(
             height: 10,
           ), SizedBox(
             height: 10,

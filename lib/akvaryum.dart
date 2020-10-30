@@ -363,7 +363,12 @@ class _AquariumState extends State<Aquarium> {
                       ],
                     ),
                   ),
-                ), SizedBox(
+                ),
+                SizedBox(
+                  height: 70,
+                ),SizedBox(
+                  height: 70,
+                ),SizedBox(
                   height: 70,
                 ),
               ],
