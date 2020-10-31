@@ -26,7 +26,7 @@ static final String bannerCanli ="ca-app-pub-9520376060064699/8218290850";
     return BannerAd(
       adUnitId: bannerCanli,
      // adUnitId: BannerAd.testAdUnitId,
-      size: AdSize.smartBanner,
+      size: AdSize.banner,
       targetingInfo: targetingInfo,
       listener: (MobileAdEvent event) {
         print("BannerAd event is $event");

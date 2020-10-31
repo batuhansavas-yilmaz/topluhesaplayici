@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget build(BuildContext context) {
 
-    myBanner.show();
+
     return Scaffold(
       appBar: AppBar(
         title: Text("HesapMatik"),
@@ -69,7 +69,9 @@ class _HomePageState extends State<HomePage> {
         leading: IconButton(
           tooltip: "Bilgi",
           icon: Icon(Icons.info),
-          onPressed: () {
+          onPressed: () {setState(() {
+            myBanner.show();
+          });
             showCupertinoModalPopup(
                 context: context,
                 builder: (context) => AlertDialog(
@@ -113,10 +115,12 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(fontSize: 18),
               textAlign: TextAlign.center,
             ),
-            navigator: () {
+            navigator: () {setState(() {  myBanner.show();
               Navigator.push(context,
                   CupertinoPageRoute(builder: (context) => KdvHesaplayicisi()));
-            },
+            });
+
+           },
           ),
           GorevButonlari(
             image: Image.asset(
@@ -130,7 +134,7 @@ class _HomePageState extends State<HomePage> {
               textAlign: TextAlign.center,
             ),
             navigator: () {
-              setState(() {
+              setState(() {  myBanner.show();
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => ZRaporu()));
               });
@@ -148,7 +152,7 @@ class _HomePageState extends State<HomePage> {
               textAlign: TextAlign.center,
             ),
             navigator: () {
-              setState(() {
+              setState(() {  myBanner.show();
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => Aquarium()));
               });
@@ -156,9 +160,11 @@ class _HomePageState extends State<HomePage> {
           ),
           GorevButonlari(
             navigator: () {
-              Navigator.push(context,
-                  CupertinoPageRoute(builder: (context) => KitleEndeksi()));
-            },
+              setState(() {  myBanner.show();
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => KitleEndeksi()));
+
+              });},
             text: Text(
               "Vücut Kitle Endeksi",
               style: TextStyle(fontSize: 18),
@@ -181,7 +187,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             navigator: () {
-              setState(() {
+              setState(() {  myBanner.show();
                 showCupertinoModalPopup(
                     context: context,
                     builder: (context) => AlertDialog(
