@@ -1,17 +1,31 @@
-
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
-
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:toplu_hesaplayici/kdvHesaplayicisi.dart';
+import 'package:toplu_hesaplayici/komisyon.dart';
 import 'package:toplu_hesaplayici/zraporu.dart';
 import 'package:toplu_hesaplayici/vucutKitleEndeksi.dart';
 import 'GorevButonlari.dart';
 import 'admobIslemleri.dart';
 import 'akvaryum.dart';
 
+class SizeConfig {
+  static MediaQueryData _mediaQueryData;
+  static double screenWidth;
+  static double screenHeight;
+  static double blockSizeHorizontal;
+  static double blockSizeVertical;
+
+  void init(BuildContext context) {
+    _mediaQueryData = MediaQuery.of(context);
+    screenWidth = _mediaQueryData.size.width;
+    screenHeight = _mediaQueryData.size.height;
+    blockSizeHorizontal = screenWidth / 100;
+    blockSizeVertical = screenHeight / 100;
+  }
+}
 
 void main() {
   runApp(MyApp());
@@ -20,15 +34,13 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
-        theme: ThemeData(
-            primaryColor: Colors.blue[900],
-            scaffoldBackgroundColor: Colors.blue.shade50),
-        title: "HesapMatik",
-        debugShowCheckedModeBanner: false,
-        home: HomePage(),
-
+      theme: ThemeData(
+          primaryColor: Colors.blue[900],
+          scaffoldBackgroundColor: Colors.blue.shade50),
+      title: "HesapMatik",
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
     );
   }
 }
@@ -60,7 +72,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget build(BuildContext context) {
-
+    SizeConfig().init(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -69,23 +81,25 @@ class _HomePageState extends State<HomePage> {
         leading: IconButton(
           tooltip: "Bilgi",
           icon: Icon(Icons.info),
-          onPressed: () {setState(() {
-            myBanner.show();
-          });
+          onPressed: () {
+            setState(() {
+              myBanner.show();
+            });
             showCupertinoModalPopup(
                 context: context,
                 builder: (context) => AlertDialog(
-                        title: Text("HesapMatik v2.0"),
+                        title: Text("HesapMatik v2.1",style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4,),),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               "Destek: ",
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(fontSize:SizeConfig.blockSizeHorizontal * 4),
                             ),
                             Text("batuhansavasyilmaztr@gmail.com",
-                                style: TextStyle(fontSize: 12.20)),
+                                style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3,fontWeight: FontWeight.bold
+                                )),
                           ],
                         ),
                         actions: [
@@ -108,33 +122,38 @@ class _HomePageState extends State<HomePage> {
           GorevButonlari(
             image: Image(
               image: AssetImage("assets/percentage.png"),
-              height: 70,
+              height: SizeConfig.blockSizeVertical * 15,
+              width: SizeConfig.blockSizeHorizontal * 45,
             ),
             text: Text(
               "Kdv",
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 5,fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
-            navigator: () {setState(() {  myBanner.show();
-              Navigator.push(context,
-                  CupertinoPageRoute(builder: (context) => KdvHesaplayicisi()));
-            });
-
-           },
+            navigator: () {
+              setState(() {
+                myBanner.show();
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => KdvHesaplayicisi()));
+              });
+            },
           ),
           GorevButonlari(
             image: Image.asset(
               "assets/zraporu.png",
-              width: 85,
-              height: 85,
+              height: SizeConfig.blockSizeVertical * 15,
+              width: SizeConfig.blockSizeHorizontal * 45,
             ),
             text: Text(
               "Eksik Z Raporu",
-              style: TextStyle(fontSize: 15),
+              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 5,fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             navigator: () {
-              setState(() {  myBanner.show();
+              setState(() {
+                myBanner.show();
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => ZRaporu()));
               });
@@ -143,16 +162,17 @@ class _HomePageState extends State<HomePage> {
           GorevButonlari(
             image: Image.asset(
               "assets/aquarium.png",
-              width: 75,
-              height: 75,
+              height: SizeConfig.blockSizeVertical * 15,
+              width: SizeConfig.blockSizeHorizontal * 45,
             ),
             text: Text(
               "Akvaryum",
-              style: TextStyle(fontSize: 15),
+              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 5,fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             navigator: () {
-              setState(() {  myBanner.show();
+              setState(() {
+                myBanner.show();
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => Aquarium()));
               });
@@ -160,76 +180,97 @@ class _HomePageState extends State<HomePage> {
           ),
           GorevButonlari(
             navigator: () {
-              setState(() {  myBanner.show();
+              setState(() {
+                myBanner.show();
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => KitleEndeksi()));
-
-              });},
+              });
+            },
             text: Text(
               "Vücut Kitle Endeksi",
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize:
+               SizeConfig.blockSizeHorizontal * 4,fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             image: Image(
               image: AssetImage("assets/love.png"),
-              height: 70,
+              height: SizeConfig.blockSizeVertical * 15,
+              width: SizeConfig.blockSizeHorizontal * 45,
             ),
           ),
-          GorevButonlari(
-            text: Text(""),
-            image: Center(
-              child: Container(
-                alignment: Alignment.center,
-                child: Image(
-                  image: AssetImage("assets/loading.png"),
-                  height: 80,
-                ),
+          GorevButonlari(navigator: () {
+            setState(() {
+              myBanner.show();
+              Navigator.push(context,
+                  CupertinoPageRoute(builder: (context) => Komisyon()));
+            });
+          },
+            text: Text(
+              "Komisyon",
+              style: TextStyle(fontSize:
+              SizeConfig.blockSizeHorizontal * 5,fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            image: Image(
+              image: AssetImage("assets/commission.png"),
+              height: SizeConfig.blockSizeVertical * 15,
+              width: SizeConfig.blockSizeHorizontal * 45,
+            ),),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: RaisedButton(
+              color: Colors.white,
+              onPressed: () {
+                setState(() {
+                  myBanner.show();
+                  showCupertinoModalPopup(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                              title: Text("Siz Seçin",style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4,),),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Eklenmesini İstediğiniz Yeni Hesaplayıcılar İçin Bizimle İletişime Geçebilirsiniz",
+                                    style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4,),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text("batuhansavasyilmaztr@gmail.com",
+                                      style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3,fontWeight: FontWeight.bold)),
+                                ],
+                              ),
+                              actions: [
+                                IconButton(
+                                  tooltip: "Kapat",
+                                  icon: Icon(Icons.close),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                )
+                              ]));
+                });
+              },
+              child: Image(
+                image: AssetImage("assets/loading.png"),
+                height: SizeConfig.blockSizeVertical * 20,
+                width: SizeConfig.blockSizeHorizontal * 30,
               ),
             ),
-            navigator: () {
-              setState(() {  myBanner.show();
-                showCupertinoModalPopup(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                            title: Text("Siz Seçin"),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Eklenmesini İstediğiniz Yeni Hesaplayıcılar İçin Bizimle İletişime Geçebilirsiniz",
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text("batuhansavasyilmaztr@gmail.com",
-                                    style: TextStyle(fontSize: 12.20)),
-                              ],
-                            ),
-                            actions: [
-                              IconButton(
-                                tooltip: "Kapat",
-                                icon: Icon(Icons.close),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              )
-                            ]));
-              });
-            },
           ),
+
+
           SizedBox(
             height: 10,
           ),
           SizedBox(
             height: 10,
+          ),SizedBox(
+            height: 10,
           ),
           SizedBox(
-            height: 10,
-          ), SizedBox(
-            height: 10,
-          ), SizedBox(
             height: 10,
           ),
         ],
