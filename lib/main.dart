@@ -1,5 +1,7 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,12 +37,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-          primaryColor: Colors.blue[900],
-          scaffoldBackgroundColor: Colors.blue.shade50),
-      title: "HesapMatik",
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
+        theme: ThemeData(
+            primaryColor: Colors.blue[900],
+            scaffoldBackgroundColor: Colors.blue.shade50),
+        title: "HesapMatik",
+        debugShowCheckedModeBanner: false,
+        home: HomePage(),
+
     );
   }
 }
@@ -83,7 +86,7 @@ class _HomePageState extends State<HomePage> {
           icon: Icon(Icons.info),
           onPressed: () {
             setState(() {
-              myBanner.show();
+             myBanner.show();
             });
             showCupertinoModalPopup(
                 context: context,
