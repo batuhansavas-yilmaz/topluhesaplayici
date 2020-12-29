@@ -37,12 +37,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(
-            primaryColor: Colors.blue[900],
-            scaffoldBackgroundColor: Colors.blue.shade50),
-        title: "HesapMatik",
-        debugShowCheckedModeBanner: false,
-        home: HomePage(),
+          theme: ThemeData(
+              primaryColor: Colors.blue[900],
+              scaffoldBackgroundColor: Colors.blue.shade50),
+          title: "HesapMatik",
+          debugShowCheckedModeBanner: false,
+          home: HomePage(),
+
 
     );
   }
@@ -91,7 +92,7 @@ class _HomePageState extends State<HomePage> {
             showCupertinoModalPopup(
                 context: context,
                 builder: (context) => AlertDialog(
-                        title: Text("HesapMatik v2.1",style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4,),),
+                        title: Text("HesapMatik v2.2",style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4,),),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,

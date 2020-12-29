@@ -488,7 +488,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             child: Column(
                               children: [
                                 Text(
-                                  "ÖDENECEK TUTAR",
+                                  "SON TUTAR",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 20,
