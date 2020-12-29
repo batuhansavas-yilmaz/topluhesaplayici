@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+
 import 'package:toplu_hesaplayici/main.dart';
+
 class SizeConfig {
   static MediaQueryData _mediaQueryData;
   static double screenWidth;
@@ -15,6 +18,7 @@ class SizeConfig {
     blockSizeVertical = screenHeight / 100;
   }
 }
+
 class KdvHesaplayicisi extends StatefulWidget {
   @override
   KdvHesaplayicisiState createState() => KdvHesaplayicisiState();
@@ -22,6 +26,7 @@ class KdvHesaplayicisi extends StatefulWidget {
 
 class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
   @override
+  String mesaj;
   double hesapTutar = 0.00;
   double hesapOran = 0.00;
 
@@ -36,6 +41,8 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
   double haricTevkifat = 0.00;
   double haricTevkifatIKalan = 0.00;
   double dahilTevkifatKalan = 0.00;
+  double dahilTevkifatliToplamTutar = 0.00;
+  double haricTevkifatliToplamTutar = 0.00;
 
   /* Burda , t1 ve t2 adında 2 TextEditingController tipinde nesne ürettik.
   bunları üretmemizin amacı , textfield'de yazılacak olan yazıyı kontrol etmek,işleme sokabilmek
@@ -143,6 +150,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                       //Bu sayede hesap tutar ve hesap oran nesnelerini kullanarak matematiksel işlemleri yapabildik.
                       hesapTutar = double.parse(t1.text);
                       hesapOran = double.parse(t2.text);
+                      mesaj="KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır";
                       //kdv haric
                       HarickenKdvTutari = (hesapTutar * (hesapOran / 100));
                       haricTutar = hesapTutar;
@@ -151,6 +159,13 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                       dahilTutar = hesapTutar / ((hesapOran / 100) + 1);
                       dahilkenKdvTutari = hesapTutar - dahilTutar;
                       toplamDahilTutar = hesapTutar;
+                      haricTevkifat = 0;
+                      haricTevkifatIKalan = 0;
+                      haricTevkifatliToplamTutar = toplamHaricTutar;
+                      dahilTevkifatKalan = 0;
+                      dahilTevkifat = 0;
+                      dahilTevkifatliToplamTutar = toplamDahilTutar;
+                      toast();
                     });
                   },
                   child: Text(
@@ -344,11 +359,11 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                 children: [
                   Expanded(
                     child: Container(
-                      color: Colors.blue[900],
+                      color: Colors.blue[500],
                       child: Padding(
                         padding: const EdgeInsets.all(2.0),
                         child: Text(
-                          "Tevkifat Hesaplama",
+                          "Tevkifatlı KDV Hesaplama",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 20,
@@ -366,165 +381,407 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
             padding: EdgeInsets.only(top: 5),
             child: Column(
               children: [
-                Row(
-                  children: [
-                    RaisedButton(color: Colors.white,
-                        onPressed: () {setState(() {
-                          dahilTevkifat=toplamDahilTutar*0.30;
-
-                          haricTevkifat=toplamHaricTutar*0.30;
-                          dahilTevkifatKalan = toplamDahilTutar-dahilTevkifat;
-                          haricTevkifatIKalan = toplamDahilTutar-haricTevkifat;
-                        });},
-                        child: Text("3/10",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16))),
-                    RaisedButton(color: Colors.white,
-                        onPressed: () {setState(() {
-                          dahilTevkifat=toplamDahilTutar*0.50;
-                          haricTevkifat=toplamHaricTutar*0.50;dahilTevkifatKalan = toplamDahilTutar-dahilTevkifat;
-                          haricTevkifatIKalan = toplamDahilTutar-haricTevkifat;
-                        });},
-                        child: Text("5/10",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16))),
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                ),
-                Row(
-                  children: [
-                    RaisedButton(color: Colors.white,
-                        onPressed: () {setState(() {
-                          dahilTevkifat=toplamDahilTutar*0.70;
-                          haricTevkifat=toplamHaricTutar*0.70;dahilTevkifatKalan = toplamDahilTutar-dahilTevkifat;
-                          haricTevkifatIKalan = toplamDahilTutar-haricTevkifat;
-                        });},
-                        child: Text("7/10",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16))),
-                    RaisedButton(color: Colors.white,
-                        onPressed: () {setState(() {
-                          dahilTevkifat=toplamDahilTutar*0.90;
-                          haricTevkifat=toplamHaricTutar*0.90;dahilTevkifatKalan = toplamDahilTutar-dahilTevkifat;
-                          haricTevkifatIKalan = toplamDahilTutar-haricTevkifat;
-                        });},
-                        child: Text("9/10",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16))),
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                ),
-                Container(margin: EdgeInsets.symmetric(horizontal: 30),decoration: BoxDecoration(
-                    color: Colors.blue[500],
-                    borderRadius: BorderRadius.circular(8)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 80),
+                  child: Column(
                     children: [
-                      Text(
-                        "KDV Hariç",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
+                      Row(
+                        children: [
+                          RaisedButton(
+                              color: Colors.white,
+                              onPressed: () {
+                                setState(() {
+                                  mesaj =
+                                      "KDV tutarınız 3/10 oranına göre tevkif edilecektir.";
+
+                                  dahilTevkifat = dahilkenKdvTutari * 0.30;
+                                  haricTevkifat = HarickenKdvTutari * 0.30;
+                                  tevkifatHesabi();
+                                  toast();
+                                });
+                              },
+                              child: Text("3/10",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16))),
+                          RaisedButton(
+                              color: Colors.white,
+                              onPressed: () {
+                                setState(() {
+                                  mesaj =
+                                      "KDV tutarınız 5/10 oranına göre tevkif edilecektir.";
+                                  dahilTevkifat = dahilkenKdvTutari * 0.50;
+                                  haricTevkifat = HarickenKdvTutari * 0.50;
+                                  tevkifatHesabi();
+                                  toast();
+                                });
+                              },
+                              child: Text("5/10",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16))),
+                        ],
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       ),
-                      Text(
-                        "KDV Dahil",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
+                      Row(
+                        children: [
+                          RaisedButton(
+                              color: Colors.white,
+                              onPressed: () {
+                                setState(() {
+                                  mesaj =
+                                      "KDV tutarınız 7/10 oranına göre tevkif edilecektir.";
+
+                                  dahilTevkifat = dahilkenKdvTutari * 0.70;
+                                  haricTevkifat = HarickenKdvTutari * 0.70;
+                                  tevkifatHesabi();
+                                  toast();
+                                });
+                              },
+                              child: Text("7/10",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16))),
+                          RaisedButton(
+                              color: Colors.white,
+                              onPressed: () {
+                                setState(() {
+                                  mesaj =
+                                      "KDV tutarınız 9/10 oranına göre tevkif edilecektir.";
+
+                                  dahilTevkifat = dahilkenKdvTutari * 0.90;
+                                  haricTevkifat = HarickenKdvTutari * 0.90;
+                                  tevkifatHesabi();
+                                  toast();
+                                });
+                              },
+                              child: Text("9/10",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16))),
+                        ],
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: RaisedButton(
+                              onPressed: () {
+                                setState(() {
+                                  mesaj =
+                                  "KDV tutarınız 1/10 oranına göre tevkif edilecektir.";
+
+                                  dahilTevkifat = dahilkenKdvTutari * 1;
+                                  haricTevkifat = HarickenKdvTutari * 1;
+                                  tevkifatHesabi();
+                                  toast();
+                                });
+                              },
+                              color: Colors.white,
+                              child: Text("Tam Tevkifat (10/10)",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16)),
+                            ),
+                          )
+                        ],
                       ),
                     ],
                   ),
                 ),
-                Row(
+                Column(
                   children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Container( width: SizeConfig.blockSizeHorizontal *50,
-                            child: Column(
-                              children: [
-                                Text(
-                                  "TEVKİFAT TUTARI",textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),Divider(color: Colors.black,)
-                              ],
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                "${haricTevkifat.toStringAsFixed(2)}",
-                                style: stil,
-                                textAlign: TextAlign.center,
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                color: Colors.blue[500],
+                                child: Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Text(
+                                    "KDV Hariç Hesaplama",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
                               ),
-                              Text(
-                                  "${dahilTevkifat.toStringAsFixed(2)}",
-                                style: stil,
-                                textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 5.0, right: 5),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 4, top: 2),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Ara Toplam",
+                                      style: stil,
+                                    ),
+                                    Text(
+                                      haricTutar.toStringAsFixed(2),
+                                      style: stil,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Divider(
+                                color: Colors.black,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 4,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "KDV Tutarı",
+                                      style: stil,
+                                    ),
+                                    Text(
+                                      HarickenKdvTutari.toStringAsFixed(2),
+                                      style: stil,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Divider(
+                                color: Colors.black,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 4),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Tevkifat Tutarı",
+                                      style: stil,
+                                    ),
+                                    Text(
+                                      haricTevkifat.toStringAsFixed(2),
+                                      style: stil,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Divider(
+                                color: Colors.black,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 4),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Tevkifat Sonrası KDV Tutarı",
+                                      style: stil,
+                                    ),
+                                    Text(
+                                      haricTevkifatIKalan.toStringAsFixed(2),
+                                      style: stil,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Divider(
+                                color: Colors.black,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 4),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Toplam Tutar",
+                                      style: stil,
+                                    ),
+                                    Text(
+                                      haricTevkifatliToplamTutar
+                                          .toStringAsFixed(2),
+                                      style: stil,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                Divider(
-                  color: Colors.black,
-                ),Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Container(width: SizeConfig.blockSizeHorizontal *50,
-                            child: Column(
-                              children: [
-                                Text(
-                                  "SON TUTAR",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),textAlign: TextAlign.center,
-                                ),Divider(color:Colors.black)
-                              ],
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                "${haricTevkifatIKalan.toStringAsFixed(2)}",
-                                style: stil,
-                                textAlign: TextAlign.center,
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                color: Colors.blue[500],
+                                child: Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Text(
+                                    "KDV Dahil Hesaplama",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
                               ),
-                              Text(
-                                "${dahilTevkifatKalan.toStringAsFixed(2)}",
-                                style: stil,
-                                textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 5.0, right: 5),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 4, top: 2),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Ara Toplam",
+                                      style: stil,
+                                    ),
+                                    Text(
+                                      dahilTutar.toStringAsFixed(2),
+                                      style: stil,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Divider(
+                                color: Colors.black,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 4),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "KDV Tutarı",
+                                      style: stil,
+                                    ),
+                                    Text(
+                                      dahilkenKdvTutari.toStringAsFixed(2),
+                                      style: stil,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Divider(
+                                color: Colors.black,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 4),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Tevkifat Tutarı",
+                                      style: stil,
+                                    ),
+                                    Text(
+                                      dahilTevkifat.toStringAsFixed(2),
+                                      style: stil,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Divider(
+                                color: Colors.black,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 4),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Tevkifat Sonrası KDV Tutarı",
+                                      style: stil,
+                                    ),
+                                    Text(
+                                      dahilTevkifatKalan.toStringAsFixed(2),
+                                      style: stil,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Divider(
+                                color: Colors.black,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 4),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Toplam Tutar",
+                                      style: stil,
+                                    ),
+                                    Text(
+                                      dahilTevkifatliToplamTutar
+                                          .toStringAsFixed(2),
+                                      style: stil,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Divider(
+                                color: Colors.black,
                               ),
                             ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ],
-                ),Divider(
-                  color: Colors.black,
                 ),
               ],
             ),
           ),
-          SizedBox(height: 150,)],
+          SizedBox(
+            height: 150,
+          )
+        ],
       ),
     );
+  }
+
+  tevkifatHesabi() {
+    dahilTevkifatKalan = dahilkenKdvTutari - dahilTevkifat;
+    haricTevkifatIKalan = HarickenKdvTutari - haricTevkifat;
+    dahilTevkifatliToplamTutar = dahilTutar + dahilTevkifatKalan;
+    haricTevkifatliToplamTutar = haricTutar + haricTevkifatIKalan;
+  }
+
+  toast() {
+    showToast("$mesaj",
+        context: context,
+        animation: StyledToastAnimation.fade,
+        curve: Curves.linear,
+        reverseCurve: Curves.linear,
+        duration: Duration(seconds: 4),
+        position: StyledToastPosition.center);
   }
 }
 

@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     AdmobIslemleri.admobInitialize();
     myBanner = AdmobIslemleri.buildBannerAd();
-    myBanner.load();
+   myBanner.load();
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
             showCupertinoModalPopup(
                 context: context,
                 builder: (context) => AlertDialog(
-                        title: Text("HesapMatik v2.2",style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4,),),
+                        title: Text("HesapMatik v2.3",style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4,),),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
