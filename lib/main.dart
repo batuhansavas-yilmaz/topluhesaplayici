@@ -37,12 +37,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-          theme: ThemeData(
-              primaryColor: Colors.blue[900],
-              scaffoldBackgroundColor: Colors.blue.shade50),
-          title: "HesapMatik",
-          debugShowCheckedModeBanner: false,
-          home: HomePage(),
+            theme: ThemeData(
+                primaryColor: Colors.blue[900],
+                scaffoldBackgroundColor: Colors.blue.shade50),
+            title: "HesapMatik",
+            debugShowCheckedModeBanner: false,
+            home: HomePage(),
+
 
 
     );
@@ -147,12 +148,12 @@ class _HomePageState extends State<HomePage> {
           GorevButonlari(
             image: Image.asset(
               "assets/zraporu.png",
-              height: SizeConfig.blockSizeVertical * 15,
-              width: SizeConfig.blockSizeHorizontal * 45,
+              height: SizeConfig.blockSizeVertical * 13,
+              width: SizeConfig.blockSizeHorizontal * 42,
             ),
             text: Text(
               "Eksik Z Raporu",
-              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 5,fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4,fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             navigator: () {
