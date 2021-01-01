@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     AdmobIslemleri.admobInitialize();
     myBanner = AdmobIslemleri.buildBannerAd();
-   myBanner.load();
+  myBanner.load();
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
             showCupertinoModalPopup(
                 context: context,
                 builder: (context) => AlertDialog(
-                        title: Text("HesapMatik v2.3",style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4,),),
+                        title: Text("HesapMatik v2.3.1",style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4,),),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,12 +127,12 @@ class _HomePageState extends State<HomePage> {
           GorevButonlari(
             image: Image(
               image: AssetImage("assets/percentage.png"),
-              height: SizeConfig.blockSizeVertical * 15,
-              width: SizeConfig.blockSizeHorizontal * 45,
+              height: SizeConfig.blockSizeVertical * 13,
+              width: SizeConfig.blockSizeHorizontal * 30,
             ),
             text: Text(
               "Kdv",
-              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 5,fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4,fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             navigator: () {
@@ -149,11 +149,11 @@ class _HomePageState extends State<HomePage> {
             image: Image.asset(
               "assets/zraporu.png",
               height: SizeConfig.blockSizeVertical * 13,
-              width: SizeConfig.blockSizeHorizontal * 42,
+              width: SizeConfig.blockSizeHorizontal * 30,
             ),
             text: Text(
               "Eksik Z Raporu",
-              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4,fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3,fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             navigator: () {
@@ -167,12 +167,12 @@ class _HomePageState extends State<HomePage> {
           GorevButonlari(
             image: Image.asset(
               "assets/aquarium.png",
-              height: SizeConfig.blockSizeVertical * 15,
-              width: SizeConfig.blockSizeHorizontal * 45,
+              height: SizeConfig.blockSizeVertical * 13,
+              width: SizeConfig.blockSizeHorizontal * 30,
             ),
             text: Text(
               "Akvaryum",
-              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 5,fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4,fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             navigator: () {
@@ -199,8 +199,8 @@ class _HomePageState extends State<HomePage> {
             ),
             image: Image(
               image: AssetImage("assets/love.png"),
-              height: SizeConfig.blockSizeVertical * 15,
-              width: SizeConfig.blockSizeHorizontal * 45,
+              height: SizeConfig.blockSizeVertical * 13,
+              width: SizeConfig.blockSizeHorizontal * 30,
             ),
           ),
           GorevButonlari(navigator: () {
@@ -213,13 +213,13 @@ class _HomePageState extends State<HomePage> {
             text: Text(
               "Komisyon",
               style: TextStyle(fontSize:
-              SizeConfig.blockSizeHorizontal * 5,fontWeight: FontWeight.bold),
+              SizeConfig.blockSizeHorizontal * 4,fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             image: Image(
               image: AssetImage("assets/commission.png"),
-              height: SizeConfig.blockSizeVertical * 15,
-              width: SizeConfig.blockSizeHorizontal * 45,
+              height: SizeConfig.blockSizeVertical * 13,
+              width: SizeConfig.blockSizeHorizontal * 30,
             ),),
           Padding(
             padding: const EdgeInsets.all(10.0),
@@ -260,7 +260,7 @@ class _HomePageState extends State<HomePage> {
               },
               child: Image(
                 image: AssetImage("assets/loading.png"),
-                height: SizeConfig.blockSizeVertical * 20,
+                height: SizeConfig.blockSizeVertical * 13,
                 width: SizeConfig.blockSizeHorizontal * 30,
               ),
             ),
