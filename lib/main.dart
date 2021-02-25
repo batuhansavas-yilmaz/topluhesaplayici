@@ -9,6 +9,7 @@ import 'package:toplu_hesaplayici/kdvHesaplayicisi.dart';
 import 'package:toplu_hesaplayici/komisyon.dart';
 import 'package:toplu_hesaplayici/zraporu.dart';
 import 'package:toplu_hesaplayici/vucutKitleEndeksi.dart';
+import 'package:toplu_hesaplayici/akaryakitfisi.dart';
 import 'GorevButonlari.dart';
 import 'admobIslemleri.dart';
 import 'akvaryum.dart';
@@ -37,15 +38,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-            theme: ThemeData(
-                primaryColor: Colors.blue[900],
-                scaffoldBackgroundColor: Colors.blue.shade50),
-            title: "HesapMatik",
-            debugShowCheckedModeBanner: false,
-            home: HomePage(),
-
-
-
+      theme: ThemeData(
+          primaryColor: Colors.blue[900],
+          scaffoldBackgroundColor: Colors.blue.shade50),
+      title: "HesapMatik",
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
     );
   }
 }
@@ -63,7 +61,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     AdmobIslemleri.admobInitialize();
     myBanner = AdmobIslemleri.buildBannerAd();
-  myBanner.load();
+    myBanner.load();
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -88,23 +86,31 @@ class _HomePageState extends State<HomePage> {
           icon: Icon(Icons.info),
           onPressed: () {
             setState(() {
-             myBanner.show();
+              myBanner.show();
             });
             showCupertinoModalPopup(
                 context: context,
                 builder: (context) => AlertDialog(
-                        title: Text("HesapMatik v2.3.1",style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4,),),
+                        title: Text(
+                          "HesapMatik v2.4",
+                          style: TextStyle(
+                            fontSize: SizeConfig.blockSizeHorizontal * 4,
+                          ),
+                        ),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               "Destek: ",
-                              style: TextStyle(fontSize:SizeConfig.blockSizeHorizontal * 4),
+                              style: TextStyle(
+                                  fontSize: SizeConfig.blockSizeHorizontal * 4),
                             ),
                             Text("batuhansavasyilmaztr@gmail.com",
-                                style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3,fontWeight: FontWeight.bold
-                                )),
+                                style: TextStyle(
+                                    fontSize:
+                                        SizeConfig.blockSizeHorizontal * 3,
+                                    fontWeight: FontWeight.bold)),
                           ],
                         ),
                         actions: [
@@ -132,7 +138,9 @@ class _HomePageState extends State<HomePage> {
             ),
             text: Text(
               "Kdv",
-              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4,fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: SizeConfig.blockSizeHorizontal * 4,
+                  fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             navigator: () {
@@ -153,7 +161,9 @@ class _HomePageState extends State<HomePage> {
             ),
             text: Text(
               "Eksik Z Raporu",
-              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3,fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: SizeConfig.blockSizeHorizontal * 3,
+                  fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             navigator: () {
@@ -172,7 +182,9 @@ class _HomePageState extends State<HomePage> {
             ),
             text: Text(
               "Akvaryum",
-              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4,fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: SizeConfig.blockSizeHorizontal * 4,
+                  fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             navigator: () {
@@ -193,8 +205,9 @@ class _HomePageState extends State<HomePage> {
             },
             text: Text(
               "Vücut Kitle Endeksi",
-              style: TextStyle(fontSize:
-               SizeConfig.blockSizeHorizontal * 4,fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: SizeConfig.blockSizeHorizontal * 4,
+                  fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             image: Image(
@@ -203,24 +216,47 @@ class _HomePageState extends State<HomePage> {
               width: SizeConfig.blockSizeHorizontal * 30,
             ),
           ),
-          GorevButonlari(navigator: () {
-            setState(() {
-              myBanner.show();
-              Navigator.push(context,
-                  CupertinoPageRoute(builder: (context) => Komisyon()));
-            });
-          },
+          GorevButonlari(
+            navigator: () {
+              setState(() {
+                myBanner.show();
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => Komisyon()));
+              });
+            },
             text: Text(
               "Komisyon",
-              style: TextStyle(fontSize:
-              SizeConfig.blockSizeHorizontal * 4,fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: SizeConfig.blockSizeHorizontal * 4,
+                  fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             image: Image(
               image: AssetImage("assets/commission.png"),
               height: SizeConfig.blockSizeVertical * 13,
               width: SizeConfig.blockSizeHorizontal * 30,
-            ),),
+            ),
+          ),GorevButonlari(
+            navigator: () {
+              setState(() {
+                myBanner.show();
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => Akaryakit()));
+              });
+            },
+            text: Text(
+              "%70'lik Akaryakıt Fişleri",
+              style: TextStyle(
+                  fontSize: SizeConfig.blockSizeHorizontal * 4,
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            image: Image(
+              image: AssetImage("assets/petrol.png"),
+              height: SizeConfig.blockSizeVertical * 13,
+              width: SizeConfig.blockSizeHorizontal * 30,
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: RaisedButton(
@@ -231,20 +267,32 @@ class _HomePageState extends State<HomePage> {
                   showCupertinoModalPopup(
                       context: context,
                       builder: (context) => AlertDialog(
-                              title: Text("Siz Seçin",style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4,),),
+                              title: Text(
+                                "Siz Seçin",
+                                style: TextStyle(
+                                  fontSize: SizeConfig.blockSizeHorizontal * 4,
+                                ),
+                              ),
                               content: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     "Eklenmesini İstediğiniz Yeni Hesaplayıcılar İçin Bizimle İletişime Geçebilirsiniz",
-                                    style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4,),
+                                    style: TextStyle(
+                                      fontSize:
+                                          SizeConfig.blockSizeHorizontal * 4,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 10,
                                   ),
                                   Text("batuhansavasyilmaztr@gmail.com",
-                                      style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3,fontWeight: FontWeight.bold)),
+                                      style: TextStyle(
+                                          fontSize:
+                                              SizeConfig.blockSizeHorizontal *
+                                                  3,
+                                          fontWeight: FontWeight.bold)),
                                 ],
                               ),
                               actions: [
@@ -265,14 +313,13 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-
-
           SizedBox(
             height: 10,
           ),
           SizedBox(
             height: 10,
-          ),SizedBox(
+          ),
+          SizedBox(
             height: 10,
           ),
           SizedBox(

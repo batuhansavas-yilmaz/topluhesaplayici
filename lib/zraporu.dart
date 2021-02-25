@@ -3,6 +3,21 @@ import 'package:flutter/material.dart';
 
 import 'main.dart';
 
+class SizeConfig {
+  static MediaQueryData _mediaQueryData;
+  static double screenWidth;
+  static double screenHeight;
+  static double blockSizeHorizontal;
+  static double blockSizeVertical;
+
+  void init(BuildContext context) {
+    _mediaQueryData = MediaQuery.of(context);
+    screenWidth = _mediaQueryData.size.width;
+    screenHeight = _mediaQueryData.size.height;
+    blockSizeHorizontal = screenWidth / 100;
+    blockSizeVertical = screenHeight / 100;
+  }
+}
 class ZRaporu extends StatefulWidget {
   @override
   _ZRaporuState createState() => _ZRaporuState();
@@ -21,6 +36,7 @@ class _ZRaporuState extends State<ZRaporu> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
         leading: Transform(

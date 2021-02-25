@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
-import 'package:toplu_hesaplayici/main.dart';
 
 class SizeConfig {
   static MediaQueryData _mediaQueryData;
@@ -211,8 +210,8 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "Ara Toplam",
-                                style: stil,
+                                "Matrah",
+                                style: stil2,
                               ),
                               Text(
                                 haricTutar.toStringAsFixed(2),
@@ -233,7 +232,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             children: [
                               Text(
                                 "KDV Tutarı",
-                                style: stil,
+                                style: stil2,
                               ),
                               Text(
                                 HarickenKdvTutari.toStringAsFixed(2),
@@ -252,7 +251,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             children: [
                               Text(
                                 "Toplam Tutar",
-                                style: stil,
+                                style: stil2,
                               ),
                               Text(
                                 toplamHaricTutar.toStringAsFixed(2),
@@ -298,8 +297,8 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "Ara Toplam",
-                                style: stil,
+                                "Matrah",
+                                style: stil2,
                               ),
                               Text(
                                 dahilTutar.toStringAsFixed(2),
@@ -318,7 +317,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             children: [
                               Text(
                                 "KDV Tutarı",
-                                style: stil,
+                                style: stil2,
                               ),
                               Text(
                                 dahilkenKdvTutari.toStringAsFixed(2),
@@ -337,7 +336,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             children: [
                               Text(
                                 "Toplam Tutar",
-                                style: stil,
+                                style: stil2,
                               ),
                               Text(
                                 toplamDahilTutar.toStringAsFixed(2),
@@ -524,8 +523,8 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "Ara Toplam",
-                                      style: stil,
+                                      "Matrah",
+                                      style: stil2,
                                     ),
                                     Text(
                                       haricTutar.toStringAsFixed(2),
@@ -547,7 +546,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   children: [
                                     Text(
                                       "KDV Tutarı",
-                                      style: stil,
+                                      style: stil2,
                                     ),
                                     Text(
                                       HarickenKdvTutari.toStringAsFixed(2),
@@ -567,7 +566,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   children: [
                                     Text(
                                       "Tevkifat Tutarı",
-                                      style: stil,
+                                      style: stil2,
                                     ),
                                     Text(
                                       haricTevkifat.toStringAsFixed(2),
@@ -587,7 +586,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   children: [
                                     Text(
                                       "Tevkifat Sonrası KDV Tutarı",
-                                      style: stil,
+                                      style: stil2,
                                     ),
                                     Text(
                                       haricTevkifatIKalan.toStringAsFixed(2),
@@ -607,7 +606,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   children: [
                                     Text(
                                       "Toplam Tutar",
-                                      style: stil,
+                                      style: stil2,
                                     ),
                                     Text(
                                       haricTevkifatliToplamTutar
@@ -655,8 +654,8 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "Ara Toplam",
-                                      style: stil,
+                                      "Matrah",
+                                      style: stil2,
                                     ),
                                     Text(
                                       dahilTutar.toStringAsFixed(2),
@@ -676,7 +675,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   children: [
                                     Text(
                                       "KDV Tutarı",
-                                      style: stil,
+                                      style: stil2,
                                     ),
                                     Text(
                                       dahilkenKdvTutari.toStringAsFixed(2),
@@ -696,7 +695,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   children: [
                                     Text(
                                       "Tevkifat Tutarı",
-                                      style: stil,
+                                      style: stil2,
                                     ),
                                     Text(
                                       dahilTevkifat.toStringAsFixed(2),
@@ -716,7 +715,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   children: [
                                     Text(
                                       "Tevkifat Sonrası KDV Tutarı",
-                                      style: stil,
+                                      style: stil2,
                                     ),
                                     Text(
                                       dahilTevkifatKalan.toStringAsFixed(2),
@@ -736,7 +735,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   children: [
                                     Text(
                                       "Toplam Tutar",
-                                      style: stil,
+                                      style: stil2,
                                     ),
                                     Text(
                                       dahilTevkifatliToplamTutar
@@ -785,4 +784,5 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
   }
 }
 
-TextStyle stil = TextStyle(color: Colors.black, fontSize: 20);
+TextStyle stil = TextStyle(color: Colors.black, fontSize: 18);
+TextStyle stil2 = TextStyle(color: Colors.black, fontSize: 17,fontWeight: FontWeight.bold);
