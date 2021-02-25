@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
           icon: Icon(Icons.info),
           onPressed: () {
             setState(() {
-              myBanner.show();
+            //  myBanner.show();
             });
             showCupertinoModalPopup(
                 context: context,
