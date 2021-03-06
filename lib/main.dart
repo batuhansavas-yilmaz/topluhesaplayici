@@ -37,13 +37,18 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-          primaryColor: Colors.blue[900],
-          scaffoldBackgroundColor: Colors.blue.shade50),
-      title: "HesapMatik",
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
+    return DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => MaterialApp(
+        builder: DevicePreview.appBuilder,
+        locale: DevicePreview.locale(context),
+        theme: ThemeData(
+            primaryColor: Colors.blue[900],
+            scaffoldBackgroundColor: Colors.blue.shade50),
+        title: "HesapMatik",
+        debugShowCheckedModeBanner: false,
+        home: HomePage(),
+      ),
     );
   }
 }
@@ -78,52 +83,83 @@ class _HomePageState extends State<HomePage> {
     SizeConfig().init(context);
 
     return Scaffold(
+      drawer: Container(
+        width: SizeConfig.blockSizeHorizontal * 50,
+        child: Drawer(
+          child: Column(
+            children: [
+              SizedBox(
+                height: SizeConfig.blockSizeVertical * 17,
+                child: DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.blue[900],
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black,
+                          blurRadius: 1.53,
+                          offset: Offset(0, 1.53)),
+                    ],
+                  ),
+                  child: Center(
+                    child: Container(
+                      child: Text(
+                        "HesapMatik\nv2.5",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: SizeConfig.blockSizeHorizontal * 5.5,
+                            color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Text(
+                "Destek",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: SizeConfig.blockSizeHorizontal * 4,
+                    fontWeight: FontWeight.bold),
+              ),
+              Divider(
+                color: Colors.black,
+                height: SizeConfig.blockSizeVertical * 1.20,
+              ),
+              BaglantiButon(
+                link: "https://www.instagram.com/_batuhansavas/",
+                image: "assets/instagram.png",
+                title: "Instagram",
+              ),
+              Divider(
+                height: SizeConfig.blockSizeVertical * 1.20,
+              ),
+              BaglantiButon(
+                link: "https://facebook.com/batuylmzz/",
+                image: "assets/facebook.png",
+                title: "Facebook",
+              ),
+              Divider(
+                height: SizeConfig.blockSizeVertical * 1.20,
+              ),
+              BaglantiButon(
+                link: "https://twitter.com/pesindeyizz",
+                image: "assets/twitter.png",
+                title: "Twitter",
+              ),
+              Divider(
+                height: SizeConfig.blockSizeVertical * 1.20,
+              ),
+              BaglantiButon(
+                link: "mailto:batuhansavasyilmaztr@gmail.com",
+                image: "assets/gmail.png",
+                title: "Mail",
+              ),
+            ],
+          ),
+        ),
+      ),
       appBar: AppBar(
         title: Text("HesapMatik"),
         centerTitle: true,
-        leading: IconButton(
-          tooltip: "Bilgi",
-          icon: Icon(Icons.info),
-          onPressed: () {
-            setState(() {
-            //  myBanner.show();
-            });
-            showCupertinoModalPopup(
-                context: context,
-                builder: (context) => AlertDialog(
-                        title: Text(
-                          "HesapMatik v2.4",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 4,
-                          ),
-                        ),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Destek: ",
-                              style: TextStyle(
-                                  fontSize: SizeConfig.blockSizeHorizontal * 4),
-                            ),
-                            Text("batuhansavasyilmaztr@gmail.com",
-                                style: TextStyle(
-                                    fontSize:
-                                        SizeConfig.blockSizeHorizontal * 3,
-                                    fontWeight: FontWeight.bold)),
-                          ],
-                        ),
-                        actions: [
-                          IconButton(
-                            tooltip: "Kapat",
-                            icon: Icon(Icons.close),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          )
-                        ]));
-          },
-        ),
       ),
       body: GridView.count(
         primary: false,
@@ -168,7 +204,7 @@ class _HomePageState extends State<HomePage> {
             ),
             navigator: () {
               setState(() {
-                myBanner.show();
+               myBanner.show();
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => ZRaporu()));
               });
@@ -236,7 +272,8 @@ class _HomePageState extends State<HomePage> {
               height: SizeConfig.blockSizeVertical * 13,
               width: SizeConfig.blockSizeHorizontal * 30,
             ),
-          ),GorevButonlari(
+          ),
+          GorevButonlari(
             navigator: () {
               setState(() {
                 myBanner.show();
