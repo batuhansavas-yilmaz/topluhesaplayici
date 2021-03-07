@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 
@@ -89,7 +90,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                               borderRadius: BorderRadius.circular(10)),
                           child: TextField(
                             keyboardType:
-                                TextInputType.numberWithOptions(decimal: true),
+                                TextInputType.numberWithOptions(decimal: true), inputFormatters: [
+                            FilteringTextInputFormatter.deny(",")
+                          ],
                             controller: t1,
                             style: TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.bold),
@@ -118,7 +121,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   offset: Offset(0.50, 1.85), blurRadius: 2)
                             ]),
                         child: TextField(
-                          controller: t2,
+                          controller: t2, inputFormatters: [
+                          FilteringTextInputFormatter.deny(",")
+                        ],
                           keyboardType:
                               TextInputType.numberWithOptions(decimal: true),
                           style: TextStyle(

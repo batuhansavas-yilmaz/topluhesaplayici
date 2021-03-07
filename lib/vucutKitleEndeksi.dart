@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:toplu_hesaplayici/main.dart';
 import 'endeksYorum.dart';
 class SizeConfig {
@@ -83,6 +84,9 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                           style: TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold),
                           keyboardType: TextInputType.numberWithOptions(decimal: true),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(",")
+                          ],
                           decoration: InputDecoration(
                             hintText: "Kilo",
                             hintStyle: TextStyle(
@@ -114,6 +118,9 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                           style: TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold),
                           keyboardType: TextInputType.numberWithOptions(decimal: true),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(",")
+                          ],
                           decoration: InputDecoration(
                             hintText: "Boy(cm)",
                             hintStyle: TextStyle(

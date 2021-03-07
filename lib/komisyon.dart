@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SizeConfig {
   static MediaQueryData _mediaQueryData;
@@ -79,6 +80,9 @@ class _KomisyonState extends State<Komisyon> {
                         child: TextField(
                           keyboardType:
                               TextInputType.numberWithOptions(decimal: true),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(",")
+                          ],
                           controller: t1,
                           style: TextStyle(
                               fontSize: 25, fontWeight: FontWeight.bold),
@@ -106,7 +110,9 @@ class _KomisyonState extends State<Komisyon> {
                             BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
                           ]),
                       child: TextField(
-                        controller: t2,
+                        controller: t2, inputFormatters: [
+                        FilteringTextInputFormatter.deny(",")
+                      ],
                         keyboardType:
                             TextInputType.numberWithOptions(decimal: true),
                         style: TextStyle(
@@ -178,7 +184,9 @@ class _KomisyonState extends State<Komisyon> {
                             ],
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10)),
-                        child: TextField(
+                        child: TextField( inputFormatters: [
+                          FilteringTextInputFormatter.deny(",")
+                        ],
                           keyboardType:
                               TextInputType.numberWithOptions(decimal: true),
                           controller: t3,
@@ -207,7 +215,9 @@ class _KomisyonState extends State<Komisyon> {
                           boxShadow: [
                             BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
                           ]),
-                      child: TextField(
+                      child: TextField( inputFormatters: [
+                        FilteringTextInputFormatter.deny(",")
+                      ],
                         controller: t4,
                         keyboardType:
                             TextInputType.numberWithOptions(decimal: true),

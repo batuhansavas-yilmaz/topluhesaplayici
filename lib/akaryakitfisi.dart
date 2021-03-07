@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
+import 'package:toplu_hesaplayici/GorevButonlari.dart';
 
 class SizeConfig {
   static MediaQueryData _mediaQueryData;
@@ -96,7 +98,10 @@ class _AkaryakitState extends State<Akaryakit> {
                           borderRadius: BorderRadius.circular(10)),
                       child: TextField(controller: t1,
                         keyboardType:
-                            TextInputType.numberWithOptions(decimal:true),
+                            TextInputType.numberWithOptions(decimal: true,),
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.deny(",")
+                          ],
                         style: TextStyle(
                             fontSize: 25, fontWeight: FontWeight.bold),
                         decoration: InputDecoration(
@@ -123,6 +128,7 @@ class _AkaryakitState extends State<Akaryakit> {
           RaisedButton(
             onPressed: () {setState(() {FocusScope.of(context).requestFocus(new FocusNode());
               tutar = double.parse(t1.text);
+
               giderKabulEdilmeyenToplam=tutar*0.30;
               matrah=(tutar*0.70)/1.18;
               kdv=matrah*0.18;

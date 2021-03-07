@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SizeConfig {
   static MediaQueryData _mediaQueryData;
@@ -88,7 +89,9 @@ class _AquariumState extends State<Aquarium> {
                       ),
                     ),
                     child: TextField(
-                      controller: derinlik_,
+                      controller: derinlik_, inputFormatters: [
+                      FilteringTextInputFormatter.deny(",")
+                    ],
                       style:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       keyboardType:
@@ -122,7 +125,9 @@ class _AquariumState extends State<Aquarium> {
                       style:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       keyboardType:
-                          TextInputType.numberWithOptions(decimal: true),
+                          TextInputType.numberWithOptions(decimal: true), inputFormatters: [
+                      FilteringTextInputFormatter.deny(",")
+                    ],
                       decoration: InputDecoration(
                         hintText: "En",
                         hintStyle: TextStyle(
@@ -152,7 +157,9 @@ class _AquariumState extends State<Aquarium> {
                       style:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       keyboardType:
-                          TextInputType.numberWithOptions(decimal: true),
+                          TextInputType.numberWithOptions(decimal: true), inputFormatters: [
+                      FilteringTextInputFormatter.deny(",")
+                    ],
                       decoration: InputDecoration(
                         hintText: "Uzunluk",
                         hintStyle: TextStyle(

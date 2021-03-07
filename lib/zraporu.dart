@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'main.dart';
 
@@ -107,6 +108,9 @@ class _ZRaporuState extends State<ZRaporu> {
                             borderRadius: BorderRadius.circular(10)),
                         child: TextField(controller: k1,
                           keyboardType: TextInputType.numberWithOptions(decimal: true),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(",")
+                          ],
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                           decoration: InputDecoration(
@@ -146,6 +150,9 @@ class _ZRaporuState extends State<ZRaporu> {
                             borderRadius: BorderRadius.circular(10)),
                         child: TextField(controller:tutar,
                           keyboardType: TextInputType.numberWithOptions(decimal: true),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(",")
+                          ],
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                           decoration: InputDecoration(
@@ -201,6 +208,9 @@ class _ZRaporuState extends State<ZRaporu> {
                             borderRadius: BorderRadius.circular(10)),
                         child: TextField(controller:k2,
                           keyboardType: TextInputType.numberWithOptions(decimal: true),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(",")
+                          ],
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                           decoration: InputDecoration(

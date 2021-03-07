@@ -37,18 +37,15 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => MaterialApp(
-        builder: DevicePreview.appBuilder,
-        locale: DevicePreview.locale(context),
+    return  MaterialApp(
+
         theme: ThemeData(
             primaryColor: Colors.blue[900],
             scaffoldBackgroundColor: Colors.blue.shade50),
         title: "HesapMatik",
         debugShowCheckedModeBanner: false,
         home: HomePage(),
-      ),
+
     );
   }
 }
@@ -88,77 +85,112 @@ class _HomePageState extends State<HomePage> {
         child: Drawer(
           child: Column(
             children: [
-              SizedBox(
-                height: SizeConfig.blockSizeVertical * 17,
-                child: DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Colors.blue[900],
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black,
-                          blurRadius: 1.53,
-                          offset: Offset(0, 1.53)),
-                    ],
-                  ),
-                  child: Center(
-                    child: Container(
-                      child: Text(
-                        "HesapMatik\nv2.5",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal * 5.5,
-                            color: Colors.white),
+              Expanded(flex: 3,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: SizeConfig.blockSizeVertical * 17,
+                      child: DrawerHeader(
+                        decoration: BoxDecoration(
+                          color: Colors.blue[900],
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black,
+                              blurRadius:SizeConfig.blockSizeVertical* 0.40,
+                              offset: Offset(0, SizeConfig.blockSizeVertical*0.25),),
+                          ],
+                        ),
+                        child: Center(
+                          child: Container(
+                            child: Text(
+                              "HesapMatik\nv2.5.1",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: SizeConfig.blockSizeHorizontal * 5.5,
+                                  color: Colors.white,
+                                  shadows: [
+                                    Shadow(
+                                      color: Colors.black,
+                                        blurRadius:SizeConfig.blockSizeVertical* 0.8,
+                                        offset: Offset(SizeConfig.blockSizeVertical*0.3, SizeConfig.blockSizeVertical*0.4),
+                                    ),
+                                  ]),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    Text(
+                      "İletişim İçin",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: SizeConfig.blockSizeHorizontal * 4,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Divider(
+                      color: Colors.black,
+                      height: SizeConfig.blockSizeVertical * 1.20,
+                    ),
+                    BaglantiButon(
+                      link: "https://www.instagram.com/_batuhansavas/",
+                      image: "assets/instagram.png",
+                      title: "Instagram",
+                    ),
+                    Divider(
+                      height: SizeConfig.blockSizeVertical * 1.20,
+                    ),
+                    BaglantiButon(
+                      link: "https://facebook.com/batuylmzz/",
+                      image: "assets/facebook.png",
+                      title: "Facebook",
+                    ),
+                    Divider(
+                      height: SizeConfig.blockSizeVertical * 1.20,
+                    ),
+                    BaglantiButon(
+                      link: "https://twitter.com/pesindeyizz",
+                      image: "assets/twitter.png",
+                      title: "Twitter",
+                    ),
+                    Divider(
+                      height: SizeConfig.blockSizeVertical * 1.20,
+                    ),
+                    BaglantiButon(
+                      link: "mailto:batuhansavasyilmaztr@gmail.com",
+                      image: "assets/gmail.png",
+                      title: "Mail",
+                    ),
+                  ],
                 ),
-              ),
-              Text(
-                "Destek",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: SizeConfig.blockSizeHorizontal * 4,
-                    fontWeight: FontWeight.bold),
-              ),
-              Divider(
-                color: Colors.black,
-                height: SizeConfig.blockSizeVertical * 1.20,
-              ),
-              BaglantiButon(
-                link: "https://www.instagram.com/_batuhansavas/",
-                image: "assets/instagram.png",
-                title: "Instagram",
-              ),
-              Divider(
-                height: SizeConfig.blockSizeVertical * 1.20,
-              ),
-              BaglantiButon(
-                link: "https://facebook.com/batuylmzz/",
-                image: "assets/facebook.png",
-                title: "Facebook",
-              ),
-              Divider(
-                height: SizeConfig.blockSizeVertical * 1.20,
-              ),
-              BaglantiButon(
-                link: "https://twitter.com/pesindeyizz",
-                image: "assets/twitter.png",
-                title: "Twitter",
-              ),
-              Divider(
-                height: SizeConfig.blockSizeVertical * 1.20,
-              ),
-              BaglantiButon(
-                link: "mailto:batuhansavasyilmaztr@gmail.com",
-                image: "assets/gmail.png",
-                title: "Mail",
-              ),
+              ),Column(children: [
+                SizedBox(
+                  height: SizeConfig.blockSizeVertical * 7.45,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.blue[900],
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black,
+                            blurRadius:SizeConfig.blockSizeVertical* 0.40,
+                            offset: Offset(0, SizeConfig.blockSizeVertical*-0.15)),
+                      ],
+                    ),
+                  ),
+                )
+              ],)
             ],
           ),
         ),
       ),
       appBar: AppBar(
-        title: Text("HesapMatik"),
+        title: Text("HesapMatik",style: TextStyle(color: Colors.white,
+            shadows: [
+              Shadow(
+                color: Colors.black,
+                blurRadius:SizeConfig.blockSizeVertical* 0.70,
+                offset: Offset(SizeConfig.blockSizeVertical*0.35, SizeConfig.blockSizeVertical*0.25),
+              ),
+            ]),),
         centerTitle: true,
       ),
       body: GridView.count(
@@ -315,21 +347,13 @@ class _HomePageState extends State<HomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Eklenmesini İstediğiniz Yeni Hesaplayıcılar İçin Bizimle İletişime Geçebilirsiniz",
+                                    "Eklenmesini İstediğiniz Yeni Hesaplayıcılar İçin Bizimle İletişime Geçebilirsiniz.",
                                     style: TextStyle(
                                       fontSize:
                                           SizeConfig.blockSizeHorizontal * 4,
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text("batuhansavasyilmaztr@gmail.com",
-                                      style: TextStyle(
-                                          fontSize:
-                                              SizeConfig.blockSizeHorizontal *
-                                                  3,
-                                          fontWeight: FontWeight.bold)),
+
                                 ],
                               ),
                               actions: [
