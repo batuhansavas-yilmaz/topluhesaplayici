@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:toplu_hesaplayici/GorevButonlari.dart';
+import "main.dart";
 
 class SizeConfig {
   static MediaQueryData _mediaQueryData;
@@ -31,13 +32,13 @@ class _AkaryakitState extends State<Akaryakit> {
   double giderKabulEdilmeyenMatrah = 0.00;
   double giderKabulEdilmeyenKdv = 0.00;
   double giderKabulEdilmeyenToplam = 0.00;
-
+  double toplamYetmis=0.00;
   TextEditingController t1 = TextEditingController(text: '');
   @override
   Widget build(BuildContext context) { SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Akaryakıt Fişi"),
+        title: Text("Akaryakıt Fişi",style: appBarStyle,),
         leading: Transform(
           alignment: FractionalOffset.center,
           transform: Matrix4.rotationZ(-80.10),
@@ -134,20 +135,34 @@ class _AkaryakitState extends State<Akaryakit> {
               kdv=matrah*0.18;
               giderKabulEdilmeyenMatrah = giderKabulEdilmeyenToplam/1.18;
               giderKabulEdilmeyenKdv = giderKabulEdilmeyenMatrah*0.18;
-
+              toplamYetmis=kdv+matrah;
             });},
             color: Colors.white,
             child: Text(
               "Hesapla",
               style: TextStyle(fontSize: 16),
             ),
+          ),Row(
+            children: [
+              Expanded(
+                child: Container(
+                  color: Colors.blue[900],
+                  child: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Text(
+                      "Gider Kabul Edilen %70'lik Tutar : ${toplamYetmis.toStringAsFixed(2)}",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Divider(
-              color: Colors.black,
-            ),
-          ),Column(
+         Column(
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 10,right: 10,bottom: 5),
@@ -201,7 +216,7 @@ class _AkaryakitState extends State<Akaryakit> {
                       child: Padding(
                         padding: const EdgeInsets.all(2.0),
                         child: Text(
-                          "Gider Kabul Edilmeyen Tutar : ${giderKabulEdilmeyenToplam.toStringAsFixed(2)}",
+                          "Gider Kabul Edilmeyen %30'luk Tutar : ${giderKabulEdilmeyenToplam.toStringAsFixed(2)}",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 16,

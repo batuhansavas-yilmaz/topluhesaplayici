@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:toplu_hesaplayici/main.dart';
 
 class SizeConfig {
   static MediaQueryData _mediaQueryData;
@@ -43,7 +44,7 @@ class _AquariumState extends State<Aquarium> {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Akvaryum"),
+        title: Text("Akvaryum",style: appBarStyle,),
         leading: Transform(
           alignment: FractionalOffset.center,
           transform: Matrix4.rotationZ(-80.10),

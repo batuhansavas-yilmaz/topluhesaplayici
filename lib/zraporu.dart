@@ -53,7 +53,7 @@ class _ZRaporuState extends State<ZRaporu> {
           ),
         ),
 
-        title: Text("Eksik Z Raporu Bulma"),
+        title: Text("Eksik Z Raporu Bulma",style: appBarStyle,),
       ),
 
       body: Column(children: [

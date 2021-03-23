@@ -183,14 +183,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       appBar: AppBar(
-        title: Text("HesapMatik",style: TextStyle(color: Colors.white,
-            shadows: [
-              Shadow(
-                color: Colors.black,
-                blurRadius:SizeConfig.blockSizeVertical* 0.70,
-                offset: Offset(SizeConfig.blockSizeVertical*0.35, SizeConfig.blockSizeVertical*0.25),
-              ),
-            ]),),
+        title: Text("HesapMatik",style: appBarStyle,),
         centerTitle: true,
       ),
       body: GridView.count(
@@ -390,4 +383,14 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
 }
+
+TextStyle appBarStyle = TextStyle(color: Colors.white,
+    shadows: [
+      Shadow(
+        color: Colors.black,
+        blurRadius:SizeConfig.blockSizeVertical* 0.70,
+        offset: Offset(SizeConfig.blockSizeVertical*0.35, SizeConfig.blockSizeVertical*0.25),
+      ),
+    ]);

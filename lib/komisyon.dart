@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:toplu_hesaplayici/main.dart';
 
 class SizeConfig {
   static MediaQueryData _mediaQueryData;
@@ -50,8 +51,8 @@ class _KomisyonState extends State<Komisyon> {
                 }),
           ),
         ),
-        title: Text("Komisyon Hesaplama"),
-        centerTitle: true,
+        title: Text("Komisyon Hesaplama",style: appBarStyle,),
+
       ),
       body: SingleChildScrollView(
         child: Padding(

@@ -50,7 +50,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                 }),
           ),
         ),
-        title: Text("Vücut Kitle Endeksi "),
+        title: Text("Vücut Kitle Endeksi",style: appBarStyle,),
 
       ),
       body: Column(

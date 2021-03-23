@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:toplu_hesaplayici/main.dart';
 
 
 class SizeConfig {
@@ -67,7 +68,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                 }),
           ),
         ),
-        title: Text("KDV Hesaplayıcısı"),
+        title: Text("KDV Hesaplayıcısı",style: appBarStyle,),
       ),
       body: ListView(
         children: [
