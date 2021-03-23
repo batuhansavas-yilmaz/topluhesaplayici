@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                         child: Center(
                           child: Container(
                             child: Text(
-                              "HesapMatik\nv2.5.1",
+                              "HesapMatik\nv2.5.2",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: SizeConfig.blockSizeHorizontal * 5.5,
