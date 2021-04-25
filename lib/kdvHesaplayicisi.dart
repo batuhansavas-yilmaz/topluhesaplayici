@@ -397,7 +397,23 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                               onPressed: () {
                                 setState(() {
                                   mesaj =
-                                      "KDV tutarınız 3/10 oranına göre tevkif edilecektir.";
+                                      "KDV tutarınız 2/10 oranına göre tevkif edilecektir.";
+
+                                  dahilTevkifat = dahilkenKdvTutari * 0.20;
+                                  haricTevkifat = HarickenKdvTutari * 0.20;
+                                  tevkifatHesabi();
+                                  toast();
+                                });
+                              },
+                              child: Text("2/10",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16))),RaisedButton(
+                              color: Colors.white,
+                              onPressed: () {
+                                setState(() {
+                                  mesaj =
+                                  "KDV tutarınız 3/10 oranına göre tevkif edilecektir.";
 
                                   dahilTevkifat = dahilkenKdvTutari * 0.30;
                                   haricTevkifat = HarickenKdvTutari * 0.30;
@@ -409,6 +425,27 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16))),
+
+                        ],
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      ),Row(
+                        children: [RaisedButton(
+                            color: Colors.white,
+                            onPressed: () {
+                              setState(() {
+                                mesaj =
+                                "KDV tutarınız 4/10 oranına göre tevkif edilecektir.";
+                                dahilTevkifat = dahilkenKdvTutari * 0.40;
+                                haricTevkifat = HarickenKdvTutari * 0.40;
+                                tevkifatHesabi();
+                                toast();
+                              });
+                            },
+                            child: Text("4/10",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16))),
+
                           RaisedButton(
                               color: Colors.white,
                               onPressed: () {
@@ -474,7 +511,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                               onPressed: () {
                                 setState(() {
                                   mesaj =
-                                  "KDV tutarınız 1/10 oranına göre tevkif edilecektir.";
+                                  "KDV tutarınız tam tevkifat oranına göre tevkif edilecektir.";
 
                                   dahilTevkifat = dahilkenKdvTutari * 1;
                                   haricTevkifat = HarickenKdvTutari * 1;
