@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:toplu_hesaplayici/beygir.dart';
 import 'package:toplu_hesaplayici/kdvHesaplayicisi.dart';
 import 'package:toplu_hesaplayici/komisyon.dart';
 import 'package:toplu_hesaplayici/zraporu.dart';
@@ -103,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                         child: Center(
                           child: Container(
                             child: Text(
-                              "HesapMatik\nv2.5.2",
+                              "HesapMatik\nv2.6",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: SizeConfig.blockSizeHorizontal * 5.5,
@@ -319,6 +320,27 @@ class _HomePageState extends State<HomePage> {
               width: SizeConfig.blockSizeHorizontal * 30,
             ),
           ),
+          GorevButonlari(
+            navigator: () {
+              setState(() {
+                myBanner.show();
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => Beygir()));
+              });
+            },
+            text: Text(
+              "Kilowatt (kW) \n⇄ \nBeygir Gücü (hp)",
+              style: TextStyle(
+                  fontSize: SizeConfig.blockSizeHorizontal * 4.22,
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            image: Image(
+              image: AssetImage("assets/horse-power.png"),
+              height: SizeConfig.blockSizeVertical * 12.5,
+              width: SizeConfig.blockSizeHorizontal * 30,
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: RaisedButton(
@@ -386,7 +408,7 @@ class _HomePageState extends State<HomePage> {
 
 }
 
-TextStyle appBarStyle = TextStyle(color: Colors.white,
+TextStyle appBarStyle = TextStyle(color: Colors.white,fontWeight: FontWeight.bold,
     shadows: [
       Shadow(
         color: Colors.black,
