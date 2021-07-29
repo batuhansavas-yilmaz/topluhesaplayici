@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     AdmobIslemleri.admobInitialize();
     myBanner = AdmobIslemleri.buildBannerAd();
-    myBanner.load();
+  //  myBanner.load();
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                         child: Center(
                           child: Container(
                             child: Text(
-                              "HesapMatik\nv2.6",
+                              "HesapMatik\nv3.0",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: SizeConfig.blockSizeHorizontal * 5.5,
@@ -133,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                       height: SizeConfig.blockSizeVertical * 1.20,
                     ),
                     BaglantiButon(
-                      link: "https://www.instagram.com/_batuhansavas/",
+                      link: "https://www.instagram.com/_batuhansy/",
                       image: "assets/instagram.png",
                       title: "Instagram",
                     ),
@@ -189,8 +189,10 @@ class _HomePageState extends State<HomePage> {
       ),
       body: GridView.count(
         primary: false,
-        crossAxisCount: 2,
+
         crossAxisSpacing: 20,
+        
+        crossAxisCount: 2,
         children: [
           GorevButonlari(
             image: Image(
