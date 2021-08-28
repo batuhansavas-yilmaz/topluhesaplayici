@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     AdmobIslemleri.admobInitialize();
     myBanner = AdmobIslemleri.buildBannerAd();
-  //  myBanner.load();
+    myBanner.load();
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                         child: Center(
                           child: Container(
                             child: Text(
-                              "HesapMatik\nv3.0",
+                              "HesapMatik\nv3.1",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: SizeConfig.blockSizeHorizontal * 5.5,

@@ -43,10 +43,19 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
 //tevkifat
   double matrahTevkifat = 0.00;
   double TevkifatSonrasiKDV = 0.00;
+  double kdvDahilTevkifatliToplamTutar = 0.00;
   double tevkifatOncesiKDV = 0.00;
   double Tevkifat = 0.00;
   double oranTevkifat = 0.00;
   double TevkifatliToplamTutar = 0.00;
+
+  //kdv dahil tevk
+  double dahilMatrahTevkifat = 0.00;
+  double dahilTevkifatOncesiKdv = 0.00;
+  double dahilTevkifatToplamTutar = 0.00;
+  double dahilKdvDahilTevkifatliToplamTutar = 0.00;
+  double dahilTevkifat = 0.00;
+  double dahilTevkifatSonrasiKdv = 0.00;
 
   /* Burda , t1 ve t2 adında 2 TextEditingController tipinde nesne ürettik.
   bunları üretmemizin amacı , textfield'de yazılacak olan yazıyı kontrol etmek,işleme sokabilmek
@@ -224,17 +233,37 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           tevk = "2/10";
                                           FocusScope.of(context)
                                               .requestFocus(new FocusNode());
+                                          //haricTevk
                                           matrahTevkifat =
                                               double.parse(t3.text);
                                           oranTevkifat = double.parse(t4.text);
                                           tevkifatOncesiKDV = (matrahTevkifat *
                                               (oranTevkifat / 100));
+                                          kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+
                                           Tevkifat = (tevkifatOncesiKDV * 0.20);
                                           TevkifatSonrasiKDV =
                                               (tevkifatOncesiKDV - Tevkifat);
                                           TevkifatliToplamTutar =
                                               (matrahTevkifat +
                                                   TevkifatSonrasiKDV);
+                                          //dahiltevk
+                                          dahilMatrahTevkifat = matrahTevkifat /
+                                              ((oranTevkifat / 100) + 1);
+                                          dahilTevkifatOncesiKdv =
+                                              dahilMatrahTevkifat *
+                                                  (oranTevkifat / 100);
+                                          dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+
+                                          dahilTevkifat =
+                                              (dahilTevkifatOncesiKdv * 0.20);
+                                          dahilTevkifatSonrasiKdv =
+                                              (dahilTevkifatOncesiKdv -
+                                                  dahilTevkifat);
+                                          dahilTevkifatToplamTutar =
+                                              dahilMatrahTevkifat +
+                                                  dahilTevkifatSonrasiKdv;
+
 
                                           toast();
                                         });
@@ -252,17 +281,36 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           tevk = "3/10";
                                           FocusScope.of(context)
                                               .requestFocus(new FocusNode());
+                                          //haricTevk
                                           matrahTevkifat =
                                               double.parse(t3.text);
                                           oranTevkifat = double.parse(t4.text);
                                           tevkifatOncesiKDV = (matrahTevkifat *
                                               (oranTevkifat / 100));
+                                          kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+
                                           Tevkifat = (tevkifatOncesiKDV * 0.30);
                                           TevkifatSonrasiKDV =
-                                              (tevkifatOncesiKDV - Tevkifat);
+                                          (tevkifatOncesiKDV - Tevkifat);
                                           TevkifatliToplamTutar =
-                                              (matrahTevkifat +
-                                                  TevkifatSonrasiKDV);
+                                          (matrahTevkifat +
+                                              TevkifatSonrasiKDV);
+                                          //dahiltevk
+                                          dahilMatrahTevkifat = matrahTevkifat /
+                                              ((oranTevkifat / 100) + 1);
+                                          dahilTevkifatOncesiKdv =
+                                              dahilMatrahTevkifat *
+                                                  (oranTevkifat / 100);
+                                          dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+
+                                          dahilTevkifat =
+                                          (dahilTevkifatOncesiKdv * 0.30);
+                                          dahilTevkifatSonrasiKdv =
+                                          (dahilTevkifatOncesiKdv -
+                                              dahilTevkifat);
+                                          dahilTevkifatToplamTutar =
+                                              dahilMatrahTevkifat +
+                                                  dahilTevkifatSonrasiKdv;
                                           toast();
                                         });
                                       },
@@ -285,17 +333,36 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           tevk = "4/10";
                                           FocusScope.of(context)
                                               .requestFocus(new FocusNode());
+                                          //haricTevk
                                           matrahTevkifat =
                                               double.parse(t3.text);
                                           oranTevkifat = double.parse(t4.text);
                                           tevkifatOncesiKDV = (matrahTevkifat *
                                               (oranTevkifat / 100));
+                                          kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+
                                           Tevkifat = (tevkifatOncesiKDV * 0.40);
                                           TevkifatSonrasiKDV =
-                                              (tevkifatOncesiKDV - Tevkifat);
+                                          (tevkifatOncesiKDV - Tevkifat);
                                           TevkifatliToplamTutar =
-                                              (matrahTevkifat +
-                                                  TevkifatSonrasiKDV);
+                                          (matrahTevkifat +
+                                              TevkifatSonrasiKDV);
+                                          //dahiltevk
+                                          dahilMatrahTevkifat = matrahTevkifat /
+                                              ((oranTevkifat / 100) + 1);
+                                          dahilTevkifatOncesiKdv =
+                                              dahilMatrahTevkifat *
+                                                  (oranTevkifat / 100);
+                                          dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+
+                                          dahilTevkifat =
+                                          (dahilTevkifatOncesiKdv * 0.40);
+                                          dahilTevkifatSonrasiKdv =
+                                          (dahilTevkifatOncesiKdv -
+                                              dahilTevkifat);
+                                          dahilTevkifatToplamTutar =
+                                              dahilMatrahTevkifat +
+                                                  dahilTevkifatSonrasiKdv;
 
                                           toast();
                                         });
@@ -304,7 +371,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 16))),
-                                  Container(alignment: Alignment.center,height: 40,width: 60,
+                                  Container(
+                                      alignment: Alignment.center,
+                                      height: 40,
+                                      width: 60,
                                       decoration: BoxDecoration(
                                           border: Border.all(
                                               color: Colors.black, width: 1.5),
@@ -326,17 +396,36 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           tevk = "5/10";
                                           FocusScope.of(context)
                                               .requestFocus(new FocusNode());
+                                          //haricTevk
                                           matrahTevkifat =
                                               double.parse(t3.text);
                                           oranTevkifat = double.parse(t4.text);
                                           tevkifatOncesiKDV = (matrahTevkifat *
                                               (oranTevkifat / 100));
+                                          kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+
                                           Tevkifat = (tevkifatOncesiKDV * 0.50);
                                           TevkifatSonrasiKDV =
-                                              (tevkifatOncesiKDV - Tevkifat);
+                                          (tevkifatOncesiKDV - Tevkifat);
                                           TevkifatliToplamTutar =
-                                              (matrahTevkifat +
-                                                  TevkifatSonrasiKDV);
+                                          (matrahTevkifat +
+                                              TevkifatSonrasiKDV);
+                                          //dahiltevk
+                                          dahilMatrahTevkifat = matrahTevkifat /
+                                              ((oranTevkifat / 100) + 1);
+                                          dahilTevkifatOncesiKdv =
+                                              dahilMatrahTevkifat *
+                                                  (oranTevkifat / 100);
+                                          dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+
+                                          dahilTevkifat =
+                                          (dahilTevkifatOncesiKdv * 0.50);
+                                          dahilTevkifatSonrasiKdv =
+                                          (dahilTevkifatOncesiKdv -
+                                              dahilTevkifat);
+                                          dahilTevkifatToplamTutar =
+                                              dahilMatrahTevkifat +
+                                                  dahilTevkifatSonrasiKdv;
 
                                           toast();
                                         });
@@ -360,17 +449,36 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           tevk = "7/10";
                                           FocusScope.of(context)
                                               .requestFocus(new FocusNode());
+                                          //haricTevk
                                           matrahTevkifat =
                                               double.parse(t3.text);
                                           oranTevkifat = double.parse(t4.text);
                                           tevkifatOncesiKDV = (matrahTevkifat *
                                               (oranTevkifat / 100));
+                                          kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+
                                           Tevkifat = (tevkifatOncesiKDV * 0.70);
                                           TevkifatSonrasiKDV =
-                                              (tevkifatOncesiKDV - Tevkifat);
+                                          (tevkifatOncesiKDV - Tevkifat);
                                           TevkifatliToplamTutar =
-                                              (matrahTevkifat +
-                                                  TevkifatSonrasiKDV);
+                                          (matrahTevkifat +
+                                              TevkifatSonrasiKDV);
+                                          //dahiltevk
+                                          dahilMatrahTevkifat = matrahTevkifat /
+                                              ((oranTevkifat / 100) + 1);
+                                          dahilTevkifatOncesiKdv =
+                                              dahilMatrahTevkifat *
+                                                  (oranTevkifat / 100);
+                                          dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+
+                                          dahilTevkifat =
+                                          (dahilTevkifatOncesiKdv * 0.70);
+                                          dahilTevkifatSonrasiKdv =
+                                          (dahilTevkifatOncesiKdv -
+                                              dahilTevkifat);
+                                          dahilTevkifatToplamTutar =
+                                              dahilMatrahTevkifat +
+                                                  dahilTevkifatSonrasiKdv;
 
                                           toast();
                                         });
@@ -388,17 +496,36 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           tevk = "9/10";
                                           FocusScope.of(context)
                                               .requestFocus(new FocusNode());
+                                          //haricTevk
                                           matrahTevkifat =
                                               double.parse(t3.text);
                                           oranTevkifat = double.parse(t4.text);
                                           tevkifatOncesiKDV = (matrahTevkifat *
                                               (oranTevkifat / 100));
+                                          kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+
                                           Tevkifat = (tevkifatOncesiKDV * 0.90);
                                           TevkifatSonrasiKDV =
-                                              (tevkifatOncesiKDV - Tevkifat);
+                                          (tevkifatOncesiKDV - Tevkifat);
                                           TevkifatliToplamTutar =
-                                              (matrahTevkifat +
-                                                  TevkifatSonrasiKDV);
+                                          (matrahTevkifat +
+                                              TevkifatSonrasiKDV);
+                                          //dahiltevk
+                                          dahilMatrahTevkifat = matrahTevkifat /
+                                              ((oranTevkifat / 100) + 1);
+                                          dahilTevkifatOncesiKdv =
+                                              dahilMatrahTevkifat *
+                                                  (oranTevkifat / 100);
+                                          dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+
+                                          dahilTevkifat =
+                                          (dahilTevkifatOncesiKdv * 0.90);
+                                          dahilTevkifatSonrasiKdv =
+                                          (dahilTevkifatOncesiKdv -
+                                              dahilTevkifat);
+                                          dahilTevkifatToplamTutar =
+                                              dahilMatrahTevkifat +
+                                                  dahilTevkifatSonrasiKdv;
 
                                           toast();
                                         });
@@ -422,17 +549,36 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           tevk = "10/10";
                                           FocusScope.of(context)
                                               .requestFocus(new FocusNode());
+                                          //haricTevk
                                           matrahTevkifat =
                                               double.parse(t3.text);
                                           oranTevkifat = double.parse(t4.text);
                                           tevkifatOncesiKDV = (matrahTevkifat *
                                               (oranTevkifat / 100));
+                                          kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+
                                           Tevkifat = (tevkifatOncesiKDV * 1);
                                           TevkifatSonrasiKDV =
-                                              (tevkifatOncesiKDV - Tevkifat);
+                                          (tevkifatOncesiKDV - Tevkifat);
                                           TevkifatliToplamTutar =
-                                              (matrahTevkifat +
-                                                  TevkifatSonrasiKDV);
+                                          (matrahTevkifat +
+                                              TevkifatSonrasiKDV);
+                                          //dahiltevk
+                                          dahilMatrahTevkifat = matrahTevkifat /
+                                              ((oranTevkifat / 100) + 1);
+                                          dahilTevkifatOncesiKdv =
+                                              dahilMatrahTevkifat *
+                                                  (oranTevkifat / 100);
+                                          dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+
+                                          dahilTevkifat =
+                                          (dahilTevkifatOncesiKdv * 1);
+                                          dahilTevkifatSonrasiKdv =
+                                          (dahilTevkifatOncesiKdv -
+                                              dahilTevkifat);
+                                          dahilTevkifatToplamTutar =
+                                              dahilMatrahTevkifat +
+                                                  dahilTevkifatSonrasiKdv;
 
                                           toast();
                                         });
@@ -453,8 +599,25 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                           children: [
                             Column(
                               children: [
-                                Divider(
-                                  color: Colors.black,
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        color: Colors.blue[900],
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: Text(
+                                            "KDV Hariç Tutardan Tevkifat Hesaplama",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(left: 5.0, right: 5),
@@ -495,6 +658,28 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                             ),
                                             Text(
                                               tevkifatOncesiKDV
+                                                  .toStringAsFixed(2),
+                                              style: stil,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(
+                                        color: Colors.black,
+                                      ),Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 4,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "KDV Dahil Tutar",
+                                              style: stil2,
+                                            ),
+                                            Text(
+                                              kdvDahilTevkifatliToplamTutar
                                                   .toStringAsFixed(2),
                                               style: stil,
                                             ),
@@ -557,6 +742,168 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                             ),
                                             Text(
                                               TevkifatliToplamTutar
+                                                  .toStringAsFixed(2),
+                                              style: stil,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        color: Colors.blue[900],
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: Text(
+                                            "KDV Dahil Tutardan Tevkifat Hesaplama",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 5.0, right: 5),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 4, top: 2),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Matrah",
+                                              style: stil2,
+                                            ),
+                                            Text(
+                                              dahilMatrahTevkifat
+                                                  .toStringAsFixed(2),
+                                              style: stil,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(
+                                        color: Colors.black,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 4,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "KDV Tutarı",
+                                              style: stil2,
+                                            ),
+                                            Text(
+                                              dahilTevkifatOncesiKdv
+                                                  .toStringAsFixed(2),
+                                              style: stil,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(
+                                        color: Colors.black,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 4,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "KDV Dahil Tutar",
+                                              style: stil2,
+                                            ),
+                                            Text(
+                                              dahilKdvDahilTevkifatliToplamTutar
+                                                  .toStringAsFixed(2),
+                                              style: stil,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(
+                                        color: Colors.black,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 4),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Tevkifat Tutarı",
+                                              style: stil2,
+                                            ),
+                                            Text(
+                                              dahilTevkifat.toStringAsFixed(2),
+                                              style: stil,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(
+                                        color: Colors.black,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 4),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Tevkifat Sonrası KDV Tutarı",
+                                              style: stil2,
+                                            ),
+                                            Text(
+                                              dahilTevkifatSonrasiKdv
+                                                  .toStringAsFixed(2),
+                                              style: stil,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(
+                                        color: Colors.black,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 4),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Toplam Tutar",
+                                              style: stil2,
+                                            ),
+                                            Text(
+                                              dahilTevkifatToplamTutar
                                                   .toStringAsFixed(2),
                                               style: stil,
                                             ),
@@ -683,9 +1030,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                               dahilTutar = hesapTutar / ((hesapOran / 100) + 1);
                               dahilkenKdvTutari = hesapTutar - dahilTutar;
                               toplamDahilTutar = hesapTutar;
-                              matrahTevkifat = 0;
-                              TevkifatSonrasiKDV = 0;
-                              TevkifatliToplamTutar = toplamHaricTutar;
+
 
                               toast();
                             });
