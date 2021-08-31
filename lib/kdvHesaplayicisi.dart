@@ -97,7 +97,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                 ),
                 FlatButton(
                   child: Text(
-                    "KDV Hesaplama",
+                    "KDV Hesaplama",textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.white,
@@ -219,7 +219,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 80),
+                          padding: const EdgeInsets.symmetric(horizontal: 36.5),
                           child: Column(
                             children: [
                               Row(

@@ -15,7 +15,8 @@ class GorevButonlari extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       // ignore: deprecated_member_use
-      child: RaisedButton(
+      child: RaisedButton(shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25)),
         color: Colors.white,
         onPressed: navigator,
         child: Column(

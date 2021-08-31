@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                         child: Center(
                           child: Container(
                             child: Text(
-                              "HesapMatik\nv3.1",
+                              "HesapMatik\nv3.2",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: SizeConfig.blockSizeHorizontal * 5.5,
@@ -312,13 +312,13 @@ class _HomePageState extends State<HomePage> {
             text: Text(
               "%70'lik Akaryakıt Fişleri",
               style: TextStyle(
-                  fontSize: SizeConfig.blockSizeHorizontal * 4,
+                  fontSize: SizeConfig.blockSizeHorizontal * 3,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             image: Image(
               image: AssetImage("assets/petrol.png"),
-              height: SizeConfig.blockSizeVertical * 13,
+              height: SizeConfig.blockSizeVertical * 12,
               width: SizeConfig.blockSizeHorizontal * 30,
             ),
           ),
@@ -333,19 +333,20 @@ class _HomePageState extends State<HomePage> {
             text: Text(
               "Kilowatt (kW) \n⇄ \nBeygir Gücü (hp)",
               style: TextStyle(
-                  fontSize: SizeConfig.blockSizeHorizontal * 4.22,
+                  fontSize: SizeConfig.blockSizeHorizontal * 3,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             image: Image(
               image: AssetImage("assets/horse-power.png"),
-              height: SizeConfig.blockSizeVertical * 12.5,
-              width: SizeConfig.blockSizeHorizontal * 30,
+              height: SizeConfig.blockSizeVertical * 11.5,
+              width: SizeConfig.blockSizeHorizontal * 32,
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: RaisedButton(
+            child: RaisedButton(shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25)),
               color: Colors.white,
               onPressed: () {
                 setState(() {
