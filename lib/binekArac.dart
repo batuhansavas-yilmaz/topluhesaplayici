@@ -20,25 +20,27 @@ class SizeConfig {
   }
 }
 
-class Akaryakit extends StatefulWidget {
+class BinekArac extends StatefulWidget {
   @override
-  _AkaryakitState createState() => _AkaryakitState();
+  _BinekAracState createState() => _BinekAracState();
 }
 
-class _AkaryakitState extends State<Akaryakit> {
+class _BinekAracState extends State<BinekArac> {
   double tutar = 0.00;
-  double matrah = 0.00;
-  double kdv = 0.00;
+  double kdvOran = 0.00;
+  double giderKabulEdilenMatrah = 0.00;
+  double giderKabulEdilenKdv = 0.00;
+  double giderKabulEdilenTutar=0.00;
   double giderKabulEdilmeyenMatrah = 0.00;
   double giderKabulEdilmeyenKdv = 0.00;
-  double giderKabulEdilmeyenToplam = 0.00;
-  double toplamYetmis=0.00;
+  double giderKabulEdilmeyenTutar = 0.00;
   TextEditingController t1 = TextEditingController(text: '');
+  TextEditingController t2 = TextEditingController(text: '');
   @override
   Widget build(BuildContext context) { SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Akaryakıt Fişi",style: appBarStyle,),
+        title: Text("%70'lik Binek Araç Giderleri",style: appBarStyle,),
         leading: Transform(
           alignment: FractionalOffset.center,
           transform: Matrix4.rotationZ(-80.10),
@@ -64,7 +66,7 @@ class _AkaryakitState extends State<Akaryakit> {
                   builder: (context) => AlertDialog(
                     title: Text("Bilgi"),
                     content: Text(
-                        "Bu hesaplayıcı, akaryakıt giderlerinin sadece %70'ini gider gösterebilen vergi mükellefleri içindir."),
+                        "Bu hesaplayıcı binek araç giderlerinin sadece %70'ini gider gösterebilen vergi mükellefleri içindir."),
                     actions: [
                       IconButton(
                           icon: Icon(Icons.close),
@@ -82,36 +84,37 @@ class _AkaryakitState extends State<Akaryakit> {
           Padding(
             padding: const EdgeInsets.only(top:10.0,left: 18,right:18),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  width: 50,
-                ),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: Container(
                       decoration: BoxDecoration(
                           boxShadow: [
-                            BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
+                            BoxShadow(
+                                offset: Offset(0.50, 1.85),
+                                blurRadius: 2)
                           ],
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10)),
-                      child: TextField(controller: t1,
+                      child: TextField(
                         keyboardType:
-                            TextInputType.numberWithOptions(decimal: true,),
-                          inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.deny(",")
-                          ],
+                        TextInputType.numberWithOptions(
+                            decimal: true),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.deny(",")
+                        ],
+                        controller: t1,
                         style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
+                            fontSize: 23,
+                            fontWeight: FontWeight.bold),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          hintText: "Tutar",
+                          hintText: "Toplam Tutar",
                           hintStyle: TextStyle(
-                              fontSize: 25,
+                              fontSize: 23,
                               fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.normal),
                         ),
@@ -120,22 +123,53 @@ class _AkaryakitState extends State<Akaryakit> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 50,
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                              offset: Offset(0.50, 1.85),
+                              blurRadius: 2)
+                        ]),
+                    child: TextField(
+                      controller: t2,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.deny(",")
+                      ],
+                      keyboardType: TextInputType.numberWithOptions(
+                          decimal: true),
+                      style: TextStyle(
+                          fontSize: 23,
+                          fontWeight: FontWeight.bold),
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        hintText: "KDV Oranı",
+                        hintStyle: TextStyle(
+                            fontSize: 23,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.normal),
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
               ],
             ),
-          ),
+          ),SizedBox(height: 2,),
           RaisedButton(
             onPressed: () {setState(() {FocusScope.of(context).requestFocus(new FocusNode());
               tutar = double.parse(t1.text);
-
-              giderKabulEdilmeyenToplam=tutar*0.30;
-              matrah=(tutar*0.70)/1.18;
-              kdv=matrah*0.18;
-              giderKabulEdilmeyenMatrah = giderKabulEdilmeyenToplam/1.18;
-              giderKabulEdilmeyenKdv = giderKabulEdilmeyenMatrah*0.18;
-              toplamYetmis=kdv+matrah;
+              kdvOran = double.parse(t2.text);
+              giderKabulEdilenTutar = (tutar*0.70);
+              giderKabulEdilenMatrah = (giderKabulEdilenTutar/((kdvOran/100)+1));
+              giderKabulEdilenKdv = giderKabulEdilenTutar-giderKabulEdilenMatrah;
+              giderKabulEdilmeyenTutar = (tutar*0.30);
+              giderKabulEdilmeyenMatrah =  (giderKabulEdilmeyenTutar/((kdvOran/100)+1));
+              giderKabulEdilmeyenKdv = giderKabulEdilmeyenTutar-giderKabulEdilmeyenMatrah;
             });},
             color: Colors.white,
             child: Text(
@@ -150,7 +184,7 @@ class _AkaryakitState extends State<Akaryakit> {
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Text(
-                      "Gider Kabul Edilen %70'lik Tutar : ${toplamYetmis.toStringAsFixed(2)}",
+                      "Gider Kabul Edilen %70'lik Tutar : ${giderKabulEdilenTutar.toStringAsFixed(2)}",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 16,
@@ -178,7 +212,7 @@ class _AkaryakitState extends State<Akaryakit> {
                             style: stil2,
                           ),
                           Text(
-                            matrah.toStringAsFixed(2),
+                            giderKabulEdilenMatrah.toStringAsFixed(2),
                             style: stil,
                           ),
                         ],
@@ -199,7 +233,7 @@ class _AkaryakitState extends State<Akaryakit> {
                             style: stil2,
                           ),
                           Text(
-                            kdv.toStringAsFixed(2),
+                            giderKabulEdilenKdv.toStringAsFixed(2),
                             style: stil,
                           ),
                         ],
@@ -216,7 +250,7 @@ class _AkaryakitState extends State<Akaryakit> {
                       child: Padding(
                         padding: const EdgeInsets.all(2.0),
                         child: Text(
-                          "Gider Kabul Edilmeyen %30'luk Tutar : ${giderKabulEdilmeyenToplam.toStringAsFixed(2)}",
+                          "Gider Kabul Edilmeyen %30'luk Tutar : ${giderKabulEdilmeyenTutar.toStringAsFixed(2)}",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 16,

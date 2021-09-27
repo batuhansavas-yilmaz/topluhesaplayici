@@ -18,8 +18,8 @@ class AdmobIslemleri {
       'solver',
       'aquarium',
       'fish',
-      "fuel-oil",
-      "liquid fuel",
+      "car",
+
     ],
     childDirected: false,
     testDevices: <String>[], // Android emulators are considered test devices
@@ -27,8 +27,8 @@ class AdmobIslemleri {
 
   static BannerAd buildBannerAd() {
     return BannerAd(
-      //adUnitId: bannerCanli,
-      adUnitId: BannerAd.testAdUnitId,
+     // adUnitId: bannerCanli,
+     adUnitId: BannerAd.testAdUnitId,
       size: AdSize.banner,
       targetingInfo: targetingInfo,
       listener: (MobileAdEvent event) {

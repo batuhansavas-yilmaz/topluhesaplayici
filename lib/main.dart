@@ -10,7 +10,7 @@ import 'package:toplu_hesaplayici/kdvHesaplayicisi.dart';
 import 'package:toplu_hesaplayici/komisyon.dart';
 import 'package:toplu_hesaplayici/zraporu.dart';
 import 'package:toplu_hesaplayici/vucutKitleEndeksi.dart';
-import 'package:toplu_hesaplayici/akaryakitfisi.dart';
+import 'package:toplu_hesaplayici/binekArac.dart';
 import 'GorevButonlari.dart';
 import 'admobIslemleri.dart';
 import 'akvaryum.dart';
@@ -306,19 +306,19 @@ class _HomePageState extends State<HomePage> {
               setState(() {
                 myBanner.show();
                 Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => Akaryakit()));
+                    CupertinoPageRoute(builder: (context) => BinekArac()));
               });
             },
             text: Text(
-              "%70'lik Akaryakıt Fişleri",
+              "%70'lik Binek Araç Giderleri",
               style: TextStyle(
-                  fontSize: SizeConfig.blockSizeHorizontal * 3,
+                  fontSize: SizeConfig.blockSizeHorizontal * 3.5,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             image: Image(
-              image: AssetImage("assets/petrol.png"),
-              height: SizeConfig.blockSizeVertical * 12,
+              image: AssetImage("assets/car.png"),
+              height: SizeConfig.blockSizeVertical * 12.2,
               width: SizeConfig.blockSizeHorizontal * 30,
             ),
           ),
