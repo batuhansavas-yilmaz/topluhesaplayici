@@ -27,7 +27,7 @@ class BinekArac extends StatefulWidget {
 
 class _BinekAracState extends State<BinekArac> {
   double tutar = 0.00;
-  
+
   double kdvOran = 0.00;
   double giderKabulEdilenMatrah = 0.00;
   double giderKabulEdilenKdv = 0.00;
