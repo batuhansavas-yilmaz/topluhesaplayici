@@ -91,8 +91,8 @@ class _ZRaporuState extends State<ZRaporu> {
                                 )
                               ]));},
                         child: Text(
-                    "Eksik Rapor/Raporlardan Bir Sonraki Raporun Kümülatif Toplamı\nÖrnek İçin Yazıya Dokunun",
-                    textAlign: TextAlign.center,style:TextStyle(fontSize:12)
+                    "Büyük Kümülatif\nÖrnek İçin Yazıya Dokunun",
+                    textAlign: TextAlign.center,style:TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3.88)
                   ),
                       )),
                   Expanded(
@@ -134,8 +134,8 @@ class _ZRaporuState extends State<ZRaporu> {
                 children: [
                   Expanded(
                       child: Text(
-                    "İlk Satırda Kümülatifini Yazdığımız Raporun Toplam Tutarı",
-                    textAlign: TextAlign.center,style:TextStyle(fontSize:12)
+                    "Büyük Tutar",
+                    textAlign: TextAlign.center,style:TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3.88)
                   )),
                   Expanded(
                     child: Padding(
@@ -191,8 +191,8 @@ class _ZRaporuState extends State<ZRaporu> {
                                   )
                                 ]));},
                         child: Text(
-                    "Eksik Rapor/Raporlardan Bir Önceki Raporun Kümülatif Toplamı\nÖrnek İçin Yazıya Dokunun",
-                    textAlign: TextAlign.center,style:TextStyle(fontSize:12)
+                    "Küçük Kümülatif\nÖrnek İçin Yazıya Dokunun",
+                    textAlign: TextAlign.center,style:TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3.88)
                   ),
                       )),
                   Expanded(
@@ -243,13 +243,13 @@ class _ZRaporuState extends State<ZRaporu> {
                   color: Colors.white,
                   child: Text(
                     "Hesapla",
-                    style: TextStyle(fontSize: 17),
+                    style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4,fontWeight: FontWeight.bold),
                   ),
                 ),
               ]),
               Row(children: [
-                Expanded(child: Text("Eksik Rapor/Raporlardaki Toplam Tutar :",textAlign:TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 13.50),)),
-                Expanded(child: Text(sonuc.toStringAsFixed(2),textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20))),
+                Expanded(child: Text("Eksik Rapor/Raporlardaki Toplam Tutar :",textAlign:TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: SizeConfig.blockSizeHorizontal * 3.38),)),
+                Expanded(child: Text(sonuc.toStringAsFixed(2),textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: SizeConfig.blockSizeHorizontal * 3.38))),
 
               ])
             ],

@@ -1,4 +1,4 @@
-import 'package:device_preview/device_preview.dart';
+
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -62,9 +62,9 @@ class _HomePageState extends State<HomePage> {
 
   void initState() {
     super.initState();
-    AdmobIslemleri.admobInitialize();
-    myBanner = AdmobIslemleri.buildBannerAd();
-    myBanner.load();
+  // AdmobIslemleri.admobInitialize();
+  //  myBanner = AdmobIslemleri.buildBannerAd();
+  //  myBanner.load();
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void dispose() {
-    myBanner.dispose();
+    //myBanner.dispose();
     super.dispose();
   }
 
@@ -102,21 +102,25 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                         child: Center(
-                          child: Container(
-                            child: Text(
-                              "HesapMatik\nv3.2",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: SizeConfig.blockSizeHorizontal * 5.5,
-                                  color: Colors.white,
-                                  shadows: [
-                                    Shadow(
-                                      color: Colors.black,
-                                        blurRadius:SizeConfig.blockSizeVertical* 0.8,
-                                        offset: Offset(SizeConfig.blockSizeVertical*0.3, SizeConfig.blockSizeVertical*0.4),
-                                    ),
-                                  ]),
-                            ),
+                          child: Wrap(
+                            children: 
+                              [Container(
+                                child: Text(
+                                  "HesapMatik v3.2",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: SizeConfig.blockSizeHorizontal * 5.5,
+                                      color: Colors.white,
+                                      shadows: [
+                                        Shadow(
+                                          color: Colors.black,
+                                            blurRadius:SizeConfig.blockSizeVertical* 0.8,
+                                            offset: Offset(SizeConfig.blockSizeVertical*0.3, SizeConfig.blockSizeVertical*0.4),
+                                        ),
+                                      ]),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -209,7 +213,7 @@ class _HomePageState extends State<HomePage> {
             ),
             navigator: () {
               setState(() {
-                myBanner.show();
+             //  //myBanner.show();
                 Navigator.push(
                     context,
                     CupertinoPageRoute(
@@ -232,7 +236,7 @@ class _HomePageState extends State<HomePage> {
             ),
             navigator: () {
               setState(() {
-               myBanner.show();
+              //myBanner.show();
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => ZRaporu()));
               });
@@ -253,7 +257,7 @@ class _HomePageState extends State<HomePage> {
             ),
             navigator: () {
               setState(() {
-                myBanner.show();
+               //myBanner.show();
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => Aquarium()));
               });
@@ -262,7 +266,7 @@ class _HomePageState extends State<HomePage> {
           GorevButonlari(
             navigator: () {
               setState(() {
-                myBanner.show();
+               //myBanner.show();
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => KitleEndeksi()));
               });
@@ -283,7 +287,7 @@ class _HomePageState extends State<HomePage> {
           GorevButonlari(
             navigator: () {
               setState(() {
-                myBanner.show();
+               //myBanner.show();
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => Komisyon()));
               });
@@ -304,7 +308,7 @@ class _HomePageState extends State<HomePage> {
           GorevButonlari(
             navigator: () {
               setState(() {
-                myBanner.show();
+               //myBanner.show();
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => BinekArac()));
               });
@@ -325,7 +329,7 @@ class _HomePageState extends State<HomePage> {
           GorevButonlari(
             navigator: () {
               setState(() {
-                myBanner.show();
+               //myBanner.show();
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => Beygir()));
               });
@@ -350,7 +354,7 @@ class _HomePageState extends State<HomePage> {
               color: Colors.white,
               onPressed: () {
                 setState(() {
-                  myBanner.show();
+                 //myBanner.show();
                   showCupertinoModalPopup(
                       context: context,
                       builder: (context) => AlertDialog(
