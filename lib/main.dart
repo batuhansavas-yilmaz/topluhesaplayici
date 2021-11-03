@@ -1,11 +1,10 @@
-
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:toplu_hesaplayici/beygir.dart';
+
+import "package:toplu_hesaplayici/beygir.dart";
 import 'package:toplu_hesaplayici/kdvHesaplayicisi.dart';
 import 'package:toplu_hesaplayici/komisyon.dart';
 import 'package:toplu_hesaplayici/zraporu.dart';
@@ -32,21 +31,19 @@ class SizeConfig {
 }
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-
-        theme: ThemeData(
-            primaryColor: Colors.blue[900],
-            scaffoldBackgroundColor: Colors.blue.shade50),
-        title: "HesapMatik",
-        debugShowCheckedModeBanner: false,
-        home: HomePage(),
-
+    return MaterialApp(
+      theme: ThemeData(scaffoldBackgroundColor: Colors.blue.shade50),
+      title: "HesapMatik",
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
     );
   }
 }
@@ -62,9 +59,9 @@ class _HomePageState extends State<HomePage> {
 
   void initState() {
     super.initState();
-  // AdmobIslemleri.admobInitialize();
-  //  myBanner = AdmobIslemleri.buildBannerAd();
-  //  myBanner.load();
+    AdmobIslemleri.admobInitialize();
+    myBanner = AdmobIslemleri.buildBannerAd();
+    myBanner.load();
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -73,7 +70,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void dispose() {
-    //myBanner.dispose();
+    myBanner.dispose();
     super.dispose();
   }
 
@@ -86,36 +83,46 @@ class _HomePageState extends State<HomePage> {
         child: Drawer(
           child: Column(
             children: [
-              Expanded(flex: 3,
+              Expanded(
+                flex: 3,
                 child: Column(
                   children: [
                     SizedBox(
-                      height: SizeConfig.blockSizeVertical * 17,
+                      height: SizeConfig.blockSizeVertical * 12,
                       child: DrawerHeader(
                         decoration: BoxDecoration(
-                          color: Colors.blue[900],
+                          color: Color(0xff2296F3),
                           boxShadow: [
                             BoxShadow(
-                                color: Colors.black,
-                              blurRadius:SizeConfig.blockSizeVertical* 0.40,
-                              offset: Offset(0, SizeConfig.blockSizeVertical*0.25),),
+                              color: Colors.black,
+                              blurRadius: SizeConfig.blockSizeVertical * 0.40,
+                              offset: Offset(
+                                  0, SizeConfig.blockSizeVertical * 0.25),
+                            ),
                           ],
                         ),
                         child: Center(
                           child: Wrap(
-                            children: 
-                              [Container(
+                            children: [
+                              Container(
                                 child: Text(
-                                  "HesapMatik v3.2",
+                                  "İletişim",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: SizeConfig.blockSizeHorizontal * 5.5,
+                                      fontSize:
+                                          SizeConfig.blockSizeHorizontal * 5.5,
                                       color: Colors.white,
                                       shadows: [
                                         Shadow(
                                           color: Colors.black,
-                                            blurRadius:SizeConfig.blockSizeVertical* 0.8,
-                                            offset: Offset(SizeConfig.blockSizeVertical*0.3, SizeConfig.blockSizeVertical*0.4),
+                                          blurRadius:
+                                              SizeConfig.blockSizeVertical *
+                                                  0.8,
+                                          offset: Offset(
+                                              SizeConfig.blockSizeVertical *
+                                                  0.3,
+                                              SizeConfig.blockSizeVertical *
+                                                  0.4),
                                         ),
                                       ]),
                                 ),
@@ -124,17 +131,6 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                    ),
-                    Text(
-                      "İletişim İçin",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: SizeConfig.blockSizeHorizontal * 4,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Divider(
-                      color: Colors.black,
-                      height: SizeConfig.blockSizeVertical * 1.20,
                     ),
                     BaglantiButon(
                       link: "https://www.instagram.com/_batuhansy/",
@@ -167,53 +163,63 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-              ),Column(children: [
-                SizedBox(
-                  height: SizeConfig.blockSizeVertical * 7.45,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blue[900],
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black,
-                            blurRadius:SizeConfig.blockSizeVertical* 0.40,
-                            offset: Offset(0, SizeConfig.blockSizeVertical*-0.15)),
-                      ],
+              ),
+              Column(
+                children: [
+                  SizedBox(
+                    height: SizeConfig.blockSizeVertical * 7.45,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xff2296F3),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black,
+                              blurRadius: SizeConfig.blockSizeVertical * 0.40,
+                              offset: Offset(
+                                  0, SizeConfig.blockSizeVertical * -0.15)),
+                        ],
+                      ),
                     ),
-                  ),
-                )
-              ],)
+                  )
+                ],
+              )
             ],
           ),
         ),
       ),
       appBar: AppBar(
-        title: Text("HesapMatik",style: appBarStyle,),
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: Icon(Icons.mail),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+        ),
+        title: Text(
+          "HesapMatik",
+          style: appBarStyle,
+        ),
         centerTitle: true,
       ),
-      body: GridView.count(
+      body: GridView.extent(
         primary: false,
-
-        crossAxisSpacing: 20,
-        
-        crossAxisCount: 2,
+        crossAxisSpacing: 2,
+        mainAxisSpacing: 3,
+        maxCrossAxisExtent: 230,
         children: [
           GorevButonlari(
             image: Image(
-              image: AssetImage("assets/percentage.png"),
-              height: SizeConfig.blockSizeVertical * 13,
-              width: SizeConfig.blockSizeHorizontal * 30,
-            ),
+                image: AssetImage("assets/percentage.png"),
+                height: SizeConfig.blockSizeVertical * 12.5),
             text: Text(
               "Kdv",
               style: TextStyle(
-                  fontSize: SizeConfig.blockSizeHorizontal * 4,
+                  fontSize: SizeConfig.blockSizeVertical * 4.0,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             navigator: () {
               setState(() {
-             //  //myBanner.show();
+                myBanner.show();
                 Navigator.push(
                     context,
                     CupertinoPageRoute(
@@ -224,19 +230,19 @@ class _HomePageState extends State<HomePage> {
           GorevButonlari(
             image: Image.asset(
               "assets/zraporu.png",
-              height: SizeConfig.blockSizeVertical * 13,
+              height: SizeConfig.blockSizeVertical * 11,
               width: SizeConfig.blockSizeHorizontal * 30,
             ),
             text: Text(
               "Eksik Z Raporu",
               style: TextStyle(
-                  fontSize: SizeConfig.blockSizeHorizontal * 3,
+                  fontSize: SizeConfig.blockSizeVertical * 2.53,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             navigator: () {
               setState(() {
-              //myBanner.show();
+                myBanner.show();
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => ZRaporu()));
               });
@@ -245,19 +251,19 @@ class _HomePageState extends State<HomePage> {
           GorevButonlari(
             image: Image.asset(
               "assets/aquarium.png",
-              height: SizeConfig.blockSizeVertical * 13,
+              height: SizeConfig.blockSizeVertical * 11,
               width: SizeConfig.blockSizeHorizontal * 30,
             ),
             text: Text(
               "Akvaryum",
               style: TextStyle(
-                  fontSize: SizeConfig.blockSizeHorizontal * 4,
+                  fontSize: SizeConfig.blockSizeVertical * 2.5,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             navigator: () {
               setState(() {
-               //myBanner.show();
+                myBanner.show();
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => Aquarium()));
               });
@@ -266,7 +272,7 @@ class _HomePageState extends State<HomePage> {
           GorevButonlari(
             navigator: () {
               setState(() {
-               //myBanner.show();
+                myBanner.show();
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => KitleEndeksi()));
               });
@@ -274,7 +280,7 @@ class _HomePageState extends State<HomePage> {
             text: Text(
               "Vücut Kitle Endeksi",
               style: TextStyle(
-                  fontSize: SizeConfig.blockSizeHorizontal * 4,
+                  fontSize: SizeConfig.blockSizeVertical * 2.0,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -286,29 +292,31 @@ class _HomePageState extends State<HomePage> {
           ),
           GorevButonlari(
             navigator: () {
-              setState(() {
-               //myBanner.show();
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => Komisyon()));
-              });
+              setState(
+                () {
+                  myBanner.show();
+                  Navigator.push(context,
+                      CupertinoPageRoute(builder: (context) => Komisyon()));
+                },
+              );
             },
             text: Text(
               "Komisyon",
               style: TextStyle(
-                  fontSize: SizeConfig.blockSizeHorizontal * 4,
+                  fontSize: SizeConfig.blockSizeVertical * 2.5,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             image: Image(
               image: AssetImage("assets/commission.png"),
-              height: SizeConfig.blockSizeVertical * 13,
+              height: SizeConfig.blockSizeVertical * 11,
               width: SizeConfig.blockSizeHorizontal * 30,
             ),
           ),
           GorevButonlari(
             navigator: () {
               setState(() {
-               //myBanner.show();
+                myBanner.show();
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => BinekArac()));
               });
@@ -316,45 +324,46 @@ class _HomePageState extends State<HomePage> {
             text: Text(
               "%70'lik Binek Araç Giderleri",
               style: TextStyle(
-                  fontSize: SizeConfig.blockSizeHorizontal * 3.5,
+                  fontSize: SizeConfig.blockSizeVertical * 2.2,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             image: Image(
               image: AssetImage("assets/car.png"),
-              height: SizeConfig.blockSizeVertical * 12.2,
+              height: SizeConfig.blockSizeVertical * 13,
               width: SizeConfig.blockSizeHorizontal * 30,
             ),
           ),
           GorevButonlari(
             navigator: () {
               setState(() {
-               //myBanner.show();
+                myBanner.show();
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => Beygir()));
               });
             },
             text: Text(
-              "Kilowatt (kW) \n⇄ \nBeygir Gücü (hp)",
+              "kW ⇄ hp",
               style: TextStyle(
-                  fontSize: SizeConfig.blockSizeHorizontal * 3,
+                  fontSize: SizeConfig.blockSizeVertical * 3,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             image: Image(
               image: AssetImage("assets/horse-power.png"),
-              height: SizeConfig.blockSizeVertical * 11.5,
+              height: SizeConfig.blockSizeVertical * 13,
               width: SizeConfig.blockSizeHorizontal * 32,
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
-            child: RaisedButton(shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25)),
+            child: RaisedButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25)),
               color: Colors.white,
               onPressed: () {
                 setState(() {
-                 //myBanner.show();
+                  myBanner.show();
                   showCupertinoModalPopup(
                       context: context,
                       builder: (context) => AlertDialog(
@@ -375,7 +384,6 @@ class _HomePageState extends State<HomePage> {
                                           SizeConfig.blockSizeHorizontal * 4,
                                     ),
                                   ),
-
                                 ],
                               ),
                               actions: [
@@ -412,14 +420,33 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
 }
 
-TextStyle appBarStyle = TextStyle(color: Colors.white,fontWeight: FontWeight.bold,
-    shadows: [
-      Shadow(
-        color: Colors.black,
-        blurRadius:SizeConfig.blockSizeVertical* 0.70,
-        offset: Offset(SizeConfig.blockSizeVertical*0.35, SizeConfig.blockSizeVertical*0.25),
-      ),
-    ]);
+TextStyle appBarStyle = TextStyle(
+  color: Colors.white,
+  fontWeight: FontWeight.bold,
+  shadows: [
+    Shadow(
+      color: Colors.black,
+      blurRadius: SizeConfig.blockSizeVertical * 0.70,
+      offset: Offset(SizeConfig.blockSizeVertical * 0.35,
+          SizeConfig.blockSizeVertical * 0.25),
+    ),
+  ],
+);
+
+/*
+
+ mobil ekran için
+style: TextStyle(
+                fontSize: SizeConfig.blockSizeVertical * 4.5,
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            image: Image(
+              image: AssetImage("assets/car.png"),
+              height: SizeConfig.blockSizeVertical * 12.2,
+              width: SizeConfig.blockSizeHorizontal * 30,
+
+
+ */

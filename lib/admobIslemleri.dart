@@ -19,6 +19,7 @@ class AdmobIslemleri {
       'aquarium',
       'fish',
       "car",
+      "horse power",
 
     ],
     childDirected: false,
@@ -27,7 +28,7 @@ class AdmobIslemleri {
 
   static BannerAd buildBannerAd() {
     return BannerAd(
-     // adUnitId: bannerCanli,
+    //adUnitId: bannerCanli,
      adUnitId: BannerAd.testAdUnitId,
       size: AdSize.banner,
       targetingInfo: targetingInfo,

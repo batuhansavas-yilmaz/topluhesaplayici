@@ -181,7 +181,7 @@ class _BinekAracState extends State<BinekArac> {
             children: [
               Expanded(
                 child: Container(
-                  color: Colors.blue[900],
+                  color: Color(0xff2296F3),
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Text(
@@ -247,7 +247,7 @@ class _BinekAracState extends State<BinekArac> {
                 children: [
                   Expanded(
                     child: Container(
-                      color: Colors.blue[900],
+                      color: Color(0xff2296F3),
                       child: Padding(
                         padding: const EdgeInsets.all(2.0),
                         child: Text(

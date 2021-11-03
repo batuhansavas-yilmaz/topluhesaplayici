@@ -603,7 +603,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   children: [
                                     Expanded(
                                       child: Container(
-                                        color: Colors.blue[900],
+                                        color: Color(0xff2296F3),
                                         child: Padding(
                                           padding: const EdgeInsets.all(2.0),
                                           child: Text(
@@ -763,7 +763,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   children: [
                                     Expanded(
                                       child: Container(
-                                        color: Colors.blue[900],
+                                        color: Color(0xff2296F3),
                                         child: Padding(
                                           padding: const EdgeInsets.all(2.0),
                                           child: Text(
@@ -946,7 +946,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       ],
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(10)),
-                                  child: TextField(
+                                  child: TextFormField(
+                                    onFieldSubmitted: (value){},
+                                  textInputAction: TextInputAction.go,
                                     keyboardType:
                                         TextInputType.numberWithOptions(
                                             decimal: true),
@@ -982,7 +984,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           offset: Offset(0.50, 1.85),
                                           blurRadius: 2)
                                     ]),
-                                child: TextField(
+                                child: TextFormField(
+                                  onFieldSubmitted: (value){},
+                                  textInputAction: TextInputAction.go,
                                   controller: t2,
                                   inputFormatters: [
                                     FilteringTextInputFormatter.deny(",")
@@ -1052,7 +1056,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             children: [
                               Expanded(
                                 child: Container(
-                                  color: Colors.blue[900],
+                                  color: Color(0xff2296F3),
                                   child: Padding(
                                     padding: const EdgeInsets.all(2.0),
                                     child: Text(
@@ -1144,7 +1148,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             children: [
                               Expanded(
                                 child: Container(
-                                  color: Colors.blue[900],
+                                  color: Color(0xff2296F3),
                                   child: Padding(
                                     padding: const EdgeInsets.all(2.0),
                                     child: Text(
