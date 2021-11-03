@@ -28,8 +28,8 @@ class AdmobIslemleri {
 
   static BannerAd buildBannerAd() {
     return BannerAd(
-    //adUnitId: bannerCanli,
-     adUnitId: BannerAd.testAdUnitId,
+   //adUnitId: bannerCanli,
+    adUnitId: BannerAd.testAdUnitId,
       size: AdSize.banner,
       targetingInfo: targetingInfo,
       listener: (MobileAdEvent event) {
