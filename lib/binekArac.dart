@@ -46,15 +46,7 @@ class _BinekAracState extends State<BinekArac> {
           alignment: FractionalOffset.center,
           transform: Matrix4.rotationZ(-80.10),
           child: Container(
-            child: IconButton(
-              tooltip: "Geri",
-              icon: Icon(Icons.arrow_drop_down_circle_rounded),
-              onPressed: () {
-                setState(() {
-                  Navigator.pop(context);
-                });
-              },
-            ),
+            child: GeriButton()
           ),
         ),
         actions: [
@@ -99,6 +91,7 @@ class _BinekAracState extends State<BinekArac> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10)),
                       child: TextField(
+                        textInputAction: TextInputAction.next,
                         keyboardType:
                         TextInputType.numberWithOptions(
                             decimal: true),
@@ -135,6 +128,23 @@ class _BinekAracState extends State<BinekArac> {
                               blurRadius: 2)
                         ]),
                     child: TextField(
+                      onSubmitted: (value){
+                        setState(() {
+                          FocusScope.of(context).requestFocus(new FocusNode());
+                          tutar = double.parse(t1.text);
+                          kdvOran = double.parse(t2.text);
+                          giderKabulEdilenTutar = (tutar * 0.70);
+                          giderKabulEdilenMatrah =
+                          (giderKabulEdilenTutar / ((kdvOran / 100) + 1));
+                          giderKabulEdilenKdv =
+                              giderKabulEdilenTutar - giderKabulEdilenMatrah;
+                          giderKabulEdilmeyenTutar = (tutar * 0.30);
+                          giderKabulEdilmeyenMatrah =
+                          (giderKabulEdilmeyenTutar / ((kdvOran / 100) + 1));
+                          giderKabulEdilmeyenKdv =
+                              giderKabulEdilmeyenTutar - giderKabulEdilmeyenMatrah;
+                        });
+                      },
                       controller: t2,
                       inputFormatters: [
                         FilteringTextInputFormatter.deny(",")
@@ -162,16 +172,23 @@ class _BinekAracState extends State<BinekArac> {
             ),
           ),SizedBox(height: 2,),
           RaisedButton(
-            onPressed: () {setState(() {FocusScope.of(context).requestFocus(new FocusNode());
-              tutar = double.parse(t1.text);
-              kdvOran = double.parse(t2.text);
-              giderKabulEdilenTutar = (tutar*0.70);
-              giderKabulEdilenMatrah = (giderKabulEdilenTutar/((kdvOran/100)+1));
-              giderKabulEdilenKdv = giderKabulEdilenTutar-giderKabulEdilenMatrah;
-              giderKabulEdilmeyenTutar = (tutar*0.30);
-              giderKabulEdilmeyenMatrah =  (giderKabulEdilmeyenTutar/((kdvOran/100)+1));
-              giderKabulEdilmeyenKdv = giderKabulEdilmeyenTutar-giderKabulEdilmeyenMatrah;
-            });},
+            onPressed: () {
+              setState(() {
+                FocusScope.of(context).requestFocus(new FocusNode());
+                tutar = double.parse(t1.text);
+                kdvOran = double.parse(t2.text);
+                giderKabulEdilenTutar = (tutar * 0.70);
+                giderKabulEdilenMatrah =
+                    (giderKabulEdilenTutar / ((kdvOran / 100) + 1));
+                giderKabulEdilenKdv =
+                    giderKabulEdilenTutar - giderKabulEdilenMatrah;
+                giderKabulEdilmeyenTutar = (tutar * 0.30);
+                giderKabulEdilmeyenMatrah =
+                    (giderKabulEdilmeyenTutar / ((kdvOran / 100) + 1));
+                giderKabulEdilmeyenKdv =
+                    giderKabulEdilmeyenTutar - giderKabulEdilmeyenMatrah;
+              });
+            },
             color: Colors.white,
             child: Text(
               "Hesapla",

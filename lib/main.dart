@@ -3,7 +3,10 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:page_transition/page_transition.dart';
+import 'dart:io';
 
+import 'package:window_size/window_size.dart';
 import "package:toplu_hesaplayici/beygir.dart";
 import 'package:toplu_hesaplayici/kdvHesaplayicisi.dart';
 import 'package:toplu_hesaplayici/komisyon.dart';
@@ -31,6 +34,15 @@ class SizeConfig {
 }
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    setWindowTitle('App title');
+    setWindowMinSize(const Size(800, 800));
+    setWindowMaxSize(const Size(800, 800));
+  }
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    setWindowTitle('HesapMatik');
+  }
   runApp(
     MyApp(),
   );
@@ -54,6 +66,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+
   @override
   BannerAd myBanner;
 
@@ -222,8 +236,10 @@ class _HomePageState extends State<HomePage> {
                 myBanner.show();
                 Navigator.push(
                     context,
-                    CupertinoPageRoute(
-                        builder: (context) => KdvHesaplayicisi()));
+                    PageTransition(
+                        type: PageTransitionType.fade,
+                        duration: Duration(microseconds: 1),
+                        child: KdvHesaplayicisi()));
               });
             },
           ),
@@ -243,10 +259,38 @@ class _HomePageState extends State<HomePage> {
             navigator: () {
               setState(() {
                 myBanner.show();
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => ZRaporu()));
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.fade,
+                        duration: Duration(microseconds: 1),
+                        child: ZRaporu()));
               });
             },
+          ),GorevButonlari(
+            navigator: () {
+              setState(() {
+                myBanner.show();
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.fade,
+                        duration: Duration(microseconds: 1),
+                        child: BinekArac()));
+              });
+            },
+            text: Text(
+              "%70'lik Binek Araç Giderleri",
+              style: TextStyle(
+                  fontSize: SizeConfig.blockSizeVertical * 2.2,
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            image: Image(
+              image: AssetImage("assets/car.png"),
+              height: SizeConfig.blockSizeVertical * 13,
+              width: SizeConfig.blockSizeHorizontal * 30,
+            ),
           ),
           GorevButonlari(
             image: Image.asset(
@@ -264,8 +308,12 @@ class _HomePageState extends State<HomePage> {
             navigator: () {
               setState(() {
                 myBanner.show();
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => Aquarium()));
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.fade,
+                        duration: Duration(microseconds: 1),
+                        child: Aquarium()));
               });
             },
           ),
@@ -273,8 +321,12 @@ class _HomePageState extends State<HomePage> {
             navigator: () {
               setState(() {
                 myBanner.show();
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => KitleEndeksi()));
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.fade,
+                        duration: Duration(microseconds: 1),
+                        child: KitleEndeksi()));
               });
             },
             text: Text(
@@ -292,13 +344,15 @@ class _HomePageState extends State<HomePage> {
           ),
           GorevButonlari(
             navigator: () {
-              setState(
-                () {
-                  myBanner.show();
-                  Navigator.push(context,
-                      CupertinoPageRoute(builder: (context) => Komisyon()));
-                },
-              );
+              setState(() {
+                myBanner.show();
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.fade,
+                        duration: Duration(microseconds: 1),
+                        child: Komisyon()));
+              });
             },
             text: Text(
               "Komisyon",
@@ -313,33 +367,17 @@ class _HomePageState extends State<HomePage> {
               width: SizeConfig.blockSizeHorizontal * 30,
             ),
           ),
+
           GorevButonlari(
             navigator: () {
               setState(() {
                 myBanner.show();
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => BinekArac()));
-              });
-            },
-            text: Text(
-              "%70'lik Binek Araç Giderleri",
-              style: TextStyle(
-                  fontSize: SizeConfig.blockSizeVertical * 2.2,
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            image: Image(
-              image: AssetImage("assets/car.png"),
-              height: SizeConfig.blockSizeVertical * 13,
-              width: SizeConfig.blockSizeHorizontal * 30,
-            ),
-          ),
-          GorevButonlari(
-            navigator: () {
-              setState(() {
-                myBanner.show();
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => Beygir()));
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.fade,
+                        duration: Duration(microseconds: 1),
+                        child: Beygir()));
               });
             },
             text: Text(

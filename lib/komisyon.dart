@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:toplu_hesaplayici/main.dart';
 
+import 'GorevButonlari.dart';
+
 class SizeConfig {
   static MediaQueryData _mediaQueryData;
   static double screenWidth;
@@ -43,12 +45,7 @@ class _KomisyonState extends State<Komisyon> {
           alignment: FractionalOffset.center,
           transform: Matrix4.rotationZ(-80.10),
           child: Container(
-            child: IconButton(
-                tooltip: "Geri",
-                icon: Icon(Icons.arrow_drop_down_circle_rounded),
-                onPressed: () {
-                  Navigator.pop(context);
-                }),
+            child: GeriButton()
           ),
         ),
         title: Text("Komisyon Hesaplama",style: appBarStyle,),

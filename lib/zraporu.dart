@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'GorevButonlari.dart';
 import 'main.dart';
 
 class SizeConfig {
@@ -44,12 +45,7 @@ class _ZRaporuState extends State<ZRaporu> {
           alignment: FractionalOffset.center,
           transform: Matrix4.rotationZ(-80.10),
           child: Container(
-            child: IconButton(
-                tooltip: "Geri",
-                icon: Icon(Icons.arrow_drop_down_circle_rounded),
-                onPressed: () {
-                  Navigator.pop(context);
-                }),
+            child: GeriButton()
           ),
         ),
         title: Text(
@@ -127,6 +123,8 @@ class _ZRaporuState extends State<ZRaporu> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10)),
                           child: TextField(
+
+                            textInputAction: TextInputAction.next,
                             controller: k1,
                             keyboardType:
                             TextInputType.numberWithOptions(decimal: true),
@@ -184,6 +182,7 @@ class _ZRaporuState extends State<ZRaporu> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10)),
                           child: TextField(
+                            textInputAction: TextInputAction.next,
                             controller: tutar,
                             keyboardType:
                             TextInputType.numberWithOptions(decimal: true),
@@ -261,6 +260,14 @@ class _ZRaporuState extends State<ZRaporu> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10)),
                           child: TextField(
+                            onSubmitted: (value){ setState(() {
+                              buyukKumul = double.parse(k1.text);
+                              kucukKumul = double.parse(k2.text);
+                              tuTar = double.parse(tutar.text);
+
+                              sonuc = ((buyukKumul - kucukKumul) - tuTar);
+                              FocusScope.of(context).requestFocus(new FocusNode());
+                            });},
                             controller: k2,
                             keyboardType:
                             TextInputType.numberWithOptions(decimal: true),

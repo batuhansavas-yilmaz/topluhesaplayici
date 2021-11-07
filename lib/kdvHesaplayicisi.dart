@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:toplu_hesaplayici/main.dart';
 
+import 'GorevButonlari.dart';
+
 class SizeConfig {
   static MediaQueryData _mediaQueryData;
   static double screenWidth;
@@ -119,12 +121,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
               alignment: FractionalOffset.center,
               transform: Matrix4.rotationZ(-80.10),
               child: Container(
-                child: IconButton(
-                    tooltip: "Geri",
-                    icon: Icon(Icons.arrow_drop_down_circle_rounded),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    }),
+                child: GeriButton()
               ),
             ),
             title: Text(
@@ -153,6 +150,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(10)),
                                 child: TextField(
+                                  textInputAction: TextInputAction.next,
                                   keyboardType: TextInputType.numberWithOptions(
                                       decimal: true),
                                   inputFormatters: [
@@ -188,6 +186,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                         blurRadius: 2)
                                   ]),
                               child: TextField(
+
                                 controller: t4,
                                 inputFormatters: [
                                   FilteringTextInputFormatter.deny(",")
@@ -538,59 +537,62 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                               ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: RaisedButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          mesaj =
-                                              "KDV tutarınız tam tevkifat oranına göre tevkif edilecektir.";
-                                          tevk = "10/10";
-                                          FocusScope.of(context)
-                                              .requestFocus(new FocusNode());
-                                          //haricTevk
-                                          matrahTevkifat =
-                                              double.parse(t3.text);
-                                          oranTevkifat = double.parse(t4.text);
-                                          tevkifatOncesiKDV = (matrahTevkifat *
-                                              (oranTevkifat / 100));
-                                          kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: RaisedButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            mesaj =
+                                                "KDV tutarınız tam tevkifat oranına göre tevkif edilecektir.";
+                                            tevk = "10/10";
+                                            FocusScope.of(context)
+                                                .requestFocus(new FocusNode());
+                                            //haricTevk
+                                            matrahTevkifat =
+                                                double.parse(t3.text);
+                                            oranTevkifat = double.parse(t4.text);
+                                            tevkifatOncesiKDV = (matrahTevkifat *
+                                                (oranTevkifat / 100));
+                                            kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
 
-                                          Tevkifat = (tevkifatOncesiKDV * 1);
-                                          TevkifatSonrasiKDV =
-                                          (tevkifatOncesiKDV - Tevkifat);
-                                          TevkifatliToplamTutar =
-                                          (matrahTevkifat +
-                                              TevkifatSonrasiKDV);
-                                          //dahiltevk
-                                          dahilMatrahTevkifat = matrahTevkifat /
-                                              ((oranTevkifat / 100) + 1);
-                                          dahilTevkifatOncesiKdv =
-                                              dahilMatrahTevkifat *
-                                                  (oranTevkifat / 100);
-                                          dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+                                            Tevkifat = (tevkifatOncesiKDV * 1);
+                                            TevkifatSonrasiKDV =
+                                            (tevkifatOncesiKDV - Tevkifat);
+                                            TevkifatliToplamTutar =
+                                            (matrahTevkifat +
+                                                TevkifatSonrasiKDV);
+                                            //dahiltevk
+                                            dahilMatrahTevkifat = matrahTevkifat /
+                                                ((oranTevkifat / 100) + 1);
+                                            dahilTevkifatOncesiKdv =
+                                                dahilMatrahTevkifat *
+                                                    (oranTevkifat / 100);
+                                            dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
 
-                                          dahilTevkifat =
-                                          (dahilTevkifatOncesiKdv * 1);
-                                          dahilTevkifatSonrasiKdv =
-                                          (dahilTevkifatOncesiKdv -
-                                              dahilTevkifat);
-                                          dahilTevkifatToplamTutar =
-                                              dahilMatrahTevkifat +
-                                                  dahilTevkifatSonrasiKdv;
+                                            dahilTevkifat =
+                                            (dahilTevkifatOncesiKdv * 1);
+                                            dahilTevkifatSonrasiKdv =
+                                            (dahilTevkifatOncesiKdv -
+                                                dahilTevkifat);
+                                            dahilTevkifatToplamTutar =
+                                                dahilMatrahTevkifat +
+                                                    dahilTevkifatSonrasiKdv;
 
-                                          toast();
-                                        });
-                                      },
-                                      color: Colors.white,
-                                      child: Text("Tam Tevkifat (10/10)",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16)),
-                                    ),
-                                  )
-                                ],
+                                            toast();
+                                          });
+                                        },
+                                        color: Colors.white,
+                                        child: Text("Tam Tevkifat (10/10)",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16)),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -946,9 +948,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       ],
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(10)),
-                                  child: TextFormField(
-                                    onFieldSubmitted: (value){},
-                                  textInputAction: TextInputAction.go,
+                                  child: TextField(
+
+                                    textInputAction: TextInputAction.next,
                                     keyboardType:
                                         TextInputType.numberWithOptions(
                                             decimal: true),
@@ -984,9 +986,33 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           offset: Offset(0.50, 1.85),
                                           blurRadius: 2)
                                     ]),
-                                child: TextFormField(
-                                  onFieldSubmitted: (value){},
-                                  textInputAction: TextInputAction.go,
+                                child: TextField(
+                                  onSubmitted: (value){
+                                    setState(() {
+                                      FocusScope.of(context)
+                                          .requestFocus(new FocusNode());
+                                      //Burda yatığımız , hesapla butonuna bastığımızda  t1 ve t2 nesnelerine yazılan verilerin,
+                                      //hesaptutar ve hesapOran nesnelerine aktarılmasını sağladık.
+                                      //Bu sayede hesap tutar ve hesap oran nesnelerini kullanarak matematiksel işlemleri yapabildik.
+                                      hesapTutar = double.parse(t1.text);
+                                      hesapOran = double.parse(t2.text);
+                                      mesaj =
+                                      "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır";
+                                      //kdv haric
+                                      HarickenKdvTutari =
+                                      (hesapTutar * (hesapOran / 100));
+                                      haricTutar = hesapTutar;
+                                      toplamHaricTutar = HarickenKdvTutari + haricTutar;
+                                      //kdvdahil
+                                      dahilTutar = hesapTutar / ((hesapOran / 100) + 1);
+                                      dahilkenKdvTutari = hesapTutar - dahilTutar;
+                                      toplamDahilTutar = hesapTutar;
+
+
+                                      toast();
+                                    });
+                                  },
+
                                   controller: t2,
                                   inputFormatters: [
                                     FilteringTextInputFormatter.deny(",")

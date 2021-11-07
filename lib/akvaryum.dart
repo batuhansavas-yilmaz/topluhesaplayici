@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:toplu_hesaplayici/GorevButonlari.dart';
 import 'package:toplu_hesaplayici/main.dart';
 
 class SizeConfig {
@@ -49,12 +50,7 @@ class _AquariumState extends State<Aquarium> {
           alignment: FractionalOffset.center,
           transform: Matrix4.rotationZ(-80.10),
           child: Container(
-            child: IconButton(
-                tooltip: "Geri",
-                icon: Icon(Icons.arrow_drop_down_circle_rounded),
-                onPressed: () {
-                  Navigator.pop(context);
-                }),
+            child: GeriButton()
           ),
         ),
       ),

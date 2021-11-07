@@ -2,7 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:toplu_hesaplayici/main.dart';
+
+import 'GorevButonlari.dart';
 
 class SizeConfig {
   static MediaQueryData _mediaQueryData;
@@ -43,12 +46,7 @@ class _BeygirState extends State<Beygir> {
           alignment: FractionalOffset.center,
           transform: Matrix4.rotationZ(-80.10),
           child: Container(
-            child: IconButton(
-                tooltip: "Geri",
-                icon: Icon(Icons.arrow_drop_down_circle_rounded),
-                onPressed: () {
-                  Navigator.pop(context);
-                }),
+            child: GeriButton(),
           ),
         ),
         title: Text(
@@ -241,3 +239,4 @@ class _BeygirState extends State<Beygir> {
     );
   }
 }
+
