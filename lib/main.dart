@@ -16,6 +16,7 @@ import 'package:toplu_hesaplayici/binekArac.dart';
 import 'GorevButonlari.dart';
 import 'admobIslemleri.dart';
 import 'akvaryum.dart';
+import 'package:flutter_web_frame/flutter_web_frame.dart';
 
 class SizeConfig {
   static MediaQueryData _mediaQueryData;
@@ -34,15 +35,15 @@ class SizeConfig {
 }
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-    setWindowTitle('App title');
-    setWindowMinSize(const Size(800, 800));
-    setWindowMaxSize(const Size(800, 800));
-  }
-  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-    setWindowTitle('HesapMatik');
-  }
+  // WidgetsFlutterBinding.ensureInitialized();
+  // if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+  //   setWindowTitle('App title');
+  //   setWindowMinSize(const Size(500, 600));
+  //   setWindowMaxSize(const Size(500, 600));
+  // }
+  // if (Platform.isWindows || Platform.isLinux || Platform.isMacOS ) {
+  //   setWindowTitle('HesapMatik');
+  // }
   runApp(
     MyApp(),
   );
@@ -60,22 +61,21 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-
-
   @override
-  BannerAd myBanner;
+  //BannerAd myBanner;
 
   void initState() {
     super.initState();
-    AdmobIslemleri.admobInitialize();
-    myBanner = AdmobIslemleri.buildBannerAd();
-    myBanner.load();
+    // AdmobIslemleri.admobInitialize();
+    // myBanner = AdmobIslemleri.buildBannerAd();
+    //myBanner.load();
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void dispose() {
-    myBanner.dispose();
+    //myBanner.dispose();
     super.dispose();
   }
 
@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       drawer: Container(
-        width: SizeConfig.blockSizeHorizontal * 50,
+        width: SizeConfig.blockSizeHorizontal * 40,
         child: Drawer(
           child: Column(
             children: [
@@ -227,13 +227,13 @@ class _HomePageState extends State<HomePage> {
             text: Text(
               "Kdv",
               style: TextStyle(
-                  fontSize: SizeConfig.blockSizeVertical * 4.0,
+                  fontSize: SizeConfig.blockSizeVertical * 3.0,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             navigator: () {
               setState(() {
-                myBanner.show();
+                //myBanner.show();
                 Navigator.push(
                     context,
                     PageTransition(
@@ -258,7 +258,7 @@ class _HomePageState extends State<HomePage> {
             ),
             navigator: () {
               setState(() {
-                myBanner.show();
+                // myBanner.show();
                 Navigator.push(
                     context,
                     PageTransition(
@@ -267,10 +267,11 @@ class _HomePageState extends State<HomePage> {
                         child: ZRaporu()));
               });
             },
-          ),GorevButonlari(
+          ),
+          GorevButonlari(
             navigator: () {
               setState(() {
-                myBanner.show();
+                // myBanner.show();
                 Navigator.push(
                     context,
                     PageTransition(
@@ -307,7 +308,7 @@ class _HomePageState extends State<HomePage> {
             ),
             navigator: () {
               setState(() {
-                myBanner.show();
+                // myBanner.show();
                 Navigator.push(
                     context,
                     PageTransition(
@@ -320,7 +321,7 @@ class _HomePageState extends State<HomePage> {
           GorevButonlari(
             navigator: () {
               setState(() {
-                myBanner.show();
+                //   myBanner.show();
                 Navigator.push(
                     context,
                     PageTransition(
@@ -345,7 +346,7 @@ class _HomePageState extends State<HomePage> {
           GorevButonlari(
             navigator: () {
               setState(() {
-                myBanner.show();
+                //   myBanner.show();
                 Navigator.push(
                     context,
                     PageTransition(
@@ -367,23 +368,24 @@ class _HomePageState extends State<HomePage> {
               width: SizeConfig.blockSizeHorizontal * 30,
             ),
           ),
-
           GorevButonlari(
             navigator: () {
               setState(() {
-                myBanner.show();
+                //   myBanner.show();
                 Navigator.push(
-                    context,
-                    PageTransition(
-                        type: PageTransitionType.fade,
-                        duration: Duration(microseconds: 1),
-                        child: Beygir()));
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.fade,
+                    duration: Duration(microseconds: 1),
+                    child: Beygir(),
+                  ),
+                );
               });
             },
             text: Text(
               "kW ⇄ hp",
               style: TextStyle(
-                  fontSize: SizeConfig.blockSizeVertical * 3,
+                  fontSize: SizeConfig.blockSizeVertical * 2.5,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -401,7 +403,7 @@ class _HomePageState extends State<HomePage> {
               color: Colors.white,
               onPressed: () {
                 setState(() {
-                  myBanner.show();
+                  //   myBanner.show();
                   showCupertinoModalPopup(
                       context: context,
                       builder: (context) => AlertDialog(

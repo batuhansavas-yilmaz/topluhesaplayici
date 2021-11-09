@@ -15,13 +15,9 @@ class GeriButton extends StatelessWidget {
         tooltip: "Geri",
         icon: Icon(Icons.arrow_drop_down_circle_rounded),
         onPressed: () {
-          Navigator.push(
+          Navigator.pop(
             context,
-            PageTransition(
-              type: PageTransitionType.fade,
-              duration: Duration(microseconds: 1),
-              child: MyApp(),
-            ),
+
           );
         });
   }
@@ -45,7 +41,7 @@ class GorevButonlari extends StatelessWidget {
         onPressed: navigator,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             image,
             text,
