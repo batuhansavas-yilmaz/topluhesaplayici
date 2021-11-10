@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 import 'main.dart';
@@ -72,10 +72,10 @@ class BaglantiButon extends StatelessWidget {
           leading: Image(
             image: AssetImage(image),
             height: SizeConfig.blockSizeVertical * 5,
-            width: SizeConfig.blockSizeHorizontal * 5,
+            width: SizeConfig.blockSizeHorizontal * 8,
           ),
           title: Text(title,
-              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 2.5)),
+              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3.5)),
         ),
       ),
     );

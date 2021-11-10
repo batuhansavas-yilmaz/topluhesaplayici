@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:toplu_hesaplayici/main.dart';
+import 'main.dart';
 
 import 'GorevButonlari.dart';
 
@@ -131,10 +131,808 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
           ),
           body: TabBarView(
             children: [
-              Container(margin: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 20),
-                child: ListView(
-                  children: [
-                    Column(
+              ListView(
+                children: [
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                          offset: Offset(0.50, 1.85),
+                                          blurRadius: 2)
+                                    ],
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: TextField(
+                                  textInputAction: TextInputAction.next,
+                                  keyboardType: TextInputType.numberWithOptions(
+                                      decimal: true),
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.deny(",")
+                                  ],
+                                  controller: t3,
+                                  style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold),
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    hintText: "Tutar",
+                                    hintStyle: TextStyle(
+                                        fontSize: 25,
+                                        fontStyle: FontStyle.italic,
+                                        fontWeight: FontWeight.normal),
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        offset: Offset(0.50, 1.85),
+                                        blurRadius: 2)
+                                  ]),
+                              child: TextField(
+
+                                controller: t4,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.deny(",")
+                                ],
+                                keyboardType: TextInputType.numberWithOptions(
+                                    decimal: true),
+                                style: TextStyle(
+                                    fontSize: 25, fontWeight: FontWeight.bold),
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  hintText: "KDV Oranı",
+                                  hintStyle: TextStyle(
+                                      fontSize: 25,
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.normal),
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 5),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 36.5),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  RaisedButton(
+                                      color: Colors.white,
+                                      onPressed: () {
+                                        setState(() {
+                                          mesaj =
+                                              "KDV tutarınız 2/10 oranına göre tevkif edilecektir.";
+                                          tevk = "2/10";
+                                          FocusScope.of(context)
+                                              .requestFocus(new FocusNode());
+                                          //haricTevk
+                                          matrahTevkifat =
+                                              double.parse(t3.text);
+                                          oranTevkifat = double.parse(t4.text);
+                                          tevkifatOncesiKDV = (matrahTevkifat *
+                                              (oranTevkifat / 100));
+                                          kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+
+                                          Tevkifat = (tevkifatOncesiKDV * 0.20);
+                                          TevkifatSonrasiKDV =
+                                              (tevkifatOncesiKDV - Tevkifat);
+                                          TevkifatliToplamTutar =
+                                              (matrahTevkifat +
+                                                  TevkifatSonrasiKDV);
+                                          //dahiltevk
+                                          dahilMatrahTevkifat = matrahTevkifat /
+                                              ((oranTevkifat / 100) + 1);
+                                          dahilTevkifatOncesiKdv =
+                                              dahilMatrahTevkifat *
+                                                  (oranTevkifat / 100);
+                                          dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+
+                                          dahilTevkifat =
+                                              (dahilTevkifatOncesiKdv * 0.20);
+                                          dahilTevkifatSonrasiKdv =
+                                              (dahilTevkifatOncesiKdv -
+                                                  dahilTevkifat);
+                                          dahilTevkifatToplamTutar =
+                                              dahilMatrahTevkifat +
+                                                  dahilTevkifatSonrasiKdv;
+
+
+                                          toast();
+                                        });
+                                      },
+                                      child: Text("2/10",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16))),
+                                  RaisedButton(
+                                      color: Colors.white,
+                                      onPressed: () {
+                                        setState(() {
+                                          mesaj =
+                                              "KDV tutarınız 3/10 oranına göre tevkif edilecektir.";
+                                          tevk = "3/10";
+                                          FocusScope.of(context)
+                                              .requestFocus(new FocusNode());
+                                          //haricTevk
+                                          matrahTevkifat =
+                                              double.parse(t3.text);
+                                          oranTevkifat = double.parse(t4.text);
+                                          tevkifatOncesiKDV = (matrahTevkifat *
+                                              (oranTevkifat / 100));
+                                          kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+
+                                          Tevkifat = (tevkifatOncesiKDV * 0.30);
+                                          TevkifatSonrasiKDV =
+                                          (tevkifatOncesiKDV - Tevkifat);
+                                          TevkifatliToplamTutar =
+                                          (matrahTevkifat +
+                                              TevkifatSonrasiKDV);
+                                          //dahiltevk
+                                          dahilMatrahTevkifat = matrahTevkifat /
+                                              ((oranTevkifat / 100) + 1);
+                                          dahilTevkifatOncesiKdv =
+                                              dahilMatrahTevkifat *
+                                                  (oranTevkifat / 100);
+                                          dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+
+                                          dahilTevkifat =
+                                          (dahilTevkifatOncesiKdv * 0.30);
+                                          dahilTevkifatSonrasiKdv =
+                                          (dahilTevkifatOncesiKdv -
+                                              dahilTevkifat);
+                                          dahilTevkifatToplamTutar =
+                                              dahilMatrahTevkifat +
+                                                  dahilTevkifatSonrasiKdv;
+                                          toast();
+                                        });
+                                      },
+                                      child: Text("3/10",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16))),
+                                ],
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                              ),
+                              Row(
+                                children: [
+                                  RaisedButton(
+                                      color: Colors.white,
+                                      onPressed: () {
+                                        setState(() {
+                                          mesaj =
+                                              "KDV tutarınız 4/10 oranına göre tevkif edilecektir.";
+                                          tevk = "4/10";
+                                          FocusScope.of(context)
+                                              .requestFocus(new FocusNode());
+                                          //haricTevk
+                                          matrahTevkifat =
+                                              double.parse(t3.text);
+                                          oranTevkifat = double.parse(t4.text);
+                                          tevkifatOncesiKDV = (matrahTevkifat *
+                                              (oranTevkifat / 100));
+                                          kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+
+                                          Tevkifat = (tevkifatOncesiKDV * 0.40);
+                                          TevkifatSonrasiKDV =
+                                          (tevkifatOncesiKDV - Tevkifat);
+                                          TevkifatliToplamTutar =
+                                          (matrahTevkifat +
+                                              TevkifatSonrasiKDV);
+                                          //dahiltevk
+                                          dahilMatrahTevkifat = matrahTevkifat /
+                                              ((oranTevkifat / 100) + 1);
+                                          dahilTevkifatOncesiKdv =
+                                              dahilMatrahTevkifat *
+                                                  (oranTevkifat / 100);
+                                          dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+
+                                          dahilTevkifat =
+                                          (dahilTevkifatOncesiKdv * 0.40);
+                                          dahilTevkifatSonrasiKdv =
+                                          (dahilTevkifatOncesiKdv -
+                                              dahilTevkifat);
+                                          dahilTevkifatToplamTutar =
+                                              dahilMatrahTevkifat +
+                                                  dahilTevkifatSonrasiKdv;
+
+                                          toast();
+                                        });
+                                      },
+                                      child: Text("4/10",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16))),
+                                  Container(
+                                      alignment: Alignment.center,
+                                      height: 40,
+                                      width: 60,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Colors.black, width: 1.5),
+                                          borderRadius:
+                                              BorderRadius.circular(4)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Text(tevk,
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold)),
+                                      )),
+                                  RaisedButton(
+                                      color: Colors.white,
+                                      onPressed: () {
+                                        setState(() {
+                                          mesaj =
+                                              "KDV tutarınız 5/10 oranına göre tevkif edilecektir.";
+                                          tevk = "5/10";
+                                          FocusScope.of(context)
+                                              .requestFocus(new FocusNode());
+                                          //haricTevk
+                                          matrahTevkifat =
+                                              double.parse(t3.text);
+                                          oranTevkifat = double.parse(t4.text);
+                                          tevkifatOncesiKDV = (matrahTevkifat *
+                                              (oranTevkifat / 100));
+                                          kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+
+                                          Tevkifat = (tevkifatOncesiKDV * 0.50);
+                                          TevkifatSonrasiKDV =
+                                          (tevkifatOncesiKDV - Tevkifat);
+                                          TevkifatliToplamTutar =
+                                          (matrahTevkifat +
+                                              TevkifatSonrasiKDV);
+                                          //dahiltevk
+                                          dahilMatrahTevkifat = matrahTevkifat /
+                                              ((oranTevkifat / 100) + 1);
+                                          dahilTevkifatOncesiKdv =
+                                              dahilMatrahTevkifat *
+                                                  (oranTevkifat / 100);
+                                          dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+
+                                          dahilTevkifat =
+                                          (dahilTevkifatOncesiKdv * 0.50);
+                                          dahilTevkifatSonrasiKdv =
+                                          (dahilTevkifatOncesiKdv -
+                                              dahilTevkifat);
+                                          dahilTevkifatToplamTutar =
+                                              dahilMatrahTevkifat +
+                                                  dahilTevkifatSonrasiKdv;
+
+                                          toast();
+                                        });
+                                      },
+                                      child: Text("5/10",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16))),
+                                ],
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                              ),
+                              Row(
+                                children: [
+                                  RaisedButton(
+                                      color: Colors.white,
+                                      onPressed: () {
+                                        setState(() {
+                                          mesaj =
+                                              "KDV tutarınız 7/10 oranına göre tevkif edilecektir.";
+                                          tevk = "7/10";
+                                          FocusScope.of(context)
+                                              .requestFocus(new FocusNode());
+                                          //haricTevk
+                                          matrahTevkifat =
+                                              double.parse(t3.text);
+                                          oranTevkifat = double.parse(t4.text);
+                                          tevkifatOncesiKDV = (matrahTevkifat *
+                                              (oranTevkifat / 100));
+                                          kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+
+                                          Tevkifat = (tevkifatOncesiKDV * 0.70);
+                                          TevkifatSonrasiKDV =
+                                          (tevkifatOncesiKDV - Tevkifat);
+                                          TevkifatliToplamTutar =
+                                          (matrahTevkifat +
+                                              TevkifatSonrasiKDV);
+                                          //dahiltevk
+                                          dahilMatrahTevkifat = matrahTevkifat /
+                                              ((oranTevkifat / 100) + 1);
+                                          dahilTevkifatOncesiKdv =
+                                              dahilMatrahTevkifat *
+                                                  (oranTevkifat / 100);
+                                          dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+
+                                          dahilTevkifat =
+                                          (dahilTevkifatOncesiKdv * 0.70);
+                                          dahilTevkifatSonrasiKdv =
+                                          (dahilTevkifatOncesiKdv -
+                                              dahilTevkifat);
+                                          dahilTevkifatToplamTutar =
+                                              dahilMatrahTevkifat +
+                                                  dahilTevkifatSonrasiKdv;
+
+                                          toast();
+                                        });
+                                      },
+                                      child: Text("7/10",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16))),
+                                  RaisedButton(
+                                      color: Colors.white,
+                                      onPressed: () {
+                                        setState(() {
+                                          mesaj =
+                                              "KDV tutarınız 9/10 oranına göre tevkif edilecektir.";
+                                          tevk = "9/10";
+                                          FocusScope.of(context)
+                                              .requestFocus(new FocusNode());
+                                          //haricTevk
+                                          matrahTevkifat =
+                                              double.parse(t3.text);
+                                          oranTevkifat = double.parse(t4.text);
+                                          tevkifatOncesiKDV = (matrahTevkifat *
+                                              (oranTevkifat / 100));
+                                          kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+
+                                          Tevkifat = (tevkifatOncesiKDV * 0.90);
+                                          TevkifatSonrasiKDV =
+                                          (tevkifatOncesiKDV - Tevkifat);
+                                          TevkifatliToplamTutar =
+                                          (matrahTevkifat +
+                                              TevkifatSonrasiKDV);
+                                          //dahiltevk
+                                          dahilMatrahTevkifat = matrahTevkifat /
+                                              ((oranTevkifat / 100) + 1);
+                                          dahilTevkifatOncesiKdv =
+                                              dahilMatrahTevkifat *
+                                                  (oranTevkifat / 100);
+                                          dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+
+                                          dahilTevkifat =
+                                          (dahilTevkifatOncesiKdv * 0.90);
+                                          dahilTevkifatSonrasiKdv =
+                                          (dahilTevkifatOncesiKdv -
+                                              dahilTevkifat);
+                                          dahilTevkifatToplamTutar =
+                                              dahilMatrahTevkifat +
+                                                  dahilTevkifatSonrasiKdv;
+
+                                          toast();
+                                        });
+                                      },
+                                      child: Text("9/10",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16))),
+                                ],
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: RaisedButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            mesaj =
+                                                "KDV tutarınız tam tevkifat oranına göre tevkif edilecektir.";
+                                            tevk = "10/10";
+                                            FocusScope.of(context)
+                                                .requestFocus(new FocusNode());
+                                            //haricTevk
+                                            matrahTevkifat =
+                                                double.parse(t3.text);
+                                            oranTevkifat = double.parse(t4.text);
+                                            tevkifatOncesiKDV = (matrahTevkifat *
+                                                (oranTevkifat / 100));
+                                            kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+
+                                            Tevkifat = (tevkifatOncesiKDV * 1);
+                                            TevkifatSonrasiKDV =
+                                            (tevkifatOncesiKDV - Tevkifat);
+                                            TevkifatliToplamTutar =
+                                            (matrahTevkifat +
+                                                TevkifatSonrasiKDV);
+                                            //dahiltevk
+                                            dahilMatrahTevkifat = matrahTevkifat /
+                                                ((oranTevkifat / 100) + 1);
+                                            dahilTevkifatOncesiKdv =
+                                                dahilMatrahTevkifat *
+                                                    (oranTevkifat / 100);
+                                            dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+
+                                            dahilTevkifat =
+                                            (dahilTevkifatOncesiKdv * 1);
+                                            dahilTevkifatSonrasiKdv =
+                                            (dahilTevkifatOncesiKdv -
+                                                dahilTevkifat);
+                                            dahilTevkifatToplamTutar =
+                                                dahilMatrahTevkifat +
+                                                    dahilTevkifatSonrasiKdv;
+
+                                            toast();
+                                          });
+                                        },
+                                        color: Colors.white,
+                                        child: Text("Tam Tevkifat (10/10)",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16)),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        color: Color(0xff2296F3),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: Text(
+                                            "KDV Hariç Tutardan Tevkifat Hesaplama",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 5.0, right: 5),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 4, top: 2),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Matrah",
+                                              style: stil2,
+                                            ),
+                                            Text(
+                                              matrahTevkifat.toStringAsFixed(2),
+                                              style: stil,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(
+                                        color: Colors.black,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 4,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "KDV Tutarı",
+                                              style: stil2,
+                                            ),
+                                            Text(
+                                              tevkifatOncesiKDV
+                                                  .toStringAsFixed(2),
+                                              style: stil,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(
+                                        color: Colors.black,
+                                      ),Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 4,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "KDV Dahil Tutar",
+                                              style: stil2,
+                                            ),
+                                            Text(
+                                              kdvDahilTevkifatliToplamTutar
+                                                  .toStringAsFixed(2),
+                                              style: stil,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(
+                                        color: Colors.black,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 4),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Tevkifat Tutarı",
+                                              style: stil2,
+                                            ),
+                                            Text(
+                                              Tevkifat.toStringAsFixed(2),
+                                              style: stil,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(
+                                        color: Colors.black,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 4),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Tevkifat Sonrası KDV Tutarı",
+                                              style: stil2,
+                                            ),
+                                            Text(
+                                              TevkifatSonrasiKDV
+                                                  .toStringAsFixed(2),
+                                              style: stil,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(
+                                        color: Colors.black,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 4),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Toplam Tutar",
+                                              style: stil2,
+                                            ),
+                                            Text(
+                                              TevkifatliToplamTutar
+                                                  .toStringAsFixed(2),
+                                              style: stil,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        color: Color(0xff2296F3),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(2.0),
+                                          child: Text(
+                                            "KDV Dahil Tutardan Tevkifat Hesaplama",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 5.0, right: 5),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 4, top: 2),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Matrah",
+                                              style: stil2,
+                                            ),
+                                            Text(
+                                              dahilMatrahTevkifat
+                                                  .toStringAsFixed(2),
+                                              style: stil,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(
+                                        color: Colors.black,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 4,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "KDV Tutarı",
+                                              style: stil2,
+                                            ),
+                                            Text(
+                                              dahilTevkifatOncesiKdv
+                                                  .toStringAsFixed(2),
+                                              style: stil,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(
+                                        color: Colors.black,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 4,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "KDV Dahil Tutar",
+                                              style: stil2,
+                                            ),
+                                            Text(
+                                              dahilKdvDahilTevkifatliToplamTutar
+                                                  .toStringAsFixed(2),
+                                              style: stil,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(
+                                        color: Colors.black,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 4),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Tevkifat Tutarı",
+                                              style: stil2,
+                                            ),
+                                            Text(
+                                              dahilTevkifat.toStringAsFixed(2),
+                                              style: stil,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(
+                                        color: Colors.black,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 4),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Tevkifat Sonrası KDV Tutarı",
+                                              style: stil2,
+                                            ),
+                                            Text(
+                                              dahilTevkifatSonrasiKdv
+                                                  .toStringAsFixed(2),
+                                              style: stil,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Divider(
+                                        color: Colors.black,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 4),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "Toplam Tutar",
+                                              style: stil2,
+                                            ),
+                                            Text(
+                                              dahilTevkifatToplamTutar
+                                                  .toStringAsFixed(2),
+                                              style: stil,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 150,
+                  )
+                ],
+              ),
+              ListView(
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 10, right: 10, bottom: 2.0),
+                    child: Column(
                       children: [
                         Row(
                           children: [
@@ -151,13 +949,15 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(10)),
                                   child: TextField(
+
                                     textInputAction: TextInputAction.next,
-                                    keyboardType: TextInputType.numberWithOptions(
-                                        decimal: true),
+                                    keyboardType:
+                                        TextInputType.numberWithOptions(
+                                            decimal: true),
                                     inputFormatters: [
                                       FilteringTextInputFormatter.deny(",")
                                     ],
-                                    controller: t3,
+                                    controller: t1,
                                     style: TextStyle(
                                         fontSize: 25,
                                         fontWeight: FontWeight.bold),
@@ -187,15 +987,41 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           blurRadius: 2)
                                     ]),
                                 child: TextField(
+                                  onSubmitted: (value){
+                                    setState(() {
+                                      FocusScope.of(context)
+                                          .requestFocus(new FocusNode());
+                                      //Burda yatığımız , hesapla butonuna bastığımızda  t1 ve t2 nesnelerine yazılan verilerin,
+                                      //hesaptutar ve hesapOran nesnelerine aktarılmasını sağladık.
+                                      //Bu sayede hesap tutar ve hesap oran nesnelerini kullanarak matematiksel işlemleri yapabildik.
+                                      hesapTutar = double.parse(t1.text);
+                                      hesapOran = double.parse(t2.text);
+                                      mesaj =
+                                      "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır";
+                                      //kdv haric
+                                      HarickenKdvTutari =
+                                      (hesapTutar * (hesapOran / 100));
+                                      haricTutar = hesapTutar;
+                                      toplamHaricTutar = HarickenKdvTutari + haricTutar;
+                                      //kdvdahil
+                                      dahilTutar = hesapTutar / ((hesapOran / 100) + 1);
+                                      dahilkenKdvTutari = hesapTutar - dahilTutar;
+                                      toplamDahilTutar = hesapTutar;
 
-                                  controller: t4,
+
+                                      toast();
+                                    });
+                                  },
+
+                                  controller: t2,
                                   inputFormatters: [
                                     FilteringTextInputFormatter.deny(",")
                                   ],
                                   keyboardType: TextInputType.numberWithOptions(
                                       decimal: true),
                                   style: TextStyle(
-                                      fontSize: 25, fontWeight: FontWeight.bold),
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold),
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
@@ -212,1061 +1038,231 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             ),
                           ],
                         ),
+                        RaisedButton(
+                          color: Colors.white,
+                          onPressed: () {
+                            setState(() {
+                              FocusScope.of(context)
+                                  .requestFocus(new FocusNode());
+                              //Burda yatığımız , hesapla butonuna bastığımızda  t1 ve t2 nesnelerine yazılan verilerin,
+                              //hesaptutar ve hesapOran nesnelerine aktarılmasını sağladık.
+                              //Bu sayede hesap tutar ve hesap oran nesnelerini kullanarak matematiksel işlemleri yapabildik.
+                              hesapTutar = double.parse(t1.text);
+                              hesapOran = double.parse(t2.text);
+                              mesaj =
+                                  "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır";
+                              //kdv haric
+                              HarickenKdvTutari =
+                                  (hesapTutar * (hesapOran / 100));
+                              haricTutar = hesapTutar;
+                              toplamHaricTutar = HarickenKdvTutari + haricTutar;
+                              //kdvdahil
+                              dahilTutar = hesapTutar / ((hesapOran / 100) + 1);
+                              dahilkenKdvTutari = hesapTutar - dahilTutar;
+                              toplamDahilTutar = hesapTutar;
+
+
+                              toast();
+                            });
+                          },
+                          child: Text(
+                            "Hesapla",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
                       ],
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 5),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 36.5),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    RaisedButton(
-                                        color: Colors.white,
-                                        onPressed: () {
-                                          setState(() {
-                                            mesaj =
-                                                "KDV tutarınız 2/10 oranına göre tevkif edilecektir.";
-                                            tevk = "2/10";
-                                            FocusScope.of(context)
-                                                .requestFocus(new FocusNode());
-                                            //haricTevk
-                                            matrahTevkifat =
-                                                double.parse(t3.text);
-                                            oranTevkifat = double.parse(t4.text);
-                                            tevkifatOncesiKDV = (matrahTevkifat *
-                                                (oranTevkifat / 100));
-                                            kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
-
-                                            Tevkifat = (tevkifatOncesiKDV * 0.20);
-                                            TevkifatSonrasiKDV =
-                                                (tevkifatOncesiKDV - Tevkifat);
-                                            TevkifatliToplamTutar =
-                                                (matrahTevkifat +
-                                                    TevkifatSonrasiKDV);
-                                            //dahiltevk
-                                            dahilMatrahTevkifat = matrahTevkifat /
-                                                ((oranTevkifat / 100) + 1);
-                                            dahilTevkifatOncesiKdv =
-                                                dahilMatrahTevkifat *
-                                                    (oranTevkifat / 100);
-                                            dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
-
-                                            dahilTevkifat =
-                                                (dahilTevkifatOncesiKdv * 0.20);
-                                            dahilTevkifatSonrasiKdv =
-                                                (dahilTevkifatOncesiKdv -
-                                                    dahilTevkifat);
-                                            dahilTevkifatToplamTutar =
-                                                dahilMatrahTevkifat +
-                                                    dahilTevkifatSonrasiKdv;
-
-
-                                            toast();
-                                          });
-                                        },
-                                        child: Text("2/10",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16))),
-                                    RaisedButton(
-                                        color: Colors.white,
-                                        onPressed: () {
-                                          setState(() {
-                                            mesaj =
-                                                "KDV tutarınız 3/10 oranına göre tevkif edilecektir.";
-                                            tevk = "3/10";
-                                            FocusScope.of(context)
-                                                .requestFocus(new FocusNode());
-                                            //haricTevk
-                                            matrahTevkifat =
-                                                double.parse(t3.text);
-                                            oranTevkifat = double.parse(t4.text);
-                                            tevkifatOncesiKDV = (matrahTevkifat *
-                                                (oranTevkifat / 100));
-                                            kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
-
-                                            Tevkifat = (tevkifatOncesiKDV * 0.30);
-                                            TevkifatSonrasiKDV =
-                                            (tevkifatOncesiKDV - Tevkifat);
-                                            TevkifatliToplamTutar =
-                                            (matrahTevkifat +
-                                                TevkifatSonrasiKDV);
-                                            //dahiltevk
-                                            dahilMatrahTevkifat = matrahTevkifat /
-                                                ((oranTevkifat / 100) + 1);
-                                            dahilTevkifatOncesiKdv =
-                                                dahilMatrahTevkifat *
-                                                    (oranTevkifat / 100);
-                                            dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
-
-                                            dahilTevkifat =
-                                            (dahilTevkifatOncesiKdv * 0.30);
-                                            dahilTevkifatSonrasiKdv =
-                                            (dahilTevkifatOncesiKdv -
-                                                dahilTevkifat);
-                                            dahilTevkifatToplamTutar =
-                                                dahilMatrahTevkifat +
-                                                    dahilTevkifatSonrasiKdv;
-                                            toast();
-                                          });
-                                        },
-                                        child: Text("3/10",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16))),
-                                  ],
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                ),
-                                Row(
-                                  children: [
-                                    RaisedButton(
-                                        color: Colors.white,
-                                        onPressed: () {
-                                          setState(() {
-                                            mesaj =
-                                                "KDV tutarınız 4/10 oranına göre tevkif edilecektir.";
-                                            tevk = "4/10";
-                                            FocusScope.of(context)
-                                                .requestFocus(new FocusNode());
-                                            //haricTevk
-                                            matrahTevkifat =
-                                                double.parse(t3.text);
-                                            oranTevkifat = double.parse(t4.text);
-                                            tevkifatOncesiKDV = (matrahTevkifat *
-                                                (oranTevkifat / 100));
-                                            kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
-
-                                            Tevkifat = (tevkifatOncesiKDV * 0.40);
-                                            TevkifatSonrasiKDV =
-                                            (tevkifatOncesiKDV - Tevkifat);
-                                            TevkifatliToplamTutar =
-                                            (matrahTevkifat +
-                                                TevkifatSonrasiKDV);
-                                            //dahiltevk
-                                            dahilMatrahTevkifat = matrahTevkifat /
-                                                ((oranTevkifat / 100) + 1);
-                                            dahilTevkifatOncesiKdv =
-                                                dahilMatrahTevkifat *
-                                                    (oranTevkifat / 100);
-                                            dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
-
-                                            dahilTevkifat =
-                                            (dahilTevkifatOncesiKdv * 0.40);
-                                            dahilTevkifatSonrasiKdv =
-                                            (dahilTevkifatOncesiKdv -
-                                                dahilTevkifat);
-                                            dahilTevkifatToplamTutar =
-                                                dahilMatrahTevkifat +
-                                                    dahilTevkifatSonrasiKdv;
-
-                                            toast();
-                                          });
-                                        },
-                                        child: Text("4/10",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16))),
-                                    Container(
-                                        alignment: Alignment.center,
-                                        height: 40,
-                                        width: 60,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.black, width: 1.5),
-                                            borderRadius:
-                                                BorderRadius.circular(4)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Text(tevk,
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold)),
-                                        )),
-                                    RaisedButton(
-                                        color: Colors.white,
-                                        onPressed: () {
-                                          setState(() {
-                                            mesaj =
-                                                "KDV tutarınız 5/10 oranına göre tevkif edilecektir.";
-                                            tevk = "5/10";
-                                            FocusScope.of(context)
-                                                .requestFocus(new FocusNode());
-                                            //haricTevk
-                                            matrahTevkifat =
-                                                double.parse(t3.text);
-                                            oranTevkifat = double.parse(t4.text);
-                                            tevkifatOncesiKDV = (matrahTevkifat *
-                                                (oranTevkifat / 100));
-                                            kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
-
-                                            Tevkifat = (tevkifatOncesiKDV * 0.50);
-                                            TevkifatSonrasiKDV =
-                                            (tevkifatOncesiKDV - Tevkifat);
-                                            TevkifatliToplamTutar =
-                                            (matrahTevkifat +
-                                                TevkifatSonrasiKDV);
-                                            //dahiltevk
-                                            dahilMatrahTevkifat = matrahTevkifat /
-                                                ((oranTevkifat / 100) + 1);
-                                            dahilTevkifatOncesiKdv =
-                                                dahilMatrahTevkifat *
-                                                    (oranTevkifat / 100);
-                                            dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
-
-                                            dahilTevkifat =
-                                            (dahilTevkifatOncesiKdv * 0.50);
-                                            dahilTevkifatSonrasiKdv =
-                                            (dahilTevkifatOncesiKdv -
-                                                dahilTevkifat);
-                                            dahilTevkifatToplamTutar =
-                                                dahilMatrahTevkifat +
-                                                    dahilTevkifatSonrasiKdv;
-
-                                            toast();
-                                          });
-                                        },
-                                        child: Text("5/10",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16))),
-                                  ],
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                ),
-                                Row(
-                                  children: [
-                                    RaisedButton(
-                                        color: Colors.white,
-                                        onPressed: () {
-                                          setState(() {
-                                            mesaj =
-                                                "KDV tutarınız 7/10 oranına göre tevkif edilecektir.";
-                                            tevk = "7/10";
-                                            FocusScope.of(context)
-                                                .requestFocus(new FocusNode());
-                                            //haricTevk
-                                            matrahTevkifat =
-                                                double.parse(t3.text);
-                                            oranTevkifat = double.parse(t4.text);
-                                            tevkifatOncesiKDV = (matrahTevkifat *
-                                                (oranTevkifat / 100));
-                                            kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
-
-                                            Tevkifat = (tevkifatOncesiKDV * 0.70);
-                                            TevkifatSonrasiKDV =
-                                            (tevkifatOncesiKDV - Tevkifat);
-                                            TevkifatliToplamTutar =
-                                            (matrahTevkifat +
-                                                TevkifatSonrasiKDV);
-                                            //dahiltevk
-                                            dahilMatrahTevkifat = matrahTevkifat /
-                                                ((oranTevkifat / 100) + 1);
-                                            dahilTevkifatOncesiKdv =
-                                                dahilMatrahTevkifat *
-                                                    (oranTevkifat / 100);
-                                            dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
-
-                                            dahilTevkifat =
-                                            (dahilTevkifatOncesiKdv * 0.70);
-                                            dahilTevkifatSonrasiKdv =
-                                            (dahilTevkifatOncesiKdv -
-                                                dahilTevkifat);
-                                            dahilTevkifatToplamTutar =
-                                                dahilMatrahTevkifat +
-                                                    dahilTevkifatSonrasiKdv;
-
-                                            toast();
-                                          });
-                                        },
-                                        child: Text("7/10",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16))),
-                                    RaisedButton(
-                                        color: Colors.white,
-                                        onPressed: () {
-                                          setState(() {
-                                            mesaj =
-                                                "KDV tutarınız 9/10 oranına göre tevkif edilecektir.";
-                                            tevk = "9/10";
-                                            FocusScope.of(context)
-                                                .requestFocus(new FocusNode());
-                                            //haricTevk
-                                            matrahTevkifat =
-                                                double.parse(t3.text);
-                                            oranTevkifat = double.parse(t4.text);
-                                            tevkifatOncesiKDV = (matrahTevkifat *
-                                                (oranTevkifat / 100));
-                                            kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
-
-                                            Tevkifat = (tevkifatOncesiKDV * 0.90);
-                                            TevkifatSonrasiKDV =
-                                            (tevkifatOncesiKDV - Tevkifat);
-                                            TevkifatliToplamTutar =
-                                            (matrahTevkifat +
-                                                TevkifatSonrasiKDV);
-                                            //dahiltevk
-                                            dahilMatrahTevkifat = matrahTevkifat /
-                                                ((oranTevkifat / 100) + 1);
-                                            dahilTevkifatOncesiKdv =
-                                                dahilMatrahTevkifat *
-                                                    (oranTevkifat / 100);
-                                            dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
-
-                                            dahilTevkifat =
-                                            (dahilTevkifatOncesiKdv * 0.90);
-                                            dahilTevkifatSonrasiKdv =
-                                            (dahilTevkifatOncesiKdv -
-                                                dahilTevkifat);
-                                            dahilTevkifatToplamTutar =
-                                                dahilMatrahTevkifat +
-                                                    dahilTevkifatSonrasiKdv;
-
-                                            toast();
-                                          });
-                                        },
-                                        child: Text("9/10",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16))),
-                                  ],
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: RaisedButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              mesaj =
-                                                  "KDV tutarınız tam tevkifat oranına göre tevkif edilecektir.";
-                                              tevk = "10/10";
-                                              FocusScope.of(context)
-                                                  .requestFocus(new FocusNode());
-                                              //haricTevk
-                                              matrahTevkifat =
-                                                  double.parse(t3.text);
-                                              oranTevkifat = double.parse(t4.text);
-                                              tevkifatOncesiKDV = (matrahTevkifat *
-                                                  (oranTevkifat / 100));
-                                              kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
-
-                                              Tevkifat = (tevkifatOncesiKDV * 1);
-                                              TevkifatSonrasiKDV =
-                                              (tevkifatOncesiKDV - Tevkifat);
-                                              TevkifatliToplamTutar =
-                                              (matrahTevkifat +
-                                                  TevkifatSonrasiKDV);
-                                              //dahiltevk
-                                              dahilMatrahTevkifat = matrahTevkifat /
-                                                  ((oranTevkifat / 100) + 1);
-                                              dahilTevkifatOncesiKdv =
-                                                  dahilMatrahTevkifat *
-                                                      (oranTevkifat / 100);
-                                              dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
-
-                                              dahilTevkifat =
-                                              (dahilTevkifatOncesiKdv * 1);
-                                              dahilTevkifatSonrasiKdv =
-                                              (dahilTevkifatOncesiKdv -
-                                                  dahilTevkifat);
-                                              dahilTevkifatToplamTutar =
-                                                  dahilMatrahTevkifat +
-                                                      dahilTevkifatSonrasiKdv;
-
-                                              toast();
-                                            });
-                                          },
-                                          color: Colors.white,
-                                          child: Text("Tam Tevkifat (10/10)",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16)),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Column(
-                            children: [
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          color: Color(0xff2296F3),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(2.0),
-                                            child: Text(
-                                              "KDV Hariç Tutardan Tevkifat Hesaplama",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 5.0, right: 5),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 4, top: 2),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "Matrah",
-                                                style: stil2,
-                                              ),
-                                              Text(
-                                                matrahTevkifat.toStringAsFixed(2),
-                                                style: stil,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Divider(
-                                          color: Colors.black,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                            left: 4,
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "KDV Tutarı",
-                                                style: stil2,
-                                              ),
-                                              Text(
-                                                tevkifatOncesiKDV
-                                                    .toStringAsFixed(2),
-                                                style: stil,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Divider(
-                                          color: Colors.black,
-                                        ),Padding(
-                                          padding: const EdgeInsets.only(
-                                            left: 4,
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "KDV Dahil Tutar",
-                                                style: stil2,
-                                              ),
-                                              Text(
-                                                kdvDahilTevkifatliToplamTutar
-                                                    .toStringAsFixed(2),
-                                                style: stil,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Divider(
-                                          color: Colors.black,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 4),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "Tevkifat Tutarı",
-                                                style: stil2,
-                                              ),
-                                              Text(
-                                                Tevkifat.toStringAsFixed(2),
-                                                style: stil,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Divider(
-                                          color: Colors.black,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 4),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "Tevkifat Sonrası KDV Tutarı",
-                                                style: stil2,
-                                              ),
-                                              Text(
-                                                TevkifatSonrasiKDV
-                                                    .toStringAsFixed(2),
-                                                style: stil,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Divider(
-                                          color: Colors.black,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 4),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "Toplam Tutar",
-                                                style: stil2,
-                                              ),
-                                              Text(
-                                                TevkifatliToplamTutar
-                                                    .toStringAsFixed(2),
-                                                style: stil,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          color: Color(0xff2296F3),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(2.0),
-                                            child: Text(
-                                              "KDV Dahil Tutardan Tevkifat Hesaplama",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 5.0, right: 5),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 4, top: 2),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "Matrah",
-                                                style: stil2,
-                                              ),
-                                              Text(
-                                                dahilMatrahTevkifat
-                                                    .toStringAsFixed(2),
-                                                style: stil,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Divider(
-                                          color: Colors.black,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                            left: 4,
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "KDV Tutarı",
-                                                style: stil2,
-                                              ),
-                                              Text(
-                                                dahilTevkifatOncesiKdv
-                                                    .toStringAsFixed(2),
-                                                style: stil,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Divider(
-                                          color: Colors.black,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                            left: 4,
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "KDV Dahil Tutar",
-                                                style: stil2,
-                                              ),
-                                              Text(
-                                                dahilKdvDahilTevkifatliToplamTutar
-                                                    .toStringAsFixed(2),
-                                                style: stil,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Divider(
-                                          color: Colors.black,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 4),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "Tevkifat Tutarı",
-                                                style: stil2,
-                                              ),
-                                              Text(
-                                                dahilTevkifat.toStringAsFixed(2),
-                                                style: stil,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Divider(
-                                          color: Colors.black,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 4),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "Tevkifat Sonrası KDV Tutarı",
-                                                style: stil2,
-                                              ),
-                                              Text(
-                                                dahilTevkifatSonrasiKdv
-                                                    .toStringAsFixed(2),
-                                                style: stil,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Divider(
-                                          color: Colors.black,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 4),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "Toplam Tutar",
-                                                style: stil2,
-                                              ),
-                                              Text(
-                                                dahilTevkifatToplamTutar
-                                                    .toStringAsFixed(2),
-                                                style: stil,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 150,
-                    )
-                  ],
-                ),
-              ),
-              Container(margin: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 20),
-                child: ListView(
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 10, right: 10, bottom: 2.0),
-                      child: Column(
+                  ),
+                  Column(
+                    children: [
+                      Column(
                         children: [
                           Row(
                             children: [
                               Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        boxShadow: [
-                                          BoxShadow(
-                                              offset: Offset(0.50, 1.85),
-                                              blurRadius: 2)
-                                        ],
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10)),
-                                    child: TextField(
-
-                                      textInputAction: TextInputAction.next,
-                                      keyboardType:
-                                          TextInputType.numberWithOptions(
-                                              decimal: true),
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.deny(",")
-                                      ],
-                                      controller: t1,
-                                      style: TextStyle(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.bold),
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                        hintText: "Tutar",
-                                        hintStyle: TextStyle(
-                                            fontSize: 25,
-                                            fontStyle: FontStyle.italic,
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            offset: Offset(0.50, 1.85),
-                                            blurRadius: 2)
-                                      ]),
-                                  child: TextField(
-                                    onSubmitted: (value){
-                                      setState(() {
-                                        FocusScope.of(context)
-                                            .requestFocus(new FocusNode());
-                                        //Burda yatığımız , hesapla butonuna bastığımızda  t1 ve t2 nesnelerine yazılan verilerin,
-                                        //hesaptutar ve hesapOran nesnelerine aktarılmasını sağladık.
-                                        //Bu sayede hesap tutar ve hesap oran nesnelerini kullanarak matematiksel işlemleri yapabildik.
-                                        hesapTutar = double.parse(t1.text);
-                                        hesapOran = double.parse(t2.text);
-                                        mesaj =
-                                        "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır";
-                                        //kdv haric
-                                        HarickenKdvTutari =
-                                        (hesapTutar * (hesapOran / 100));
-                                        haricTutar = hesapTutar;
-                                        toplamHaricTutar = HarickenKdvTutari + haricTutar;
-                                        //kdvdahil
-                                        dahilTutar = hesapTutar / ((hesapOran / 100) + 1);
-                                        dahilkenKdvTutari = hesapTutar - dahilTutar;
-                                        toplamDahilTutar = hesapTutar;
-
-
-                                        toast();
-                                      });
-                                    },
-
-                                    controller: t2,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.deny(",")
-                                    ],
-                                    keyboardType: TextInputType.numberWithOptions(
-                                        decimal: true),
-                                    style: TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold),
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      hintText: "KDV Oranı",
-                                      hintStyle: TextStyle(
-                                          fontSize: 25,
-                                          fontStyle: FontStyle.italic,
-                                          fontWeight: FontWeight.normal),
+                                  color: Color(0xff2296F3),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Text(
+                                      "KDV Hariç Hesaplama",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                    textAlign: TextAlign.center,
                                   ),
                                 ),
                               ),
                             ],
                           ),
-                          RaisedButton(
-                            color: Colors.white,
-                            onPressed: () {
-                              setState(() {
-                                FocusScope.of(context)
-                                    .requestFocus(new FocusNode());
-                                //Burda yatığımız , hesapla butonuna bastığımızda  t1 ve t2 nesnelerine yazılan verilerin,
-                                //hesaptutar ve hesapOran nesnelerine aktarılmasını sağladık.
-                                //Bu sayede hesap tutar ve hesap oran nesnelerini kullanarak matematiksel işlemleri yapabildik.
-                                hesapTutar = double.parse(t1.text);
-                                hesapOran = double.parse(t2.text);
-                                mesaj =
-                                    "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır";
-                                //kdv haric
-                                HarickenKdvTutari =
-                                    (hesapTutar * (hesapOran / 100));
-                                haricTutar = hesapTutar;
-                                toplamHaricTutar = HarickenKdvTutari + haricTutar;
-                                //kdvdahil
-                                dahilTutar = hesapTutar / ((hesapOran / 100) + 1);
-                                dahilkenKdvTutari = hesapTutar - dahilTutar;
-                                toplamDahilTutar = hesapTutar;
-
-
-                                toast();
-                              });
-                            },
-                            child: Text(
-                              "Hesapla",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 20),
+                          Padding(
+                            padding: EdgeInsets.only(left: 5.0, right: 5),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 4, top: 2),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Matrah",
+                                        style: stil2,
+                                      ),
+                                      Text(
+                                        haricTutar.toStringAsFixed(2),
+                                        style: stil,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Divider(
+                                  color: Colors.black,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 4,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "KDV Tutarı",
+                                        style: stil2,
+                                      ),
+                                      Text(
+                                        HarickenKdvTutari.toStringAsFixed(2),
+                                        style: stil,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Divider(
+                                  color: Colors.black,
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 4, bottom: 2),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Toplam Tutar",
+                                        style: stil2,
+                                      ),
+                                      Text(
+                                        toplamHaricTutar.toStringAsFixed(2),
+                                        style: stil,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
-                    ),
-                    Column(
-                      children: [
-                        Column(
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    color: Color(0xff2296F3),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(2.0),
-                                      child: Text(
-                                        "KDV Hariç Hesaplama",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  color: Color(0xff2296F3),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Text(
+                                      "KDV Dahil Hesaplama",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
                                     ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 5.0, right: 5),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 4, top: 2),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Matrah",
+                                        style: stil2,
+                                      ),
+                                      Text(
+                                        dahilTutar.toStringAsFixed(2),
+                                        style: stil,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Divider(
+                                  color: Colors.black,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 4),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "KDV Tutarı",
+                                        style: stil2,
+                                      ),
+                                      Text(
+                                        dahilkenKdvTutari.toStringAsFixed(2),
+                                        style: stil,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Divider(
+                                  color: Colors.black,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 4),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Toplam Tutar",
+                                        style: stil2,
+                                      ),
+                                      Text(
+                                        toplamDahilTutar.toStringAsFixed(2),
+                                        style: stil,
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 5.0, right: 5),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 4, top: 2),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Matrah",
-                                          style: stil2,
-                                        ),
-                                        Text(
-                                          haricTutar.toStringAsFixed(2),
-                                          style: stil,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: Colors.black,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                      left: 4,
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "KDV Tutarı",
-                                          style: stil2,
-                                        ),
-                                        Text(
-                                          HarickenKdvTutari.toStringAsFixed(2),
-                                          style: stil,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: Colors.black,
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 4, bottom: 2),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Toplam Tutar",
-                                          style: stil2,
-                                        ),
-                                        Text(
-                                          toplamHaricTutar.toStringAsFixed(2),
-                                          style: stil,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    color: Color(0xff2296F3),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(2.0),
-                                      child: Text(
-                                        "KDV Dahil Hesaplama",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 5.0, right: 5),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 4, top: 2),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Matrah",
-                                          style: stil2,
-                                        ),
-                                        Text(
-                                          dahilTutar.toStringAsFixed(2),
-                                          style: stil,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: Colors.black,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 4),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "KDV Tutarı",
-                                          style: stil2,
-                                        ),
-                                        Text(
-                                          dahilkenKdvTutari.toStringAsFixed(2),
-                                          style: stil,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: Colors.black,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 4),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Toplam Tutar",
-                                          style: stil2,
-                                        ),
-                                        Text(
-                                          toplamDahilTutar.toStringAsFixed(2),
-                                          style: stil,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 150,
-                    )
-                  ],
-                ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 150,
+                  )
+                ],
               ),
             ],
           ),
