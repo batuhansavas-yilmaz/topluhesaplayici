@@ -54,185 +54,187 @@ class _BeygirState extends State<Beygir> {
           style: appBarStyle,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Text(
-                "Kilowatt (kW)",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: SizeConfig.blockSizeHorizontal * 5.4,
+      body: Container(margin: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 20),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Text(
+                  "Kilowatt (kW)",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: SizeConfig.blockSizeHorizontal * 2.4,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 45, right: 45),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    offset: Offset(0.50, 1.85), blurRadius: 2)
-                              ],
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: TextField(
-                            controller: t1,
-                            keyboardType: TextInputType.numberWithOptions(
-                              decimal: true,
-                            ),
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.deny(",")
-                            ],
-                            style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.bold),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
+                Padding(
+                  padding: const EdgeInsets.only(left: 45, right: 45),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      offset: Offset(0.50, 1.85), blurRadius: 2)
+                                ],
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: TextField(
+                              controller: t1,
+                              keyboardType: TextInputType.numberWithOptions(
+                                decimal: true,
                               ),
-                              hintText: "kW",
-                              hintStyle: TextStyle(
-                                  fontSize: 25,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.normal),
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.deny(",")
+                              ],
+                              style: TextStyle(
+                                  fontSize: 25, fontWeight: FontWeight.bold),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                hintText: "kW",
+                                hintStyle: TextStyle(
+                                    fontSize: 25,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.normal),
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+                RaisedButton(
+                  color: Colors.white,
+                  onPressed: () {
+                    setState(() {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      kW = double.parse(t1.text);
+                      kWsonuc = kW * 1.341022;
+                    });
+                  },
+                  child: Text(
+                    "Hesapla",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 2.4),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "${kW} kW : ",
+                      style: TextStyle(
+                          fontSize: SizeConfig.blockSizeHorizontal * 2.4),
+                    ),
+                    Text(
+                      "${kWsonuc.toStringAsFixed(3)} hp",
+                      style: TextStyle(
+                          fontSize: SizeConfig.blockSizeHorizontal * 2.4,
+                          fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
-              ),
-              RaisedButton(
-                color: Colors.white,
-                onPressed: () {
-                  setState(() {
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                    kW = double.parse(t1.text);
-                    kWsonuc = kW * 1.341022;
-                  });
-                },
-                child: Text(
-                  "Hesapla",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20),
+                Divider(
+                  color: Colors.black,
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "${kW} kW : ",
-                    style: TextStyle(
-                        fontSize: SizeConfig.blockSizeHorizontal * 4.4),
+                Text(
+                  "Beygir Gücü (hp)",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: SizeConfig.blockSizeHorizontal * 2.4,
                   ),
-                  Text(
-                    "${kWsonuc.toStringAsFixed(3)} hp",
-                    style: TextStyle(
-                        fontSize: SizeConfig.blockSizeHorizontal * 4.4,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              Divider(
-                color: Colors.black,
-              ),
-              Text(
-                "Beygir Gücü (hp)",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: SizeConfig.blockSizeHorizontal * 5.4,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 45, right: 45),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    offset: Offset(0.50, 1.85), blurRadius: 2)
-                              ],
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: TextField(
-                            controller: t2,
-                            keyboardType: TextInputType.numberWithOptions(
-                              decimal: true,
-                            ),
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.deny(",")
-                            ],
-                            style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.bold),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
+                Padding(
+                  padding: const EdgeInsets.only(left: 45, right: 45),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      offset: Offset(0.50, 1.85), blurRadius: 2)
+                                ],
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: TextField(
+                              controller: t2,
+                              keyboardType: TextInputType.numberWithOptions(
+                                decimal: true,
                               ),
-                              hintText: "hp",
-                              hintStyle: TextStyle(
-                                  fontSize: 25,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.normal),
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.deny(",")
+                              ],
+                              style: TextStyle(
+                                  fontSize: 25, fontWeight: FontWeight.bold),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                hintText: "hp",
+                                hintStyle: TextStyle(
+                                    fontSize: 25,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.normal),
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+                RaisedButton(
+                  color: Colors.white,
+                  onPressed: () {
+                    setState(() {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      hP = double.parse(t2.text);
+                      hPsonuc = hP * 0.745699872;
+                    });
+                  },
+                  child: Text(
+                    "Hesapla",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 2.4),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "${hP} hp : ",
+                      style: TextStyle(
+                          fontSize: SizeConfig.blockSizeHorizontal * 2.4),
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      "${hPsonuc.toStringAsFixed(3)} kW",
+                      style: TextStyle(
+                          fontSize: SizeConfig.blockSizeHorizontal * 2.4,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),
-              ),
-              RaisedButton(
-                color: Colors.white,
-                onPressed: () {
-                  setState(() {
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                    hP = double.parse(t2.text);
-                    hPsonuc = hP * 0.745699872;
-                  });
-                },
-                child: Text(
-                  "Hesapla",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20),
+                SizedBox(
+                  height: 70,
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "${hP} hp : ",
-                    style: TextStyle(
-                        fontSize: SizeConfig.blockSizeHorizontal * 4.4),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    "${hPsonuc.toStringAsFixed(3)} kW",
-                    style: TextStyle(
-                        fontSize: SizeConfig.blockSizeHorizontal * 4.4,
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 70,
-              ),
-              Text("DİKKAT \nHesaplamalar için mekanik değerler kullanılmaktadır!",style: TextStyle(
-              fontSize: SizeConfig.blockSizeHorizontal * 4.2,
-                  fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),textAlign: TextAlign.center,)
-            ],
+                Text("DİKKAT \nHesaplamalar için mekanik değerler kullanılmaktadır!",style: TextStyle(
+                fontSize: SizeConfig.blockSizeHorizontal * 2.3,
+                    fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),textAlign: TextAlign.center,)
+              ],
+            ),
           ),
         ),
       ),

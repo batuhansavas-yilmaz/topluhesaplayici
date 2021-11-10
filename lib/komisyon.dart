@@ -54,147 +54,73 @@ class _KomisyonState extends State<Komisyon> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Text(
-                "Komisyon Oranı",
-                style: TextStyle(fontWeight: FontWeight.bold,
-                  fontSize: SizeConfig.blockSizeHorizontal * 5.4,
+          child: Container(margin: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 20),
+            child: Column(
+              children: [
+                Text(
+                  "Komisyon Oranı",
+                  style: TextStyle(fontWeight: FontWeight.bold,
+                    fontSize: SizeConfig.blockSizeHorizontal * 2.4,
+                  ),
                 ),
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  offset: Offset(0.50, 1.85), blurRadius: 2)
+                Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                    offset: Offset(0.50, 1.85), blurRadius: 2)
+                              ],
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: TextField(
+                            keyboardType:
+                                TextInputType.numberWithOptions(decimal: true),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.deny(",")
                             ],
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: TextField(
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
-                          inputFormatters: [
-                            FilteringTextInputFormatter.deny(",")
-                          ],
-                          controller: t1,
-                          style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
+                            controller: t1,
+                            style: TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.bold),
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              hintText: "Ana Para",
+                              hintStyle: TextStyle(
+                                  fontSize: 25,
+                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.normal),
                             ),
-                            hintText: "Ana Para",
-                            hintStyle: TextStyle(
-                                fontSize: 25,
-                                fontStyle: FontStyle.italic,
-                                fontWeight: FontWeight.normal),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
-                          ]),
-                      child: TextField(
-                        controller: t2, inputFormatters: [
-                        FilteringTextInputFormatter.deny(",")
-                      ],
-                        keyboardType:
-                            TextInputType.numberWithOptions(decimal: true),
-                        style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          hintText: "Alınan Pay",
-                          hintStyle: TextStyle(
-                              fontSize: 25,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.normal),
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              RaisedButton(
-                color: Colors.white,
-                onPressed: () {
-                  setState(() {
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                    AnaPara = double.parse(t1.text);
-                    AlinanPay = double.parse(t2.text);
-                    AlinanOranSonuc = (AlinanPay / AnaPara) * 100;
-                  });
-                },
-                child: Text(
-                  "Hesapla",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                      "Aldığınız Pay Oranı : "
-
-                      ,style: TextStyle(
-                          fontSize: SizeConfig.blockSizeHorizontal * 4.4)),Text(
-                     "% ${AlinanOranSonuc.toStringAsFixed(2)}"
-
-                      ,style: TextStyle(
-                          fontSize: SizeConfig.blockSizeHorizontal * 4.4,fontWeight: FontWeight.bold),),
-                ],
-              ),
-              Divider(
-                color: Colors.black,
-              ),
-              Text(
-                "Komisyon Tutarı",
-                style: TextStyle(fontWeight: FontWeight.bold,
-                  fontSize: SizeConfig.blockSizeHorizontal * 5.4,
-                ),
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
+                    Expanded(
                       child: Container(
                         decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  offset: Offset(0.50, 1.85), blurRadius: 2)
-                            ],
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: TextField( inputFormatters: [
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
+                            ]),
+                        child: TextField(
+                          controller: t2, inputFormatters: [
                           FilteringTextInputFormatter.deny(",")
                         ],
                           keyboardType:
                               TextInputType.numberWithOptions(decimal: true),
-                          controller: t3,
                           style: TextStyle(
                               fontSize: 25, fontWeight: FontWeight.bold),
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            hintText: "Ana Para",
+                            hintText: "Alınan Pay",
                             hintStyle: TextStyle(
                                 fontSize: 25,
                                 fontStyle: FontStyle.italic,
@@ -204,81 +130,157 @@ class _KomisyonState extends State<Komisyon> {
                         ),
                       ),
                     ),
+                  ],
+                ),
+                RaisedButton(
+                  color: Colors.white,
+                  onPressed: () {
+                    setState(() {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      AnaPara = double.parse(t1.text);
+                      AlinanPay = double.parse(t2.text);
+                      AlinanOranSonuc = (AlinanPay / AnaPara) * 100;
+                    });
+                  },
+                  child: Text(
+                    "Hesapla",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20),
                   ),
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
-                          ]),
-                      child: TextField( inputFormatters: [
-                        FilteringTextInputFormatter.deny(",")
-                      ],
-                        controller: t4,
-                        keyboardType:
-                            TextInputType.numberWithOptions(decimal: true),
-                        style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
+                ),
+                Row(mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                        "Aldığınız Pay Oranı : "
+
+                        ,style: TextStyle(
+                            fontSize: SizeConfig.blockSizeHorizontal * 2.4)),Text(
+                       "% ${AlinanOranSonuc.toStringAsFixed(2)}"
+
+                        ,style: TextStyle(
+                            fontSize: SizeConfig.blockSizeHorizontal *2.4,fontWeight: FontWeight.bold),),
+                  ],
+                ),
+                Divider(
+                  color: Colors.black,
+                ),
+                Text(
+                  "Komisyon Tutarı",
+                  style: TextStyle(fontWeight: FontWeight.bold,
+                    fontSize: SizeConfig.blockSizeHorizontal * 2.4,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                    offset: Offset(0.50, 1.85), blurRadius: 2)
+                              ],
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: TextField( inputFormatters: [
+                            FilteringTextInputFormatter.deny(",")
+                          ],
+                            keyboardType:
+                                TextInputType.numberWithOptions(decimal: true),
+                            controller: t3,
+                            style: TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.bold),
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              hintText: "Ana Para",
+                              hintStyle: TextStyle(
+                                  fontSize: 25,
+                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.normal),
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          hintText: "Alınan Oran",
-                          hintStyle: TextStyle(
-                              fontSize: 25,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.normal),
                         ),
-                        textAlign: TextAlign.center,
                       ),
                     ),
-                  ),
-                ],
-              ),
-              RaisedButton(
-                color: Colors.white,
-                onPressed: () {
-                  setState(() {
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                    AnaPara = double.parse(t3.text);
-                    AlinanOran = double.parse(t4.text);
-                    AlinanPaySonuc = (AnaPara * (AlinanOran / 100));
-                  });
-                },
-                child: Text(
-                  "Hesapla",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-              Column(
-                children: [
-                  Text(
-                    "Verdiğiniz Orana Göre ",
-                    style:
-                        TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4.4),
-                    textAlign: TextAlign.center,
-                  ),Row(mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Aldığınız Pay : ",
-                        style:
-                            TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4.4),
-                        textAlign: TextAlign.center,
-                      ), Text(
-                        "${AlinanPaySonuc.toStringAsFixed(2)} Para Birimi",
-                        style:
-                            TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4.4,fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
+                            ]),
+                        child: TextField( inputFormatters: [
+                          FilteringTextInputFormatter.deny(",")
+                        ],
+                          controller: t4,
+                          keyboardType:
+                              TextInputType.numberWithOptions(decimal: true),
+                          style: TextStyle(
+                              fontSize: 25, fontWeight: FontWeight.bold),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            hintText: "Alınan Oran",
+                            hintStyle: TextStyle(
+                                fontSize: 25,
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.normal),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
-                    ],
+                    ),
+                  ],
+                ),
+                RaisedButton(
+                  color: Colors.white,
+                  onPressed: () {
+                    setState(() {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      AnaPara = double.parse(t3.text);
+                      AlinanOran = double.parse(t4.text);
+                      AlinanPaySonuc = (AnaPara * (AlinanOran / 100));
+                    });
+                  },
+                  child: Text(
+                    "Hesapla",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20),
                   ),
-                ],
-              ),
-              SizedBox(height: 100,),
-            ],
+                ),
+                Column(
+                  children: [
+                    Text(
+                      "Verdiğiniz Orana Göre ",
+                      style:
+                          TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 2.4),
+                      textAlign: TextAlign.center,
+                    ),Row(mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Aldığınız Pay : ",
+                          style:
+                              TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 2.4),
+                          textAlign: TextAlign.center,
+                        ), Text(
+                          "${AlinanPaySonuc.toStringAsFixed(2)} Para Birimi",
+                          style:
+                              TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 2.4,fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: 100,),
+              ],
+            ),
           ),
         ),
       ),

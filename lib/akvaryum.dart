@@ -54,340 +54,342 @@ class _AquariumState extends State<Aquarium> {
           ),
         ),
       ),
-      body: ListView(
-        primary: false,
-        children: [
-          Wrap(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("Akvaryumunuzun Bilgilerini cm Cinsinden Giriniz",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20)),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Row(
+      body: Container(margin: EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 20),
+        child: ListView(
+          primary: false,
+          children: [
+            Wrap(
               children: [
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(
-                      right: 5,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
-                      ],
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    child: TextField(
-                      controller: derinlik_, inputFormatters: [
-                      FilteringTextInputFormatter.deny(",")
-                    ],
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                      keyboardType:
-                          TextInputType.numberWithOptions(decimal: true),
-                      decoration: InputDecoration(
-                        hintText: "Derinlik",
-                        hintStyle: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.normal),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("Akvaryumunuzun Bilgilerini cm Cinsinden Giriniz",
                       textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(left: 5, right: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
-                      ],
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    child: TextField(
-                      controller: en_,
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                      keyboardType:
-                          TextInputType.numberWithOptions(decimal: true), inputFormatters: [
-                      FilteringTextInputFormatter.deny(",")
-                    ],
-                      decoration: InputDecoration(
-                        hintText: "En",
-                        hintStyle: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.normal),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(left: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
-                      ],
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    child: TextField(
-                      controller: uzunluk_,
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                      keyboardType:
-                          TextInputType.numberWithOptions(decimal: true), inputFormatters: [
-                      FilteringTextInputFormatter.deny(",")
-                    ],
-                      decoration: InputDecoration(
-                        hintText: "Uzunluk",
-                        hintStyle: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.normal),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+                      style: TextStyle(fontSize: 20)),
                 ),
               ],
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: RaisedButton(
-                  color: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Hesapla",
-                      style: TextStyle(fontSize: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(
+                        right: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
+                        ],
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      ),
+                      child: TextField(
+                        controller: derinlik_, inputFormatters: [
+                        FilteringTextInputFormatter.deny(",")
+                      ],
+                        style:
+                            TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        decoration: InputDecoration(
+                          hintText: "Derinlik",
+                          hintStyle: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.normal),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                  onPressed: () {
-                    setState(() {
-                      FocusScope.of(context)
-                          .requestFocus(new FocusNode()); // klavye kapatıcı
-                      uzunluk = double.parse(uzunluk_.text);
-                      en = double.parse(en_.text);
-                      derinlik = double.parse(derinlik_.text);
-                      kumCm_ = double.parse(kumCm.text);
-                      sonuc = (uzunluk * en * derinlik) / 1000;
-                      bitkisiz = sonuc * 0.25;
-                      bitkili = sonuc * 0.50;
-                      filtrasyonMin = sonuc * 2.50;
-                      filtrasyonMax = sonuc * 4.75;
-                      isitici = sonuc * 0.6667;
-                      kum = sonuc * 0.025;
-                      kumKg = kum * kumCm_;
-                    });
-                  },
-                ),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(left: 5, right: 5),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
+                        ],
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      ),
+                      child: TextField(
+                        controller: en_,
+                        style:
+                            TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true), inputFormatters: [
+                        FilteringTextInputFormatter.deny(",")
+                      ],
+                        decoration: InputDecoration(
+                          hintText: "En",
+                          hintStyle: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.normal),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(left: 5),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
+                        ],
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      ),
+                      child: TextField(
+                        controller: uzunluk_,
+                        style:
+                            TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true), inputFormatters: [
+                        FilteringTextInputFormatter.deny(",")
+                      ],
+                        decoration: InputDecoration(
+                          hintText: "Uzunluk",
+                          hintStyle: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.normal),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ]),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Card(
-                  child: ListTile(
-                    title: Text(
-                      "Akvaryumunuzun Kapasitesi",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: RaisedButton(
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Hesapla",
+                        style: TextStyle(fontSize: 20),
+                      ),
                     ),
-                    subtitle: Text(
-                      "${sonuc.toStringAsFixed(0)} Litre ",
-                      style:
-                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
+                    onPressed: () {
+                      setState(() {
+                        FocusScope.of(context)
+                            .requestFocus(new FocusNode()); // klavye kapatıcı
+                        uzunluk = double.parse(uzunluk_.text);
+                        en = double.parse(en_.text);
+                        derinlik = double.parse(derinlik_.text);
+                        kumCm_ = double.parse(kumCm.text);
+                        sonuc = (uzunluk * en * derinlik) / 1000;
+                        bitkisiz = sonuc * 0.25;
+                        bitkili = sonuc * 0.50;
+                        filtrasyonMin = sonuc * 2.50;
+                        filtrasyonMax = sonuc * 4.75;
+                        isitici = sonuc * 0.6667;
+                        kum = sonuc * 0.025;
+                        kumKg = kum * kumCm_;
+                      });
+                    },
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Card(
-                  child: ListTile(
-                    title: Text(
-                      "Tavsiye Edilen Işık Gücü",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
+              ]),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                        "Akvaryumunuzun Kapasitesi",
+                        style:
+                            TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      subtitle: Text(
+                        "${sonuc.toStringAsFixed(0)} Litre ",
+                        style:
+                            TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                    subtitle: Column(
-                      children: [
-                        Text(
-                          "Bitkili Akvaryum : " +
-                              bitkili.toStringAsFixed(1) +
-                              " Watt",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                        "Tavsiye Edilen Işık Gücü",
+                        style:
+                            TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      subtitle: Column(
+                        children: [
+                          Text(
+                            "Bitkili Akvaryum : " +
+                                bitkili.toStringAsFixed(1) +
+                                " Watt",
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
-                          "Bitkisiz Akvaryum : " +
-                              bitkisiz.toStringAsFixed(1) +
-                              " Watt",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                        )
-                      ],
+                          Text(
+                            "Bitkisiz Akvaryum : " +
+                                bitkisiz.toStringAsFixed(1) +
+                                " Watt",
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Card(
-                  child: ListTile(
-                    title: Text(
-                      "Filtrasyon",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                    subtitle: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Minimum : ${filtrasyonMin.toStringAsFixed(1)}",
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              " litre/saat",
-                              style: TextStyle(
-                                  fontSize: 11, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Maximum : ${filtrasyonMax.toStringAsFixed(1)}",
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              " litre/saat",
-                              style: TextStyle(
-                                  fontSize: 11, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  SizedBox(
+                    height: 10,
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Card(
-                  child: ListTile(
-                    title: Text(
-                      "Tavsiye Edilen Isıtıcı Gücü",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                    subtitle: Text(
-                      "${isitici.toStringAsFixed(1)} Watt",
-                      style:
-                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Card(
-                  child: ListTile(
-                    title: Text(
-                      "Kum Kalınlığı",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                    subtitle: Row(
-                      children: [
-                        Expanded(
-                          child: Column(
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                        "Filtrasyon",
+                        style:
+                            TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      subtitle: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("cm",style:TextStyle(fontSize:20)),
-
-                              TextField(
+                              Text(
+                                "Minimum : ${filtrasyonMin.toStringAsFixed(1)}",
                                 style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                    fontSize: 17, fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
-                                keyboardType: TextInputType.numberWithOptions(
-                                    decimal: true),
-                                controller: kumCm,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
+                              ),
+                              Text(
+                                " litre/saat",
+                                style: TextStyle(
+                                    fontSize: 11, fontWeight: FontWeight.bold),
                               ),
                             ],
                           ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Text(
-                            "İstediğiniz Kalınlık İçin Gerekli Kum : ${kumKg.toStringAsFixed(1)} Kg",
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Maximum : ${filtrasyonMax.toStringAsFixed(1)}",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                " litre/saat",
+                                style: TextStyle(
+                                    fontSize: 11, fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 170,
-                ),
-              ],
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                        "Tavsiye Edilen Isıtıcı Gücü",
+                        style:
+                            TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      subtitle: Text(
+                        "${isitici.toStringAsFixed(1)} Watt",
+                        style:
+                            TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Card(
+                    child: ListTile(
+                      title: Text(
+                        "Kum Kalınlığı",
+                        style:
+                            TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      subtitle: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Text("cm",style:TextStyle(fontSize:20)),
+
+                                TextField(
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  keyboardType: TextInputType.numberWithOptions(
+                                      decimal: true),
+                                  controller: kumCm,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              "İstediğiniz Kalınlık İçin Gerekli Kum : ${kumKg.toStringAsFixed(1)} Kg",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 170,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

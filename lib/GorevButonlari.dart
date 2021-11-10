@@ -71,11 +71,11 @@ class BaglantiButon extends StatelessWidget {
           },
           leading: Image(
             image: AssetImage(image),
-            height: SizeConfig.blockSizeVertical * 8,
-            width: SizeConfig.blockSizeHorizontal * 8,
+            height: SizeConfig.blockSizeVertical * 5,
+            width: SizeConfig.blockSizeHorizontal * 5,
           ),
           title: Text(title,
-              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 4)),
+              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 2.5)),
         ),
       ),
     );
