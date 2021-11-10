@@ -1,11 +1,8 @@
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'dart:io';
-
-import 'package:window_size/window_size.dart';
+import 'package:toplu_hesaplayici/admobIslemleri.dart';
 import "beygir.dart";
 import 'kdvHesaplayicisi.dart';
 import 'komisyon.dart';
@@ -33,15 +30,6 @@ class SizeConfig {
 }
 
 void main() {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-  //   setWindowTitle('App title');
-  //   setWindowMinSize(const Size(500, 600));
-  //   setWindowMaxSize(const Size(500, 600));
-  // }
-  // if (Platform.isWindows || Platform.isLinux || Platform.isMacOS ) {
-  //   setWindowTitle('HesapMatik');
-  // }
   runApp(
     MyApp(),
   );
@@ -66,13 +54,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
-  //BannerAd myBanner;
+  BannerAd myBanner;
 
   void initState() {
     super.initState();
-    // AdmobIslemleri.admobInitialize();
-    // myBanner = AdmobIslemleri.buildBannerAd();
-    //myBanner.load();
+    AdmobIslemleri.admobInitialize();
+    myBanner = AdmobIslemleri.buildBannerAd();
+    myBanner.load();
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -81,7 +69,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void dispose() {
-    //myBanner.dispose();
+    myBanner.dispose();
     super.dispose();
   }
 
@@ -232,10 +220,11 @@ class _HomePageState extends State<HomePage> {
             ),
             navigator: () {
               setState(() {
-                //myBanner.show();
+                myBanner.show();
                 Navigator.push(
                     context,
-                    CupertinoPageRoute(builder: (context)=>KdvHesaplayicisi()));
+                    CupertinoPageRoute(
+                        builder: (context) => KdvHesaplayicisi()));
               });
             },
           ),
@@ -254,20 +243,18 @@ class _HomePageState extends State<HomePage> {
             ),
             navigator: () {
               setState(() {
-                // myBanner.show();
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(builder: (context)=> ZRaporu()));
+                myBanner.show();
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => ZRaporu()));
               });
             },
           ),
           GorevButonlari(
             navigator: () {
               setState(() {
-                // myBanner.show();
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(builder: (context)=>BinekArac()));
+                myBanner.show();
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => BinekArac()));
               });
             },
             text: Text(
@@ -298,20 +285,18 @@ class _HomePageState extends State<HomePage> {
             ),
             navigator: () {
               setState(() {
-                // myBanner.show();
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(builder: (context)=>Aquarium()));
+                myBanner.show();
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => Aquarium()));
               });
             },
           ),
           GorevButonlari(
             navigator: () {
               setState(() {
-                //   myBanner.show();
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(builder: (context)=> KitleEndeksi()));
+                myBanner.show();
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => KitleEndeksi()));
               });
             },
             text: Text(
@@ -331,7 +316,7 @@ class _HomePageState extends State<HomePage> {
             navigator: () {
               setState(
                 () {
-                  //   myBanner.show();
+                  myBanner.show();
                   Navigator.push(context,
                       CupertinoPageRoute(builder: (context) => Komisyon()));
                 },
@@ -353,11 +338,9 @@ class _HomePageState extends State<HomePage> {
           GorevButonlari(
             navigator: () {
               setState(() {
-                //   myBanner.show();
-                Navigator.push(
-                  context,
-                  CupertinoPageRoute(builder: (context)=>Beygir())
-                );
+                myBanner.show();
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => Beygir()));
               });
             },
             text: Text(
@@ -381,7 +364,7 @@ class _HomePageState extends State<HomePage> {
               color: Colors.white,
               onPressed: () {
                 setState(() {
-                  //   myBanner.show();
+                  myBanner.show();
                   showCupertinoModalPopup(
                       context: context,
                       builder: (context) => AlertDialog(
@@ -389,8 +372,7 @@ class _HomePageState extends State<HomePage> {
                                 "Siz Seçin",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize:
-                                        SizeConfig.blockSizeVertical * 3,
+                                    fontSize: SizeConfig.blockSizeVertical * 3,
                                     fontWeight: FontWeight.bold),
                               ),
                               content: Column(
