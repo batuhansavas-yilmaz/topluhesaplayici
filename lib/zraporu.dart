@@ -5,22 +5,6 @@ import 'package:flutter/services.dart';
 import 'GorevButonlari.dart';
 import 'main.dart';
 
-class SizeConfig {
-  static MediaQueryData _mediaQueryData;
-  static double screenWidth;
-  static double screenHeight;
-  static double blockSizeHorizontal;
-  static double blockSizeVertical;
-
-  void init(BuildContext context) {
-    _mediaQueryData = MediaQuery.of(context);
-    screenWidth = _mediaQueryData.size.width;
-    screenHeight = _mediaQueryData.size.height;
-    blockSizeHorizontal = screenWidth / 100;
-    blockSizeVertical = screenHeight / 100;
-  }
-}
-
 class ZRaporu extends StatefulWidget {
   @override
   _ZRaporuState createState() => _ZRaporuState();
@@ -38,15 +22,12 @@ class _ZRaporuState extends State<ZRaporu> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
         leading: Transform(
           alignment: FractionalOffset.center,
           transform: Matrix4.rotationZ(-80.10),
-          child: Container(
-            child: GeriButton()
-          ),
+          child: Container(child: GeriButton()),
         ),
         title: Text(
           "Eksik Z Raporu Bulma",
@@ -65,7 +46,8 @@ class _ZRaporuState extends State<ZRaporu> {
                     Text(
                         "Bu Hesaplama Sadece Tek Tip Kdv Oranı\nİçeren Z Raporları İçin Kullanılabilir.",
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: SizeConfig.blockSizeVertical* 2.5)),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 2.5)),
                   ],
                 ),
                 Divider(color: Colors.black),
@@ -73,44 +55,40 @@ class _ZRaporuState extends State<ZRaporu> {
                   children: [
                     Expanded(
                         child: GestureDetector(
-                          onTap: () {
-                            showCupertinoModalPopup(
-                              context: context,
-                              builder: (context) =>
-                                  AlertDialog(
-                                    content: Text(
-                                        "Birden Fazla Raporu Bulmak İstiyorsak:\n - Eksik Raporlar'ın 10,11,12,13 no'lu raporlar olduğunu kabul edersek, buraya yazılacak olan kümülatif tutarı 14 no'lu rapordan alacağız. \n \nTek Bir Raporu Bulmak İstiyorsak:\n - Eksik Raporun 10 no'lu rapor olduğunu kabul edersek buraya yazılacak olan kümülatif tutarı 11 no'lu rapordan alacağız."),
-                                    actions: [
-                                      IconButton(
-                                        tooltip: "Kapat",
-                                        icon: Icon(Icons.close),
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                      )
-                                    ],
-                                  ),
-                            );
-                          },
-                          child: Column(
-                            children: [
-                              Text(
-                                "Büyük Kümülatif",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: SizeConfig.blockSizeVertical * 3,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                "Örnek İçin Yazıya Dokunun",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: SizeConfig.blockSizeVertical *
-                                        1.5),
-                              ),
+                      onTap: () {
+                        showCupertinoModalPopup(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            content: Text(
+                                "Birden Fazla Raporu Bulmak İstiyorsak:\n - Eksik Raporlar'ın 10,11,12,13 no'lu raporlar olduğunu kabul edersek, buraya yazılacak olan kümülatif tutarı 14 no'lu rapordan alacağız. \n \nTek Bir Raporu Bulmak İstiyorsak:\n - Eksik Raporun 10 no'lu rapor olduğunu kabul edersek buraya yazılacak olan kümülatif tutarı 11 no'lu rapordan alacağız."),
+                            actions: [
+                              IconButton(
+                                tooltip: "Kapat",
+                                icon: Icon(Icons.close),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              )
                             ],
                           ),
-                        )),
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          Text(
+                            "Büyük Kümülatif",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 3, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            "Örnek İçin Yazıya Dokunun",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 1.5),
+                          ),
+                        ],
+                      ),
+                    )),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
@@ -123,11 +101,10 @@ class _ZRaporuState extends State<ZRaporu> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10)),
                           child: TextField(
-
                             textInputAction: TextInputAction.next,
                             controller: k1,
                             keyboardType:
-                            TextInputType.numberWithOptions(decimal: true),
+                                TextInputType.numberWithOptions(decimal: true),
                             inputFormatters: [
                               FilteringTextInputFormatter.deny(",")
                             ],
@@ -159,13 +136,12 @@ class _ZRaporuState extends State<ZRaporu> {
                             "Büyük Tutar",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: SizeConfig.blockSizeVertical * 3,
-                                fontWeight: FontWeight.bold),
+                                fontSize: 3, fontWeight: FontWeight.bold),
                           ),
-                          Text("Üst Satırdaki Raporun Toplam Tutarı",textAlign:
-                            TextAlign.center,
-                            style: TextStyle(
-                                fontSize: SizeConfig.blockSizeVertical * 1.5),
+                          Text(
+                            "Üst Satırdaki Raporun Toplam Tutarı",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 1.5),
                           ),
                         ],
                       ),
@@ -185,7 +161,7 @@ class _ZRaporuState extends State<ZRaporu> {
                             textInputAction: TextInputAction.next,
                             controller: tutar,
                             keyboardType:
-                            TextInputType.numberWithOptions(decimal: true),
+                                TextInputType.numberWithOptions(decimal: true),
                             inputFormatters: [
                               FilteringTextInputFormatter.deny(",")
                             ],
@@ -215,8 +191,7 @@ class _ZRaporuState extends State<ZRaporu> {
                         onTap: () {
                           showCupertinoModalPopup(
                               context: context,
-                              builder: (context) =>
-                                  AlertDialog(
+                              builder: (context) => AlertDialog(
                                       content: Text(
                                           "Birden Fazla Raporu Bulmak İstiyorsak:\n - Eksik Raporlar'ın 10,11,12,13 no'lu raporlar olduğunu kabul edersek, buraya yazılacak olan kümülatif tutarı 9 no'lu rapordan alacağız. \n \nTek Bir Raporu Bulmak İstiyorsak:\n - Eksik Raporun 20 no'lu rapor olduğunu kabul edersek buraya yazılacak olan kümülatif tutarı 19 no'lu rapordan alacağız."),
                                       actions: [
@@ -235,14 +210,12 @@ class _ZRaporuState extends State<ZRaporu> {
                               "Küçük Kümülatif",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: SizeConfig.blockSizeVertical * 3,
-                                  fontWeight: FontWeight.bold),
+                                  fontSize: 3, fontWeight: FontWeight.bold),
                             ),
                             Text(
                               "Örnek İçin Yazıya Dokunun",
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: SizeConfig.blockSizeVertical * 1.5),
+                              style: TextStyle(fontSize: 1.5),
                             )
                           ],
                         ),
@@ -260,17 +233,20 @@ class _ZRaporuState extends State<ZRaporu> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10)),
                           child: TextField(
-                            onSubmitted: (value){ setState(() {
-                              buyukKumul = double.parse(k1.text);
-                              kucukKumul = double.parse(k2.text);
-                              tuTar = double.parse(tutar.text);
+                            onSubmitted: (value) {
+                              setState(() {
+                                buyukKumul = double.parse(k1.text);
+                                kucukKumul = double.parse(k2.text);
+                                tuTar = double.parse(tutar.text);
 
-                              sonuc = ((buyukKumul - kucukKumul) - tuTar);
-                              FocusScope.of(context).requestFocus(new FocusNode());
-                            });},
+                                sonuc = ((buyukKumul - kucukKumul) - tuTar);
+                                FocusScope.of(context)
+                                    .requestFocus(new FocusNode());
+                              });
+                            },
                             controller: k2,
                             keyboardType:
-                            TextInputType.numberWithOptions(decimal: true),
+                                TextInputType.numberWithOptions(decimal: true),
                             inputFormatters: [
                               FilteringTextInputFormatter.deny(",")
                             ],
@@ -299,7 +275,7 @@ class _ZRaporuState extends State<ZRaporu> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    RaisedButton(
+                    ElevatedButton(
                       onPressed: () {
                         setState(() {
                           buyukKumul = double.parse(k1.text);
@@ -310,12 +286,10 @@ class _ZRaporuState extends State<ZRaporu> {
                           FocusScope.of(context).requestFocus(new FocusNode());
                         });
                       },
-                      color: Colors.white,
                       child: Text(
                         "Hesapla",
-                        style: TextStyle(
-                            fontSize: SizeConfig.blockSizeVertical * 3,
-                            fontWeight: FontWeight.bold),
+                        style:
+                            TextStyle(fontSize: 3, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],
@@ -327,17 +301,17 @@ class _ZRaporuState extends State<ZRaporu> {
                         "Eksik Rapor/Raporlardaki Toplam Tutar :",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: SizeConfig.blockSizeVertical * 2.5),
+                            fontWeight: FontWeight.bold, fontSize: 2.5),
                       ),
                     ),
                     Expanded(
-                      child: Text(sonuc.toStringAsFixed(2),
+                      child: Text(
+                        sonuc.toStringAsFixed(2),
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize:
-                            SizeConfig.blockSizeVertical * 3.38),),),
+                            fontWeight: FontWeight.bold, fontSize: 3.38),
+                      ),
+                    ),
                   ],
                 )
               ],

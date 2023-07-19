@@ -1,14 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:url_launcher/url_launcher.dart';
-
-import 'main.dart';
-
 class GeriButton extends StatelessWidget {
-  const GeriButton({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return IconButton(
@@ -17,67 +9,50 @@ class GeriButton extends StatelessWidget {
         onPressed: () {
           Navigator.pop(
             context,
-
           );
         });
   }
 }
 
-class GorevButonlari extends StatelessWidget {
-  Function navigator;
-  Widget image;
-  Widget text;
-
-  GorevButonlari({this.navigator, this.image, this.text});
+// ignore: must_be_immutable
+class GorevButton extends StatefulWidget {
+  String? sayfaismi;
+  String? altisim;
+  String? logo;
+  GorevButton(
+      {required this.logo,
+      required this.altisim,
+      required this.sayfaismi,
+      super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      // ignore: deprecated_member_use
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-        color: Colors.white,
-        onPressed: navigator,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            image,
-            text,
-          ],
-        ),
-      ),
-    );
-  }
+  State<GorevButton> createState() => _GorevButtonState();
 }
 
-class BaglantiButon extends StatelessWidget {
+class _GorevButtonState extends State<GorevButton> {
   @override
-  String link;
-  String image;
-  String title;
-
-  BaglantiButon({this.image, this.link, this.title});
-
   Widget build(BuildContext context) {
-    return Container(
-      height: SizeConfig.blockSizeVertical * 8,
-      child: Center(
-        child: ListTile(
-          onTap: () {
-            String url = link;
-            launch(url);
-          },
-          leading: Image(
-            image: AssetImage(image),
-            height: SizeConfig.blockSizeVertical * 5,
-            width: SizeConfig.blockSizeHorizontal * 8,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.lime,
           ),
-          title: Text(title,
-              style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal * 3.5)),
+          onPressed: () {
+            setState(() {
+              Navigator.pushNamed(context, widget.sayfaismi!);
+            });
+          },
+          child: Image.asset(
+            widget.logo.toString(),
+          ),
         ),
-      ),
+        Text("${widget.altisim}"),
+      ],
     );
   }
 }
+
+// ignore: must_be_immutable
+

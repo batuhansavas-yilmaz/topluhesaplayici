@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -6,31 +5,14 @@ import 'main.dart';
 
 import 'GorevButonlari.dart';
 
-class SizeConfig {
-  static MediaQueryData _mediaQueryData;
-  static double screenWidth;
-  static double screenHeight;
-  static double blockSizeHorizontal;
-  static double blockSizeVertical;
-
-  void init(BuildContext context) {
-    _mediaQueryData = MediaQuery.of(context);
-    screenWidth = _mediaQueryData.size.width;
-    screenHeight = _mediaQueryData.size.height;
-    blockSizeHorizontal = screenWidth / 100;
-    blockSizeVertical = screenHeight / 100;
-  }
-}
-
 class KdvHesaplayicisi extends StatefulWidget {
   @override
   KdvHesaplayicisiState createState() => KdvHesaplayicisiState();
 }
 
 class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
-  @override
   String tevk = ".../10";
-  String mesaj;
+  late String mesaj;
   double hesapTutar = 0.00;
   double hesapOran = 0.00;
 
@@ -69,7 +51,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return DefaultTabController(
         initialIndex: 1,
         length: 2,
@@ -78,41 +59,34 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
             bottom: TabBar(
               indicatorWeight: 3,
               tabs: [
-                FlatButton(
-                  child: Text(
-                    "Tevkifatlı KDV Hesaplama",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      shadows: [
-                        Shadow(
-                          color: Colors.black,
-                          blurRadius: SizeConfig.blockSizeVertical * 0.70,
-                          offset: Offset(SizeConfig.blockSizeVertical * 0.35,
-                              SizeConfig.blockSizeVertical * 0.25),
-                        ),
-                      ],
-                    ),
+                Text(
+                  "Tevkifatlı KDV Hesaplama",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    shadows: [
+                      Shadow(
+                        color: Colors.black,
+                        blurRadius: 0.70,
+                        offset: Offset(0.35, 0.25),
+                      ),
+                    ],
                   ),
                 ),
-                FlatButton(
-                  child: Text(
-                    "KDV Hesaplama",textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      shadows: [
-                        Shadow(
-                          color: Colors.black,
-                          blurRadius: SizeConfig.blockSizeVertical * 0.70,
-                          offset: Offset(SizeConfig.blockSizeVertical * 0.35,
-                              SizeConfig.blockSizeVertical * 0.25),
-                        ),
-                      ],
-                    ),
+                Text(
+                  "KDV Hesaplama",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    shadows: [
+                      Shadow(
+                        color: Colors.black,
+                        blurRadius: 0.70,
+                        offset: Offset(0.35, 0.25),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -120,9 +94,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
             leading: Transform(
               alignment: FractionalOffset.center,
               transform: Matrix4.rotationZ(-80.10),
-              child: Container(
-                child: GeriButton()
-              ),
+              child: Container(child: GeriButton()),
             ),
             title: Text(
               "KDV Hesaplayıcısı",
@@ -141,14 +113,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Container(
-                                decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                          offset: Offset(0.50, 1.85),
-                                          blurRadius: 2)
-                                    ],
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10)),
+                                decoration: BoxDecoration(boxShadow: [
+                                  BoxShadow(
+                                      offset: Offset(0.50, 1.85), blurRadius: 2)
+                                ], borderRadius: BorderRadius.circular(10)),
                                 child: TextField(
                                   textInputAction: TextInputAction.next,
                                   keyboardType: TextInputType.numberWithOptions(
@@ -178,7 +146,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
                                   boxShadow: [
                                     BoxShadow(
@@ -186,7 +153,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                         blurRadius: 2)
                                   ]),
                               child: TextField(
-
                                 controller: t4,
                                 inputFormatters: [
                                   FilteringTextInputFormatter.deny(",")
@@ -223,8 +189,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             children: [
                               Row(
                                 children: [
-                                  RaisedButton(
-                                      color: Colors.white,
+                                  ElevatedButton(
                                       onPressed: () {
                                         setState(() {
                                           mesaj =
@@ -238,7 +203,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           oranTevkifat = double.parse(t4.text);
                                           tevkifatOncesiKDV = (matrahTevkifat *
                                               (oranTevkifat / 100));
-                                          kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+                                          kdvDahilTevkifatliToplamTutar =
+                                              matrahTevkifat +
+                                                  tevkifatOncesiKDV;
 
                                           Tevkifat = (tevkifatOncesiKDV * 0.20);
                                           TevkifatSonrasiKDV =
@@ -252,7 +219,8 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           dahilTevkifatOncesiKdv =
                                               dahilMatrahTevkifat *
                                                   (oranTevkifat / 100);
-                                          dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+                                          dahilKdvDahilTevkifatliToplamTutar =
+                                              matrahTevkifat;
 
                                           dahilTevkifat =
                                               (dahilTevkifatOncesiKdv * 0.20);
@@ -263,7 +231,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                               dahilMatrahTevkifat +
                                                   dahilTevkifatSonrasiKdv;
 
-
                                           toast();
                                         });
                                       },
@@ -271,8 +238,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 16))),
-                                  RaisedButton(
-                                      color: Colors.white,
+                                  ElevatedButton(
                                       onPressed: () {
                                         setState(() {
                                           mesaj =
@@ -286,27 +252,30 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           oranTevkifat = double.parse(t4.text);
                                           tevkifatOncesiKDV = (matrahTevkifat *
                                               (oranTevkifat / 100));
-                                          kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+                                          kdvDahilTevkifatliToplamTutar =
+                                              matrahTevkifat +
+                                                  tevkifatOncesiKDV;
 
                                           Tevkifat = (tevkifatOncesiKDV * 0.30);
                                           TevkifatSonrasiKDV =
-                                          (tevkifatOncesiKDV - Tevkifat);
+                                              (tevkifatOncesiKDV - Tevkifat);
                                           TevkifatliToplamTutar =
-                                          (matrahTevkifat +
-                                              TevkifatSonrasiKDV);
+                                              (matrahTevkifat +
+                                                  TevkifatSonrasiKDV);
                                           //dahiltevk
                                           dahilMatrahTevkifat = matrahTevkifat /
                                               ((oranTevkifat / 100) + 1);
                                           dahilTevkifatOncesiKdv =
                                               dahilMatrahTevkifat *
                                                   (oranTevkifat / 100);
-                                          dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+                                          dahilKdvDahilTevkifatliToplamTutar =
+                                              matrahTevkifat;
 
                                           dahilTevkifat =
-                                          (dahilTevkifatOncesiKdv * 0.30);
+                                              (dahilTevkifatOncesiKdv * 0.30);
                                           dahilTevkifatSonrasiKdv =
-                                          (dahilTevkifatOncesiKdv -
-                                              dahilTevkifat);
+                                              (dahilTevkifatOncesiKdv -
+                                                  dahilTevkifat);
                                           dahilTevkifatToplamTutar =
                                               dahilMatrahTevkifat +
                                                   dahilTevkifatSonrasiKdv;
@@ -323,8 +292,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                               ),
                               Row(
                                 children: [
-                                  RaisedButton(
-                                      color: Colors.white,
+                                  ElevatedButton(
                                       onPressed: () {
                                         setState(() {
                                           mesaj =
@@ -338,27 +306,30 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           oranTevkifat = double.parse(t4.text);
                                           tevkifatOncesiKDV = (matrahTevkifat *
                                               (oranTevkifat / 100));
-                                          kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+                                          kdvDahilTevkifatliToplamTutar =
+                                              matrahTevkifat +
+                                                  tevkifatOncesiKDV;
 
                                           Tevkifat = (tevkifatOncesiKDV * 0.40);
                                           TevkifatSonrasiKDV =
-                                          (tevkifatOncesiKDV - Tevkifat);
+                                              (tevkifatOncesiKDV - Tevkifat);
                                           TevkifatliToplamTutar =
-                                          (matrahTevkifat +
-                                              TevkifatSonrasiKDV);
+                                              (matrahTevkifat +
+                                                  TevkifatSonrasiKDV);
                                           //dahiltevk
                                           dahilMatrahTevkifat = matrahTevkifat /
                                               ((oranTevkifat / 100) + 1);
                                           dahilTevkifatOncesiKdv =
                                               dahilMatrahTevkifat *
                                                   (oranTevkifat / 100);
-                                          dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+                                          dahilKdvDahilTevkifatliToplamTutar =
+                                              matrahTevkifat;
 
                                           dahilTevkifat =
-                                          (dahilTevkifatOncesiKdv * 0.40);
+                                              (dahilTevkifatOncesiKdv * 0.40);
                                           dahilTevkifatSonrasiKdv =
-                                          (dahilTevkifatOncesiKdv -
-                                              dahilTevkifat);
+                                              (dahilTevkifatOncesiKdv -
+                                                  dahilTevkifat);
                                           dahilTevkifatToplamTutar =
                                               dahilMatrahTevkifat +
                                                   dahilTevkifatSonrasiKdv;
@@ -386,8 +357,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold)),
                                       )),
-                                  RaisedButton(
-                                      color: Colors.white,
+                                  ElevatedButton(
                                       onPressed: () {
                                         setState(() {
                                           mesaj =
@@ -401,27 +371,30 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           oranTevkifat = double.parse(t4.text);
                                           tevkifatOncesiKDV = (matrahTevkifat *
                                               (oranTevkifat / 100));
-                                          kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+                                          kdvDahilTevkifatliToplamTutar =
+                                              matrahTevkifat +
+                                                  tevkifatOncesiKDV;
 
                                           Tevkifat = (tevkifatOncesiKDV * 0.50);
                                           TevkifatSonrasiKDV =
-                                          (tevkifatOncesiKDV - Tevkifat);
+                                              (tevkifatOncesiKDV - Tevkifat);
                                           TevkifatliToplamTutar =
-                                          (matrahTevkifat +
-                                              TevkifatSonrasiKDV);
+                                              (matrahTevkifat +
+                                                  TevkifatSonrasiKDV);
                                           //dahiltevk
                                           dahilMatrahTevkifat = matrahTevkifat /
                                               ((oranTevkifat / 100) + 1);
                                           dahilTevkifatOncesiKdv =
                                               dahilMatrahTevkifat *
                                                   (oranTevkifat / 100);
-                                          dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+                                          dahilKdvDahilTevkifatliToplamTutar =
+                                              matrahTevkifat;
 
                                           dahilTevkifat =
-                                          (dahilTevkifatOncesiKdv * 0.50);
+                                              (dahilTevkifatOncesiKdv * 0.50);
                                           dahilTevkifatSonrasiKdv =
-                                          (dahilTevkifatOncesiKdv -
-                                              dahilTevkifat);
+                                              (dahilTevkifatOncesiKdv -
+                                                  dahilTevkifat);
                                           dahilTevkifatToplamTutar =
                                               dahilMatrahTevkifat +
                                                   dahilTevkifatSonrasiKdv;
@@ -439,8 +412,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                               ),
                               Row(
                                 children: [
-                                  RaisedButton(
-                                      color: Colors.white,
+                                  ElevatedButton(
                                       onPressed: () {
                                         setState(() {
                                           mesaj =
@@ -454,27 +426,30 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           oranTevkifat = double.parse(t4.text);
                                           tevkifatOncesiKDV = (matrahTevkifat *
                                               (oranTevkifat / 100));
-                                          kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+                                          kdvDahilTevkifatliToplamTutar =
+                                              matrahTevkifat +
+                                                  tevkifatOncesiKDV;
 
                                           Tevkifat = (tevkifatOncesiKDV * 0.70);
                                           TevkifatSonrasiKDV =
-                                          (tevkifatOncesiKDV - Tevkifat);
+                                              (tevkifatOncesiKDV - Tevkifat);
                                           TevkifatliToplamTutar =
-                                          (matrahTevkifat +
-                                              TevkifatSonrasiKDV);
+                                              (matrahTevkifat +
+                                                  TevkifatSonrasiKDV);
                                           //dahiltevk
                                           dahilMatrahTevkifat = matrahTevkifat /
                                               ((oranTevkifat / 100) + 1);
                                           dahilTevkifatOncesiKdv =
                                               dahilMatrahTevkifat *
                                                   (oranTevkifat / 100);
-                                          dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+                                          dahilKdvDahilTevkifatliToplamTutar =
+                                              matrahTevkifat;
 
                                           dahilTevkifat =
-                                          (dahilTevkifatOncesiKdv * 0.70);
+                                              (dahilTevkifatOncesiKdv * 0.70);
                                           dahilTevkifatSonrasiKdv =
-                                          (dahilTevkifatOncesiKdv -
-                                              dahilTevkifat);
+                                              (dahilTevkifatOncesiKdv -
+                                                  dahilTevkifat);
                                           dahilTevkifatToplamTutar =
                                               dahilMatrahTevkifat +
                                                   dahilTevkifatSonrasiKdv;
@@ -486,8 +461,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 16))),
-                                  RaisedButton(
-                                      color: Colors.white,
+                                  ElevatedButton(
                                       onPressed: () {
                                         setState(() {
                                           mesaj =
@@ -501,27 +475,30 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           oranTevkifat = double.parse(t4.text);
                                           tevkifatOncesiKDV = (matrahTevkifat *
                                               (oranTevkifat / 100));
-                                          kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+                                          kdvDahilTevkifatliToplamTutar =
+                                              matrahTevkifat +
+                                                  tevkifatOncesiKDV;
 
                                           Tevkifat = (tevkifatOncesiKDV * 0.90);
                                           TevkifatSonrasiKDV =
-                                          (tevkifatOncesiKDV - Tevkifat);
+                                              (tevkifatOncesiKDV - Tevkifat);
                                           TevkifatliToplamTutar =
-                                          (matrahTevkifat +
-                                              TevkifatSonrasiKDV);
+                                              (matrahTevkifat +
+                                                  TevkifatSonrasiKDV);
                                           //dahiltevk
                                           dahilMatrahTevkifat = matrahTevkifat /
                                               ((oranTevkifat / 100) + 1);
                                           dahilTevkifatOncesiKdv =
                                               dahilMatrahTevkifat *
                                                   (oranTevkifat / 100);
-                                          dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+                                          dahilKdvDahilTevkifatliToplamTutar =
+                                              matrahTevkifat;
 
                                           dahilTevkifat =
-                                          (dahilTevkifatOncesiKdv * 0.90);
+                                              (dahilTevkifatOncesiKdv * 0.90);
                                           dahilTevkifatSonrasiKdv =
-                                          (dahilTevkifatOncesiKdv -
-                                              dahilTevkifat);
+                                              (dahilTevkifatOncesiKdv -
+                                                  dahilTevkifat);
                                           dahilTevkifatToplamTutar =
                                               dahilMatrahTevkifat +
                                                   dahilTevkifatSonrasiKdv;
@@ -538,11 +515,12 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                     MainAxisAlignment.spaceBetween,
                               ),
                               Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
                                 child: Row(
                                   children: [
                                     Expanded(
-                                      child: RaisedButton(
+                                      child: ElevatedButton(
                                         onPressed: () {
                                           setState(() {
                                             mesaj =
@@ -553,30 +531,36 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                             //haricTevk
                                             matrahTevkifat =
                                                 double.parse(t3.text);
-                                            oranTevkifat = double.parse(t4.text);
-                                            tevkifatOncesiKDV = (matrahTevkifat *
-                                                (oranTevkifat / 100));
-                                            kdvDahilTevkifatliToplamTutar =matrahTevkifat+tevkifatOncesiKDV;
+                                            oranTevkifat =
+                                                double.parse(t4.text);
+                                            tevkifatOncesiKDV =
+                                                (matrahTevkifat *
+                                                    (oranTevkifat / 100));
+                                            kdvDahilTevkifatliToplamTutar =
+                                                matrahTevkifat +
+                                                    tevkifatOncesiKDV;
 
                                             Tevkifat = (tevkifatOncesiKDV * 1);
                                             TevkifatSonrasiKDV =
-                                            (tevkifatOncesiKDV - Tevkifat);
+                                                (tevkifatOncesiKDV - Tevkifat);
                                             TevkifatliToplamTutar =
-                                            (matrahTevkifat +
-                                                TevkifatSonrasiKDV);
+                                                (matrahTevkifat +
+                                                    TevkifatSonrasiKDV);
                                             //dahiltevk
-                                            dahilMatrahTevkifat = matrahTevkifat /
-                                                ((oranTevkifat / 100) + 1);
+                                            dahilMatrahTevkifat =
+                                                matrahTevkifat /
+                                                    ((oranTevkifat / 100) + 1);
                                             dahilTevkifatOncesiKdv =
                                                 dahilMatrahTevkifat *
                                                     (oranTevkifat / 100);
-                                            dahilKdvDahilTevkifatliToplamTutar =matrahTevkifat;
+                                            dahilKdvDahilTevkifatliToplamTutar =
+                                                matrahTevkifat;
 
                                             dahilTevkifat =
-                                            (dahilTevkifatOncesiKdv * 1);
+                                                (dahilTevkifatOncesiKdv * 1);
                                             dahilTevkifatSonrasiKdv =
-                                            (dahilTevkifatOncesiKdv -
-                                                dahilTevkifat);
+                                                (dahilTevkifatOncesiKdv -
+                                                    dahilTevkifat);
                                             dahilTevkifatToplamTutar =
                                                 dahilMatrahTevkifat +
                                                     dahilTevkifatSonrasiKdv;
@@ -584,7 +568,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                             toast();
                                           });
                                         },
-                                        color: Colors.white,
                                         child: Text("Tam Tevkifat (10/10)",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -613,7 +596,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 20,
-                                                color: Colors.white,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
@@ -668,13 +650,14 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       ),
                                       Divider(
                                         color: Colors.black,
-                                      ),Padding(
+                                      ),
+                                      Padding(
                                         padding: const EdgeInsets.only(
                                           left: 4,
                                         ),
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                               "KDV Dahil Tutar",
@@ -773,7 +756,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 20,
-                                                color: Colors.white,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
@@ -940,16 +922,12 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                               child: Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                            offset: Offset(0.50, 1.85),
-                                            blurRadius: 2)
-                                      ],
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10)),
+                                  decoration: BoxDecoration(boxShadow: [
+                                    BoxShadow(
+                                        offset: Offset(0.50, 1.85),
+                                        blurRadius: 2)
+                                  ], borderRadius: BorderRadius.circular(10)),
                                   child: TextField(
-
                                     textInputAction: TextInputAction.next,
                                     keyboardType:
                                         TextInputType.numberWithOptions(
@@ -979,7 +957,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             Expanded(
                               child: Container(
                                 decoration: BoxDecoration(
-                                    color: Colors.white,
                                     borderRadius: BorderRadius.circular(10),
                                     boxShadow: [
                                       BoxShadow(
@@ -987,7 +964,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           blurRadius: 2)
                                     ]),
                                 child: TextField(
-                                  onSubmitted: (value){
+                                  onSubmitted: (value) {
                                     setState(() {
                                       FocusScope.of(context)
                                           .requestFocus(new FocusNode());
@@ -997,22 +974,23 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       hesapTutar = double.parse(t1.text);
                                       hesapOran = double.parse(t2.text);
                                       mesaj =
-                                      "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır";
+                                          "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır";
                                       //kdv haric
                                       HarickenKdvTutari =
-                                      (hesapTutar * (hesapOran / 100));
+                                          (hesapTutar * (hesapOran / 100));
                                       haricTutar = hesapTutar;
-                                      toplamHaricTutar = HarickenKdvTutari + haricTutar;
+                                      toplamHaricTutar =
+                                          HarickenKdvTutari + haricTutar;
                                       //kdvdahil
-                                      dahilTutar = hesapTutar / ((hesapOran / 100) + 1);
-                                      dahilkenKdvTutari = hesapTutar - dahilTutar;
+                                      dahilTutar =
+                                          hesapTutar / ((hesapOran / 100) + 1);
+                                      dahilkenKdvTutari =
+                                          hesapTutar - dahilTutar;
                                       toplamDahilTutar = hesapTutar;
-
 
                                       toast();
                                     });
                                   },
-
                                   controller: t2,
                                   inputFormatters: [
                                     FilteringTextInputFormatter.deny(",")
@@ -1038,8 +1016,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             ),
                           ],
                         ),
-                        RaisedButton(
-                          color: Colors.white,
+                        ElevatedButton(
                           onPressed: () {
                             setState(() {
                               FocusScope.of(context)
@@ -1060,7 +1037,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                               dahilTutar = hesapTutar / ((hesapOran / 100) + 1);
                               dahilkenKdvTutari = hesapTutar - dahilTutar;
                               toplamDahilTutar = hesapTutar;
-
 
                               toast();
                             });
@@ -1090,7 +1066,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontSize: 20,
-                                          color: Colors.white,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -1182,7 +1157,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontSize: 20,
-                                          color: Colors.white,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),

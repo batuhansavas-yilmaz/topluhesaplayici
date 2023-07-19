@@ -4,22 +4,6 @@ import 'package:flutter/services.dart';
 import 'GorevButonlari.dart';
 import "main.dart";
 
-class SizeConfig {
-  static MediaQueryData _mediaQueryData;
-  static double screenWidth;
-  static double screenHeight;
-  static double blockSizeHorizontal;
-  static double blockSizeVertical;
-
-  void init(BuildContext context) {
-    _mediaQueryData = MediaQuery.of(context);
-    screenWidth = _mediaQueryData.size.width;
-    screenHeight = _mediaQueryData.size.height;
-    blockSizeHorizontal = screenWidth / 100;
-    blockSizeVertical = screenHeight / 100;
-  }
-}
-
 class BinekArac extends StatefulWidget {
   @override
   _BinekAracState createState() => _BinekAracState();
@@ -31,23 +15,24 @@ class _BinekAracState extends State<BinekArac> {
   double kdvOran = 0.00;
   double giderKabulEdilenMatrah = 0.00;
   double giderKabulEdilenKdv = 0.00;
-  double giderKabulEdilenTutar=0.00;
+  double giderKabulEdilenTutar = 0.00;
   double giderKabulEdilmeyenMatrah = 0.00;
   double giderKabulEdilmeyenKdv = 0.00;
   double giderKabulEdilmeyenTutar = 0.00;
   TextEditingController t1 = TextEditingController(text: '');
   TextEditingController t2 = TextEditingController(text: '');
   @override
-  Widget build(BuildContext context) { SizeConfig().init(context);
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("%70'lik Binek Araç Giderleri",style: appBarStyle,),
+        title: Text(
+          "%70'lik Binek Araç Giderleri",
+          style: appBarStyle,
+        ),
         leading: Transform(
           alignment: FractionalOffset.center,
           transform: Matrix4.rotationZ(-80.10),
-          child: Container(
-            child: GeriButton()
-          ),
+          child: Container(child: GeriButton()),
         ),
         actions: [
           IconButton(
@@ -75,7 +60,7 @@ class _BinekAracState extends State<BinekArac> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top:10.0,left: 18,right:18),
+            padding: const EdgeInsets.only(top: 10.0, left: 18, right: 18),
             child: Row(
               children: [
                 Expanded(
@@ -84,24 +69,20 @@ class _BinekAracState extends State<BinekArac> {
                     child: Container(
                       decoration: BoxDecoration(
                           boxShadow: [
-                            BoxShadow(
-                                offset: Offset(0.50, 1.85),
-                                blurRadius: 2)
+                            BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
                           ],
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10)),
                       child: TextField(
                         textInputAction: TextInputAction.next,
                         keyboardType:
-                        TextInputType.numberWithOptions(
-                            decimal: true),
+                            TextInputType.numberWithOptions(decimal: true),
                         inputFormatters: [
                           FilteringTextInputFormatter.deny(",")
                         ],
                         controller: t1,
                         style: TextStyle(
-                            fontSize: 23,
-                            fontWeight: FontWeight.bold),
+                            fontSize: 23, fontWeight: FontWeight.bold),
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -123,37 +104,33 @@ class _BinekAracState extends State<BinekArac> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                         boxShadow: [
-                          BoxShadow(
-                              offset: Offset(0.50, 1.85),
-                              blurRadius: 2)
+                          BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
                         ]),
                     child: TextField(
-                      onSubmitted: (value){
+                      onSubmitted: (value) {
                         setState(() {
                           FocusScope.of(context).requestFocus(new FocusNode());
                           tutar = double.parse(t1.text);
                           kdvOran = double.parse(t2.text);
                           giderKabulEdilenTutar = (tutar * 0.70);
                           giderKabulEdilenMatrah =
-                          (giderKabulEdilenTutar / ((kdvOran / 100) + 1));
+                              (giderKabulEdilenTutar / ((kdvOran / 100) + 1));
                           giderKabulEdilenKdv =
                               giderKabulEdilenTutar - giderKabulEdilenMatrah;
                           giderKabulEdilmeyenTutar = (tutar * 0.30);
                           giderKabulEdilmeyenMatrah =
-                          (giderKabulEdilmeyenTutar / ((kdvOran / 100) + 1));
-                          giderKabulEdilmeyenKdv =
-                              giderKabulEdilmeyenTutar - giderKabulEdilmeyenMatrah;
+                              (giderKabulEdilmeyenTutar /
+                                  ((kdvOran / 100) + 1));
+                          giderKabulEdilmeyenKdv = giderKabulEdilmeyenTutar -
+                              giderKabulEdilmeyenMatrah;
                         });
                       },
                       controller: t2,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.deny(",")
-                      ],
-                      keyboardType: TextInputType.numberWithOptions(
-                          decimal: true),
-                      style: TextStyle(
-                          fontSize: 23,
-                          fontWeight: FontWeight.bold),
+                      inputFormatters: [FilteringTextInputFormatter.deny(",")],
+                      keyboardType:
+                          TextInputType.numberWithOptions(decimal: true),
+                      style:
+                          TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -170,8 +147,11 @@ class _BinekAracState extends State<BinekArac> {
                 ),
               ],
             ),
-          ),SizedBox(height: 2,),
-          RaisedButton(
+          ),
+          SizedBox(
+            height: 2,
+          ),
+          ElevatedButton(
             onPressed: () {
               setState(() {
                 FocusScope.of(context).requestFocus(new FocusNode());
@@ -189,12 +169,12 @@ class _BinekAracState extends State<BinekArac> {
                     giderKabulEdilmeyenTutar - giderKabulEdilmeyenMatrah;
               });
             },
-            color: Colors.white,
             child: Text(
               "Hesapla",
               style: TextStyle(fontSize: 16),
             ),
-          ),Row(
+          ),
+          Row(
             children: [
               Expanded(
                 child: Container(
@@ -214,10 +194,10 @@ class _BinekAracState extends State<BinekArac> {
               ),
             ],
           ),
-         Column(
+          Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 10,right: 10,bottom: 5),
+                padding: const EdgeInsets.only(left: 10, right: 10, bottom: 5),
                 child: Column(
                   children: [
                     Padding(
@@ -257,10 +237,10 @@ class _BinekAracState extends State<BinekArac> {
                         ],
                       ),
                     ),
-
                   ],
                 ),
-              ),Row(
+              ),
+              Row(
                 children: [
                   Expanded(
                     child: Container(
@@ -281,7 +261,7 @@ class _BinekAracState extends State<BinekArac> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 10,right: 10,top: 5),
+                padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
                 child: Column(
                   children: [
                     Padding(
@@ -299,7 +279,8 @@ class _BinekAracState extends State<BinekArac> {
                           ),
                         ],
                       ),
-                    ),Divider(
+                    ),
+                    Divider(
                       color: Colors.black,
                     ),
                     Padding(
@@ -328,5 +309,7 @@ class _BinekAracState extends State<BinekArac> {
     );
   }
 }
-TextStyle stil = TextStyle(color: Colors.black, fontSize:18);
-TextStyle stil2 = TextStyle(color: Colors.black, fontSize: 17,fontWeight: FontWeight.bold);
+
+TextStyle stil = TextStyle(color: Colors.black, fontSize: 18);
+TextStyle stil2 =
+    TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold);

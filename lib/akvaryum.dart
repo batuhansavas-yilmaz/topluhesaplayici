@@ -3,22 +3,6 @@ import 'package:flutter/services.dart';
 import 'GorevButonlari.dart';
 import 'main.dart';
 
-class SizeConfig {
-  static MediaQueryData _mediaQueryData;
-  static double screenWidth;
-  static double screenHeight;
-  static double blockSizeHorizontal;
-  static double blockSizeVertical;
-
-  void init(BuildContext context) {
-    _mediaQueryData = MediaQuery.of(context);
-    screenWidth = _mediaQueryData.size.width;
-    screenHeight = _mediaQueryData.size.height;
-    blockSizeHorizontal = screenWidth / 100;
-    blockSizeVertical = screenHeight / 100;
-  }
-}
-
 class Aquarium extends StatefulWidget {
   @override
   _AquariumState createState() => _AquariumState();
@@ -42,16 +26,16 @@ class _AquariumState extends State<Aquarium> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Akvaryum",style: appBarStyle,),
+        title: Text(
+          "Akvaryum",
+          style: appBarStyle,
+        ),
         leading: Transform(
           alignment: FractionalOffset.center,
           transform: Matrix4.rotationZ(-80.10),
-          child: Container(
-            child: GeriButton()
-          ),
+          child: Container(child: GeriButton()),
         ),
       ),
       body: ListView(
@@ -86,9 +70,8 @@ class _AquariumState extends State<Aquarium> {
                       ),
                     ),
                     child: TextField(
-                      controller: derinlik_, inputFormatters: [
-                      FilteringTextInputFormatter.deny(",")
-                    ],
+                      controller: derinlik_,
+                      inputFormatters: [FilteringTextInputFormatter.deny(",")],
                       style:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       keyboardType:
@@ -122,9 +105,8 @@ class _AquariumState extends State<Aquarium> {
                       style:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       keyboardType:
-                          TextInputType.numberWithOptions(decimal: true), inputFormatters: [
-                      FilteringTextInputFormatter.deny(",")
-                    ],
+                          TextInputType.numberWithOptions(decimal: true),
+                      inputFormatters: [FilteringTextInputFormatter.deny(",")],
                       decoration: InputDecoration(
                         hintText: "En",
                         hintStyle: TextStyle(
@@ -154,9 +136,8 @@ class _AquariumState extends State<Aquarium> {
                       style:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                       keyboardType:
-                          TextInputType.numberWithOptions(decimal: true), inputFormatters: [
-                      FilteringTextInputFormatter.deny(",")
-                    ],
+                          TextInputType.numberWithOptions(decimal: true),
+                      inputFormatters: [FilteringTextInputFormatter.deny(",")],
                       decoration: InputDecoration(
                         hintText: "Uzunluk",
                         hintStyle: TextStyle(
@@ -177,8 +158,7 @@ class _AquariumState extends State<Aquarium> {
             child: Column(children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: RaisedButton(
-                  color: Colors.white,
+                child: ElevatedButton(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
@@ -350,8 +330,7 @@ class _AquariumState extends State<Aquarium> {
                         Expanded(
                           child: Column(
                             children: [
-                              Text("cm",style:TextStyle(fontSize:20)),
-
+                              Text("cm", style: TextStyle(fontSize: 20)),
                               TextField(
                                 style: TextStyle(
                                   fontSize: 30,

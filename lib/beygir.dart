@@ -1,27 +1,9 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'main.dart';
 
 import 'GorevButonlari.dart';
-
-class SizeConfig {
-  static MediaQueryData _mediaQueryData;
-  static double screenWidth;
-  static double screenHeight;
-  static double blockSizeHorizontal;
-  static double blockSizeVertical;
-
-  void init(BuildContext context) {
-    _mediaQueryData = MediaQuery.of(context);
-    screenWidth = _mediaQueryData.size.width;
-    screenHeight = _mediaQueryData.size.height;
-    blockSizeHorizontal = screenWidth / 100;
-    blockSizeVertical = screenHeight / 100;
-  }
-}
 
 class Beygir extends StatefulWidget {
   @override
@@ -39,7 +21,6 @@ class _BeygirState extends State<Beygir> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
         leading: Transform(
@@ -63,7 +44,7 @@ class _BeygirState extends State<Beygir> {
                 "Kilowatt (kW)",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: SizeConfig.blockSizeVertical * 3.4,
+                  fontSize: 3.4,
                 ),
               ),
               Padding(
@@ -109,8 +90,7 @@ class _BeygirState extends State<Beygir> {
                   ],
                 ),
               ),
-              RaisedButton(
-                color: Colors.white,
+              ElevatedButton(
                 onPressed: () {
                   setState(() {
                     FocusScope.of(context).requestFocus(new FocusNode());
@@ -121,22 +101,24 @@ class _BeygirState extends State<Beygir> {
                 child: Text(
                   "Hesapla",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: SizeConfig.blockSizeVertical * 3,),
+                  style: TextStyle(
+                    fontSize: 3,
+                  ),
                 ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "${kW} kW : ",
+                    " $kW kW : ",
                     style: TextStyle(
-                      fontSize: SizeConfig.blockSizeVertical * 3.4,),
+                      fontSize: 3.4,
+                    ),
                   ),
                   Text(
                     "${kWsonuc.toStringAsFixed(3)} hp",
-                    style: TextStyle(
-                        fontSize: SizeConfig.blockSizeVertical * 3.4,
-                        fontWeight: FontWeight.bold),
+                    style:
+                        TextStyle(fontSize: 3.4, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -147,7 +129,7 @@ class _BeygirState extends State<Beygir> {
                 "Beygir Gücü (hp)",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize:  SizeConfig.blockSizeVertical * 3.4,
+                  fontSize: 3.4,
                 ),
               ),
               Padding(
@@ -193,8 +175,7 @@ class _BeygirState extends State<Beygir> {
                   ],
                 ),
               ),
-              RaisedButton(
-                color: Colors.white,
+              ElevatedButton(
                 onPressed: () {
                   setState(() {
                     FocusScope.of(context).requestFocus(new FocusNode());
@@ -205,23 +186,25 @@ class _BeygirState extends State<Beygir> {
                 child: Text(
                   "Hesapla",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: SizeConfig.blockSizeVertical * 3.4,),
+                  style: TextStyle(
+                    fontSize: 3.4,
+                  ),
                 ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "${hP} hp : ",
+                    "$hP hp : ",
                     style: TextStyle(
-                        fontSize: SizeConfig.blockSizeVertical * 3.4,),
+                      fontSize: 3.4,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   Text(
                     "${hPsonuc.toStringAsFixed(3)} kW",
-                    style: TextStyle(
-                        fontSize:SizeConfig.blockSizeVertical * 3.4,
-                        fontWeight: FontWeight.bold),
+                    style:
+                        TextStyle(fontSize: 3.4, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -229,9 +212,14 @@ class _BeygirState extends State<Beygir> {
               SizedBox(
                 height: 70,
               ),
-              Text("DİKKAT \nHesaplamalar için mekanik değerler kullanılmaktadır!",style: TextStyle(
-                  fontSize: SizeConfig.blockSizeVertical * 2.4,
-                  fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),textAlign: TextAlign.center,)
+              Text(
+                "DİKKAT \nHesaplamalar için mekanik değerler kullanılmaktadır!",
+                style: TextStyle(
+                    fontSize: 2.4,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic),
+                textAlign: TextAlign.center,
+              )
             ],
           ),
         ),
@@ -239,4 +227,3 @@ class _BeygirState extends State<Beygir> {
     );
   }
 }
-

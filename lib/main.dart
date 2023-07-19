@@ -1,8 +1,8 @@
-import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:toplu_hesaplayici/admobIslemleri.dart';
+import 'package:responsive_framework/responsive_framework.dart';
+
 import "beygir.dart";
 import 'kdvHesaplayicisi.dart';
 import 'komisyon.dart';
@@ -13,23 +13,19 @@ import 'GorevButonlari.dart';
 
 import 'akvaryum.dart';
 
-class SizeConfig {
-  static MediaQueryData _mediaQueryData;
-  static double screenWidth;
-  static double screenHeight;
-  static double blockSizeHorizontal;
-  static double blockSizeVertical;
-
-  void init(BuildContext context) {
-    _mediaQueryData = MediaQuery.of(context);
-    screenWidth = _mediaQueryData.size.width;
-    screenHeight = _mediaQueryData.size.height;
-    blockSizeHorizontal = screenWidth / 100;
-    blockSizeVertical = screenHeight / 100;
-  }
-}
-
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      systemNavigationBarIconBrightness: Brightness.light,
+      systemNavigationBarColor: Colors.blue,
+      statusBarColor: Colors.transparent,
+    ),
+  );
   runApp(
     MyApp(),
   );
@@ -42,7 +38,70 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(scaffoldBackgroundColor: Colors.blue.shade50),
       title: "HesapMatik",
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      builder: (context, child) => ResponsiveBreakpoints.builder(
+        child: child!,
+        breakpoints: [
+          const Breakpoint(start: 0, end: 450, name: MOBILE),
+          const Breakpoint(start: 451, end: 800, name: TABLET),
+          const Breakpoint(start: 801, end: 1920, name: DESKTOP),
+          const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
+        ],
+      ),
+      initialRoute: '/',
+      onGenerateRoute: (RouteSettings settings) {
+        switch (settings.name) {
+          case '/':
+            return MaterialPageRoute(builder: (context) {
+              return MaxWidthBox(
+                maxWidth: 1200,
+                background: Container(color: const Color(0xFFF5F5F5)),
+                child: ResponsiveScaledBox(
+                  width: ResponsiveValue<double>(context, conditionalValues: [
+                    Condition.equals(name: MOBILE, value: 450),
+                    Condition.between(start: 800, end: 1100, value: 800),
+                    Condition.between(start: 1000, end: 1200, value: 1000),
+                  ]).value,
+                  child: BouncingScrollWrapper.builder(context, HomePage(),
+                      dragWithMouse: true),
+                ),
+              );
+            });
+          case '/kdv':
+            return MaterialPageRoute(builder: (context) {
+              return MaxWidthBox(
+                maxWidth: 1200,
+                background: Container(color: const Color(0xFFF5F5F5)),
+                child: ResponsiveScaledBox(
+                  width: ResponsiveValue<double>(context, conditionalValues: [
+                    Condition.equals(name: MOBILE, value: 450),
+                    Condition.between(start: 800, end: 1100, value: 800),
+                    Condition.between(start: 1000, end: 1200, value: 1000),
+                  ]).value,
+                  child: BouncingScrollWrapper.builder(
+                      context, KdvHesaplayicisi(),
+                      dragWithMouse: true),
+                ),
+              );
+            });
+
+          default:
+            return MaterialPageRoute(builder: (context) {
+              return MaxWidthBox(
+                maxWidth: 1200,
+                background: Container(color: const Color(0xFFF5F5F5)),
+                child: ResponsiveScaledBox(
+                  width: ResponsiveValue<double>(context, conditionalValues: [
+                    Condition.equals(name: MOBILE, value: 450),
+                    Condition.between(start: 800, end: 1100, value: 800),
+                    Condition.between(start: 1000, end: 1200, value: 1000),
+                  ]).value,
+                  child: BouncingScrollWrapper.builder(context, HomePage(),
+                      dragWithMouse: true),
+                ),
+              );
+            });
+        }
+      },
     );
   }
 }
@@ -54,138 +113,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
-  BannerAd myBanner;
-
   void initState() {
     super.initState();
-    AdmobIslemleri.admobInitialize();
-    myBanner = AdmobIslemleri.buildBannerAd();
-    myBanner.load();
-
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
   }
 
   void dispose() {
-    myBanner.dispose();
     super.dispose();
   }
 
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
-
     return Scaffold(
-      drawer: Container(
-        width: SizeConfig.blockSizeHorizontal * 40,
-        child: Drawer(
-          child: Column(
-            children: [
-              Expanded(
-                flex: 3,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: SizeConfig.blockSizeVertical * 12,
-                      child: DrawerHeader(
-                        decoration: BoxDecoration(
-                          color: Color(0xff2296F3),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black,
-                              blurRadius: SizeConfig.blockSizeVertical * 0.40,
-                              offset: Offset(
-                                  0, SizeConfig.blockSizeVertical * 0.25),
-                            ),
-                          ],
-                        ),
-                        child: Center(
-                          child: Wrap(
-                            children: [
-                              Container(
-                                child: Text(
-                                  "İletişim",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize:
-                                          SizeConfig.blockSizeHorizontal * 5.5,
-                                      color: Colors.white,
-                                      shadows: [
-                                        Shadow(
-                                          color: Colors.black,
-                                          blurRadius:
-                                              SizeConfig.blockSizeVertical *
-                                                  0.8,
-                                          offset: Offset(
-                                              SizeConfig.blockSizeVertical *
-                                                  0.3,
-                                              SizeConfig.blockSizeVertical *
-                                                  0.4),
-                                        ),
-                                      ]),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    BaglantiButon(
-                      link: "https://www.instagram.com/_batuhansy/",
-                      image: "assets/instagram.png",
-                      title: "Instagram",
-                    ),
-                    Divider(
-                      height: SizeConfig.blockSizeVertical * 1.20,
-                    ),
-                    BaglantiButon(
-                      link: "https://facebook.com/batuylmzz/",
-                      image: "assets/facebook.png",
-                      title: "Facebook",
-                    ),
-                    Divider(
-                      height: SizeConfig.blockSizeVertical * 1.20,
-                    ),
-                    BaglantiButon(
-                      link: "https://twitter.com/pesindeyizz",
-                      image: "assets/twitter.png",
-                      title: "Twitter",
-                    ),
-                    Divider(
-                      height: SizeConfig.blockSizeVertical * 1.20,
-                    ),
-                    BaglantiButon(
-                      link: "mailto:batuhansavasyilmaztr@gmail.com",
-                      image: "assets/gmail.png",
-                      title: "Mail",
-                    ),
-                  ],
-                ),
-              ),
-              Column(
-                children: [
-                  SizedBox(
-                    height: SizeConfig.blockSizeVertical * 7.45,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xff2296F3),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black,
-                              blurRadius: SizeConfig.blockSizeVertical * 0.40,
-                              offset: Offset(
-                                  0, SizeConfig.blockSizeVertical * -0.15)),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
       appBar: AppBar(
         leading: Builder(
           builder: (context) => IconButton(
@@ -201,222 +138,20 @@ class _HomePageState extends State<HomePage> {
       ),
       body: GridView.extent(
         primary: false,
-        crossAxisSpacing: 2,
+        crossAxisSpacing: 10,
         mainAxisSpacing: 3,
+        padding: EdgeInsets.all(10.0),
         maxCrossAxisExtent: 230,
         children: [
-          GorevButonlari(
-            image: Image(
-              image: AssetImage("assets/percentage.png"),
-              height: SizeConfig.blockSizeVertical * 15,
-              width: SizeConfig.blockSizeVertical * 10,
-            ),
-            text: Text(
-              "Kdv",
-              style: TextStyle(
-                  fontSize: SizeConfig.blockSizeVertical * 3.0,
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            navigator: () {
-              setState(() {
-                myBanner.show();
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => KdvHesaplayicisi()));
-              });
-            },
+          GorevButton(
+            logo: "assets/car.png",
+            altisim: "53",
+            sayfaismi: '/kdv',
           ),
-          GorevButonlari(
-            image: Image.asset(
-              "assets/zraporu.png",
-              height: SizeConfig.blockSizeVertical * 15,
-              width: SizeConfig.blockSizeHorizontal * 10,
-            ),
-            text: Text(
-              "Eksik Z Raporu",
-              style: TextStyle(
-                  fontSize: SizeConfig.blockSizeVertical * 2.53,
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            navigator: () {
-              setState(() {
-                myBanner.show();
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => ZRaporu()));
-              });
-            },
-          ),
-          GorevButonlari(
-            navigator: () {
-              setState(() {
-                myBanner.show();
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => BinekArac()));
-              });
-            },
-            text: Text(
-              "%70'lik Binek Araç Giderleri",
-              style: TextStyle(
-                  fontSize: SizeConfig.blockSizeVertical * 2.2,
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            image: Image(
-              image: AssetImage("assets/car.png"),
-              height: SizeConfig.blockSizeVertical * 15,
-              width: SizeConfig.blockSizeHorizontal * 15,
-            ),
-          ),
-          GorevButonlari(
-            image: Image.asset(
-              "assets/aquarium.png",
-              height: SizeConfig.blockSizeVertical * 15,
-              width: SizeConfig.blockSizeHorizontal * 10,
-            ),
-            text: Text(
-              "Akvaryum",
-              style: TextStyle(
-                  fontSize: SizeConfig.blockSizeVertical * 2,
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            navigator: () {
-              setState(() {
-                myBanner.show();
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => Aquarium()));
-              });
-            },
-          ),
-          GorevButonlari(
-            navigator: () {
-              setState(() {
-                myBanner.show();
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => KitleEndeksi()));
-              });
-            },
-            text: Text(
-              "Vücut Kitle Endeksi",
-              style: TextStyle(
-                  fontSize: SizeConfig.blockSizeVertical * 2.0,
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            image: Image(
-              image: AssetImage("assets/love.png"),
-              height: SizeConfig.blockSizeVertical * 15,
-              width: SizeConfig.blockSizeHorizontal * 10,
-            ),
-          ),
-          GorevButonlari(
-            navigator: () {
-              setState(
-                () {
-                  myBanner.show();
-                  Navigator.push(context,
-                      CupertinoPageRoute(builder: (context) => Komisyon()));
-                },
-              );
-            },
-            text: Text(
-              "Komisyon",
-              style: TextStyle(
-                  fontSize: SizeConfig.blockSizeVertical * 2.5,
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            image: Image(
-              image: AssetImage("assets/commission.png"),
-              height: SizeConfig.blockSizeVertical * 15,
-              width: SizeConfig.blockSizeHorizontal * 10,
-            ),
-          ),
-          GorevButonlari(
-            navigator: () {
-              setState(() {
-                myBanner.show();
-                Navigator.push(context,
-                    CupertinoPageRoute(builder: (context) => Beygir()));
-              });
-            },
-            text: Text(
-              "kW ⇄ hp",
-              style: TextStyle(
-                  fontSize: SizeConfig.blockSizeVertical * 2.5,
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            image: Image(
-              image: AssetImage("assets/horse-power.png"),
-              height: SizeConfig.blockSizeVertical * 15,
-              width: SizeConfig.blockSizeHorizontal * 10,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: RaisedButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25)),
-              color: Colors.white,
-              onPressed: () {
-                setState(() {
-                  myBanner.show();
-                  showCupertinoModalPopup(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                              title: Text(
-                                "Siz Seçin",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: SizeConfig.blockSizeVertical * 3,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Eklenmesini İstediğiniz Yeni Hesaplayıcılar İçin Bizimle İletişime Geçebilirsiniz.",
-                                    style: TextStyle(
-                                      fontSize:
-                                          SizeConfig.blockSizeVertical * 2.3,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              actions: [
-                                IconButton(
-                                  tooltip: "Kapat",
-                                  icon: Icon(Icons.close),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                )
-                              ]));
-                });
-              },
-              child: Image(
-                image: AssetImage("assets/loading.png"),
-                height: SizeConfig.blockSizeVertical * 15,
-                width: SizeConfig.blockSizeHorizontal * 30,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          SizedBox(
-            height: 10,
+          GorevButton(
+            logo: "assets/aquarium.png",
+            altisim: "53",
+            sayfaismi: '/kdv',
           ),
         ],
       ),
@@ -430,9 +165,8 @@ TextStyle appBarStyle = TextStyle(
   shadows: [
     Shadow(
       color: Colors.black,
-      blurRadius: SizeConfig.blockSizeVertical * 0.70,
-      offset: Offset(SizeConfig.blockSizeVertical * 0.35,
-          SizeConfig.blockSizeVertical * 0.25),
+      blurRadius: 0.70,
+      offset: Offset(0.35, 0.25),
     ),
   ],
 );

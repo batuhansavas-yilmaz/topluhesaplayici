@@ -4,21 +4,6 @@ import 'package:flutter/services.dart';
 import 'main.dart';
 import 'GorevButonlari.dart';
 import 'endeksYorum.dart';
-class SizeConfig {
-  static MediaQueryData _mediaQueryData;
-  static double screenWidth;
-  static double screenHeight;
-  static double blockSizeHorizontal;
-  static double blockSizeVertical;
-
-  void init(BuildContext context) {
-    _mediaQueryData = MediaQuery.of(context);
-    screenWidth = _mediaQueryData.size.width;
-    screenHeight = _mediaQueryData.size.height;
-    blockSizeHorizontal = screenWidth / 100;
-    blockSizeVertical = screenHeight / 100;
-  }
-}
 
 class KitleEndeksi extends StatefulWidget {
   @override
@@ -36,19 +21,18 @@ class KitleEndeksiState extends State<KitleEndeksi> {
   @override
   Widget build(BuildContext context) {
     Yorum.yorum();
-    SizeConfig().init(context);
-    return Scaffold(
 
+    return Scaffold(
       appBar: AppBar(
         leading: Transform(
           alignment: FractionalOffset.center,
           transform: Matrix4.rotationZ(-80.10),
-          child: Container(
-            child: GeriButton()
-          ),
+          child: Container(child: GeriButton()),
         ),
-        title: Text("Vücut Kitle Endeksi",style: appBarStyle,),
-
+        title: Text(
+          "Vücut Kitle Endeksi",
+          style: appBarStyle,
+        ),
       ),
       body: Column(
         children: [
@@ -80,7 +64,8 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                           controller: kg,
                           style: TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold),
-                          keyboardType: TextInputType.numberWithOptions(decimal: true),
+                          keyboardType:
+                              TextInputType.numberWithOptions(decimal: true),
                           inputFormatters: [
                             FilteringTextInputFormatter.deny(",")
                           ],
@@ -114,7 +99,8 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                           controller: boy,
                           style: TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold),
-                          keyboardType: TextInputType.numberWithOptions(decimal: true),
+                          keyboardType:
+                              TextInputType.numberWithOptions(decimal: true),
                           inputFormatters: [
                             FilteringTextInputFormatter.deny(",")
                           ],
@@ -135,8 +121,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: RaisedButton(
-                  color: Colors.white,
+                child: ElevatedButton(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
@@ -145,7 +130,9 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                     ),
                   ),
                   onPressed: () {
-                    setState(() { FocusScope.of(context).requestFocus(new FocusNode());// klavye kapatıcı
+                    setState(() {
+                      FocusScope.of(context)
+                          .requestFocus(new FocusNode()); // klavye kapatıcı
                       showCupertinoModalPopup(
                           context: context,
                           builder: (context) => AlertDialog(
@@ -153,21 +140,25 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                                   content: Text(
                                       "Edindiğiniz Sonuçlar Formulize Olarak Doğru Olsa Bile Sağlığınız Açısından En Güvenilir Sonuçlar İçin Diyetisyenlerden Yardım Almanızı Öneririz."),
                                   actions: [
-                                    IconButton(tooltip: "Kapat",icon: Icon(Icons.close),onPressed: (){Navigator.pop(context);},)
+                                    IconButton(
+                                      tooltip: "Kapat",
+                                      icon: Icon(Icons.close),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    )
                                   ]));
                       kG = double.parse(kg.text);
                       boY = double.parse(boy.text);
                       sonuc = kG / ((boY / 100) * (boY / 100));
-
                     });
                   },
                 ),
               ),
             ],
           ),
-
           Padding(
-            padding: const EdgeInsets.only(left: 20,right:20,top:10),
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
             child: ListTile(
               leading: Text(
                 "Sonuç :",
@@ -182,14 +173,17 @@ class KitleEndeksiState extends State<KitleEndeksi> {
               ),
             ),
           ),
-         ListTile(
+          ListTile(
             title: Text(
               "Yorumsal Sonuç",
               style: TextStyle(fontSize: 20),
               textAlign: TextAlign.center,
             ),
             subtitle: Column(
-              children: [Divider(color: Colors.black,),
+              children: [
+                Divider(
+                  color: Colors.black,
+                ),
                 Text(
                   sonucMetin,
                   style: TextStyle(fontSize: 15.58, color: Colors.black),

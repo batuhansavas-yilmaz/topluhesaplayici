@@ -4,22 +4,6 @@ import 'main.dart';
 
 import 'GorevButonlari.dart';
 
-class SizeConfig {
-  static MediaQueryData _mediaQueryData;
-  static double screenWidth;
-  static double screenHeight;
-  static double blockSizeHorizontal;
-  static double blockSizeVertical;
-
-  void init(BuildContext context) {
-    _mediaQueryData = MediaQuery.of(context);
-    screenWidth = _mediaQueryData.size.width;
-    screenHeight = _mediaQueryData.size.height;
-    blockSizeHorizontal = screenWidth / 100;
-    blockSizeVertical = screenHeight / 100;
-  }
-}
-
 class Komisyon extends StatefulWidget {
   @override
   _KomisyonState createState() => _KomisyonState();
@@ -38,18 +22,17 @@ class _KomisyonState extends State<Komisyon> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
         leading: Transform(
           alignment: FractionalOffset.center,
           transform: Matrix4.rotationZ(-80.10),
-          child: Container(
-            child: GeriButton()
-          ),
+          child: Container(child: GeriButton()),
         ),
-        title: Text("Komisyon Hesaplama",style: appBarStyle,),
-
+        title: Text(
+          "Komisyon Hesaplama",
+          style: appBarStyle,
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -58,8 +41,9 @@ class _KomisyonState extends State<Komisyon> {
             children: [
               Text(
                 "Komisyon Oranı",
-                style: TextStyle(fontWeight: FontWeight.bold,
-                  fontSize: SizeConfig.blockSizeVertical * 3.4,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 3.4,
                 ),
               ),
               Row(
@@ -108,9 +92,10 @@ class _KomisyonState extends State<Komisyon> {
                             BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
                           ]),
                       child: TextField(
-                        controller: t2, inputFormatters: [
-                        FilteringTextInputFormatter.deny(",")
-                      ],
+                        controller: t2,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.deny(",")
+                        ],
                         keyboardType:
                             TextInputType.numberWithOptions(decimal: true),
                         style: TextStyle(
@@ -131,8 +116,7 @@ class _KomisyonState extends State<Komisyon> {
                   ),
                 ],
               ),
-              RaisedButton(
-                color: Colors.white,
+              ElevatedButton(
                 onPressed: () {
                   setState(() {
                     FocusScope.of(context).requestFocus(new FocusNode());
@@ -147,17 +131,14 @@ class _KomisyonState extends State<Komisyon> {
                   style: TextStyle(fontSize: 20),
                 ),
               ),
-              Row(mainAxisAlignment: MainAxisAlignment.center,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Text("Aldığınız Pay Oranı : ", style: TextStyle(fontSize: 3)),
                   Text(
-                      "Aldığınız Pay Oranı : "
-
-                      ,style: TextStyle(
-                          fontSize: SizeConfig.blockSizeVertical * 3)),Text(
-                     "% ${AlinanOranSonuc.toStringAsFixed(2)}"
-
-                      ,style: TextStyle(
-                          fontSize: SizeConfig.blockSizeVertical *3,fontWeight: FontWeight.bold),),
+                    "% ${AlinanOranSonuc.toStringAsFixed(2)}",
+                    style: TextStyle(fontSize: 3, fontWeight: FontWeight.bold),
+                  ),
                 ],
               ),
               Divider(
@@ -165,8 +146,9 @@ class _KomisyonState extends State<Komisyon> {
               ),
               Text(
                 "Komisyon Tutarı",
-                style: TextStyle(fontWeight: FontWeight.bold,
-                  fontSize: SizeConfig.blockSizeVertical * 3.4,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 3.4,
                 ),
               ),
               Row(
@@ -182,9 +164,10 @@ class _KomisyonState extends State<Komisyon> {
                             ],
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10)),
-                        child: TextField( inputFormatters: [
-                          FilteringTextInputFormatter.deny(",")
-                        ],
+                        child: TextField(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(",")
+                          ],
                           keyboardType:
                               TextInputType.numberWithOptions(decimal: true),
                           controller: t3,
@@ -213,9 +196,10 @@ class _KomisyonState extends State<Komisyon> {
                           boxShadow: [
                             BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
                           ]),
-                      child: TextField( inputFormatters: [
-                        FilteringTextInputFormatter.deny(",")
-                      ],
+                      child: TextField(
+                        inputFormatters: [
+                          FilteringTextInputFormatter.deny(",")
+                        ],
                         controller: t4,
                         keyboardType:
                             TextInputType.numberWithOptions(decimal: true),
@@ -237,8 +221,7 @@ class _KomisyonState extends State<Komisyon> {
                   ),
                 ],
               ),
-              RaisedButton(
-                color: Colors.white,
+              ElevatedButton(
                 onPressed: () {
                   setState(() {
                     FocusScope.of(context).requestFocus(new FocusNode());
@@ -257,27 +240,30 @@ class _KomisyonState extends State<Komisyon> {
                 children: [
                   Text(
                     "Verdiğiniz Orana Göre ",
-                    style:
-                        TextStyle(fontSize: SizeConfig.blockSizeVertical * 3),
+                    style: TextStyle(fontSize: 3),
                     textAlign: TextAlign.center,
-                  ),Row(mainAxisAlignment: MainAxisAlignment.center,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         "Aldığınız Pay : ",
-                        style:
-                            TextStyle(fontSize: SizeConfig.blockSizeVertical * 3),
+                        style: TextStyle(fontSize: 3),
                         textAlign: TextAlign.center,
-                      ), Text(
+                      ),
+                      Text(
                         "${AlinanPaySonuc.toStringAsFixed(2)} Para Birimi",
-                        style:
-                            TextStyle(fontSize: SizeConfig.blockSizeVertical * 3.4,fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 3.4, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
                     ],
                   ),
                 ],
               ),
-              SizedBox(height: 100,),
+              SizedBox(
+                height: 100,
+              ),
             ],
           ),
         ),
