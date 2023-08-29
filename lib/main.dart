@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: [
-        const Locale('tr', ''), // Türkçe
+        const Locale('tr', 'TR'), // Türkçe
       ],
       theme: ThemeData(
         elevatedButtonTheme: ElevatedButtonThemeData(
