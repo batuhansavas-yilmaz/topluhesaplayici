@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
-import 'GorevButonlari.dart';
-import 'main.dart';
+import 'yardimcilar.dart';
 
 class ZRaporu extends StatefulWidget {
   @override
@@ -14,11 +14,20 @@ class _ZRaporuState extends State<ZRaporu> {
   TextEditingController k1 = TextEditingController(text: '');
   TextEditingController k2 = TextEditingController(text: '');
   TextEditingController tutar = TextEditingController(text: '');
-
+  late String mesaj;
   double buyukKumul = 0.00;
   double kucukKumul = 0.00;
   double tuTar = 0.00;
   double sonuc = 0.00;
+  toast() {
+    showToast("$mesaj",
+        context: context,
+        animation: StyledToastAnimation.fade,
+        curve: Curves.linear,
+        reverseCurve: Curves.linear,
+        duration: Duration(seconds: 4),
+        position: StyledToastPosition.center);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +40,6 @@ class _ZRaporuState extends State<ZRaporu> {
         ),
         title: Text(
           "Eksik Z Raporu Bulma",
-          style: appBarStyle,
         ),
       ),
       body: Column(
@@ -47,7 +55,7 @@ class _ZRaporuState extends State<ZRaporu> {
                         "Bu Hesaplama Sadece Tek Tip Kdv Oranı\nİçeren Z Raporları İçin Kullanılabilir.",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 2.5)),
+                            fontWeight: FontWeight.bold, fontSize: 20)),
                   ],
                 ),
                 Divider(color: Colors.black),
@@ -79,12 +87,12 @@ class _ZRaporuState extends State<ZRaporu> {
                             "Büyük Kümülatif",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: 3, fontWeight: FontWeight.bold),
+                                fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                           Text(
                             "Örnek İçin Yazıya Dokunun",
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 1.5),
+                            style: TextStyle(fontSize: 15),
                           ),
                         ],
                       ),
@@ -94,10 +102,6 @@ class _ZRaporuState extends State<ZRaporu> {
                         padding: const EdgeInsets.all(5.0),
                         child: Container(
                           decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    offset: Offset(0.50, 1.85), blurRadius: 2)
-                              ],
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10)),
                           child: TextField(
@@ -136,12 +140,12 @@ class _ZRaporuState extends State<ZRaporu> {
                             "Büyük Tutar",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                fontSize: 3, fontWeight: FontWeight.bold),
+                                fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                           Text(
                             "Üst Satırdaki Raporun Toplam Tutarı",
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 1.5),
+                            style: TextStyle(fontSize: 15),
                           ),
                         ],
                       ),
@@ -151,10 +155,6 @@ class _ZRaporuState extends State<ZRaporu> {
                         padding: const EdgeInsets.all(5.0),
                         child: Container(
                           decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    offset: Offset(0.50, 1.85), blurRadius: 2)
-                              ],
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10)),
                           child: TextField(
@@ -210,12 +210,12 @@ class _ZRaporuState extends State<ZRaporu> {
                               "Küçük Kümülatif",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 3, fontWeight: FontWeight.bold),
+                                  fontSize: 20, fontWeight: FontWeight.bold),
                             ),
                             Text(
                               "Örnek İçin Yazıya Dokunun",
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 1.5),
+                              style: TextStyle(fontSize: 15),
                             )
                           ],
                         ),
@@ -226,22 +226,25 @@ class _ZRaporuState extends State<ZRaporu> {
                         padding: const EdgeInsets.all(5.0),
                         child: Container(
                           decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    offset: Offset(0.50, 1.85), blurRadius: 2)
-                              ],
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10)),
                           child: TextField(
                             onSubmitted: (value) {
                               setState(() {
-                                buyukKumul = double.parse(k1.text);
-                                kucukKumul = double.parse(k2.text);
-                                tuTar = double.parse(tutar.text);
+                                if (k1.text.isNotEmpty &&
+                                    k2.text.isNotEmpty &&
+                                    tutar.text.isNotEmpty) {
+                                  buyukKumul = double.parse(k1.text);
+                                  kucukKumul = double.parse(k2.text);
+                                  tuTar = double.parse(tutar.text);
 
-                                sonuc = ((buyukKumul - kucukKumul) - tuTar);
-                                FocusScope.of(context)
-                                    .requestFocus(new FocusNode());
+                                  sonuc = ((buyukKumul - kucukKumul) - tuTar);
+                                  FocusScope.of(context)
+                                      .requestFocus(new FocusNode());
+                                } else {
+                                  mesaj = "Lütfen bir değer girin";
+                                  toast();
+                                }
                               });
                             },
                             controller: k2,
@@ -278,21 +281,32 @@ class _ZRaporuState extends State<ZRaporu> {
                     ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          buyukKumul = double.parse(k1.text);
-                          kucukKumul = double.parse(k2.text);
-                          tuTar = double.parse(tutar.text);
+                          if (k1.text.isNotEmpty &&
+                              k2.text.isNotEmpty &&
+                              tutar.text.isNotEmpty) {
+                            buyukKumul = double.parse(k1.text);
+                            kucukKumul = double.parse(k2.text);
+                            tuTar = double.parse(tutar.text);
 
-                          sonuc = ((buyukKumul - kucukKumul) - tuTar);
-                          FocusScope.of(context).requestFocus(new FocusNode());
+                            sonuc = ((buyukKumul - kucukKumul) - tuTar);
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
+                          } else {
+                            mesaj = "Lütfen bir değer girin";
+                            toast();
+                          }
                         });
                       },
                       child: Text(
                         "Hesapla",
-                        style:
-                            TextStyle(fontSize: 3, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 17, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],
+                ),
+                SizedBox(
+                  height: 10,
                 ),
                 Row(
                   children: [
@@ -301,7 +315,7 @@ class _ZRaporuState extends State<ZRaporu> {
                         "Eksik Rapor/Raporlardaki Toplam Tutar :",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 2.5),
+                            fontWeight: FontWeight.bold, fontSize: 17),
                       ),
                     ),
                     Expanded(
@@ -309,7 +323,9 @@ class _ZRaporuState extends State<ZRaporu> {
                         sonuc.toStringAsFixed(2),
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 3.38),
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic,
+                            fontSize: 20),
                       ),
                     ),
                   ],

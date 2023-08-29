@@ -37,15 +37,23 @@ class _GorevButtonState extends State<GorevButton> {
       children: [
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.lime,
+            elevation: 1,
+            backgroundColor: Colors.green,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
           ),
           onPressed: () {
             setState(() {
               Navigator.pushNamed(context, widget.sayfaismi!);
             });
           },
-          child: Image.asset(
-            widget.logo.toString(),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset(
+              widget.logo.toString(),
+              width: 250,
+            ),
           ),
         ),
         Text("${widget.altisim}"),
@@ -53,6 +61,3 @@ class _GorevButtonState extends State<GorevButton> {
     );
   }
 }
-
-// ignore: must_be_immutable
-

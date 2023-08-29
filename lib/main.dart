@@ -9,7 +9,7 @@ import 'komisyon.dart';
 import 'zraporu.dart';
 import 'vucutKitleEndeksi.dart';
 import 'binekArac.dart';
-import 'GorevButonlari.dart';
+import 'yardimcilar.dart';
 
 import 'akvaryum.dart';
 
@@ -35,7 +35,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(scaffoldBackgroundColor: Colors.blue.shade50),
+      theme: ThemeData(
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+              elevation: 1,
+              backgroundColor: Color.fromARGB(255, 236, 236, 236),
+              foregroundColor: Colors.black),
+        ),
+        appBarTheme: AppBarTheme(backgroundColor: Colors.blue, elevation: 1),
+      ),
       title: "HesapMatik",
       debugShowCheckedModeBanner: false,
       builder: (context, child) => ResponsiveBreakpoints.builder(
@@ -51,7 +59,7 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (RouteSettings settings) {
         switch (settings.name) {
           case '/':
-            return MaterialPageRoute(builder: (context) {
+            return CupertinoPageRoute(builder: (context) {
               return MaxWidthBox(
                 maxWidth: 1200,
                 background: Container(color: const Color(0xFFF5F5F5)),
@@ -67,7 +75,7 @@ class MyApp extends StatelessWidget {
               );
             });
           case '/kdv':
-            return MaterialPageRoute(builder: (context) {
+            return CupertinoPageRoute(builder: (context) {
               return MaxWidthBox(
                 maxWidth: 1200,
                 background: Container(color: const Color(0xFFF5F5F5)),
@@ -83,9 +91,105 @@ class MyApp extends StatelessWidget {
                 ),
               );
             });
+          case '/zraporu':
+            return CupertinoPageRoute(builder: (context) {
+              return MaxWidthBox(
+                maxWidth: 1200,
+                background: Container(color: const Color(0xFFF5F5F5)),
+                child: ResponsiveScaledBox(
+                  width: ResponsiveValue<double>(context, conditionalValues: [
+                    Condition.equals(name: MOBILE, value: 450),
+                    Condition.between(start: 800, end: 1100, value: 800),
+                    Condition.between(start: 1000, end: 1200, value: 1000),
+                  ]).value,
+                  child: BouncingScrollWrapper.builder(context, ZRaporu(),
+                      dragWithMouse: true),
+                ),
+              );
+            });
+          case '/binekarac':
+            return CupertinoPageRoute(builder: (context) {
+              return MaxWidthBox(
+                maxWidth: 1200,
+                background: Container(color: const Color(0xFFF5F5F5)),
+                child: ResponsiveScaledBox(
+                  width: ResponsiveValue<double>(context, conditionalValues: [
+                    Condition.equals(name: MOBILE, value: 450),
+                    Condition.between(start: 800, end: 1100, value: 800),
+                    Condition.between(start: 1000, end: 1200, value: 1000),
+                  ]).value,
+                  child: BouncingScrollWrapper.builder(context, BinekArac(),
+                      dragWithMouse: true),
+                ),
+              );
+            });
+          case '/komisyon':
+            return CupertinoPageRoute(builder: (context) {
+              return MaxWidthBox(
+                maxWidth: 1200,
+                background: Container(color: const Color(0xFFF5F5F5)),
+                child: ResponsiveScaledBox(
+                  width: ResponsiveValue<double>(context, conditionalValues: [
+                    Condition.equals(name: MOBILE, value: 450),
+                    Condition.between(start: 800, end: 1100, value: 800),
+                    Condition.between(start: 1000, end: 1200, value: 1000),
+                  ]).value,
+                  child: BouncingScrollWrapper.builder(context, Komisyon(),
+                      dragWithMouse: true),
+                ),
+              );
+            });
+          case '/akvaryum':
+            return CupertinoPageRoute(builder: (context) {
+              return MaxWidthBox(
+                maxWidth: 1200,
+                background: Container(color: const Color(0xFFF5F5F5)),
+                child: ResponsiveScaledBox(
+                  width: ResponsiveValue<double>(context, conditionalValues: [
+                    Condition.equals(name: MOBILE, value: 450),
+                    Condition.between(start: 800, end: 1100, value: 800),
+                    Condition.between(start: 1000, end: 1200, value: 1000),
+                  ]).value,
+                  child: BouncingScrollWrapper.builder(context, Aquarium(),
+                      dragWithMouse: true),
+                ),
+              );
+            });
+          case '/vucut':
+            return CupertinoPageRoute(builder: (context) {
+              return MaxWidthBox(
+                maxWidth: 1200,
+                background: Container(color: const Color(0xFFF5F5F5)),
+                child: ResponsiveScaledBox(
+                  width: ResponsiveValue<double>(context, conditionalValues: [
+                    Condition.equals(name: MOBILE, value: 450),
+                    Condition.between(start: 800, end: 1100, value: 800),
+                    Condition.between(start: 1000, end: 1200, value: 1000),
+                  ]).value,
+                  child: BouncingScrollWrapper.builder(context, KitleEndeksi(),
+                      dragWithMouse: true),
+                ),
+              );
+            });
+          case '/beygir':
+            return CupertinoPageRoute(builder: (context) {
+              return MaxWidthBox(
+                maxWidth: 1200,
+                background: Container(color: const Color(0xFFF5F5F5)),
+                child: ResponsiveScaledBox(
+                  width: ResponsiveValue<double>(context, conditionalValues: [
+                    Condition.equals(name: MOBILE, value: 450),
+                    Condition.between(start: 800, end: 1100, value: 800),
+                    Condition.between(start: 1000, end: 1200, value: 1000),
+                  ]).value,
+                  child: BouncingScrollWrapper.builder(context, Beygir(),
+                      dragWithMouse: true),
+                ),
+              );
+            });
 
           default:
-            return MaterialPageRoute(builder: (context) {
+            return CupertinoPageRoute(builder: (context) {
               return MaxWidthBox(
                 maxWidth: 1200,
                 background: Container(color: const Color(0xFFF5F5F5)),
@@ -124,49 +228,55 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: Icon(Icons.mail),
-            onPressed: () => Scaffold.of(context).openDrawer(),
-          ),
-        ),
         title: Text(
           "HesapMatik",
-          style: appBarStyle,
         ),
         centerTitle: true,
       ),
       body: GridView.extent(
         primary: false,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 3,
-        padding: EdgeInsets.all(10.0),
+        crossAxisSpacing: 30,
+        mainAxisSpacing: 30,
+        padding: EdgeInsets.all(30.0),
         maxCrossAxisExtent: 230,
         children: [
           GorevButton(
-            logo: "assets/car.png",
+            logo: "assets/percentage.png",
             altisim: "53",
             sayfaismi: '/kdv',
           ),
           GorevButton(
+            logo: "assets/zraporu.png",
+            altisim: "53",
+            sayfaismi: '/zraporu',
+          ),
+          GorevButton(
+            logo: "assets/car.png",
+            altisim: "53",
+            sayfaismi: '/binekarac',
+          ),
+          GorevButton(
+            logo: "assets/commission.png",
+            altisim: "53",
+            sayfaismi: '/komisyon',
+          ),
+          GorevButton(
             logo: "assets/aquarium.png",
             altisim: "53",
-            sayfaismi: '/kdv',
+            sayfaismi: '/akvaryum',
+          ),
+          GorevButton(
+            logo: "assets/love.png",
+            altisim: "53",
+            sayfaismi: '/vucut',
+          ),
+          GorevButton(
+            logo: "assets/horse-power.png",
+            altisim: "53",
+            sayfaismi: '/beygir',
           ),
         ],
       ),
     );
   }
 }
-
-TextStyle appBarStyle = TextStyle(
-  color: Colors.white,
-  fontWeight: FontWeight.bold,
-  shadows: [
-    Shadow(
-      color: Colors.black,
-      blurRadius: 0.70,
-      offset: Offset(0.35, 0.25),
-    ),
-  ],
-);

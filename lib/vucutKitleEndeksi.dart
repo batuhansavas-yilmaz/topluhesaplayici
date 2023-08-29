@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'main.dart';
-import 'GorevButonlari.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'yardimcilar.dart';
 import 'endeksYorum.dart';
 
 class KitleEndeksi extends StatefulWidget {
@@ -31,7 +31,6 @@ class KitleEndeksiState extends State<KitleEndeksi> {
         ),
         title: Text(
           "Vücut Kitle Endeksi",
-          style: appBarStyle,
         ),
       ),
       body: Column(
@@ -43,7 +42,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                 child: Text(
                     "18 Yaşına Kadar Olan Bireylerin \nVücut Kitle Endekslerini Öğrenmeleri İçin \nDiyetisyenlerden Yardım Almaları Önerilir.",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 15)),
+                    style: TextStyle(fontSize: 20)),
               ),
               Row(
                 children: [
@@ -53,14 +52,11 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
-                          ],
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),
                         ),
-                        child: TextField(
+                        child: TextFormField(
                           controller: kg,
                           style: TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold),
@@ -88,14 +84,47 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
-                          ],
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),
                         ),
-                        child: TextField(
+                        child: TextFormField(
+                          onFieldSubmitted: (value) {
+                            setState(() {
+                              if (kg.text.isNotEmpty && boy.text.isNotEmpty) {
+                                FocusScope.of(context).requestFocus(
+                                    new FocusNode()); // klavye kapatıcı
+                                showCupertinoModalPopup(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                            title: Text("Uyarı"),
+                                            content: Text(
+                                                'Edindiğiniz sonuçlar formulize olarak doğru olsa bile '
+                                                'sağlığınız açısından en güvenilir sonuçlar için diyetisyenlerden '
+                                                'yardım almanızı öneririz.'),
+                                            actions: [
+                                              IconButton(
+                                                tooltip: "Kapat",
+                                                icon: Icon(Icons.close),
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                              )
+                                            ]));
+                                kG = double.parse(kg.text);
+                                boY = double.parse(boy.text);
+                                sonuc = kG / ((boY / 100) * (boY / 100));
+                              } else {
+                                showToast("Lütfen bir değer girin",
+                                    context: context,
+                                    animation: StyledToastAnimation.fade,
+                                    curve: Curves.linear,
+                                    reverseCurve: Curves.linear,
+                                    duration: Duration(seconds: 4),
+                                    position: StyledToastPosition.center);
+                              }
+                            });
+                          },
                           controller: boy,
                           style: TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold),
@@ -122,35 +151,44 @@ class KitleEndeksiState extends State<KitleEndeksi> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: ElevatedButton(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Hesapla",
-                      style: TextStyle(fontSize: 30),
-                    ),
+                  child: Text(
+                    "Hesapla",
+                    style: TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
                     setState(() {
-                      FocusScope.of(context)
-                          .requestFocus(new FocusNode()); // klavye kapatıcı
-                      showCupertinoModalPopup(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                                  title: Text("Uyarı"),
-                                  content: Text(
-                                      "Edindiğiniz Sonuçlar Formulize Olarak Doğru Olsa Bile Sağlığınız Açısından En Güvenilir Sonuçlar İçin Diyetisyenlerden Yardım Almanızı Öneririz."),
-                                  actions: [
-                                    IconButton(
-                                      tooltip: "Kapat",
-                                      icon: Icon(Icons.close),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                    )
-                                  ]));
-                      kG = double.parse(kg.text);
-                      boY = double.parse(boy.text);
-                      sonuc = kG / ((boY / 100) * (boY / 100));
+                      if (kg.text.isNotEmpty && boy.text.isNotEmpty) {
+                        FocusScope.of(context)
+                            .requestFocus(new FocusNode()); // klavye kapatıcı
+                        showCupertinoModalPopup(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                    title: Text("Uyarı"),
+                                    content: Text(
+                                        'Edindiğiniz sonuçlar formulize olarak doğru olsa bile '
+                                        'sağlığınız açısından en güvenilir sonuçlar için diyetisyenlerden '
+                                        'yardım almanızı öneririz.'),
+                                    actions: [
+                                      IconButton(
+                                        tooltip: "Kapat",
+                                        icon: Icon(Icons.close),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                      )
+                                    ]));
+                        kG = double.parse(kg.text);
+                        boY = double.parse(boy.text);
+                        sonuc = kG / ((boY / 100) * (boY / 100));
+                      } else {
+                        showToast("Lütfen bir değer girin",
+                            context: context,
+                            animation: StyledToastAnimation.fade,
+                            curve: Curves.linear,
+                            reverseCurve: Curves.linear,
+                            duration: Duration(seconds: 4),
+                            position: StyledToastPosition.center);
+                      }
                     });
                   },
                 ),
@@ -159,19 +197,22 @@ class KitleEndeksiState extends State<KitleEndeksi> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-            child: ListTile(
-              leading: Text(
-                "Sonuç :",
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text(
+                "Sonuç : ",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              title: Text(
+              Text(
                 sonuc.toStringAsFixed(2),
-                style: TextStyle(fontSize: 40),
+                style: TextStyle(fontSize: 30),
               ),
-            ),
+            ]),
+          ),
+          SizedBox(
+            height: 10,
           ),
           ListTile(
             title: Text(
@@ -186,7 +227,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                 ),
                 Text(
                   sonucMetin,
-                  style: TextStyle(fontSize: 15.58, color: Colors.black),
+                  style: TextStyle(fontSize: 20, color: Colors.black),
                 ),
               ],
             ),

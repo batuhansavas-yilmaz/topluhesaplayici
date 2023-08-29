@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'GorevButonlari.dart';
-import "main.dart";
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'yardimcilar.dart';
 
 class BinekArac extends StatefulWidget {
   @override
@@ -21,13 +21,24 @@ class _BinekAracState extends State<BinekArac> {
   double giderKabulEdilmeyenTutar = 0.00;
   TextEditingController t1 = TextEditingController(text: '');
   TextEditingController t2 = TextEditingController(text: '');
+
+  late String mesaj;
+  toast() {
+    showToast("$mesaj",
+        context: context,
+        animation: StyledToastAnimation.fade,
+        curve: Curves.linear,
+        reverseCurve: Curves.linear,
+        duration: Duration(seconds: 4),
+        position: StyledToastPosition.center);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
           "%70'lik Binek Araç Giderleri",
-          style: appBarStyle,
         ),
         leading: Transform(
           alignment: FractionalOffset.center,
@@ -68,12 +79,9 @@ class _BinekAracState extends State<BinekArac> {
                     padding: const EdgeInsets.all(5.0),
                     child: Container(
                       decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
-                          ],
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10)),
-                      child: TextField(
+                      child: TextFormField(
                         textInputAction: TextInputAction.next,
                         keyboardType:
                             TextInputType.numberWithOptions(decimal: true),
@@ -101,28 +109,32 @@ class _BinekAracState extends State<BinekArac> {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
-                        ]),
-                    child: TextField(
-                      onSubmitted: (value) {
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextFormField(
+                      onFieldSubmitted: (value) {
                         setState(() {
-                          FocusScope.of(context).requestFocus(new FocusNode());
-                          tutar = double.parse(t1.text);
-                          kdvOran = double.parse(t2.text);
-                          giderKabulEdilenTutar = (tutar * 0.70);
-                          giderKabulEdilenMatrah =
-                              (giderKabulEdilenTutar / ((kdvOran / 100) + 1));
-                          giderKabulEdilenKdv =
-                              giderKabulEdilenTutar - giderKabulEdilenMatrah;
-                          giderKabulEdilmeyenTutar = (tutar * 0.30);
-                          giderKabulEdilmeyenMatrah =
-                              (giderKabulEdilmeyenTutar /
-                                  ((kdvOran / 100) + 1));
-                          giderKabulEdilmeyenKdv = giderKabulEdilmeyenTutar -
-                              giderKabulEdilmeyenMatrah;
+                          if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
+                            tutar = double.parse(t1.text);
+                            kdvOran = double.parse(t2.text);
+                            giderKabulEdilenTutar = (tutar * 0.70);
+                            giderKabulEdilenMatrah =
+                                (giderKabulEdilenTutar / ((kdvOran / 100) + 1));
+                            giderKabulEdilenKdv =
+                                giderKabulEdilenTutar - giderKabulEdilenMatrah;
+                            giderKabulEdilmeyenTutar = (tutar * 0.30);
+                            giderKabulEdilmeyenMatrah =
+                                (giderKabulEdilmeyenTutar /
+                                    ((kdvOran / 100) + 1));
+                            giderKabulEdilmeyenKdv = giderKabulEdilmeyenTutar -
+                                giderKabulEdilmeyenMatrah;
+                          } else {
+                            mesaj = "Lütfen bir değer girin";
+                            toast();
+                          }
                         });
                       },
                       controller: t2,
@@ -154,19 +166,24 @@ class _BinekAracState extends State<BinekArac> {
           ElevatedButton(
             onPressed: () {
               setState(() {
-                FocusScope.of(context).requestFocus(new FocusNode());
-                tutar = double.parse(t1.text);
-                kdvOran = double.parse(t2.text);
-                giderKabulEdilenTutar = (tutar * 0.70);
-                giderKabulEdilenMatrah =
-                    (giderKabulEdilenTutar / ((kdvOran / 100) + 1));
-                giderKabulEdilenKdv =
-                    giderKabulEdilenTutar - giderKabulEdilenMatrah;
-                giderKabulEdilmeyenTutar = (tutar * 0.30);
-                giderKabulEdilmeyenMatrah =
-                    (giderKabulEdilmeyenTutar / ((kdvOran / 100) + 1));
-                giderKabulEdilmeyenKdv =
-                    giderKabulEdilmeyenTutar - giderKabulEdilmeyenMatrah;
+                if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
+                  FocusScope.of(context).requestFocus(new FocusNode());
+                  tutar = double.parse(t1.text);
+                  kdvOran = double.parse(t2.text);
+                  giderKabulEdilenTutar = (tutar * 0.70);
+                  giderKabulEdilenMatrah =
+                      (giderKabulEdilenTutar / ((kdvOran / 100) + 1));
+                  giderKabulEdilenKdv =
+                      giderKabulEdilenTutar - giderKabulEdilenMatrah;
+                  giderKabulEdilmeyenTutar = (tutar * 0.30);
+                  giderKabulEdilmeyenMatrah =
+                      (giderKabulEdilmeyenTutar / ((kdvOran / 100) + 1));
+                  giderKabulEdilmeyenKdv =
+                      giderKabulEdilmeyenTutar - giderKabulEdilmeyenMatrah;
+                } else {
+                  mesaj = "Lütfen bir değer girin";
+                  toast();
+                }
               });
             },
             child: Text(
@@ -178,14 +195,14 @@ class _BinekAracState extends State<BinekArac> {
             children: [
               Expanded(
                 child: Container(
-                  color: Color(0xff2296F3),
+                  color: Colors.blue,
                   child: Padding(
                     padding: const EdgeInsets.all(2.0),
                     child: Text(
                       "Gider Kabul Edilen %70'lik Tutar : ${giderKabulEdilenTutar.toStringAsFixed(2)}",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 20,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                     ),
@@ -244,14 +261,14 @@ class _BinekAracState extends State<BinekArac> {
                 children: [
                   Expanded(
                     child: Container(
-                      color: Color(0xff2296F3),
+                      color: Colors.blue,
                       child: Padding(
                         padding: const EdgeInsets.all(2.0),
                         child: Text(
                           "Gider Kabul Edilmeyen %30'luk Tutar : ${giderKabulEdilmeyenTutar.toStringAsFixed(2)}",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 20,
                               color: Colors.white,
                               fontWeight: FontWeight.bold),
                         ),

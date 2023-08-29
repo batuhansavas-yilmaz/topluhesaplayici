@@ -1,8 +1,10 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'main.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
-import 'GorevButonlari.dart';
+import 'yardimcilar.dart';
 
 class Komisyon extends StatefulWidget {
   @override
@@ -20,6 +22,17 @@ class _KomisyonState extends State<Komisyon> {
   TextEditingController t3 = TextEditingController(text: '');
   TextEditingController t4 = TextEditingController(text: '');
 
+  late String mesaj;
+  toast() {
+    showToast("$mesaj",
+        context: context,
+        animation: StyledToastAnimation.fade,
+        curve: Curves.linear,
+        reverseCurve: Curves.linear,
+        duration: Duration(seconds: 4),
+        position: StyledToastPosition.center);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +44,6 @@ class _KomisyonState extends State<Komisyon> {
         ),
         title: Text(
           "Komisyon Hesaplama",
-          style: appBarStyle,
         ),
       ),
       body: SingleChildScrollView(
@@ -43,7 +55,7 @@ class _KomisyonState extends State<Komisyon> {
                 "Komisyon Oranı",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 3.4,
+                  fontSize: 20,
                 ),
               ),
               Row(
@@ -53,13 +65,9 @@ class _KomisyonState extends State<Komisyon> {
                       padding: const EdgeInsets.all(5.0),
                       child: Container(
                         decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  offset: Offset(0.50, 1.85), blurRadius: 2)
-                            ],
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10)),
-                        child: TextField(
+                        child: TextFormField(
                           keyboardType:
                               TextInputType.numberWithOptions(decimal: true),
                           inputFormatters: [
@@ -86,12 +94,24 @@ class _KomisyonState extends State<Komisyon> {
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
-                          ]),
-                      child: TextField(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextFormField(
+                        onFieldSubmitted: (value) {
+                          setState(() {
+                            if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
+                              FocusScope.of(context)
+                                  .requestFocus(new FocusNode());
+                              AnaPara = double.parse(t1.text);
+                              AlinanPay = double.parse(t2.text);
+                              AlinanOranSonuc = (AlinanPay / AnaPara) * 100;
+                            } else {
+                              mesaj = "Lütfen bir değer girin";
+                              toast();
+                            }
+                          });
+                        },
                         controller: t2,
                         inputFormatters: [
                           FilteringTextInputFormatter.deny(",")
@@ -119,10 +139,15 @@ class _KomisyonState extends State<Komisyon> {
               ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                    AnaPara = double.parse(t1.text);
-                    AlinanPay = double.parse(t2.text);
-                    AlinanOranSonuc = (AlinanPay / AnaPara) * 100;
+                    if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      AnaPara = double.parse(t1.text);
+                      AlinanPay = double.parse(t2.text);
+                      AlinanOranSonuc = (AlinanPay / AnaPara) * 100;
+                    } else {
+                      mesaj = "Lütfen bir değer girin";
+                      toast();
+                    }
                   });
                 },
                 child: Text(
@@ -132,12 +157,21 @@ class _KomisyonState extends State<Komisyon> {
                 ),
               ),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Aldığınız Pay Oranı : ", style: TextStyle(fontSize: 3)),
-                  Text(
-                    "% ${AlinanOranSonuc.toStringAsFixed(2)}",
-                    style: TextStyle(fontSize: 3, fontWeight: FontWeight.bold),
+                  Flexible(
+                    child: Text("Aldığınız Pay Oranı : ",
+                        style: TextStyle(fontSize: 20)),
+                  ),
+                  Flexible(
+                    child: Text(
+                      "% ${AlinanOranSonuc.toStringAsFixed(2)}",
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic),
+                    ),
                   ),
                 ],
               ),
@@ -148,7 +182,7 @@ class _KomisyonState extends State<Komisyon> {
                 "Komisyon Tutarı",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 3.4,
+                  fontSize: 20,
                 ),
               ),
               Row(
@@ -158,13 +192,9 @@ class _KomisyonState extends State<Komisyon> {
                       padding: const EdgeInsets.all(5.0),
                       child: Container(
                         decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  offset: Offset(0.50, 1.85), blurRadius: 2)
-                            ],
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10)),
-                        child: TextField(
+                        child: TextFormField(
                           inputFormatters: [
                             FilteringTextInputFormatter.deny(",")
                           ],
@@ -191,12 +221,24 @@ class _KomisyonState extends State<Komisyon> {
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
-                          ]),
-                      child: TextField(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextFormField(
+                        onFieldSubmitted: (value) {
+                          setState(() {
+                            if (t3.text.isNotEmpty && t4.text.isNotEmpty) {
+                              FocusScope.of(context)
+                                  .requestFocus(new FocusNode());
+                              AnaPara = double.parse(t3.text);
+                              AlinanOran = double.parse(t4.text);
+                              AlinanPaySonuc = (AnaPara * (AlinanOran / 100));
+                            } else {
+                              mesaj = "Lütfen bir değer girin";
+                              toast();
+                            }
+                          });
+                        },
                         inputFormatters: [
                           FilteringTextInputFormatter.deny(",")
                         ],
@@ -224,10 +266,15 @@ class _KomisyonState extends State<Komisyon> {
               ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                    AnaPara = double.parse(t3.text);
-                    AlinanOran = double.parse(t4.text);
-                    AlinanPaySonuc = (AnaPara * (AlinanOran / 100));
+                    if (t3.text.isNotEmpty && t4.text.isNotEmpty) {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      AnaPara = double.parse(t3.text);
+                      AlinanOran = double.parse(t4.text);
+                      AlinanPaySonuc = (AnaPara * (AlinanOran / 100));
+                    } else {
+                      mesaj = "Lütfen bir değer girin";
+                      toast();
+                    }
                   });
                 },
                 child: Text(
@@ -238,24 +285,27 @@ class _KomisyonState extends State<Komisyon> {
               ),
               Column(
                 children: [
-                  Text(
-                    "Verdiğiniz Orana Göre ",
-                    style: TextStyle(fontSize: 3),
-                    textAlign: TextAlign.center,
-                  ),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "Aldığınız Pay : ",
-                        style: TextStyle(fontSize: 3),
-                        textAlign: TextAlign.center,
+                      Flexible(
+                        child: Text(
+                          "Aldığınız Pay : ",
+                          style: TextStyle(fontSize: 20),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
-                      Text(
-                        "${AlinanPaySonuc.toStringAsFixed(2)} Para Birimi",
-                        style: TextStyle(
-                            fontSize: 3.4, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
+                      Flexible(
+                        child: Text(
+                          "${AlinanPaySonuc.toStringAsFixed(2)} Para Birimi",
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic,
+                          ),
+                          textAlign: TextAlign.end,
+                        ),
                       ),
                     ],
                   ),

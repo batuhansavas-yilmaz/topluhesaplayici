@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'GorevButonlari.dart';
-import 'main.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'yardimcilar.dart';
 
 class Aquarium extends StatefulWidget {
   @override
@@ -23,6 +23,16 @@ class _AquariumState extends State<Aquarium> {
   double kum = 0.00;
   double kumCm_ = 5.00;
   double kumKg = 0.00;
+  late String mesaj;
+  toast() {
+    showToast("$mesaj",
+        context: context,
+        animation: StyledToastAnimation.fade,
+        curve: Curves.linear,
+        reverseCurve: Curves.linear,
+        duration: Duration(seconds: 4),
+        position: StyledToastPosition.center);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +40,6 @@ class _AquariumState extends State<Aquarium> {
       appBar: AppBar(
         title: Text(
           "Akvaryum",
-          style: appBarStyle,
         ),
         leading: Transform(
           alignment: FractionalOffset.center,
@@ -39,17 +48,11 @@ class _AquariumState extends State<Aquarium> {
         ),
       ),
       body: ListView(
-        primary: false,
         children: [
-          Wrap(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("Akvaryumunuzun Bilgilerini cm Cinsinden Giriniz",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20)),
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Text("Akvaryumunuzun Bilgilerini\ncm Cinsinden Giriniz",
+                textAlign: TextAlign.center, style: TextStyle(fontSize: 20)),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -62,14 +65,12 @@ class _AquariumState extends State<Aquarium> {
                     ),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
-                      ],
                       borderRadius: BorderRadius.all(
                         Radius.circular(10),
                       ),
                     ),
-                    child: TextField(
+                    child: TextFormField(
+                      textInputAction: TextInputAction.next,
                       controller: derinlik_,
                       inputFormatters: [FilteringTextInputFormatter.deny(",")],
                       style:
@@ -93,14 +94,12 @@ class _AquariumState extends State<Aquarium> {
                     margin: EdgeInsets.only(left: 5, right: 5),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
-                      ],
                       borderRadius: BorderRadius.all(
                         Radius.circular(10),
                       ),
                     ),
-                    child: TextField(
+                    child: TextFormField(
+                      textInputAction: TextInputAction.next,
                       controller: en_,
                       style:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
@@ -124,14 +123,37 @@ class _AquariumState extends State<Aquarium> {
                     margin: EdgeInsets.only(left: 5),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(offset: Offset(0.50, 1.85), blurRadius: 2)
-                      ],
                       borderRadius: BorderRadius.all(
                         Radius.circular(10),
                       ),
                     ),
-                    child: TextField(
+                    child: TextFormField(
+                      onFieldSubmitted: (value) {
+                        setState(() {
+                          if (uzunluk_.text.isNotEmpty &&
+                              en_.text.isNotEmpty &&
+                              derinlik_.text.isNotEmpty &&
+                              kumCm.text.isNotEmpty) {
+                            FocusScope.of(context).requestFocus(
+                                new FocusNode()); // klavye kapatıcı
+                            uzunluk = double.parse(uzunluk_.text);
+                            en = double.parse(en_.text);
+                            derinlik = double.parse(derinlik_.text);
+                            kumCm_ = double.parse(kumCm.text);
+                            sonuc = (uzunluk * en * derinlik) / 1000;
+                            bitkisiz = sonuc * 0.25;
+                            bitkili = sonuc * 0.50;
+                            filtrasyonMin = sonuc * 2.50;
+                            filtrasyonMax = sonuc * 4.75;
+                            isitici = sonuc * 0.6667;
+                            kum = sonuc * 0.025;
+                            kumKg = kum * kumCm_;
+                          } else {
+                            mesaj = "Lütfen bir değer girin";
+                            toast();
+                          }
+                        });
+                      },
                       controller: uzunluk_,
                       style:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
@@ -168,20 +190,28 @@ class _AquariumState extends State<Aquarium> {
                   ),
                   onPressed: () {
                     setState(() {
-                      FocusScope.of(context)
-                          .requestFocus(new FocusNode()); // klavye kapatıcı
-                      uzunluk = double.parse(uzunluk_.text);
-                      en = double.parse(en_.text);
-                      derinlik = double.parse(derinlik_.text);
-                      kumCm_ = double.parse(kumCm.text);
-                      sonuc = (uzunluk * en * derinlik) / 1000;
-                      bitkisiz = sonuc * 0.25;
-                      bitkili = sonuc * 0.50;
-                      filtrasyonMin = sonuc * 2.50;
-                      filtrasyonMax = sonuc * 4.75;
-                      isitici = sonuc * 0.6667;
-                      kum = sonuc * 0.025;
-                      kumKg = kum * kumCm_;
+                      if (uzunluk_.text.isNotEmpty &&
+                          en_.text.isNotEmpty &&
+                          derinlik_.text.isNotEmpty &&
+                          kumCm.text.isNotEmpty) {
+                        FocusScope.of(context)
+                            .requestFocus(new FocusNode()); // klavye kapatıcı
+                        uzunluk = double.parse(uzunluk_.text);
+                        en = double.parse(en_.text);
+                        derinlik = double.parse(derinlik_.text);
+                        kumCm_ = double.parse(kumCm.text);
+                        sonuc = (uzunluk * en * derinlik) / 1000;
+                        bitkisiz = sonuc * 0.25;
+                        bitkili = sonuc * 0.50;
+                        filtrasyonMin = sonuc * 2.50;
+                        filtrasyonMax = sonuc * 4.75;
+                        isitici = sonuc * 0.6667;
+                        kum = sonuc * 0.025;
+                        kumKg = kum * kumCm_;
+                      } else {
+                        mesaj = "Lütfen bir değer girin";
+                        toast();
+                      }
                     });
                   },
                 ),
@@ -271,7 +301,7 @@ class _AquariumState extends State<Aquarium> {
                             Text(
                               " litre/saat",
                               style: TextStyle(
-                                  fontSize: 11, fontWeight: FontWeight.bold),
+                                  fontSize: 12, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -287,7 +317,7 @@ class _AquariumState extends State<Aquarium> {
                             Text(
                               " litre/saat",
                               style: TextStyle(
-                                  fontSize: 11, fontWeight: FontWeight.bold),
+                                  fontSize: 12, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -331,7 +361,7 @@ class _AquariumState extends State<Aquarium> {
                           child: Column(
                             children: [
                               Text("cm", style: TextStyle(fontSize: 20)),
-                              TextField(
+                              TextFormField(
                                 style: TextStyle(
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold,
@@ -344,15 +374,18 @@ class _AquariumState extends State<Aquarium> {
                                   border: OutlineInputBorder(),
                                 ),
                               ),
+                              SizedBox(
+                                height: 20,
+                              )
                             ],
                           ),
                         ),
                         Expanded(
                           flex: 2,
                           child: Text(
-                            "İstediğiniz Kalınlık İçin Gerekli Kum : ${kumKg.toStringAsFixed(1)} Kg",
+                            "İstediğiniz Kalınlık İçin Gerekli Kum : ${kumKg.toStringAsFixed(2)} Kg",
                             style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
+                                fontSize: 17, fontWeight: FontWeight.bold),
                             textAlign: TextAlign.center,
                           ),
                         ),
