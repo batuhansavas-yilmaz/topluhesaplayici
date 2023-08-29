@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-
-import 'yardimcilar.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:toplu_hesaplayici/tools/yardimcilar.dart';
 
 class ZRaporu extends StatefulWidget {
   @override
@@ -29,15 +29,56 @@ class _ZRaporuState extends State<ZRaporu> {
         position: StyledToastPosition.center);
   }
 
+  late BannerAd? _bannerAd;
+  bool _isBannerAdReady = false;
+  void _loadBannerAd() {
+    _bannerAd = BannerAd(
+      adUnitId: zraporuReklam,
+      size: AdSize.banner,
+      request: AdRequest(keywords: [
+        'flutter',
+        'invoice',
+        'tax',
+        'tools',
+        'solver',
+        'aquarium',
+        'fish',
+        "car",
+        "horse",
+        "power",
+        "hp"
+      ]),
+      listener: BannerAdListener(
+        onAdLoaded: (_) {
+          setState(() {
+            _isBannerAdReady = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          _bannerAd!.dispose();
+        },
+      ),
+    );
+
+    _bannerAd!.load();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBannerAd();
+  }
+
+  void dispose() {
+    super.dispose();
+    _bannerAd!.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       appBar: AppBar(
-        leading: Transform(
-          alignment: FractionalOffset.center,
-          transform: Matrix4.rotationZ(-80.10),
-          child: Container(child: GeriButton()),
-        ),
         title: Text(
           "Eksik Z Raporu Bulma",
         ),
@@ -334,6 +375,39 @@ class _ZRaporuState extends State<ZRaporu> {
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+            color: Colors.white.withOpacity(0.9),
+            spreadRadius: 20,
+            blurRadius: 13,
+            offset: const Offset(0, 20),
+          )
+        ]),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _isBannerAdReady
+                ? SizedBox(
+                    width: _bannerAd!.size.width.toDouble(),
+                    height: _bannerAd!.size.height.toDouble(),
+                    child: AdWidget(ad: _bannerAd!))
+                : SizedBox(
+                    width: _bannerAd!.size.width.toDouble(),
+                    height: _bannerAd!.size.height.toDouble(),
+                  ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              decoration: const BoxDecoration(color: Colors.blue, boxShadow: [
+                BoxShadow(offset: Offset(-0.00, -0.10), blurRadius: 0.3)
+              ]),
+              height: 1,
+            ),
+          ],
+        ),
       ),
     );
   }
