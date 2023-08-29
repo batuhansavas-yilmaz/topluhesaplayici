@@ -114,7 +114,6 @@ class _AquariumState extends State<Aquarium> {
                           ),
                         ),
                         child: TextFormField(
-                          textInputAction: TextInputAction.next,
                           controller: derinlik_,
                           inputFormatters: [
                             FilteringTextInputFormatter.deny(",")
@@ -145,7 +144,6 @@ class _AquariumState extends State<Aquarium> {
                           ),
                         ),
                         child: TextFormField(
-                          textInputAction: TextInputAction.next,
                           controller: en_,
                           style: TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold),

@@ -14,10 +14,13 @@ class YakitTuketimi extends StatefulWidget {
 class _YakitTuketimiState extends State<YakitTuketimi> {
   final TextEditingController t1 = TextEditingController();
   final TextEditingController t2 = TextEditingController();
+  final TextEditingController t3 = TextEditingController();
 
-  double sonuc = 0.00;
+  double litreSonuc = 0.00;
   double kapasite = 0.00;
   double tamDepoKm = 0.00;
+  double yakitFiyati = 0.00;
+  double yakitFiyatiSonuc = 0.00;
   late BannerAd? _bannerAd;
   bool _isBannerAdReady = false;
   void _loadBannerAd() {
@@ -79,8 +82,8 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
                 height: 10,
               ),
               Text(
-                "Aracınızın bilgilerini girerek km'de"
-                " kaç lt tükettiğini hesaplayabilirsiniz. ",
+                "Aracınızın bilgilerini girerek\nkm'de"
+                " kaç LT tükettiğini\nve kaç ₺ yaktığını hesaplayabilirsiniz. ",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
@@ -108,7 +111,6 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
                           borderRadius: BorderRadius.circular(10)),
                       child: TextFormField(
                         controller: t1,
-                        textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.numberWithOptions(
                           decimal: true,
                         ),
@@ -153,25 +155,6 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10)),
                       child: TextFormField(
-                        onFieldSubmitted: (value) {
-                          setState(() {
-                            if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
-                              FocusScope.of(context)
-                                  .requestFocus(new FocusNode());
-                              kapasite = double.parse(t1.text);
-                              tamDepoKm = double.parse(t2.text);
-                              sonuc = (kapasite / tamDepoKm) * 100;
-                            } else {
-                              showToast("Lütfen bir değer girin",
-                                  context: context,
-                                  animation: StyledToastAnimation.fade,
-                                  curve: Curves.linear,
-                                  reverseCurve: Curves.linear,
-                                  duration: Duration(seconds: 4),
-                                  position: StyledToastPosition.center);
-                            }
-                          });
-                        },
                         keyboardType:
                             TextInputType.numberWithOptions(decimal: true),
                         inputFormatters: [
@@ -199,14 +182,85 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
               SizedBox(
                 height: 20,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Yakıt Litre Fiyatı ',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Flexible(
+                    child: Container(
+                      width: 150,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: TextFormField(
+                        onFieldSubmitted: (value) {
+                          setState(() {
+                            if (t1.text.isNotEmpty &&
+                                t2.text.isNotEmpty &&
+                                t3.text.isNotEmpty) {
+                              FocusScope.of(context)
+                                  .requestFocus(new FocusNode());
+                              kapasite = double.parse(t1.text);
+                              tamDepoKm = double.parse(t2.text);
+                              yakitFiyati = double.parse(t3.text);
+                              litreSonuc = (kapasite / tamDepoKm);
+                              yakitFiyatiSonuc = litreSonuc * yakitFiyati;
+                            } else {
+                              showToast("Lütfen bir değer girin",
+                                  context: context,
+                                  animation: StyledToastAnimation.fade,
+                                  curve: Curves.linear,
+                                  reverseCurve: Curves.linear,
+                                  duration: Duration(seconds: 4),
+                                  position: StyledToastPosition.center);
+                            }
+                          });
+                        },
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.deny(",")
+                        ],
+                        controller: t3,
+                        style: TextStyle(
+                            fontSize: 23, fontWeight: FontWeight.bold),
+                        decoration: InputDecoration(
+                          hintText: '₺',
+                          hintStyle: TextStyle(
+                              fontSize: 25,
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.normal),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
               ElevatedButton(
                   onPressed: () {
                     setState(() {
-                      if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
+                      if (t1.text.isNotEmpty &&
+                          t2.text.isNotEmpty &&
+                          t3.text.isNotEmpty) {
                         FocusScope.of(context).requestFocus(new FocusNode());
                         kapasite = double.parse(t1.text);
                         tamDepoKm = double.parse(t2.text);
-                        sonuc = (kapasite / tamDepoKm) * 100;
+                        yakitFiyati = double.parse(t3.text);
+                        litreSonuc = (kapasite / tamDepoKm);
+                        yakitFiyatiSonuc = litreSonuc * yakitFiyati;
                       } else {
                         showToast("Lütfen bir değer girin",
                             context: context,
@@ -227,25 +281,50 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     "Aracınız KM\nbaşına ortalama :  ",
                     style: TextStyle(fontSize: 20),
                     textAlign: TextAlign.center,
                   ),
-                  Text(
-                    "${sonuc.toStringAsFixed(2)} lt ",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic),
+                  SizedBox(
+                    width: 20,
                   ),
-                  Text("yakıt tüketiyor",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      )),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "${litreSonuc.toStringAsFixed(2)} LT",
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic),
+                      ),
+                      Text(
+                        "ve",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        "${yakitFiyatiSonuc.toStringAsFixed(2)} ₺'lik ",
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic),
+                      ),
+                      Text(
+                        "yakıt tüketiyor.",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
               SizedBox(

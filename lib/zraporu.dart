@@ -146,7 +146,6 @@ class _ZRaporuState extends State<ZRaporu> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10)),
                           child: TextField(
-                            textInputAction: TextInputAction.next,
                             controller: k1,
                             keyboardType:
                                 TextInputType.numberWithOptions(decimal: true),
@@ -199,7 +198,6 @@ class _ZRaporuState extends State<ZRaporu> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10)),
                           child: TextField(
-                            textInputAction: TextInputAction.next,
                             controller: tutar,
                             keyboardType:
                                 TextInputType.numberWithOptions(decimal: true),

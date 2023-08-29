@@ -123,7 +123,6 @@ class _BinekAracState extends State<BinekArac> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10)),
                         child: TextFormField(
-                          textInputAction: TextInputAction.next,
                           keyboardType:
                               TextInputType.numberWithOptions(decimal: true),
                           inputFormatters: [

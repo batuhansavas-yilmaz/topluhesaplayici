@@ -58,7 +58,6 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                             ),
                           ),
                           child: TextFormField(
-                            textInputAction: TextInputAction.next,
                             controller: kg,
                             style: TextStyle(
                                 fontSize: 30, fontWeight: FontWeight.bold),

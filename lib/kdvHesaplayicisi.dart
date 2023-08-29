@@ -143,7 +143,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10)),
                               child: TextFormField(
-                                textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.numberWithOptions(
                                     decimal: true),
                                 inputFormatters: [
@@ -473,7 +472,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10)),
                               child: TextFormField(
-                                textInputAction: TextInputAction.next,
                                 keyboardType: TextInputType.numberWithOptions(
                                     decimal: true),
                                 inputFormatters: [
