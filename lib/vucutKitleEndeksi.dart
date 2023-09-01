@@ -37,7 +37,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                      "18 Yaşına Kadar Olan Bireylerin \nVücut Kitle Endekslerini Öğrenmeleri İçin \nDiyetisyenlerden Yardım Almaları Önerilir.",
+                      "18 yaşına kadar olan bireylerin \nVücut Kitle Endekslerini öğrenmeleri için \ndiyetisyenlerden yardım almaları önerilir.",
                       textAlign: TextAlign.center,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
@@ -277,19 +277,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
     _bannerAd = BannerAd(
       adUnitId: vucutKitleReklam,
       size: AdSize.banner,
-      request: AdRequest(keywords: [
-        'flutter',
-        'invoice',
-        'tax',
-        'tools',
-        'solver',
-        'aquarium',
-        'fish',
-        "car",
-        "horse",
-        "power",
-        "hp"
-      ]),
+      request: requesT,
       listener: BannerAdListener(
         onAdLoaded: (_) {
           setState(() {

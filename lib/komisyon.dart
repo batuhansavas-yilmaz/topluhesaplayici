@@ -29,19 +29,7 @@ class _KomisyonState extends State<Komisyon> {
     _bannerAd = BannerAd(
       adUnitId: komisyonReklam,
       size: AdSize.banner,
-      request: AdRequest(keywords: [
-        'flutter',
-        'invoice',
-        'tax',
-        'tools',
-        'solver',
-        'aquarium',
-        'fish',
-        "car",
-        "horse",
-        "power",
-        "hp"
-      ]),
+      request: requesT,
       listener: BannerAdListener(
         onAdLoaded: (_) {
           setState(() {

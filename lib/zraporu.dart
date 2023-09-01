@@ -35,19 +35,7 @@ class _ZRaporuState extends State<ZRaporu> {
     _bannerAd = BannerAd(
       adUnitId: zraporuReklam,
       size: AdSize.banner,
-      request: AdRequest(keywords: [
-        'flutter',
-        'invoice',
-        'tax',
-        'tools',
-        'solver',
-        'aquarium',
-        'fish',
-        "car",
-        "horse",
-        "power",
-        "hp"
-      ]),
+      request: requesT,
       listener: BannerAdListener(
         onAdLoaded: (_) {
           setState(() {
@@ -93,7 +81,7 @@ class _ZRaporuState extends State<ZRaporu> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                        "Bu Hesaplama Sadece Tek Tip Kdv Oranı\nİçeren Z Raporları İçin Kullanılabilir.",
+                        "Bu hesaplama sadece tek tip KDV Oranı\niçeren Z Raporları için kullanılabilir.",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20)),

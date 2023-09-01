@@ -19,19 +19,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
     _bannerAd = BannerAd(
       adUnitId: kdvReklam,
       size: AdSize.banner,
-      request: AdRequest(keywords: [
-        'flutter',
-        'invoice',
-        'tax',
-        'tools',
-        'solver',
-        'aquarium',
-        'fish',
-        "car",
-        "horse",
-        "power",
-        "hp"
-      ]),
+      request: requesT,
       listener: BannerAdListener(
         onAdLoaded: (_) {
           setState(() {
@@ -76,7 +64,8 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
   double dahilKdvDahilTevkifatliToplamTutar = 0.00;
   double dahilTevkifat = 0.00;
   double dahilTevkifatSonrasiKdv = 0.00;
-
+  bool kdv = false;
+  bool tefkkdv = false;
   /* Burda , t1 ve t2 adında 2 TextEditingController tipinde nesne ürettik.
   bunları üretmemizin amacı , textformfield'de yazılacak olan yazıyı kontrol etmek,işleme sokabilmek
   */
@@ -201,6 +190,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       toplamDahilTutar = hesapTutar;
 
                                       toast();
+                                      t1.clear();
+                                      t2.clear();
+                                      kdv = true;
                                     } else {
                                       mesaj = "Lütfen bir değer girin";
                                       toast();
@@ -237,6 +229,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
                               FocusScope.of(context)
                                   .requestFocus(new FocusNode());
+
                               //Burda yatığımız , hesapla butonuna bastığımızda  t1 ve t2 nesnelerine yazılan verilerin,
                               //hesaptutar ve hesapOran nesnelerine aktarılmasını sağladık.
                               //Bu sayede hesap tutar ve hesap oran nesnelerini kullanarak matematiksel işlemleri yapabildik.
@@ -253,8 +246,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                               dahilTutar = hesapTutar / ((hesapOran / 100) + 1);
                               dahilkenKdvTutari = hesapTutar - dahilTutar;
                               toplamDahilTutar = hesapTutar;
-
+                              t1.clear();
+                              t2.clear();
                               toast();
+                              kdv = true;
                             } else {
                               mesaj = "Lütfen bir değer girin";
                               toast();
@@ -330,10 +325,26 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       "KDV Tutarı",
                                       style: stil2,
                                     ),
-                                    Text(
-                                      HarickenKdvTutari.toStringAsFixed(2),
-                                      style: stil,
-                                    ),
+                                    Row(
+                                      children: [
+                                        if (kdv == true)
+                                          Text(
+                                            "(%${hesapOran.toStringAsFixed(0)})",
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.bold,
+                                                fontStyle: FontStyle.italic),
+                                          ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Text(
+                                          HarickenKdvTutari.toStringAsFixed(2),
+                                          style: stil,
+                                        ),
+                                      ],
+                                    )
                                   ],
                                 ),
                               ),
@@ -419,10 +430,26 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       "KDV Tutarı",
                                       style: stil2,
                                     ),
-                                    Text(
-                                      dahilkenKdvTutari.toStringAsFixed(2),
-                                      style: stil,
-                                    ),
+                                    Row(
+                                      children: [
+                                        if (kdv == true)
+                                          Text(
+                                            "(%${hesapOran.toStringAsFixed(0)})",
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.bold,
+                                                fontStyle: FontStyle.italic),
+                                          ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Text(
+                                          HarickenKdvTutari.toStringAsFixed(2),
+                                          style: stil,
+                                        ),
+                                      ],
+                                    )
                                   ],
                                 ),
                               ),
@@ -577,7 +604,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                         dahilTevkifatToplamTutar =
                                             dahilMatrahTevkifat +
                                                 dahilTevkifatSonrasiKdv;
-
+                                        t3.clear();
+                                        t4.clear();
+                                        tefkkdv = true;
                                         toast();
                                       } else {
                                         mesaj = "Lütfen bir değer girin";
@@ -630,6 +659,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                         dahilTevkifatToplamTutar =
                                             dahilMatrahTevkifat +
                                                 dahilTevkifatSonrasiKdv;
+
+                                        t3.clear();
+                                        t4.clear();
+                                        tefkkdv = true;
                                         toast();
                                       } else {
                                         mesaj = "Lütfen bir değer girin";
@@ -687,7 +720,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                         dahilTevkifatToplamTutar =
                                             dahilMatrahTevkifat +
                                                 dahilTevkifatSonrasiKdv;
-
+                                        t3.clear();
+                                        t4.clear();
+                                        tefkkdv = true;
                                         toast();
                                       }
                                     });
@@ -752,7 +787,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                         dahilTevkifatToplamTutar =
                                             dahilMatrahTevkifat +
                                                 dahilTevkifatSonrasiKdv;
-
+                                        t3.clear();
+                                        t4.clear();
+                                        tefkkdv = true;
                                         toast();
                                       } else {
                                         mesaj = "Lütfen bir değer girin";
@@ -810,7 +847,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                         dahilTevkifatToplamTutar =
                                             dahilMatrahTevkifat +
                                                 dahilTevkifatSonrasiKdv;
-
+                                        t3.clear();
+                                        t4.clear();
+                                        tefkkdv = true;
                                         toast();
                                       } else {
                                         mesaj = "Lütfen bir değer girin";
@@ -863,7 +902,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                         dahilTevkifatToplamTutar =
                                             dahilMatrahTevkifat +
                                                 dahilTevkifatSonrasiKdv;
-
+                                        t3.clear();
+                                        t4.clear();
+                                        tefkkdv = true;
                                         toast();
                                       } else {
                                         mesaj = "Lütfen bir değer girin";
@@ -926,7 +967,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           dahilTevkifatToplamTutar =
                                               dahilMatrahTevkifat +
                                                   dahilTevkifatSonrasiKdv;
-
+                                          t3.clear();
+                                          t4.clear();
+                                          tefkkdv = true;
                                           toast();
                                         } else {
                                           mesaj = "Lütfen bir değer girin";
@@ -1000,9 +1043,25 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   "KDV Tutarı",
                                   style: stil2,
                                 ),
-                                Text(
-                                  tevkifatOncesiKDV.toStringAsFixed(2),
-                                  style: stil,
+                                Row(
+                                  children: [
+                                    if (tefkkdv == true)
+                                      Text(
+                                        "(%${oranTevkifat.toStringAsFixed(0)})",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold,
+                                            fontStyle: FontStyle.italic),
+                                      ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text(
+                                      tevkifatOncesiKDV.toStringAsFixed(2),
+                                      style: stil,
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
@@ -1143,9 +1202,25 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   "KDV Tutarı",
                                   style: stil2,
                                 ),
-                                Text(
-                                  dahilTevkifatOncesiKdv.toStringAsFixed(2),
-                                  style: stil,
+                                Row(
+                                  children: [
+                                    if (tefkkdv == true)
+                                      Text(
+                                        "(%${oranTevkifat.toStringAsFixed(0)})",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold,
+                                            fontStyle: FontStyle.italic),
+                                      ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text(
+                                      tevkifatOncesiKDV.toStringAsFixed(2),
+                                      style: stil,
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),

@@ -27,19 +27,7 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
     _bannerAd = BannerAd(
       adUnitId: yakitReklam,
       size: AdSize.banner,
-      request: AdRequest(keywords: [
-        'flutter',
-        'invoice',
-        'tax',
-        'tools',
-        'solver',
-        'aquarium',
-        'fish',
-        "car",
-        "horse",
-        "power",
-        "hp"
-      ]),
+      request: requesT,
       listener: BannerAdListener(
         onAdLoaded: (_) {
           setState(() {

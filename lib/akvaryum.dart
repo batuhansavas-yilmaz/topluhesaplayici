@@ -41,19 +41,7 @@ class _AquariumState extends State<Aquarium> {
     _bannerAd = BannerAd(
       adUnitId: akvaryumReklam,
       size: AdSize.banner,
-      request: AdRequest(keywords: [
-        'flutter',
-        'invoice',
-        'tax',
-        'tools',
-        'solver',
-        'aquarium',
-        'fish',
-        "car",
-        "horse",
-        "power",
-        "hp"
-      ]),
+      request: requesT,
       listener: BannerAdListener(
         onAdLoaded: (_) {
           setState(() {
@@ -92,11 +80,17 @@ class _AquariumState extends State<Aquarium> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Text("Akvaryumunuzun Bilgilerini\ncm Cinsinden Giriniz",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20)),
+              SizedBox(
+                height: 15,
+              ),
+              Text("Akvaryumunuzun bilgilerini\ncm cinsinden giriniz.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              Divider(
+                color: Colors.black,
+              ),
+              SizedBox(
+                height: 10,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -194,6 +188,7 @@ class _AquariumState extends State<Aquarium> {
                                 isitici = sonuc * 0.6667;
                                 kum = sonuc * 0.025;
                                 kumKg = kum * kumCm_;
+                                uzunluk_.clear();
                               } else {
                                 mesaj = "Lütfen bir değer girin";
                                 toast();

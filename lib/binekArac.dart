@@ -12,8 +12,8 @@ class BinekArac extends StatefulWidget {
 
 class _BinekAracState extends State<BinekArac> {
   double tutar = 0.00;
-
   double kdvOran = 0.00;
+  bool oran = false;
   double giderKabulEdilenMatrah = 0.00;
   double giderKabulEdilenKdv = 0.00;
   double giderKabulEdilenTutar = 0.00;
@@ -40,19 +40,7 @@ class _BinekAracState extends State<BinekArac> {
     _bannerAd = BannerAd(
       adUnitId: binekAracReklam,
       size: AdSize.banner,
-      request: AdRequest(keywords: [
-        'flutter',
-        'invoice',
-        'tax',
-        'tools',
-        'solver',
-        'aquarium',
-        'fish',
-        "car",
-        "horse",
-        "power",
-        "hp"
-      ]),
+      request: requesT,
       listener: BannerAdListener(
         onAdLoaded: (_) {
           setState(() {
@@ -172,6 +160,9 @@ class _BinekAracState extends State<BinekArac> {
                               giderKabulEdilmeyenKdv =
                                   giderKabulEdilmeyenTutar -
                                       giderKabulEdilmeyenMatrah;
+                              t1.clear();
+                              t2.clear();
+                              oran = true;
                             } else {
                               mesaj = "Lütfen bir değer girin";
                               toast();
@@ -223,6 +214,9 @@ class _BinekAracState extends State<BinekArac> {
                         (giderKabulEdilmeyenTutar / ((kdvOran / 100) + 1));
                     giderKabulEdilmeyenKdv =
                         giderKabulEdilmeyenTutar - giderKabulEdilmeyenMatrah;
+                    t1.clear();
+                    t2.clear();
+                    oran = true;
                   } else {
                     mesaj = "Lütfen bir değer girin";
                     toast();
@@ -291,9 +285,25 @@ class _BinekAracState extends State<BinekArac> {
                               "KDV Tutarı",
                               style: stil2,
                             ),
-                            Text(
-                              giderKabulEdilenKdv.toStringAsFixed(2),
-                              style: stil,
+                            Row(
+                              children: [
+                                if (oran == true)
+                                  Text(
+                                    "(%${kdvOran.toStringAsFixed(0)})",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: FontStyle.italic),
+                                  ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Text(
+                                  giderKabulEdilenKdv.toStringAsFixed(2),
+                                  style: stil,
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -353,9 +363,25 @@ class _BinekAracState extends State<BinekArac> {
                               "Gider Kabul Edilmeyen KDV",
                               style: stil2,
                             ),
-                            Text(
-                              giderKabulEdilmeyenKdv.toStringAsFixed(2),
-                              style: stil,
+                            Row(
+                              children: [
+                                if (oran == true)
+                                  Text(
+                                    "(%${kdvOran.toStringAsFixed(0)})",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: FontStyle.italic),
+                                  ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Text(
+                                  giderKabulEdilmeyenKdv.toStringAsFixed(2),
+                                  style: stil,
+                                ),
+                              ],
                             ),
                           ],
                         ),

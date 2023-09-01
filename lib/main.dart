@@ -10,6 +10,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:toplu_hesaplayici/yakit.dart';
+import 'package:toplu_hesaplayici/yuzde.dart';
 
 import "beygir.dart";
 import 'kdvHesaplayicisi.dart';
@@ -67,14 +68,16 @@ class MyApp extends StatelessWidget {
         const Locale('tr', 'TR'), // Türkçe
       ],
       theme: ThemeData(
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-              elevation: 1,
-              backgroundColor: Color.fromARGB(255, 236, 236, 236),
-              foregroundColor: Colors.black),
-        ),
-        appBarTheme: AppBarTheme(backgroundColor: Colors.blue, elevation: 1),
-      ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+                elevation: 1,
+                backgroundColor: Color.fromARGB(255, 236, 236, 236),
+                foregroundColor: Colors.black),
+          ),
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.blue,
+            elevation: 1,
+          )),
       title: "HesapMatik",
       debugShowCheckedModeBanner: false,
       builder: (context, child) => ResponsiveBreakpoints.builder(
@@ -234,6 +237,22 @@ class MyApp extends StatelessWidget {
                 ),
               );
             });
+          case '/yuzde':
+            return CupertinoPageRoute(builder: (context) {
+              return MaxWidthBox(
+                maxWidth: 1200,
+                background: Container(color: const Color(0xFFF5F5F5)),
+                child: ResponsiveScaledBox(
+                  width: ResponsiveValue<double>(context, conditionalValues: [
+                    Condition.equals(name: MOBILE, value: 450),
+                    Condition.between(start: 800, end: 1100, value: 800),
+                    Condition.between(start: 1000, end: 1200, value: 1000),
+                  ]).value,
+                  child: BouncingScrollWrapper.builder(context, Yuzde(),
+                      dragWithMouse: true),
+                ),
+              );
+            });
 
           default:
             return CupertinoPageRoute(builder: (context) {
@@ -274,19 +293,7 @@ class _HomePageState extends State<HomePage> {
     _bannerAd = BannerAd(
       adUnitId: mainReklam,
       size: AdSize.banner,
-      request: AdRequest(keywords: [
-        'flutter',
-        'invoice',
-        'tax',
-        'tools',
-        'solver',
-        'aquarium',
-        'fish',
-        "car",
-        "horse",
-        "power",
-        "hp"
-      ]),
+      request: requesT,
       listener: BannerAdListener(
         onAdLoaded: (_) {
           setState(() {
@@ -400,6 +407,11 @@ class _HomePageState extends State<HomePage> {
               logo: "assets/petrol.png",
               altisim: "Yakıt Tüketimi",
               sayfaismi: '/yakit',
+            ),
+            GorevButton(
+              logo: "assets/yuzde.png",
+              altisim: "Yüzde Hesaplama",
+              sayfaismi: '/yuzde',
             ),
             SizedBox(),
             SizedBox(),
