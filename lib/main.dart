@@ -1,4 +1,5 @@
 import 'package:advanced_in_app_review/advanced_in_app_review.dart';
+
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -95,180 +96,136 @@ class MyApp extends StatelessWidget {
         switch (settings.name) {
           case '/':
             return CupertinoPageRoute(builder: (context) {
-              return MaxWidthBox(
-                maxWidth: 1200,
-                background: Container(color: const Color(0xFFF5F5F5)),
-                child: ResponsiveScaledBox(
-                  width: ResponsiveValue<double>(context, conditionalValues: [
-                    Condition.equals(name: MOBILE, value: 450),
-                    Condition.between(start: 800, end: 1100, value: 800),
-                    Condition.between(start: 1000, end: 1200, value: 1000),
-                  ]).value,
-                  child: BouncingScrollWrapper.builder(context, HomePage(),
-                      dragWithMouse: true),
-                ),
+              return ResponsiveScaledBox(
+                width: ResponsiveValue<double>(context, conditionalValues: [
+                  Condition.equals(name: MOBILE, value: 450),
+                  Condition.between(start: 800, end: 1100, value: 800),
+                  Condition.between(start: 1000, end: 1200, value: 1000),
+                ]).value,
+                child: BouncingScrollWrapper.builder(context, HomePage(),
+                    dragWithMouse: true),
               );
             });
           case '/kdv':
             return CupertinoPageRoute(builder: (context) {
-              return MaxWidthBox(
-                maxWidth: 1200,
-                background: Container(color: const Color(0xFFF5F5F5)),
-                child: ResponsiveScaledBox(
-                  width: ResponsiveValue<double>(context, conditionalValues: [
-                    Condition.equals(name: MOBILE, value: 450),
-                    Condition.between(start: 800, end: 1100, value: 800),
-                    Condition.between(start: 1000, end: 1200, value: 1000),
-                  ]).value,
-                  child: BouncingScrollWrapper.builder(
-                      context, KdvHesaplayicisi(),
-                      dragWithMouse: true),
-                ),
+              return ResponsiveScaledBox(
+                width: ResponsiveValue<double>(context, conditionalValues: [
+                  Condition.equals(name: MOBILE, value: 450),
+                  Condition.between(start: 800, end: 1100, value: 800),
+                  Condition.between(start: 1000, end: 1200, value: 1000),
+                ]).value,
+                child: BouncingScrollWrapper.builder(
+                    context, KdvHesaplayicisi(),
+                    dragWithMouse: true),
               );
             });
           case '/zraporu':
             return CupertinoPageRoute(builder: (context) {
-              return MaxWidthBox(
-                maxWidth: 1200,
-                background: Container(color: const Color(0xFFF5F5F5)),
-                child: ResponsiveScaledBox(
-                  width: ResponsiveValue<double>(context, conditionalValues: [
-                    Condition.equals(name: MOBILE, value: 450),
-                    Condition.between(start: 800, end: 1100, value: 800),
-                    Condition.between(start: 1000, end: 1200, value: 1000),
-                  ]).value,
-                  child: BouncingScrollWrapper.builder(context, ZRaporu(),
-                      dragWithMouse: true),
-                ),
+              return ResponsiveScaledBox(
+                width: ResponsiveValue<double>(context, conditionalValues: [
+                  Condition.equals(name: MOBILE, value: 450),
+                  Condition.between(start: 800, end: 1100, value: 800),
+                  Condition.between(start: 1000, end: 1200, value: 1000),
+                ]).value,
+                child: BouncingScrollWrapper.builder(context, ZRaporu(),
+                    dragWithMouse: true),
               );
             });
           case '/binekarac':
             return CupertinoPageRoute(builder: (context) {
-              return MaxWidthBox(
-                maxWidth: 1200,
-                background: Container(color: const Color(0xFFF5F5F5)),
-                child: ResponsiveScaledBox(
-                  width: ResponsiveValue<double>(context, conditionalValues: [
-                    Condition.equals(name: MOBILE, value: 450),
-                    Condition.between(start: 800, end: 1100, value: 800),
-                    Condition.between(start: 1000, end: 1200, value: 1000),
-                  ]).value,
-                  child: BouncingScrollWrapper.builder(context, BinekArac(),
-                      dragWithMouse: true),
-                ),
+              return ResponsiveScaledBox(
+                width: ResponsiveValue<double>(context, conditionalValues: [
+                  Condition.equals(name: MOBILE, value: 450),
+                  Condition.between(start: 800, end: 1100, value: 800),
+                  Condition.between(start: 1000, end: 1200, value: 1000),
+                ]).value,
+                child: BouncingScrollWrapper.builder(context, BinekArac(),
+                    dragWithMouse: true),
               );
             });
           case '/komisyon':
             return CupertinoPageRoute(builder: (context) {
-              return MaxWidthBox(
-                maxWidth: 1200,
-                background: Container(color: const Color(0xFFF5F5F5)),
-                child: ResponsiveScaledBox(
-                  width: ResponsiveValue<double>(context, conditionalValues: [
-                    Condition.equals(name: MOBILE, value: 450),
-                    Condition.between(start: 800, end: 1100, value: 800),
-                    Condition.between(start: 1000, end: 1200, value: 1000),
-                  ]).value,
-                  child: BouncingScrollWrapper.builder(context, Komisyon(),
-                      dragWithMouse: true),
-                ),
+              return ResponsiveScaledBox(
+                width: ResponsiveValue<double>(context, conditionalValues: [
+                  Condition.equals(name: MOBILE, value: 450),
+                  Condition.between(start: 800, end: 1100, value: 800),
+                  Condition.between(start: 1000, end: 1200, value: 1000),
+                ]).value,
+                child: BouncingScrollWrapper.builder(context, Komisyon(),
+                    dragWithMouse: true),
               );
             });
           case '/akvaryum':
             return CupertinoPageRoute(builder: (context) {
-              return MaxWidthBox(
-                maxWidth: 1200,
-                background: Container(color: const Color(0xFFF5F5F5)),
-                child: ResponsiveScaledBox(
-                  width: ResponsiveValue<double>(context, conditionalValues: [
-                    Condition.equals(name: MOBILE, value: 450),
-                    Condition.between(start: 800, end: 1100, value: 800),
-                    Condition.between(start: 1000, end: 1200, value: 1000),
-                  ]).value,
-                  child: BouncingScrollWrapper.builder(context, Aquarium(),
-                      dragWithMouse: true),
-                ),
+              return ResponsiveScaledBox(
+                width: ResponsiveValue<double>(context, conditionalValues: [
+                  Condition.equals(name: MOBILE, value: 450),
+                  Condition.between(start: 800, end: 1100, value: 800),
+                  Condition.between(start: 1000, end: 1200, value: 1000),
+                ]).value,
+                child: BouncingScrollWrapper.builder(context, Aquarium(),
+                    dragWithMouse: true),
               );
             });
           case '/vucut':
             return CupertinoPageRoute(builder: (context) {
-              return MaxWidthBox(
-                maxWidth: 1200,
-                background: Container(color: const Color(0xFFF5F5F5)),
-                child: ResponsiveScaledBox(
-                  width: ResponsiveValue<double>(context, conditionalValues: [
-                    Condition.equals(name: MOBILE, value: 450),
-                    Condition.between(start: 800, end: 1100, value: 800),
-                    Condition.between(start: 1000, end: 1200, value: 1000),
-                  ]).value,
-                  child: BouncingScrollWrapper.builder(context, KitleEndeksi(),
-                      dragWithMouse: true),
-                ),
+              return ResponsiveScaledBox(
+                width: ResponsiveValue<double>(context, conditionalValues: [
+                  Condition.equals(name: MOBILE, value: 450),
+                  Condition.between(start: 800, end: 1100, value: 800),
+                  Condition.between(start: 1000, end: 1200, value: 1000),
+                ]).value,
+                child: BouncingScrollWrapper.builder(context, KitleEndeksi(),
+                    dragWithMouse: true),
               );
             });
           case '/beygir':
             return CupertinoPageRoute(builder: (context) {
-              return MaxWidthBox(
-                maxWidth: 1200,
-                background: Container(color: const Color(0xFFF5F5F5)),
-                child: ResponsiveScaledBox(
-                  width: ResponsiveValue<double>(context, conditionalValues: [
-                    Condition.equals(name: MOBILE, value: 450),
-                    Condition.between(start: 800, end: 1100, value: 800),
-                    Condition.between(start: 1000, end: 1200, value: 1000),
-                  ]).value,
-                  child: BouncingScrollWrapper.builder(context, Beygir(),
-                      dragWithMouse: true),
-                ),
+              return ResponsiveScaledBox(
+                width: ResponsiveValue<double>(context, conditionalValues: [
+                  Condition.equals(name: MOBILE, value: 450),
+                  Condition.between(start: 800, end: 1100, value: 800),
+                  Condition.between(start: 1000, end: 1200, value: 1000),
+                ]).value,
+                child: BouncingScrollWrapper.builder(context, Beygir(),
+                    dragWithMouse: true),
               );
             });
           case '/yakit':
             return CupertinoPageRoute(builder: (context) {
-              return MaxWidthBox(
-                maxWidth: 1200,
-                background: Container(color: const Color(0xFFF5F5F5)),
-                child: ResponsiveScaledBox(
-                  width: ResponsiveValue<double>(context, conditionalValues: [
-                    Condition.equals(name: MOBILE, value: 450),
-                    Condition.between(start: 800, end: 1100, value: 800),
-                    Condition.between(start: 1000, end: 1200, value: 1000),
-                  ]).value,
-                  child: BouncingScrollWrapper.builder(context, YakitTuketimi(),
-                      dragWithMouse: true),
-                ),
+              return ResponsiveScaledBox(
+                width: ResponsiveValue<double>(context, conditionalValues: [
+                  Condition.equals(name: MOBILE, value: 450),
+                  Condition.between(start: 800, end: 1100, value: 800),
+                  Condition.between(start: 1000, end: 1200, value: 1000),
+                ]).value,
+                child: BouncingScrollWrapper.builder(context, YakitTuketimi(),
+                    dragWithMouse: true),
               );
             });
           case '/yuzde':
             return CupertinoPageRoute(builder: (context) {
-              return MaxWidthBox(
-                maxWidth: 1200,
-                background: Container(color: const Color(0xFFF5F5F5)),
-                child: ResponsiveScaledBox(
-                  width: ResponsiveValue<double>(context, conditionalValues: [
-                    Condition.equals(name: MOBILE, value: 450),
-                    Condition.between(start: 800, end: 1100, value: 800),
-                    Condition.between(start: 1000, end: 1200, value: 1000),
-                  ]).value,
-                  child: BouncingScrollWrapper.builder(context, Yuzde(),
-                      dragWithMouse: true),
-                ),
+              return ResponsiveScaledBox(
+                width: ResponsiveValue<double>(context, conditionalValues: [
+                  Condition.equals(name: MOBILE, value: 450),
+                  Condition.between(start: 800, end: 1100, value: 800),
+                  Condition.between(start: 1000, end: 1200, value: 1000),
+                ]).value,
+                child: BouncingScrollWrapper.builder(context, Yuzde(),
+                    dragWithMouse: true),
               );
             });
 
           default:
             return CupertinoPageRoute(builder: (context) {
-              return MaxWidthBox(
-                maxWidth: 1200,
-                background: Container(color: const Color(0xFFF5F5F5)),
-                child: ResponsiveScaledBox(
-                  width: ResponsiveValue<double>(context, conditionalValues: [
-                    Condition.equals(name: MOBILE, value: 450),
-                    Condition.between(start: 800, end: 1100, value: 800),
-                    Condition.between(start: 1000, end: 1200, value: 1000),
-                  ]).value,
-                  child: BouncingScrollWrapper.builder(context, HomePage(),
-                      dragWithMouse: true),
-                ),
+              return ResponsiveScaledBox(
+                width: ResponsiveValue<double>(context, conditionalValues: [
+                  Condition.equals(name: MOBILE, value: 450),
+                  Condition.between(start: 800, end: 1100, value: 800),
+                  Condition.between(start: 1000, end: 1200, value: 1000),
+                ]).value,
+                child: BouncingScrollWrapper.builder(context, HomePage(),
+                    dragWithMouse: true),
               );
             });
         }
@@ -288,27 +245,27 @@ class _HomePageState extends State<HomePage> {
     FlutterNativeSplash.remove();
   }
 
-  late BannerAd? _bannerAd;
-  bool _isBannerAdReady = false;
-  void _loadBannerAd() {
-    _bannerAd = BannerAd(
-      adUnitId: mainReklam,
-      size: AdSize.banner,
-      request: requesT,
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          setState(() {
-            _isBannerAdReady = true;
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          _bannerAd!.dispose();
-        },
-      ),
-    );
+  // late BannerAd? _bannerAd;
+  // bool _isBannerAdReady = false;
+  // void _loadBannerAd() {
+  //   _bannerAd = BannerAd(
+  //     adUnitId: mainReklam,
+  //     size: AdSize.banner,
+  //     request: requesT,
+  //     listener: BannerAdListener(
+  //       onAdLoaded: (_) {
+  //         setState(() {
+  //           _isBannerAdReady = true;
+  //         });
+  //       },
+  //       onAdFailedToLoad: (ad, error) {
+  //         _bannerAd!.dispose();
+  //       },
+  //     ),
+  //   );
 
-    _bannerAd!.load();
-  }
+  //   _bannerAd!.load();
+  // }
 
   @override
   void initState() {
@@ -321,12 +278,12 @@ class _HomePageState extends State<HomePage> {
         .setMinLaunchTimes(1)
         .setMinSecondsBeforeShowDialog(4)
         .monitor();
-    _loadBannerAd();
+    // _loadBannerAd();
   }
 
   void dispose() {
     super.dispose();
-    _bannerAd!.dispose();
+    // _bannerAd!.dispose();
   }
 
   // ignore: unused_field
@@ -432,15 +389,15 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _isBannerAdReady
-                  ? SizedBox(
-                      width: _bannerAd!.size.width.toDouble(),
-                      height: _bannerAd!.size.height.toDouble(),
-                      child: AdWidget(ad: _bannerAd!))
-                  : SizedBox(
-                      width: _bannerAd!.size.width.toDouble(),
-                      height: _bannerAd!.size.height.toDouble(),
-                    ),
+              // _isBannerAdReady
+              //     ? SizedBox(
+              //         width: _bannerAd!.size.width.toDouble(),
+              //         height: _bannerAd!.size.height.toDouble(),
+              //         child: AdWidget(ad: _bannerAd!))
+              //     : SizedBox(
+              //         width: _bannerAd!.size.width.toDouble(),
+              //         height: _bannerAd!.size.height.toDouble(),
+              //       ),
               const SizedBox(
                 height: 20,
               ),

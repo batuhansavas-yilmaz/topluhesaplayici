@@ -14,6 +14,8 @@ class _BinekAracState extends State<BinekArac> {
   double tutar = 0.00;
   double kdvOran = 0.00;
   bool oran = false;
+  bool sonuc1 = false;
+  bool sonuc2 = false;
   double giderKabulEdilenMatrah = 0.00;
   double giderKabulEdilenKdv = 0.00;
   double giderKabulEdilenTutar = 0.00;
@@ -160,8 +162,8 @@ class _BinekAracState extends State<BinekArac> {
                               giderKabulEdilmeyenKdv =
                                   giderKabulEdilmeyenTutar -
                                       giderKabulEdilmeyenMatrah;
-                              t1.clear();
-                              t2.clear();
+                              sonuc1 = true;
+                              sonuc2 = true;
                               oran = true;
                             } else {
                               mesaj = "Lütfen bir değer girin";
@@ -214,8 +216,8 @@ class _BinekAracState extends State<BinekArac> {
                         (giderKabulEdilmeyenTutar / ((kdvOran / 100) + 1));
                     giderKabulEdilmeyenKdv =
                         giderKabulEdilmeyenTutar - giderKabulEdilmeyenMatrah;
-                    t1.clear();
-                    t2.clear();
+                    sonuc1 = true;
+                    sonuc2 = true;
                     oran = true;
                   } else {
                     mesaj = "Lütfen bir değer girin";
@@ -228,25 +230,32 @@ class _BinekAracState extends State<BinekArac> {
                 style: TextStyle(fontSize: 16),
               ),
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    color: Colors.blue,
-                    child: Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Text(
-                        "Gider Kabul Edilen %70'lik Tutar : ${giderKabulEdilenTutar.toStringAsFixed(2)}",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
+            Container(
+              color: Colors.blue,
+              padding: EdgeInsets.symmetric(horizontal: 1, vertical: 5),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Gider Kabul Edilen %70'lik Tutar : ",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                   ),
-                ),
-              ],
+                  if (sonuc1 == true)
+                    Text(
+                      "${giderKabulEdilenTutar.toStringAsFixed(2)}",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                ],
+              ),
             ),
             Column(
               children: [
@@ -311,25 +320,32 @@ class _BinekAracState extends State<BinekArac> {
                     ],
                   ),
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        color: Colors.blue,
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Text(
-                            "Gider Kabul Edilmeyen %30'luk Tutar : ${giderKabulEdilmeyenTutar.toStringAsFixed(2)}",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
+                Container(
+                  color: Colors.blue,
+                  padding: EdgeInsets.symmetric(horizontal: 1, vertical: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        "Gider Kabul Edilmeyen %30'luk Tutar : ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
                       ),
-                    ),
-                  ],
+                      if (sonuc2 == true)
+                        Text(
+                          " ${giderKabulEdilmeyenTutar.toStringAsFixed(2)}",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10, top: 5),

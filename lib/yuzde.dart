@@ -127,11 +127,6 @@ class _YuzdeState extends State<Yuzde> {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                hintText: "...",
-                                hintStyle: TextStyle(
-                                    fontSize: 25,
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.normal),
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -188,11 +183,6 @@ class _YuzdeState extends State<Yuzde> {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                hintText: "...",
-                                hintStyle: TextStyle(
-                                    fontSize: 25,
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.normal),
                               ),
                               textAlign: TextAlign.center,
                             ),

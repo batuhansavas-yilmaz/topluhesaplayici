@@ -18,6 +18,8 @@ class _KomisyonState extends State<Komisyon> {
   double AlinanPaySonuc = 0.00;
   double AlinanOran = 0.00;
   double AlinanOranSonuc = 0.00;
+  bool oran = false;
+  bool tutar = false;
   TextEditingController t1 = TextEditingController(text: '');
   TextEditingController t2 = TextEditingController(text: '');
   TextEditingController t3 = TextEditingController(text: '');
@@ -139,6 +141,7 @@ class _KomisyonState extends State<Komisyon> {
                                 AnaPara = double.parse(t1.text);
                                 AlinanPay = double.parse(t2.text);
                                 AlinanOranSonuc = (AlinanPay / AnaPara) * 100;
+                                oran = true;
                               } else {
                                 mesaj = "Lütfen bir değer girin";
                                 toast();
@@ -178,6 +181,7 @@ class _KomisyonState extends State<Komisyon> {
                       AnaPara = double.parse(t1.text);
                       AlinanPay = double.parse(t2.text);
                       AlinanOranSonuc = (AlinanPay / AnaPara) * 100;
+                      oran = true;
                     } else {
                       mesaj = "Lütfen bir değer girin";
                       toast();
@@ -193,13 +197,15 @@ class _KomisyonState extends State<Komisyon> {
               SizedBox(
                 height: 10,
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(2),
-                      color: Colors.blue,
-                      child: Text(
+              if (oran == true)
+                Container(
+                  padding: EdgeInsets.all(2),
+                  color: Colors.blue,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
                         "Aldığınız Pay Oranı : % ${AlinanOranSonuc.toStringAsFixed(2)}",
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -207,10 +213,9 @@ class _KomisyonState extends State<Komisyon> {
                             fontWeight: FontWeight.bold,
                             fontSize: 20),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
+                ),
               SizedBox(
                 height: 10,
               ),
@@ -274,6 +279,7 @@ class _KomisyonState extends State<Komisyon> {
                                 AnaPara = double.parse(t3.text);
                                 AlinanOran = double.parse(t4.text);
                                 AlinanPaySonuc = (AnaPara * (AlinanOran / 100));
+                                tutar = true;
                               } else {
                                 mesaj = "Lütfen bir değer girin";
                                 toast();
@@ -313,6 +319,7 @@ class _KomisyonState extends State<Komisyon> {
                       AnaPara = double.parse(t3.text);
                       AlinanOran = double.parse(t4.text);
                       AlinanPaySonuc = (AnaPara * (AlinanOran / 100));
+                      tutar = true;
                     } else {
                       mesaj = "Lütfen bir değer girin";
                       toast();
@@ -328,13 +335,15 @@ class _KomisyonState extends State<Komisyon> {
               SizedBox(
                 height: 10,
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(2),
-                      color: Colors.blue,
-                      child: Text(
+              if (tutar == true)
+                Container(
+                  padding: EdgeInsets.all(2),
+                  color: Colors.blue,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
                         "Aldığınız Pay Tutarı :  ${AlinanPaySonuc.toStringAsFixed(2)} ₺",
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -342,10 +351,9 @@ class _KomisyonState extends State<Komisyon> {
                             fontWeight: FontWeight.bold,
                             fontSize: 20),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
+                ),
               SizedBox(
                 height: 100,
               ),

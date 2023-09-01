@@ -18,7 +18,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
   double boY = 0;
   static double sonuc = 0.00;
   static String sonucMetin = "";
-
+  bool sonucc = false;
   @override
   Widget build(BuildContext context) {
     Yorum.yorum();
@@ -115,6 +115,8 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                                   kG = double.parse(kg.text);
                                   boY = double.parse(boy.text);
                                   sonuc = kG / ((boY / 100) * (boY / 100));
+
+                                  sonucc = true;
                                 } else {
                                   showToast("Lütfen bir değer girin",
                                       context: context,
@@ -181,6 +183,8 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                           kG = double.parse(kg.text);
                           boY = double.parse(boy.text);
                           sonuc = kG / ((boY / 100) * (boY / 100));
+
+                          sonucc = true;
                         } else {
                           showToast("Lütfen bir değer girin",
                               context: context,
@@ -196,44 +200,50 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Text(
-                  "Sonuç : ",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  sonuc.toStringAsFixed(2),
-                  style: TextStyle(fontSize: 30),
-                ),
-              ]),
-            ),
             SizedBox(
-              height: 10,
+              height: 20,
             ),
-            ListTile(
-              title: Text(
-                "Yorumsal Sonuç",
-                style: TextStyle(fontSize: 20),
-                textAlign: TextAlign.center,
-              ),
-              subtitle: Column(
+            if (sonucc == true)
+              Column(
                 children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.all(2),
+                          color: Colors.blue,
+                          child: Text(
+                            "VÜCUT KİTLE ENDEKSİNİZ : ${sonuc.toStringAsFixed(2)} ",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Yorum",
+                    style: TextStyle(fontSize: 20),
+                    textAlign: TextAlign.center,
+                  ),
                   Divider(
                     color: Colors.black,
                   ),
-                  Text(
-                    sonucMetin,
-                    style: TextStyle(fontSize: 20, color: Colors.black),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Text(
+                      sonucMetin,
+                      style: TextStyle(fontSize: 20, color: Colors.black),
+                    ),
                   ),
                 ],
-              ),
-            )
+              )
           ],
         ),
         bottomNavigationBar: Container(

@@ -19,6 +19,7 @@ class _ZRaporuState extends State<ZRaporu> {
   double kucukKumul = 0.00;
   double tuTar = 0.00;
   double sonuc = 0.00;
+  bool sonucc = false;
   toast() {
     showToast("$mesaj",
         context: context,
@@ -73,21 +74,23 @@ class _ZRaporuState extends State<ZRaporu> {
       ),
       body: Column(
         children: [
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                  "Bu hesaplama sadece tek tip KDV Oranı\niçeren Z Raporları için kullanılabilir.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+            ],
+          ),
+          Divider(color: Colors.black),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                        "Bu hesaplama sadece tek tip KDV Oranı\niçeren Z Raporları için kullanılabilir.",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20)),
-                  ],
-                ),
-                Divider(color: Colors.black),
                 Row(
                   children: [
                     Expanded(
@@ -268,6 +271,7 @@ class _ZRaporuState extends State<ZRaporu> {
                                   sonuc = ((buyukKumul - kucukKumul) - tuTar);
                                   FocusScope.of(context)
                                       .requestFocus(new FocusNode());
+                                  sonucc = true;
                                 } else {
                                   mesaj = "Lütfen bir değer girin";
                                   toast();
@@ -299,67 +303,74 @@ class _ZRaporuState extends State<ZRaporu> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 15,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          if (k1.text.isNotEmpty &&
-                              k2.text.isNotEmpty &&
-                              tutar.text.isNotEmpty) {
-                            buyukKumul = double.parse(k1.text);
-                            kucukKumul = double.parse(k2.text);
-                            tuTar = double.parse(tutar.text);
-
-                            sonuc = ((buyukKumul - kucukKumul) - tuTar);
-                            FocusScope.of(context)
-                                .requestFocus(new FocusNode());
-                          } else {
-                            mesaj = "Lütfen bir değer girin";
-                            toast();
-                          }
-                        });
-                      },
-                      child: Text(
-                        "Hesapla",
-                        style: TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        "Eksik Rapor/Raporlardaki Toplam Tutar :",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 17),
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        sonuc.toStringAsFixed(2),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.italic,
-                            fontSize: 20),
-                      ),
-                    ),
-                  ],
-                )
               ],
             ),
           ),
+          SizedBox(
+            height: 15,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    if (k1.text.isNotEmpty &&
+                        k2.text.isNotEmpty &&
+                        tutar.text.isNotEmpty) {
+                      buyukKumul = double.parse(k1.text);
+                      kucukKumul = double.parse(k2.text);
+                      tuTar = double.parse(tutar.text);
+
+                      sonuc = ((buyukKumul - kucukKumul) - tuTar);
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      sonucc = true;
+                    } else {
+                      mesaj = "Lütfen bir değer girin";
+                      toast();
+                    }
+                  });
+                },
+                child: Text(
+                  "Hesapla",
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          if (sonucc == true)
+            Container(
+              color: Colors.blue,
+              padding: EdgeInsets.symmetric(horizontal: 2, vertical: 5),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Eksik Rapor/Raporlardaki Toplam Tutar : ",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 17),
+                  ),
+                  Flexible(
+                    child: Text(
+                      sonuc.toStringAsFixed(2),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic,
+                          fontSize: 20),
+                    ),
+                  ),
+                ],
+              ),
+            ),
         ],
       ),
       bottomNavigationBar: Container(
