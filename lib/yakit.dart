@@ -21,6 +21,7 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
   double tamDepoKm = 0.00;
   double yakitFiyati = 0.00;
   double yakitFiyatiSonuc = 0.00;
+  bool sonuc = false;
   late BannerAd? _bannerAd;
   bool _isBannerAdReady = false;
   void _loadBannerAd() {
@@ -62,264 +63,260 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
         title: Text("Yakıt Tüketimi"),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Aracınızın bilgilerini girerek\nkm'de"
-                " kaç LT tükettiğini\nve kaç ₺ yaktığını hesaplayabilirsiniz. ",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Divider(
-                color: Colors.black,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Depo Kapasitesi',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Flexible(
-                    child: Container(
-                      width: 150,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: TextFormField(
-                        controller: t1,
-                        keyboardType: TextInputType.numberWithOptions(
-                          decimal: true,
-                        ),
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.deny(",")
-                        ],
-                        style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
-                        decoration: InputDecoration(
-                          hintText: 'LT',
-                          hintStyle: TextStyle(
-                              fontSize: 25,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.normal),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Tam Depo Gidilen KM ',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Flexible(
-                    child: Container(
-                      width: 150,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: TextFormField(
-                        keyboardType:
-                            TextInputType.numberWithOptions(decimal: true),
-                        inputFormatters: [
-                          FilteringTextInputFormatter.deny(",")
-                        ],
-                        controller: t2,
-                        style: TextStyle(
-                            fontSize: 23, fontWeight: FontWeight.bold),
-                        decoration: InputDecoration(
-                          hintText: 'KM',
-                          hintStyle: TextStyle(
-                              fontSize: 25,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.normal),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Yakıt Litre Fiyatı ',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Flexible(
-                    child: Container(
-                      width: 150,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: TextFormField(
-                        onFieldSubmitted: (value) {
-                          setState(() {
-                            if (t1.text.isNotEmpty &&
-                                t2.text.isNotEmpty &&
-                                t3.text.isNotEmpty) {
-                              FocusScope.of(context)
-                                  .requestFocus(new FocusNode());
-                              kapasite = double.parse(t1.text);
-                              tamDepoKm = double.parse(t2.text);
-                              yakitFiyati = double.parse(t3.text);
-                              litreSonuc = (kapasite / tamDepoKm);
-                              yakitFiyatiSonuc = litreSonuc * yakitFiyati;
-                            } else {
-                              showToast("Lütfen bir değer girin",
-                                  context: context,
-                                  animation: StyledToastAnimation.fade,
-                                  curve: Curves.linear,
-                                  reverseCurve: Curves.linear,
-                                  duration: Duration(seconds: 4),
-                                  position: StyledToastPosition.center);
-                            }
-                          });
-                        },
-                        keyboardType:
-                            TextInputType.numberWithOptions(decimal: true),
-                        inputFormatters: [
-                          FilteringTextInputFormatter.deny(",")
-                        ],
-                        controller: t3,
-                        style: TextStyle(
-                            fontSize: 23, fontWeight: FontWeight.bold),
-                        decoration: InputDecoration(
-                          hintText: '₺',
-                          hintStyle: TextStyle(
-                              fontSize: 25,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.normal),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      if (t1.text.isNotEmpty &&
-                          t2.text.isNotEmpty &&
-                          t3.text.isNotEmpty) {
-                        FocusScope.of(context).requestFocus(new FocusNode());
-                        kapasite = double.parse(t1.text);
-                        tamDepoKm = double.parse(t2.text);
-                        yakitFiyati = double.parse(t3.text);
-                        litreSonuc = (kapasite / tamDepoKm);
-                        yakitFiyatiSonuc = litreSonuc * yakitFiyati;
-                      } else {
-                        showToast("Lütfen bir değer girin",
-                            context: context,
-                            animation: StyledToastAnimation.fade,
-                            curve: Curves.linear,
-                            reverseCurve: Curves.linear,
-                            duration: Duration(seconds: 4),
-                            position: StyledToastPosition.center);
-                      }
-                    });
-                  },
+        child: Column(
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              "Aracınızın bilgilerini girerek\nkm'de"
+              " kaç LT tükettiğini\nve kaç ₺ yaktığını hesaplayabilirsiniz. ",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Divider(
+              color: Colors.black,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
                   child: Text(
-                    "Hesapla",
-                    style: TextStyle(fontSize: 20),
-                  )),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                    'Depo Kapasitesi',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Flexible(
+                  child: Container(
+                    width: 150,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: TextFormField(
+                      controller: t1,
+                      keyboardType: TextInputType.numberWithOptions(
+                        decimal: true,
+                      ),
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.deny(",")
+                      ],
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      decoration: InputDecoration(
+                        hintText: 'LT',
+                        hintStyle: TextStyle(
+                            fontSize: 25,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.normal),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Text(
+                    'Tam Depo Gidilen KM ',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Flexible(
+                  child: Container(
+                    width: 150,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: TextFormField(
+                      keyboardType:
+                          TextInputType.numberWithOptions(decimal: true),
+                      inputFormatters: [FilteringTextInputFormatter.deny(",")],
+                      controller: t2,
+                      style:
+                          TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                      decoration: InputDecoration(
+                        hintText: 'KM',
+                        hintStyle: TextStyle(
+                            fontSize: 25,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.normal),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Text(
+                    'Yakıt Litre Fiyatı ',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Flexible(
+                  child: Container(
+                    width: 150,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: TextFormField(
+                      onFieldSubmitted: (value) {
+                        setState(() {
+                          if (t1.text.isNotEmpty &&
+                              t2.text.isNotEmpty &&
+                              t3.text.isNotEmpty) {
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
+                            kapasite = double.parse(t1.text);
+                            tamDepoKm = double.parse(t2.text);
+                            yakitFiyati = double.parse(t3.text);
+                            litreSonuc = (kapasite / tamDepoKm);
+                            yakitFiyatiSonuc = litreSonuc * yakitFiyati;
+                            sonuc = true;
+                          } else {
+                            showToast("Lütfen bir değer girin",
+                                context: context,
+                                animation: StyledToastAnimation.fade,
+                                curve: Curves.linear,
+                                reverseCurve: Curves.linear,
+                                duration: Duration(seconds: 4),
+                                position: StyledToastPosition.center);
+                          }
+                        });
+                      },
+                      keyboardType:
+                          TextInputType.numberWithOptions(decimal: true),
+                      inputFormatters: [FilteringTextInputFormatter.deny(",")],
+                      controller: t3,
+                      style:
+                          TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                      decoration: InputDecoration(
+                        hintText: '₺',
+                        hintStyle: TextStyle(
+                            fontSize: 25,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.normal),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    if (t1.text.isNotEmpty &&
+                        t2.text.isNotEmpty &&
+                        t3.text.isNotEmpty) {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      kapasite = double.parse(t1.text);
+                      tamDepoKm = double.parse(t2.text);
+                      yakitFiyati = double.parse(t3.text);
+                      litreSonuc = (kapasite / tamDepoKm);
+                      yakitFiyatiSonuc = litreSonuc * yakitFiyati;
+                      sonuc = true;
+                    } else {
+                      showToast("Lütfen bir değer girin",
+                          context: context,
+                          animation: StyledToastAnimation.fade,
+                          curve: Curves.linear,
+                          reverseCurve: Curves.linear,
+                          duration: Duration(seconds: 4),
+                          position: StyledToastPosition.center);
+                    }
+                  });
+                },
+                child: Text(
+                  "Hesapla",
+                  style: TextStyle(fontSize: 20),
+                )),
+            SizedBox(
+              height: 20,
+            ),
+            if (sonuc == true)
+              Column(
                 children: [
-                  Text(
-                    "Aracınız KM\nbaşına ortalama :  ",
-                    style: TextStyle(fontSize: 20),
-                    textAlign: TextAlign.center,
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.all(2),
+                          color: Colors.blue,
+                          child: Text(
+                            "ARACINIZ KM BAŞINA ORTALAMA YAKIT TÜKETİMİ",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(
-                    width: 20,
+                    height: 20,
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text(
-                        "${litreSonuc.toStringAsFixed(2)} LT",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.italic),
+                      Column(
+                        children: [
+                          Text("Litre", style: TextStyle(fontSize: 17)),
+                          Text(
+                            "${litreSonuc.toStringAsFixed(2)} LT",
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FontStyle.italic),
+                          ),
+                        ],
                       ),
-                      Text(
-                        "ve",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        "${yakitFiyatiSonuc.toStringAsFixed(2)} ₺'lik ",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.italic),
-                      ),
-                      Text(
-                        "yakıt tüketiyor.",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Column(
+                        children: [
+                          Text("Fiyat", style: TextStyle(fontSize: 17)),
+                          Text(
+                            "${yakitFiyatiSonuc.toStringAsFixed(2)} ₺",
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FontStyle.italic),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ],
               ),
-              SizedBox(
-                height: 170,
-              ),
-            ],
-          ),
+          ],
         ),
       ),
       bottomNavigationBar: Column(

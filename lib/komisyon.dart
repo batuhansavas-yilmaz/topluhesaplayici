@@ -77,18 +77,21 @@ class _KomisyonState extends State<Komisyon> {
           ),
         ),
         body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Text(
-                  "Komisyon Oranı",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Komisyon oranı için :",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
                 ),
-                Row(
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
                   children: [
                     Expanded(
                       child: Padding(
@@ -166,56 +169,64 @@ class _KomisyonState extends State<Komisyon> {
                     ),
                   ],
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
-                        FocusScope.of(context).requestFocus(new FocusNode());
-                        AnaPara = double.parse(t1.text);
-                        AlinanPay = double.parse(t2.text);
-                        AlinanOranSonuc = (AlinanPay / AnaPara) * 100;
-                      } else {
-                        mesaj = "Lütfen bir değer girin";
-                        toast();
-                      }
-                    });
-                  },
-                  child: Text(
-                    "Hesapla",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20),
-                  ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      AnaPara = double.parse(t1.text);
+                      AlinanPay = double.parse(t2.text);
+                      AlinanOranSonuc = (AlinanPay / AnaPara) * 100;
+                    } else {
+                      mesaj = "Lütfen bir değer girin";
+                      toast();
+                    }
+                  });
+                },
+                child: Text(
+                  "Hesapla",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20),
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Flexible(
-                      child: Text("Aldığınız Pay Oranı : ",
-                          style: TextStyle(fontSize: 20)),
-                    ),
-                    Flexible(
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.all(2),
+                      color: Colors.blue,
                       child: Text(
-                        "% ${AlinanOranSonuc.toStringAsFixed(2)}",
+                        "Aldığınız Pay Oranı : % ${AlinanOranSonuc.toStringAsFixed(2)}",
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 22,
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.italic),
+                            fontSize: 20),
                       ),
                     ),
-                  ],
-                ),
-                Divider(
-                  color: Colors.black,
-                ),
-                Text(
-                  "Komisyon Tutarı",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
                   ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Divider(
+                color: Colors.black,
+              ),
+              Text(
+                "Komisyon tutarı için :",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
                 ),
-                Row(
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
                   children: [
                     Expanded(
                       child: Padding(
@@ -293,59 +304,52 @@ class _KomisyonState extends State<Komisyon> {
                     ),
                   ],
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      if (t3.text.isNotEmpty && t4.text.isNotEmpty) {
-                        FocusScope.of(context).requestFocus(new FocusNode());
-                        AnaPara = double.parse(t3.text);
-                        AlinanOran = double.parse(t4.text);
-                        AlinanPaySonuc = (AnaPara * (AlinanOran / 100));
-                      } else {
-                        mesaj = "Lütfen bir değer girin";
-                        toast();
-                      }
-                    });
-                  },
-                  child: Text(
-                    "Hesapla",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20),
-                  ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    if (t3.text.isNotEmpty && t4.text.isNotEmpty) {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      AnaPara = double.parse(t3.text);
+                      AlinanOran = double.parse(t4.text);
+                      AlinanPaySonuc = (AnaPara * (AlinanOran / 100));
+                    } else {
+                      mesaj = "Lütfen bir değer girin";
+                      toast();
+                    }
+                  });
+                },
+                child: Text(
+                  "Hesapla",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20),
                 ),
-                Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Flexible(
-                          child: Text(
-                            "Aldığınız Pay : ",
-                            style: TextStyle(fontSize: 20),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Flexible(
-                          child: Text(
-                            "${AlinanPaySonuc.toStringAsFixed(2)} Para Birimi",
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                            ),
-                            textAlign: TextAlign.end,
-                          ),
-                        ),
-                      ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.all(2),
+                      color: Colors.blue,
+                      child: Text(
+                        "Aldığınız Pay Tutarı :  ${AlinanPaySonuc.toStringAsFixed(2)} ₺",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
                     ),
-                  ],
-                ),
-                SizedBox(
-                  height: 100,
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 100,
+              ),
+            ],
           ),
         ),
         bottomNavigationBar: Container(

@@ -50,6 +50,7 @@ void main() async {
       statusBarColor: Colors.transparent,
     ),
   );
+
   runApp(
     MyApp(),
   );
@@ -404,14 +405,14 @@ class _HomePageState extends State<HomePage> {
               sayfaismi: '/komisyon',
             ),
             GorevButton(
-              logo: "assets/petrol.png",
-              altisim: "Yakıt Tüketimi",
-              sayfaismi: '/yakit',
-            ),
-            GorevButton(
               logo: "assets/yuzde.png",
               altisim: "Yüzde Hesaplama",
               sayfaismi: '/yuzde',
+            ),
+            GorevButton(
+              logo: "assets/petrol.png",
+              altisim: "Yakıt Tüketimi",
+              sayfaismi: '/yakit',
             ),
             SizedBox(),
             SizedBox(),

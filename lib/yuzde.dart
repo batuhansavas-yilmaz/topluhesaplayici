@@ -80,7 +80,23 @@ class _YuzdeState extends State<Yuzde> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 60),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Elinizdeki sayıların birbiriyle olan "
+                "yüzdeleme hesaplamalarını kolayca "
+                "elde edebilirsiniz.",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 7,
+              ),
+              Divider(
+                color: Colors.black,
+              ),
+              SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Column(
@@ -213,28 +229,28 @@ class _YuzdeState extends State<Yuzde> {
                 ),
               ),
               SizedBox(height: 10),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(2),
-                      color: Colors.blue,
-                      child: Text(
-                        "SONUÇ",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
               if (sonuc == true)
                 Column(
                   children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.all(2),
+                            color: Colors.blue,
+                            child: Text(
+                              "SONUÇ",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: Row(
