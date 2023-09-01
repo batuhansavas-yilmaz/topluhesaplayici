@@ -445,7 +445,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           width: 20,
                                         ),
                                         Text(
-                                          HarickenKdvTutari.toStringAsFixed(2),
+                                          dahilkenKdvTutari.toStringAsFixed(2),
                                           style: stil,
                                         ),
                                       ],
@@ -1217,7 +1217,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       width: 20,
                                     ),
                                     Text(
-                                      tevkifatOncesiKDV.toStringAsFixed(2),
+                                      dahilTevkifatOncesiKdv.toStringAsFixed(2),
                                       style: stil,
                                     ),
                                   ],
