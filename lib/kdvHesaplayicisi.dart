@@ -724,6 +724,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                         t4.clear();
                                         tefkkdv = true;
                                         toast();
+                                      } else {
+                                        mesaj = "Lütfen bir değer girin";
+                                        toast();
                                       }
                                     });
                                   },
@@ -731,21 +734,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16))),
-                              Container(
-                                  alignment: Alignment.center,
-                                  height: 40,
-                                  width: 60,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Colors.black, width: 1.5),
-                                      borderRadius: BorderRadius.circular(4)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Text(tevk,
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold)),
-                                  )),
                               ElevatedButton(
                                   onPressed: () {
                                     setState(() {
@@ -1009,6 +997,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                         ),
                       ],
                     ),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Padding(
                       padding: EdgeInsets.only(left: 5.0, right: 5),
                       child: Column(
@@ -1100,9 +1091,25 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   "Tevkifat Tutarı",
                                   style: stil2,
                                 ),
-                                Text(
-                                  Tevkifat.toStringAsFixed(2),
-                                  style: stil,
+                                Row(
+                                  children: [
+                                    if (tefkkdv == true)
+                                      Text(
+                                        "($tevk)",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold,
+                                            fontStyle: FontStyle.italic),
+                                      ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text(
+                                      Tevkifat.toStringAsFixed(2),
+                                      style: stil,
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
@@ -1148,6 +1155,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                         ],
                       ),
                     ),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Row(
                       children: [
                         Expanded(
@@ -1167,6 +1177,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                           ),
                         ),
                       ],
+                    ),
+                    SizedBox(
+                      height: 5,
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 5.0, right: 5),
@@ -1259,9 +1272,25 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   "Tevkifat Tutarı",
                                   style: stil2,
                                 ),
-                                Text(
-                                  dahilTevkifat.toStringAsFixed(2),
-                                  style: stil,
+                                Row(
+                                  children: [
+                                    if (tefkkdv == true)
+                                      Text(
+                                        "($tevk)",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold,
+                                            fontStyle: FontStyle.italic),
+                                      ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text(
+                                      dahilTevkifat.toStringAsFixed(2),
+                                      style: stil,
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
