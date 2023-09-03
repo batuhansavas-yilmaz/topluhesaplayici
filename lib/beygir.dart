@@ -13,10 +13,18 @@ class Beygir extends StatefulWidget {
 class _BeygirState extends State<Beygir> {
   double kW = 0.00;
   double hP = 0.00;
-  double kWsonuc = 0.00;
-  double hPsonuc = 0.00;
+  double kwtohp = 0.00;
+  double kwtomhp = 0.00;
+  double kwtoehp = 0.00;
+  double kwtobhp = 0.00;
+  double hptokw = 0.00;
+  double ehptokw = 0.00;
+  double bhptokw = 0.00;
+  double mhptokw = 0.00;
   bool kwSonucc = false;
   bool hpSonucc = false;
+  final focuskw = FocusNode();
+  final focushp = FocusNode();
   TextEditingController t1 = TextEditingController(text: '');
   TextEditingController t2 = TextEditingController(text: '');
   late BannerAd? _bannerAd;
@@ -80,18 +88,23 @@ class _BeygirState extends State<Beygir> {
                   height: 10,
                 ),
                 Container(
-                  width: 200,
+                  width: 300,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10)),
                   child: TextFormField(
+                    focusNode: focuskw,
                     onFieldSubmitted: (value) {
                       setState(() {
                         if (t1.text.isNotEmpty) {
                           FocusScope.of(context).requestFocus(new FocusNode());
                           kW = double.parse(t1.text);
-                          kWsonuc = kW * 1.341022;
+                          kwtohp = kW * 1.3410220896; //normal
+                          kwtomhp = kW * 1.3596216173; //metric
+                          kwtoehp = kW * 1.3404825737; //elect
+                          kwtobhp = kW * 0.101941995; //boiler
                           kwSonucc = true;
+                          t1.clear();
                         } else {
                           showToast("Lütfen bir değer girin",
                               context: context,
@@ -107,19 +120,17 @@ class _BeygirState extends State<Beygir> {
                     keyboardType: TextInputType.numberWithOptions(
                       decimal: true,
                     ),
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.deny(",")
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'^\d+\.?\d{0,10}')),
                     ],
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    style: formstil,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                       hintText: "kW",
-                      hintStyle: TextStyle(
-                          fontSize: 25,
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.normal),
+                      hintStyle: hintstil,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -133,8 +144,12 @@ class _BeygirState extends State<Beygir> {
                       if (t1.text.isNotEmpty) {
                         FocusScope.of(context).requestFocus(new FocusNode());
                         kW = double.parse(t1.text);
-                        kWsonuc = kW * 1.341022;
+                        kwtohp = kW * 1.3410220896; //normal
+                        kwtomhp = kW * 1.3596216173; //metric
+                        kwtoehp = kW * 1.3404825737; //elect
+                        kwtobhp = kW * 0.101941995; //boiler
                         kwSonucc = true;
+                        t1.clear();
                       } else {
                         showToast("Lütfen bir değer girin",
                             context: context,
@@ -154,26 +169,169 @@ class _BeygirState extends State<Beygir> {
                 if (kwSonucc == true)
                   Container(
                     padding: EdgeInsets.all(5),
-                    color: Colors.blue,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    color: Color.fromARGB(255, 0, 135, 245),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(
-                          " $kW kW : ",
-                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                "$kW kW",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ),
+                            ),
+                            Text(
+                              " : ",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic),
+                            ),
+                            Flexible(
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                "${kwtohp.toStringAsFixed(10)} hp",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.italic),
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          "${kWsonuc.toStringAsFixed(3)} hp",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic),
+                        Divider(
+                          color: Colors.black,
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                "$kW kW",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ),
+                            ),
+                            Text(
+                              " : ",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic),
+                            ),
+                            Flexible(
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                "${kwtobhp.toStringAsFixed(10)} bhp",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.italic),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Divider(
+                          color: Colors.black,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                "$kW kW",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ),
+                            ),
+                            Text(
+                              " : ",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic),
+                            ),
+                            Flexible(
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                "${kwtoehp.toStringAsFixed(10)} ehp",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.italic),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Divider(
+                          color: Colors.black,
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                "$kW kW : ",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ),
+                            ),
+                            Text(
+                              " : ",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic),
+                            ),
+                            Flexible(
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                "${kwtomhp.toStringAsFixed(10)} mhp",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.italic),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
+                if (kwSonucc == true)
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: CircleBorder(eccentricity: 0)),
+                      onPressed: () {
+                        setState(() {
+                          focuskw.requestFocus();
+                          kwSonucc = false;
+                        });
+                      },
+                      child: Icon(Icons.replay)),
                 Divider(
                   color: Colors.black,
                 ),
@@ -188,18 +346,23 @@ class _BeygirState extends State<Beygir> {
                   height: 10,
                 ),
                 Container(
-                  width: 200,
+                  width: 300,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10)),
                   child: TextFormField(
+                    focusNode: focushp,
                     onFieldSubmitted: (value) {
                       setState(() {
                         if (t2.text.isNotEmpty) {
                           FocusScope.of(context).requestFocus(new FocusNode());
                           hP = double.parse(t2.text);
-                          hPsonuc = hP * 0.745699872;
+                          hptokw = hP * 0.7456998716;
+                          mhptokw = hP * 0.73549875;
+                          ehptokw = hP * 0.746;
+                          bhptokw = hP * 9.8095;
                           hpSonucc = true;
+                          t2.clear();
                         } else {
                           showToast("Lütfen bir değer girin",
                               context: context,
@@ -215,20 +378,17 @@ class _BeygirState extends State<Beygir> {
                     keyboardType: TextInputType.numberWithOptions(
                       decimal: true,
                     ),
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.deny(",")
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'^\d+\.?\d{0,10}')),
                     ],
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    style: formstil,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      hintText: "hp",
-                      hintStyle: TextStyle(
-                          fontSize: 25,
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.normal),
-                    ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        hintText: "hp",
+                        hintStyle: hintstil),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -241,8 +401,12 @@ class _BeygirState extends State<Beygir> {
                       if (t2.text.isNotEmpty) {
                         FocusScope.of(context).requestFocus(new FocusNode());
                         hP = double.parse(t2.text);
-                        hPsonuc = hP * 0.745699872;
+                        hptokw = hP * 0.7456998716;
+                        mhptokw = hP * 0.73549875;
+                        ehptokw = hP * 0.746;
+                        bhptokw = hP * 9.8095;
                         hpSonucc = true;
+                        t2.clear();
                       } else {
                         showToast("Lütfen bir değer girin",
                             context: context,
@@ -262,39 +426,169 @@ class _BeygirState extends State<Beygir> {
                 if (hpSonucc == true)
                   Container(
                     padding: EdgeInsets.all(5),
-                    color: Colors.blue,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    color: Color.fromARGB(255, 0, 135, 245),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(
-                          "$hP hp : ",
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                          textAlign: TextAlign.center,
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                "$hP hp",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            Text(
+                              " : ",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic),
+                            ),
+                            Flexible(
+                              child: Text(
+                                "${hptokw.toStringAsFixed(10)} kW",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.italic),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          "${hPsonuc.toStringAsFixed(3)} kW",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic),
-                          textAlign: TextAlign.center,
+                        Divider(
+                          color: Colors.black,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                "$hP bhp",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            Text(
+                              " : ",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic),
+                            ),
+                            Flexible(
+                              child: Text(
+                                "${bhptokw.toStringAsFixed(10)} kW",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.italic),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Divider(
+                          color: Colors.black,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                "$hP ehp",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            Text(
+                              " : ",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic),
+                            ),
+                            Flexible(
+                              child: Text(
+                                "${ehptokw.toStringAsFixed(10)} kW",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.italic),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Divider(
+                          color: Colors.black,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                "$hP mhp",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            Text(
+                              " : ",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic),
+                            ),
+                            Flexible(
+                              child: Text(
+                                "${mhptokw.toStringAsFixed(10)} kW",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.italic),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
-                SizedBox(
-                  height: 70,
-                ),
-                Text(
-                  "DİKKAT \nHesaplamalar için mekanik değerler kullanılmaktadır!",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic),
-                  textAlign: TextAlign.center,
-                )
+                if (hpSonucc == true)
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: CircleBorder(eccentricity: 0)),
+                      onPressed: () {
+                        setState(() {
+                          focushp.requestFocus();
+                          hpSonucc = false;
+                        });
+                      },
+                      child: Icon(Icons.replay)),
               ],
             ),
           ],
@@ -323,12 +617,7 @@ class _BeygirState extends State<Beygir> {
               const SizedBox(
                 height: 20,
               ),
-              Container(
-                decoration: const BoxDecoration(color: Colors.blue, boxShadow: [
-                  BoxShadow(offset: Offset(-0.00, -0.10), blurRadius: 0.3)
-                ]),
-                height: 1,
-              ),
+              altblur
             ],
           ),
         ));

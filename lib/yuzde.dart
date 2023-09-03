@@ -20,7 +20,7 @@ class _YuzdeState extends State<Yuzde> {
   double yxinyuzdekacisonuc = 0.00;
   double azalim = 0.00;
   double artim = 0.00;
-
+  final _focusNode = FocusNode();
   TextEditingController t1 = TextEditingController(text: '');
   TextEditingController t2 = TextEditingController(text: '');
 
@@ -100,26 +100,24 @@ class _YuzdeState extends State<Yuzde> {
                 children: [
                   Row(
                     children: [
-                      Expanded(
-                          child: Text("1.SAYI",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20))),
                       Flexible(
                         child: Container(
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10)),
                           child: TextFormField(
+                            focusNode: _focusNode,
                             keyboardType:
                                 TextInputType.numberWithOptions(decimal: true),
                             inputFormatters: [
-                              FilteringTextInputFormatter.deny(",")
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'^\d+\.?\d{0,10}')),
                             ],
                             controller: t1,
-                            style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.bold),
+                            style: formstil,
                             decoration: InputDecoration(
+                              hintText: "1.Sayı",
+                              hintStyle: hintstil,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -128,18 +126,9 @@ class _YuzdeState extends State<Yuzde> {
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                          child: Text("2.SAYI",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20))),
+                      SizedBox(
+                        width: 20,
+                      ),
                       Flexible(
                         child: Container(
                           decoration: BoxDecoration(
@@ -168,13 +157,15 @@ class _YuzdeState extends State<Yuzde> {
                             },
                             controller: t2,
                             inputFormatters: [
-                              FilteringTextInputFormatter.deny(",")
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'^\d+\.?\d{0,10}')),
                             ],
                             keyboardType:
                                 TextInputType.numberWithOptions(decimal: true),
-                            style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.bold),
+                            style: formstil,
                             decoration: InputDecoration(
+                              hintText: "2.Sayı",
+                              hintStyle: hintstil,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -188,7 +179,6 @@ class _YuzdeState extends State<Yuzde> {
                 ],
               ),
             ),
-            SizedBox(height: 10),
             Column(
               children: [
                 ElevatedButton(
@@ -223,7 +213,7 @@ class _YuzdeState extends State<Yuzde> {
                       Expanded(
                         child: Container(
                           padding: EdgeInsets.all(2),
-                          color: Colors.blue,
+                          color: Color.fromARGB(255, 0, 135, 245),
                           child: Text(
                             "SONUÇ",
                             textAlign: TextAlign.center,
@@ -244,12 +234,12 @@ class _YuzdeState extends State<Yuzde> {
                       children: [
                         Flexible(
                           child: Text(
-                              "${t2.text} sayısı ${t1.text} sayısının % kaçıdır : ",
+                              "${t2.text} sayısı ${t1.text} sayısının % kaçıdır",
                               style: TextStyle(fontSize: 18)),
                         ),
                         Flexible(
                           child: Text(
-                            "% ${yxinyuzdekacisonuc.toStringAsPrecision(2)}",
+                            "% ${yxinyuzdekacisonuc.toStringAsFixed(2)}",
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -268,15 +258,14 @@ class _YuzdeState extends State<Yuzde> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          child: Text(
-                              "${t1.text} sayısının %${t2.text} değeri : ",
+                          child: Text("${t1.text} sayısının %${t2.text} değeri",
                               style: TextStyle(fontSize: 18)),
                         ),
                         Flexible(
                           child: Text(
-                            " ${yninyuzdexisonuc.toStringAsFixed(2)}",
+                            "${yninyuzdexisonuc.toStringAsFixed(2)}",
                             style: TextStyle(
-                                fontSize: 22,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 fontStyle: FontStyle.italic),
                           ),
@@ -293,15 +282,14 @@ class _YuzdeState extends State<Yuzde> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          child: Text(
-                              "${t1.text} sayısı %${t2.text} artınca : ",
+                          child: Text("${t1.text} sayısı %${t2.text} artınca",
                               style: TextStyle(fontSize: 18)),
                         ),
                         Flexible(
                           child: Text(
-                            " ${artim.toStringAsFixed(2)}",
+                            "${artim.toStringAsFixed(2)}",
                             style: TextStyle(
-                                fontSize: 22,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 fontStyle: FontStyle.italic),
                           ),
@@ -318,15 +306,14 @@ class _YuzdeState extends State<Yuzde> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          child: Text(
-                              "${t1.text} sayısı %${t2.text} azalınca : ",
+                          child: Text("${t1.text} sayısı %${t2.text} azalınca",
                               style: TextStyle(fontSize: 18)),
                         ),
                         Flexible(
                           child: Text(
                             " ${azalim.toStringAsFixed(2)}",
                             style: TextStyle(
-                                fontSize: 22,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 fontStyle: FontStyle.italic),
                           ),
@@ -337,6 +324,20 @@ class _YuzdeState extends State<Yuzde> {
                   Divider(
                     color: Colors.black,
                   ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: CircleBorder(eccentricity: 0.0)),
+                    child: Icon(Icons.replay),
+                    onPressed: () {
+                      setState(() {
+                        _focusNode.requestFocus();
+                        t1.clear();
+                        t2.clear();
+
+                        sonuc = false;
+                      });
+                    },
+                  )
                 ],
               ),
           ],
@@ -365,12 +366,7 @@ class _YuzdeState extends State<Yuzde> {
               const SizedBox(
                 height: 20,
               ),
-              Container(
-                decoration: const BoxDecoration(color: Colors.blue, boxShadow: [
-                  BoxShadow(offset: Offset(-0.00, -0.10), blurRadius: 0.3),
-                ]),
-                height: 1,
-              ),
+              altblur
             ],
           ),
         ));

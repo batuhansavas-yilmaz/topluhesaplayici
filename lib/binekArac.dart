@@ -99,252 +99,172 @@ class _BinekAracState extends State<BinekArac> {
                 }),
           ],
         ),
-        body: Column(
+        body: ListView(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0, left: 18, right: 18),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: TextFormField(
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                                RegExp(r'^\d+\.?\d{0,2}')),
-                          ],
-                          controller: t1,
-                          style: TextStyle(
-                              fontSize: 23, fontWeight: FontWeight.bold),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            hintText: "Toplam Tutar",
-                            hintStyle: TextStyle(
-                                fontSize: 23,
-                                fontStyle: FontStyle.italic,
-                                fontWeight: FontWeight.normal),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: TextFormField(
-                        onFieldSubmitted: (value) {
-                          setState(() {
-                            if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
-                              FocusScope.of(context)
-                                  .requestFocus(new FocusNode());
-                              tutar = double.parse(t1.text);
-                              kdvOran = double.parse(t2.text);
-                              giderKabulEdilenTutar = (tutar * 0.70);
-                              giderKabulEdilenMatrah = (giderKabulEdilenTutar /
-                                  ((kdvOran / 100) + 1));
-                              giderKabulEdilenKdv = giderKabulEdilenTutar -
-                                  giderKabulEdilenMatrah;
-                              giderKabulEdilmeyenTutar = (tutar * 0.30);
-                              giderKabulEdilmeyenMatrah =
-                                  (giderKabulEdilmeyenTutar /
-                                      ((kdvOran / 100) + 1));
-                              giderKabulEdilmeyenKdv =
-                                  giderKabulEdilmeyenTutar -
-                                      giderKabulEdilmeyenMatrah;
-                              t1.clear();
-                              t2.clear();
-                              sonuc = true;
-                            } else {
-                              mesaj = "Lütfen bir değer girin";
-                              toast();
-                            }
-                          });
-                        },
-                        controller: t2,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                          LengthLimitingTextInputFormatter(2)
-                        ],
-                        keyboardType:
-                            TextInputType.numberWithOptions(decimal: true),
-                        style: TextStyle(
-                            fontSize: 23, fontWeight: FontWeight.bold),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          hintText: "KDV Oranı",
-                          hintStyle: TextStyle(
-                              fontSize: 23,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.normal),
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 2,
-            ),
-            if (sonuc == true)
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Girilen Tutar",
-                        style: stil,
-                      ),
-                      Text(
-                        "Girilen KDV Oranı",
-                        style: stil,
-                      ),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(" : ${tutar.toStringAsFixed(2)}₺", style: stil2),
-                      Text(" : %${kdvOran.toStringAsFixed(0)}", style: stil2),
-                    ],
-                  )
-                ],
-              ),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                    tutar = double.parse(t1.text);
-                    kdvOran = double.parse(t2.text);
-                    giderKabulEdilenTutar = (tutar * 0.70);
-                    giderKabulEdilenMatrah =
-                        (giderKabulEdilenTutar / ((kdvOran / 100) + 1));
-                    giderKabulEdilenKdv =
-                        giderKabulEdilenTutar - giderKabulEdilenMatrah;
-                    giderKabulEdilmeyenTutar = (tutar * 0.30);
-                    giderKabulEdilmeyenMatrah =
-                        (giderKabulEdilmeyenTutar / ((kdvOran / 100) + 1));
-                    giderKabulEdilmeyenKdv =
-                        giderKabulEdilmeyenTutar - giderKabulEdilmeyenMatrah;
-                    t1.clear();
-                    t2.clear();
-                    sonuc = true;
-                  } else {
-                    mesaj = "Lütfen bir değer girin";
-                    toast();
-                  }
-                });
-              },
-              child: hesapla,
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Container(
-              color: Colors.blue,
-              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Gider Kabul Edilen %70'lik Tutar",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  if (sonuc == true)
-                    Flexible(
-                      child: Text(
-                        " : ${giderKabulEdilenTutar.toStringAsFixed(2)}",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                ],
-              ),
-            ),
             Column(
               children: [
                 Padding(
                   padding:
-                      const EdgeInsets.only(left: 10, right: 10, bottom: 5),
-                  child: Column(
+                      const EdgeInsets.only(top: 10.0, left: 18, right: 18),
+                  child: Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 4, top: 2),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Matrah",
-                              style: stil2,
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: TextFormField(
+                              keyboardType: TextInputType.numberWithOptions(
+                                  decimal: true),
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'^\d+\.?\d{0,2}')),
+                              ],
+                              controller: t1,
+                              style: formstil,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                hintText: "Toplam Tutar",
+                                hintStyle: hintstil,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                            Text(
-                              giderKabulEdilenMatrah.toStringAsFixed(2),
-                              style: stil,
-                            ),
-                          ],
+                          ),
                         ),
                       ),
-                      Divider(
-                        color: Colors.black,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 4,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "KDV Tutarı",
-                              style: stil2,
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: TextFormField(
+                            onFieldSubmitted: (value) {
+                              setState(() {
+                                if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
+                                  FocusScope.of(context)
+                                      .requestFocus(new FocusNode());
+                                  tutar = double.parse(t1.text);
+                                  kdvOran = double.parse(t2.text);
+                                  giderKabulEdilenTutar = (tutar * 0.70);
+                                  giderKabulEdilenMatrah =
+                                      (giderKabulEdilenTutar /
+                                          ((kdvOran / 100) + 1));
+                                  giderKabulEdilenKdv = giderKabulEdilenTutar -
+                                      giderKabulEdilenMatrah;
+                                  giderKabulEdilmeyenTutar = (tutar * 0.30);
+                                  giderKabulEdilmeyenMatrah =
+                                      (giderKabulEdilmeyenTutar /
+                                          ((kdvOran / 100) + 1));
+                                  giderKabulEdilmeyenKdv =
+                                      giderKabulEdilmeyenTutar -
+                                          giderKabulEdilmeyenMatrah;
+                                  t1.clear();
+                                  t2.clear();
+                                  sonuc = true;
+                                } else {
+                                  mesaj = "Lütfen bir değer girin";
+                                  toast();
+                                }
+                              });
+                            },
+                            controller: t2,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(2)
+                            ],
+                            keyboardType:
+                                TextInputType.numberWithOptions(decimal: true),
+                            style: formstil,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              hintText: "KDV Oranı",
+                              hintStyle: hintstil,
                             ),
-                            Text(
-                              giderKabulEdilenKdv.toStringAsFixed(2),
-                              style: stil,
-                            ),
-                          ],
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 2,
+                ),
+                if (sonuc == true)
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Girilen Tutar",
+                            style: stil,
+                          ),
+                          Text(
+                            "Girilen KDV Oranı",
+                            style: stil,
+                          ),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(" : ${tutar.toStringAsFixed(2)}₺", style: stil2),
+                          Text(" : %${kdvOran.toStringAsFixed(0)}",
+                              style: stil2),
+                        ],
+                      )
+                    ],
+                  ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
+                        FocusScope.of(context).requestFocus(new FocusNode());
+                        tutar = double.parse(t1.text);
+                        kdvOran = double.parse(t2.text);
+                        giderKabulEdilenTutar = (tutar * 0.70);
+                        giderKabulEdilenMatrah =
+                            (giderKabulEdilenTutar / ((kdvOran / 100) + 1));
+                        giderKabulEdilenKdv =
+                            giderKabulEdilenTutar - giderKabulEdilenMatrah;
+                        giderKabulEdilmeyenTutar = (tutar * 0.30);
+                        giderKabulEdilmeyenMatrah =
+                            (giderKabulEdilmeyenTutar / ((kdvOran / 100) + 1));
+                        giderKabulEdilmeyenKdv = giderKabulEdilmeyenTutar -
+                            giderKabulEdilmeyenMatrah;
+                        t1.clear();
+                        t2.clear();
+                        sonuc = true;
+                      } else {
+                        mesaj = "Lütfen bir değer girin";
+                        toast();
+                      }
+                    });
+                  },
+                  child: hesapla,
+                ),
+                SizedBox(
+                  height: 5,
+                ),
                 Container(
-                  color: Colors.blue,
+                  color: Color.fromARGB(255, 0, 135, 245),
                   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Gider Kabul Edilmeyen %30'luk Tutar",
+                        "Gider Kabul Edilen %70'lik Tutar",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 20,
@@ -354,7 +274,7 @@ class _BinekAracState extends State<BinekArac> {
                       if (sonuc == true)
                         Flexible(
                           child: Text(
-                            " : ${giderKabulEdilmeyenTutar.toStringAsFixed(2)}",
+                            " : ${giderKabulEdilenTutar.toStringAsFixed(2)}",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 20,
@@ -365,47 +285,127 @@ class _BinekAracState extends State<BinekArac> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 4, bottom: 2),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Gider Kabul Edilmeyen Matrah",
-                              style: stil2,
+                Column(
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 10, right: 10, bottom: 5),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 4, top: 2),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Matrah",
+                                  style: stil2,
+                                ),
+                                Text(
+                                  giderKabulEdilenMatrah.toStringAsFixed(2),
+                                  style: stil,
+                                ),
+                              ],
                             ),
-                            Text(
-                              giderKabulEdilmeyenMatrah.toStringAsFixed(2),
-                              style: stil,
+                          ),
+                          Divider(
+                            color: Colors.black,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 4,
                             ),
-                          ],
-                        ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "KDV Tutarı",
+                                  style: stil2,
+                                ),
+                                Text(
+                                  giderKabulEdilenKdv.toStringAsFixed(2),
+                                  style: stil,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                      Divider(
-                        color: Colors.black,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 4, bottom: 2),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Gider Kabul Edilmeyen KDV",
-                              style: stil2,
+                    ),
+                    Container(
+                      color: Color.fromARGB(255, 0, 135, 245),
+                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Text(
+                            "Gider Kabul Edilmeyen %30'luk Tutar",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          if (sonuc == true)
+                            Flexible(
+                              child: Text(
+                                " : ${giderKabulEdilmeyenTutar.toStringAsFixed(2)}",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
-                            Text(
-                              giderKabulEdilmeyenKdv.toStringAsFixed(2),
-                              style: stil,
-                            ),
-                          ],
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 10, right: 10, top: 5),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 4, bottom: 2),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Gider Kabul Edilmeyen Matrah",
+                                  style: stil2,
+                                ),
+                                Text(
+                                  giderKabulEdilmeyenMatrah.toStringAsFixed(2),
+                                  style: stil,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(
+                            color: Colors.black,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 4, bottom: 2),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Gider Kabul Edilmeyen KDV",
+                                  style: stil2,
+                                ),
+                                Text(
+                                  giderKabulEdilmeyenKdv.toStringAsFixed(2),
+                                  style: stil,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -435,12 +435,7 @@ class _BinekAracState extends State<BinekArac> {
               const SizedBox(
                 height: 20,
               ),
-              Container(
-                decoration: const BoxDecoration(color: Colors.blue, boxShadow: [
-                  BoxShadow(offset: Offset(-0.00, -0.10), blurRadius: 0.3)
-                ]),
-                height: 1,
-              ),
+              altblur
             ],
           ),
         ));

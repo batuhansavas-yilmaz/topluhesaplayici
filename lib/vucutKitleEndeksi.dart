@@ -19,6 +19,8 @@ class KitleEndeksiState extends State<KitleEndeksi> {
   static double sonuc = 0.00;
   static String sonucMetin = "";
   bool sonucc = false;
+  int counter = 0;
+  final _focusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
     Yorum.yorum();
@@ -30,7 +32,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
             "Vücut Kitle Endeksi",
           ),
         ),
-        body: Column(
+        body: ListView(
           children: [
             Column(
               children: [
@@ -59,17 +61,17 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                           ),
                           child: TextFormField(
                             controller: kg,
-                            style: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
+                            focusNode: _focusNode,
+                            style: formstil,
                             keyboardType:
                                 TextInputType.numberWithOptions(decimal: true),
                             inputFormatters: [
-                              FilteringTextInputFormatter.deny(",")
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'^\d+\.?\d{0,2}')),
                             ],
                             decoration: InputDecoration(
                               hintText: "Kilo",
-                              hintStyle: TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.normal),
+                              hintStyle: hintstil,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -95,23 +97,26 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                                 if (kg.text.isNotEmpty && boy.text.isNotEmpty) {
                                   FocusScope.of(context).requestFocus(
                                       new FocusNode()); // klavye kapatıcı
-                                  showCupertinoModalPopup(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                              title: Text("Uyarı"),
-                                              content: Text(
-                                                  'Edindiğiniz sonuçlar formulize olarak doğru olsa bile '
-                                                  'sağlığınız açısından en güvenilir sonuçlar için diyetisyenlerden '
-                                                  'yardım almanızı öneririz.'),
-                                              actions: [
-                                                IconButton(
-                                                  tooltip: "Kapat",
-                                                  icon: Icon(Icons.close),
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                )
-                                              ]));
+                                  counter++;
+                                  if (counter == 1) {
+                                    showCupertinoModalPopup(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                                title: Text("Uyarı"),
+                                                content: Text(
+                                                    'Edindiğiniz sonuçlar formulize olarak doğru olsa bile '
+                                                    'sağlığınız açısından en güvenilir sonuçlar için diyetisyenlerden '
+                                                    'yardım almanızı öneririz.'),
+                                                actions: [
+                                                  IconButton(
+                                                    tooltip: "Kapat",
+                                                    icon: Icon(Icons.close),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  )
+                                                ]));
+                                  }
                                   kG = double.parse(kg.text);
                                   boY = double.parse(boy.text);
                                   sonuc = kG / ((boY / 100) * (boY / 100));
@@ -129,17 +134,16 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                               });
                             },
                             controller: boy,
-                            style: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
+                            style: formstil,
                             keyboardType:
                                 TextInputType.numberWithOptions(decimal: true),
                             inputFormatters: [
-                              FilteringTextInputFormatter.deny(",")
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(3)
                             ],
                             decoration: InputDecoration(
                               hintText: "Boy(cm)",
-                              hintStyle: TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.normal),
+                              hintStyle: hintstil,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -158,23 +162,27 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                       if (kg.text.isNotEmpty && boy.text.isNotEmpty) {
                         FocusScope.of(context)
                             .requestFocus(new FocusNode()); // klavye kapatıcı
-                        showCupertinoModalPopup(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                                    title: Text("Uyarı"),
-                                    content: Text(
-                                        'Edindiğiniz sonuçlar formulize olarak doğru olsa bile '
-                                        'sağlığınız açısından en güvenilir sonuçlar için diyetisyenlerden '
-                                        'yardım almanızı öneririz.'),
-                                    actions: [
-                                      IconButton(
-                                        tooltip: "Kapat",
-                                        icon: Icon(Icons.close),
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                      )
-                                    ]));
+                        counter++;
+
+                        if (counter == 1) {
+                          showCupertinoModalPopup(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                      title: Text("Uyarı"),
+                                      content: Text(
+                                          'Edindiğiniz sonuçlar formulize olarak doğru olsa bile '
+                                          'sağlığınız açısından en güvenilir sonuçlar için diyetisyenlerden '
+                                          'yardım almanızı öneririz.'),
+                                      actions: [
+                                        IconButton(
+                                          tooltip: "Kapat",
+                                          icon: Icon(Icons.close),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                        )
+                                      ]));
+                        }
                         kG = double.parse(kg.text);
                         boY = double.parse(boy.text);
                         sonuc = kG / ((boY / 100) * (boY / 100));
@@ -205,7 +213,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                       Expanded(
                         child: Container(
                           padding: EdgeInsets.all(2),
-                          color: Colors.blue,
+                          color: Color.fromARGB(255, 0, 135, 245),
                           child: Text(
                             "VÜCUT KİTLE ENDEKSİNİZ : ${sonuc.toStringAsFixed(2)} ",
                             textAlign: TextAlign.center,
@@ -236,8 +244,25 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                       style: TextStyle(fontSize: 20, color: Colors.black),
                     ),
                   ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: CircleBorder(eccentricity: 0.0)),
+                    child: Icon(Icons.replay),
+                    onPressed: () {
+                      setState(() {
+                        _focusNode.requestFocus();
+                        boy.clear();
+                        kg.clear();
+
+                        sonucc = false;
+                      });
+                    },
+                  )
                 ],
-              )
+              ),
           ],
         ),
         bottomNavigationBar: Container(
@@ -264,12 +289,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
               const SizedBox(
                 height: 20,
               ),
-              Container(
-                decoration: const BoxDecoration(color: Colors.blue, boxShadow: [
-                  BoxShadow(offset: Offset(-0.00, -0.10), blurRadius: 0.3)
-                ]),
-                height: 1,
-              ),
+              altblur,
             ],
           ),
         ));

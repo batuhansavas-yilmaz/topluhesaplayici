@@ -134,23 +134,20 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   borderRadius: BorderRadius.circular(10)),
                               child: TextFormField(
                                 keyboardType: TextInputType.numberWithOptions(
-                                    decimal: true),
+                                  decimal: true,
+                                ),
                                 inputFormatters: [
                                   FilteringTextInputFormatter.allow(
                                       RegExp(r'^\d+\.?\d{0,2}')),
                                 ],
                                 controller: t1,
-                                style: TextStyle(
-                                    fontSize: 25, fontWeight: FontWeight.bold),
+                                style: formstil,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   hintText: "Tutar",
-                                  hintStyle: TextStyle(
-                                      fontSize: 25,
-                                      fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.normal),
+                                  hintStyle: hintstil,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
@@ -208,17 +205,13 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                 ],
                                 keyboardType: TextInputType.numberWithOptions(
                                     decimal: true),
-                                style: TextStyle(
-                                    fontSize: 25, fontWeight: FontWeight.bold),
+                                style: formstil,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   hintText: "KDV Oranı",
-                                  hintStyle: TextStyle(
-                                      fontSize: 25,
-                                      fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.normal),
+                                  hintStyle: hintstil,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
@@ -305,7 +298,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                           children: [
                             Expanded(
                               child: Container(
-                                color: Colors.blue,
+                                color: Color.fromARGB(255, 0, 135, 245),
                                 child: Padding(
                                   padding: const EdgeInsets.all(2.0),
                                   child: Text(
@@ -396,7 +389,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                           children: [
                             Expanded(
                               child: Container(
-                                color: Colors.blue,
+                                color: Color.fromARGB(255, 0, 135, 245),
                                 child: Padding(
                                   padding: const EdgeInsets.all(2.0),
                                   child: Text(
@@ -509,17 +502,13 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       RegExp(r'^\d+\.?\d{0,2}')),
                                 ],
                                 controller: t3,
-                                style: TextStyle(
-                                    fontSize: 25, fontWeight: FontWeight.bold),
+                                style: formstil,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   hintText: "Tutar",
-                                  hintStyle: TextStyle(
-                                      fontSize: 25,
-                                      fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.normal),
+                                  hintStyle: hintstil,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
@@ -539,17 +528,13 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                 ],
                                 keyboardType: TextInputType.numberWithOptions(
                                     decimal: true),
-                                style: TextStyle(
-                                    fontSize: 25, fontWeight: FontWeight.bold),
+                                style: formstil,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   hintText: "KDV Oranı",
-                                  hintStyle: TextStyle(
-                                      fontSize: 25,
-                                      fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.normal),
+                                  hintStyle: hintstil,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
@@ -1053,7 +1038,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                       children: [
                         Expanded(
                           child: Container(
-                            color: Colors.blue,
+                            color: Color.fromARGB(255, 0, 135, 245),
                             child: Padding(
                               padding: const EdgeInsets.all(2.0),
                               child: Text(
@@ -1202,7 +1187,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                       children: [
                         Expanded(
                           child: Container(
-                            color: Colors.blue,
+                            color: Color.fromARGB(255, 0, 135, 245),
                             child: Padding(
                               padding: const EdgeInsets.all(2.0),
                               child: Text(
@@ -1377,12 +1362,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
               const SizedBox(
                 height: 20,
               ),
-              Container(
-                decoration: const BoxDecoration(color: Colors.blue, boxShadow: [
-                  BoxShadow(offset: Offset(-0.00, -0.10), blurRadius: 0.3)
-                ]),
-                height: 1,
-              ),
+              altblur
             ],
           ),
         ),

@@ -78,283 +78,270 @@ class _KomisyonState extends State<Komisyon> {
             "Komisyon Hesaplama",
           ),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Komisyon oranı için :",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+        body: ListView(
+          children: [
+            Column(
+              children: [
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: TextFormField(
-                            keyboardType:
-                                TextInputType.numberWithOptions(decimal: true),
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r'^\d+\.?\d{0,2}')),
-                            ],
-                            controller: t1,
-                            style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.bold),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              hintText: "Ana Para",
-                              hintStyle: TextStyle(
-                                  fontSize: 25,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.normal),
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: TextFormField(
-                          onFieldSubmitted: (value) {
-                            setState(() {
-                              if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
-                                FocusScope.of(context)
-                                    .requestFocus(new FocusNode());
-                                AnaPara = double.parse(t1.text);
-                                AlinanPay = double.parse(t2.text);
-                                AlinanOranSonuc = (AlinanPay / AnaPara) * 100;
-                                oran = true;
-                              } else {
-                                mesaj = "Lütfen bir değer girin";
-                                toast();
-                              }
-                            });
-                          },
-                          controller: t2,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                                RegExp(r'^\d+\.?\d{0,2}')),
-                          ],
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
-                          style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            hintText: "Alınan Pay",
-                            hintStyle: TextStyle(
-                                fontSize: 25,
-                                fontStyle: FontStyle.italic,
-                                fontWeight: FontWeight.normal),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
-                      FocusScope.of(context).requestFocus(new FocusNode());
-                      AnaPara = double.parse(t1.text);
-                      AlinanPay = double.parse(t2.text);
-                      AlinanOranSonuc = (AlinanPay / AnaPara) * 100;
-                      oran = true;
-                    } else {
-                      mesaj = "Lütfen bir değer girin";
-                      toast();
-                    }
-                  });
-                },
-                child: hesapla,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              if (oran == true)
-                Container(
-                  padding: EdgeInsets.all(2),
-                  color: Colors.blue,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Aldığınız Pay Oranı : % ${AlinanOranSonuc.toStringAsFixed(2)}",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
-                    ],
+                Text(
+                  "Komisyon oranı için :",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
                 ),
-              SizedBox(
-                height: 10,
-              ),
-              Divider(
-                color: Colors.black,
-              ),
-              Text(
-                "Komisyon tutarı için :",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: TextFormField(
+                              keyboardType: TextInputType.numberWithOptions(
+                                  decimal: true),
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'^\d+\.?\d{0,2}')),
+                              ],
+                              controller: t1,
+                              style: formstil,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                hintText: "Ana Para",
+                                hintStyle: hintstil,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
                         child: Container(
                           decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           child: TextFormField(
+                            onFieldSubmitted: (value) {
+                              setState(() {
+                                if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
+                                  FocusScope.of(context)
+                                      .requestFocus(new FocusNode());
+                                  AnaPara = double.parse(t1.text);
+                                  AlinanPay = double.parse(t2.text);
+                                  AlinanOranSonuc = (AlinanPay / AnaPara) * 100;
+                                  oran = true;
+                                } else {
+                                  mesaj = "Lütfen bir değer girin";
+                                  toast();
+                                }
+                              });
+                            },
+                            controller: t2,
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
                                   RegExp(r'^\d+\.?\d{0,2}')),
                             ],
                             keyboardType:
                                 TextInputType.numberWithOptions(decimal: true),
-                            controller: t3,
-                            style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.bold),
+                            style: formstil,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              hintText: "Ana Para",
-                              hintStyle: TextStyle(
-                                  fontSize: 25,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.normal),
+                              hintText: "Alınan Pay",
+                              hintStyle: hintstil,
                             ),
                             textAlign: TextAlign.center,
                           ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: TextFormField(
-                          onFieldSubmitted: (value) {
-                            setState(() {
-                              if (t3.text.isNotEmpty && t4.text.isNotEmpty) {
-                                FocusScope.of(context)
-                                    .requestFocus(new FocusNode());
-                                AnaPara = double.parse(t3.text);
-                                AlinanOran = double.parse(t4.text);
-                                AlinanPaySonuc = (AnaPara * (AlinanOran / 100));
-                                tutar = true;
-                              } else {
-                                mesaj = "Lütfen bir değer girin";
-                                toast();
-                              }
-                            });
-                          },
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                                RegExp(r'^\d+\.?\d{0,2}')),
-                          ],
-                          controller: t4,
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
-                          style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            hintText: "Alınan Oran",
-                            hintStyle: TextStyle(
-                                fontSize: 25,
-                                fontStyle: FontStyle.italic,
-                                fontWeight: FontWeight.normal),
-                          ),
+                    ],
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
+                        FocusScope.of(context).requestFocus(new FocusNode());
+                        AnaPara = double.parse(t1.text);
+                        AlinanPay = double.parse(t2.text);
+                        AlinanOranSonuc = (AlinanPay / AnaPara) * 100;
+                        oran = true;
+                      } else {
+                        mesaj = "Lütfen bir değer girin";
+                        toast();
+                      }
+                    });
+                  },
+                  child: hesapla,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                if (oran == true)
+                  Container(
+                    padding: EdgeInsets.all(2),
+                    color: Color.fromARGB(255, 0, 135, 245),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Aldığınız Pay Oranı : % ${AlinanOranSonuc.toStringAsFixed(2)}",
                           textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                      ],
+                    ),
+                  ),
+                SizedBox(
+                  height: 10,
+                ),
+                Divider(
+                  color: Colors.black,
+                ),
+                Text(
+                  "Komisyon tutarı için :",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: TextFormField(
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'^\d+\.?\d{0,2}')),
+                              ],
+                              keyboardType: TextInputType.numberWithOptions(
+                                  decimal: true),
+                              controller: t3,
+                              style: formstil,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                hintText: "Ana Para",
+                                hintStyle: hintstil,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    if (t3.text.isNotEmpty && t4.text.isNotEmpty) {
-                      FocusScope.of(context).requestFocus(new FocusNode());
-                      AnaPara = double.parse(t3.text);
-                      AlinanOran = double.parse(t4.text);
-                      AlinanPaySonuc = (AnaPara * (AlinanOran / 100));
-                      tutar = true;
-                    } else {
-                      mesaj = "Lütfen bir değer girin";
-                      toast();
-                    }
-                  });
-                },
-                child: hesapla,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              if (tutar == true)
-                Container(
-                  padding: EdgeInsets.all(2),
-                  color: Colors.blue,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Text(
-                        "Aldığınız Pay Tutarı :  ${AlinanPaySonuc.toStringAsFixed(2)} ₺",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
                             color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: TextFormField(
+                            onFieldSubmitted: (value) {
+                              setState(() {
+                                if (t3.text.isNotEmpty && t4.text.isNotEmpty) {
+                                  FocusScope.of(context)
+                                      .requestFocus(new FocusNode());
+                                  AnaPara = double.parse(t3.text);
+                                  AlinanOran = double.parse(t4.text);
+                                  AlinanPaySonuc =
+                                      (AnaPara * (AlinanOran / 100));
+                                  tutar = true;
+                                } else {
+                                  mesaj = "Lütfen bir değer girin";
+                                  toast();
+                                }
+                              });
+                            },
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'^\d+\.?\d{0,2}')),
+                            ],
+                            controller: t4,
+                            keyboardType:
+                                TextInputType.numberWithOptions(decimal: true),
+                            style: formstil,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              hintText: "Alınan Oran (%)",
+                              hintStyle: hintstil,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ),
-              SizedBox(
-                height: 100,
-              ),
-            ],
-          ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      if (t3.text.isNotEmpty && t4.text.isNotEmpty) {
+                        FocusScope.of(context).requestFocus(new FocusNode());
+                        AnaPara = double.parse(t3.text);
+                        AlinanOran = double.parse(t4.text);
+                        AlinanPaySonuc = (AnaPara * (AlinanOran / 100));
+                        tutar = true;
+                      } else {
+                        mesaj = "Lütfen bir değer girin";
+                        toast();
+                      }
+                    });
+                  },
+                  child: hesapla,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                if (tutar == true)
+                  Container(
+                    padding: EdgeInsets.all(2),
+                    color: Color.fromARGB(255, 0, 135, 245),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Text(
+                          "Aldığınız Pay Tutarı :  ${AlinanPaySonuc.toStringAsFixed(2)} ₺",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                      ],
+                    ),
+                  ),
+                SizedBox(
+                  height: 100,
+                ),
+              ],
+            ),
+          ],
         ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(boxShadow: [
@@ -380,12 +367,7 @@ class _KomisyonState extends State<Komisyon> {
               const SizedBox(
                 height: 20,
               ),
-              Container(
-                decoration: const BoxDecoration(color: Colors.blue, boxShadow: [
-                  BoxShadow(offset: Offset(-0.00, -0.10), blurRadius: 0.3)
-                ]),
-                height: 1,
-              ),
+              altblur
             ],
           ),
         ));

@@ -1,5 +1,4 @@
 import 'package:advanced_in_app_review/advanced_in_app_review.dart';
-import 'package:device_preview/device_preview.dart';
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
@@ -48,13 +47,13 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       systemNavigationBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: Colors.blue,
+      systemNavigationBarColor: Color.fromARGB(255, 0, 135, 245),
       statusBarColor: Colors.transparent,
     ),
   );
 
   runApp(
-    DevicePreview(enabled: true, builder: (context) => MyApp()),
+    MyApp(),
   );
 }
 
@@ -78,7 +77,7 @@ class MyApp extends StatelessWidget {
                 foregroundColor: Colors.black),
           ),
           appBarTheme: AppBarTheme(
-            backgroundColor: Colors.blue,
+            backgroundColor: Color.fromARGB(255, 0, 135, 245),
             elevation: 1,
           )),
       title: "HesapMatik",
@@ -334,7 +333,7 @@ class _HomePageState extends State<HomePage> {
             ),
             GorevButton(
               logo: "assets/car.png",
-              altisim: "Binek Araç Gider",
+              altisim: "%70'lik Binek Araç Giderleri",
               sayfaismi: '/binekarac',
             ),
             GorevButton(
@@ -379,14 +378,14 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         bottomNavigationBar: Container(
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-              color: Colors.white.withOpacity(0.9),
-              spreadRadius: 20,
-              blurRadius: 13,
-              offset: const Offset(0, 20),
-            )
-          ]),
+          // decoration: BoxDecoration(boxShadow: [
+          //   BoxShadow(
+          //     color: Colors.white.withOpacity(0.9),
+          //     spreadRadius: 20,
+          //     blurRadius: 13,
+          //     offset: const Offset(0, 20),
+          //   )
+          // ]),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -402,12 +401,7 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 20,
               ),
-              Container(
-                decoration: const BoxDecoration(color: Colors.blue, boxShadow: [
-                  BoxShadow(offset: Offset(-0.00, -0.10), blurRadius: 0.3)
-                ]),
-                height: 1,
-              ),
+              altblur
             ],
           ),
         ));
