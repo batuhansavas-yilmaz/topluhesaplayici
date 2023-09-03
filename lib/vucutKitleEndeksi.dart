@@ -151,52 +151,46 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: ElevatedButton(
-                    child: Text(
-                      "Hesapla",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        if (kg.text.isNotEmpty && boy.text.isNotEmpty) {
-                          FocusScope.of(context)
-                              .requestFocus(new FocusNode()); // klavye kapatıcı
-                          showCupertinoModalPopup(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                      title: Text("Uyarı"),
-                                      content: Text(
-                                          'Edindiğiniz sonuçlar formulize olarak doğru olsa bile '
-                                          'sağlığınız açısından en güvenilir sonuçlar için diyetisyenlerden '
-                                          'yardım almanızı öneririz.'),
-                                      actions: [
-                                        IconButton(
-                                          tooltip: "Kapat",
-                                          icon: Icon(Icons.close),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                        )
-                                      ]));
-                          kG = double.parse(kg.text);
-                          boY = double.parse(boy.text);
-                          sonuc = kG / ((boY / 100) * (boY / 100));
+                ElevatedButton(
+                  child: hesapla,
+                  onPressed: () {
+                    setState(() {
+                      if (kg.text.isNotEmpty && boy.text.isNotEmpty) {
+                        FocusScope.of(context)
+                            .requestFocus(new FocusNode()); // klavye kapatıcı
+                        showCupertinoModalPopup(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                    title: Text("Uyarı"),
+                                    content: Text(
+                                        'Edindiğiniz sonuçlar formulize olarak doğru olsa bile '
+                                        'sağlığınız açısından en güvenilir sonuçlar için diyetisyenlerden '
+                                        'yardım almanızı öneririz.'),
+                                    actions: [
+                                      IconButton(
+                                        tooltip: "Kapat",
+                                        icon: Icon(Icons.close),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                      )
+                                    ]));
+                        kG = double.parse(kg.text);
+                        boY = double.parse(boy.text);
+                        sonuc = kG / ((boY / 100) * (boY / 100));
 
-                          sonucc = true;
-                        } else {
-                          showToast("Lütfen bir değer girin",
-                              context: context,
-                              animation: StyledToastAnimation.fade,
-                              curve: Curves.linear,
-                              reverseCurve: Curves.linear,
-                              duration: Duration(seconds: 4),
-                              position: StyledToastPosition.center);
-                        }
-                      });
-                    },
-                  ),
+                        sonucc = true;
+                      } else {
+                        showToast("Lütfen bir değer girin",
+                            context: context,
+                            animation: StyledToastAnimation.fade,
+                            curve: Curves.linear,
+                            reverseCurve: Curves.linear,
+                            duration: Duration(seconds: 4),
+                            position: StyledToastPosition.center);
+                      }
+                    });
+                  },
                 ),
               ],
             ),

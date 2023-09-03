@@ -146,13 +146,7 @@ class _BeygirState extends State<Beygir> {
                       }
                     });
                   },
-                  child: Text(
-                    "Hesapla",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
+                  child: hesapla,
                 ),
                 SizedBox(
                   height: 10,
@@ -260,13 +254,7 @@ class _BeygirState extends State<Beygir> {
                       }
                     });
                   },
-                  child: Text(
-                    "Hesapla",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
+                  child: hesapla,
                 ),
                 SizedBox(
                   height: 10,

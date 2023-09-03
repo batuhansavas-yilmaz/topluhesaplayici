@@ -55,6 +55,7 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
     _bannerAd!.dispose();
   }
 
+  final _focusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,12 +97,14 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10)),
                     child: TextFormField(
+                      focusNode: _focusNode,
                       controller: t1,
                       keyboardType: TextInputType.numberWithOptions(
                         decimal: true,
                       ),
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.deny(",")
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'^\d+\.?\d{0,2}')),
                       ],
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
@@ -142,7 +145,10 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
                     child: TextFormField(
                       keyboardType:
                           TextInputType.numberWithOptions(decimal: true),
-                      inputFormatters: [FilteringTextInputFormatter.deny(",")],
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'^\d+\.?\d{0,2}')),
+                      ],
                       controller: t2,
                       style:
                           TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
@@ -207,7 +213,10 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
                       },
                       keyboardType:
                           TextInputType.numberWithOptions(decimal: true),
-                      inputFormatters: [FilteringTextInputFormatter.deny(",")],
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'^\d+\.?\d{0,2}')),
+                      ],
                       controller: t3,
                       style:
                           TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
@@ -254,10 +263,7 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
                     }
                   });
                 },
-                child: Text(
-                  "Hesapla",
-                  style: TextStyle(fontSize: 20),
-                )),
+                child: hesapla),
             SizedBox(
               height: 20,
             ),
@@ -314,6 +320,20 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
                       ),
                     ],
                   ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: CircleBorder(eccentricity: 0.0)),
+                    child: Icon(Icons.replay),
+                    onPressed: () {
+                      setState(() {
+                        _focusNode.requestFocus();
+                        t1.clear();
+                        t2.clear();
+                        t3.clear();
+                        sonuc = false;
+                      });
+                    },
+                  )
                 ],
               ),
           ],

@@ -313,29 +313,25 @@ class _ZRaporuState extends State<ZRaporu> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    if (k1.text.isNotEmpty &&
-                        k2.text.isNotEmpty &&
-                        tutar.text.isNotEmpty) {
-                      buyukKumul = double.parse(k1.text);
-                      kucukKumul = double.parse(k2.text);
-                      tuTar = double.parse(tutar.text);
+                  onPressed: () {
+                    setState(() {
+                      if (k1.text.isNotEmpty &&
+                          k2.text.isNotEmpty &&
+                          tutar.text.isNotEmpty) {
+                        buyukKumul = double.parse(k1.text);
+                        kucukKumul = double.parse(k2.text);
+                        tuTar = double.parse(tutar.text);
 
-                      sonuc = ((buyukKumul - kucukKumul) - tuTar);
-                      FocusScope.of(context).requestFocus(new FocusNode());
-                      sonucc = true;
-                    } else {
-                      mesaj = "Lütfen bir değer girin";
-                      toast();
-                    }
-                  });
-                },
-                child: Text(
-                  "Hesapla",
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                ),
-              ),
+                        sonuc = ((buyukKumul - kucukKumul) - tuTar);
+                        FocusScope.of(context).requestFocus(new FocusNode());
+                        sonucc = true;
+                      } else {
+                        mesaj = "Lütfen bir değer girin";
+                        toast();
+                      }
+                    });
+                  },
+                  child: hesapla),
             ],
           ),
           SizedBox(

@@ -13,9 +13,9 @@ class BinekArac extends StatefulWidget {
 class _BinekAracState extends State<BinekArac> {
   double tutar = 0.00;
   double kdvOran = 0.00;
-  bool oran = false;
-  bool sonuc1 = false;
-  bool sonuc2 = false;
+
+  bool sonuc = false;
+
   double giderKabulEdilenMatrah = 0.00;
   double giderKabulEdilenKdv = 0.00;
   double giderKabulEdilenTutar = 0.00;
@@ -116,7 +116,8 @@ class _BinekAracState extends State<BinekArac> {
                           keyboardType:
                               TextInputType.numberWithOptions(decimal: true),
                           inputFormatters: [
-                            FilteringTextInputFormatter.deny(",")
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'^\d+\.?\d{0,2}')),
                           ],
                           controller: t1,
                           style: TextStyle(
@@ -162,9 +163,9 @@ class _BinekAracState extends State<BinekArac> {
                               giderKabulEdilmeyenKdv =
                                   giderKabulEdilmeyenTutar -
                                       giderKabulEdilmeyenMatrah;
-                              sonuc1 = true;
-                              sonuc2 = true;
-                              oran = true;
+                              t1.clear();
+                              t2.clear();
+                              sonuc = true;
                             } else {
                               mesaj = "Lütfen bir değer girin";
                               toast();
@@ -173,7 +174,8 @@ class _BinekAracState extends State<BinekArac> {
                         },
                         controller: t2,
                         inputFormatters: [
-                          FilteringTextInputFormatter.deny(",")
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(2)
                         ],
                         keyboardType:
                             TextInputType.numberWithOptions(decimal: true),
@@ -199,6 +201,33 @@ class _BinekAracState extends State<BinekArac> {
             SizedBox(
               height: 2,
             ),
+            if (sonuc == true)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Girilen Tutar",
+                        style: stil,
+                      ),
+                      Text(
+                        "Girilen KDV Oranı",
+                        style: stil,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(" : ${tutar.toStringAsFixed(2)}₺", style: stil2),
+                      Text(" : %${kdvOran.toStringAsFixed(0)}", style: stil2),
+                    ],
+                  )
+                ],
+              ),
             ElevatedButton(
               onPressed: () {
                 setState(() {
@@ -216,43 +245,45 @@ class _BinekAracState extends State<BinekArac> {
                         (giderKabulEdilmeyenTutar / ((kdvOran / 100) + 1));
                     giderKabulEdilmeyenKdv =
                         giderKabulEdilmeyenTutar - giderKabulEdilmeyenMatrah;
-                    sonuc1 = true;
-                    sonuc2 = true;
-                    oran = true;
+                    t1.clear();
+                    t2.clear();
+                    sonuc = true;
                   } else {
                     mesaj = "Lütfen bir değer girin";
                     toast();
                   }
                 });
               },
-              child: Text(
-                "Hesapla",
-                style: TextStyle(fontSize: 16),
-              ),
+              child: hesapla,
+            ),
+            SizedBox(
+              height: 5,
             ),
             Container(
               color: Colors.blue,
-              padding: EdgeInsets.symmetric(horizontal: 1, vertical: 5),
+              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Gider Kabul Edilen %70'lik Tutar : ",
+                    "Gider Kabul Edilen %70'lik Tutar",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 20,
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
                   ),
-                  if (sonuc1 == true)
-                    Text(
-                      "${giderKabulEdilenTutar.toStringAsFixed(2)}",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
+                  if (sonuc == true)
+                    Flexible(
+                      child: Text(
+                        " : ${giderKabulEdilenTutar.toStringAsFixed(2)}",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                 ],
               ),
@@ -294,25 +325,9 @@ class _BinekAracState extends State<BinekArac> {
                               "KDV Tutarı",
                               style: stil2,
                             ),
-                            Row(
-                              children: [
-                                if (oran == true)
-                                  Text(
-                                    "(%${kdvOran.toStringAsFixed(0)})",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold,
-                                        fontStyle: FontStyle.italic),
-                                  ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Text(
-                                  giderKabulEdilenKdv.toStringAsFixed(2),
-                                  style: stil,
-                                ),
-                              ],
+                            Text(
+                              giderKabulEdilenKdv.toStringAsFixed(2),
+                              style: stil,
                             ),
                           ],
                         ),
@@ -322,27 +337,30 @@ class _BinekAracState extends State<BinekArac> {
                 ),
                 Container(
                   color: Colors.blue,
-                  padding: EdgeInsets.symmetric(horizontal: 1, vertical: 5),
+                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        "Gider Kabul Edilmeyen %30'luk Tutar : ",
+                        "Gider Kabul Edilmeyen %30'luk Tutar",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 20,
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
                       ),
-                      if (sonuc2 == true)
-                        Text(
-                          " ${giderKabulEdilmeyenTutar.toStringAsFixed(2)}",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
+                      if (sonuc == true)
+                        Flexible(
+                          child: Text(
+                            " : ${giderKabulEdilmeyenTutar.toStringAsFixed(2)}",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                     ],
                   ),
@@ -379,25 +397,9 @@ class _BinekAracState extends State<BinekArac> {
                               "Gider Kabul Edilmeyen KDV",
                               style: stil2,
                             ),
-                            Row(
-                              children: [
-                                if (oran == true)
-                                  Text(
-                                    "(%${kdvOran.toStringAsFixed(0)})",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold,
-                                        fontStyle: FontStyle.italic),
-                                  ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Text(
-                                  giderKabulEdilmeyenKdv.toStringAsFixed(2),
-                                  style: stil,
-                                ),
-                              ],
+                            Text(
+                              giderKabulEdilmeyenKdv.toStringAsFixed(2),
+                              style: stil,
                             ),
                           ],
                         ),

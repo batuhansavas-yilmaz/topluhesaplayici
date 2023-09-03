@@ -224,13 +224,7 @@ class _AquariumState extends State<Aquarium> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: ElevatedButton(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "Hesapla",
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
+                      child: hesapla,
                       onPressed: () {
                         setState(() {
                           if (uzunluk_.text.isNotEmpty &&

@@ -118,6 +118,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
         ),
         body: TabBarView(
           children: [
+            //normal
             ListView(
               children: [
                 Padding(
@@ -135,7 +136,8 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                 keyboardType: TextInputType.numberWithOptions(
                                     decimal: true),
                                 inputFormatters: [
-                                  FilteringTextInputFormatter.deny(",")
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+\.?\d{0,2}')),
                                 ],
                                 controller: t1,
                                 style: TextStyle(
@@ -201,7 +203,8 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                 },
                                 controller: t2,
                                 inputFormatters: [
-                                  FilteringTextInputFormatter.deny(",")
+                                  FilteringTextInputFormatter.digitsOnly,
+                                  LengthLimitingTextInputFormatter(2)
                                 ],
                                 keyboardType: TextInputType.numberWithOptions(
                                     decimal: true),
@@ -223,45 +226,74 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                           ),
                         ],
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
-                              FocusScope.of(context)
-                                  .requestFocus(new FocusNode());
-
-                              //Burda yatığımız , hesapla butonuna bastığımızda  t1 ve t2 nesnelerine yazılan verilerin,
-                              //hesaptutar ve hesapOran nesnelerine aktarılmasını sağladık.
-                              //Bu sayede hesap tutar ve hesap oran nesnelerini kullanarak matematiksel işlemleri yapabildik.
-                              hesapTutar = double.parse(t1.text);
-                              hesapOran = double.parse(t2.text);
-                              mesaj =
-                                  "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır";
-                              //kdv haric
-                              HarickenKdvTutari =
-                                  (hesapTutar * (hesapOran / 100));
-                              haricTutar = hesapTutar;
-                              toplamHaricTutar = HarickenKdvTutari + haricTutar;
-                              //kdvdahil
-                              dahilTutar = hesapTutar / ((hesapOran / 100) + 1);
-                              dahilkenKdvTutari = hesapTutar - dahilTutar;
-                              toplamDahilTutar = hesapTutar;
-                              t1.clear();
-                              t2.clear();
-                              toast();
-                              kdv = true;
-                            } else {
-                              mesaj = "Lütfen bir değer girin";
-                              toast();
-                            }
-                          });
-                        },
-                        child: Text(
-                          "Hesapla",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 20),
-                        ),
+                      SizedBox(
+                        height: 5,
                       ),
+                      if (kdv == true)
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Girilen Tutar",
+                                  style: stil,
+                                ),
+                                Text(
+                                  "Girilen KDV Oranı",
+                                  style: stil,
+                                ),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(" : ${hesapTutar.toStringAsFixed(2)}₺",
+                                    style: stil2),
+                                Text(" : %${hesapOran.toStringAsFixed(0)}",
+                                    style: stil2),
+                              ],
+                            )
+                          ],
+                        ),
+                      ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
+                                FocusScope.of(context)
+                                    .requestFocus(new FocusNode());
+
+                                //Burda yatığımız , hesapla butonuna bastığımızda  t1 ve t2 nesnelerine yazılan verilerin,
+                                //hesaptutar ve hesapOran nesnelerine aktarılmasını sağladık.
+                                //Bu sayede hesap tutar ve hesap oran nesnelerini kullanarak matematiksel işlemleri yapabildik.
+                                hesapTutar = double.parse(t1.text);
+                                hesapOran = double.parse(t2.text);
+                                mesaj =
+                                    "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır";
+                                //kdv haric
+                                HarickenKdvTutari =
+                                    (hesapTutar * (hesapOran / 100));
+                                haricTutar = hesapTutar;
+                                toplamHaricTutar =
+                                    HarickenKdvTutari + haricTutar;
+                                //kdvdahil
+                                dahilTutar =
+                                    hesapTutar / ((hesapOran / 100) + 1);
+                                dahilkenKdvTutari = hesapTutar - dahilTutar;
+                                toplamDahilTutar = hesapTutar;
+                                t1.clear();
+                                t2.clear();
+                                toast();
+                                kdv = true;
+                              } else {
+                                mesaj = "Lütfen bir değer girin";
+                                toast();
+                              }
+                            });
+                          },
+                          child: hesapla),
                     ],
                   ),
                 ),
@@ -325,25 +357,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       "KDV Tutarı",
                                       style: stil2,
                                     ),
-                                    Row(
-                                      children: [
-                                        if (kdv == true)
-                                          Text(
-                                            "(%${hesapOran.toStringAsFixed(0)})",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.bold,
-                                                fontStyle: FontStyle.italic),
-                                          ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Text(
-                                          HarickenKdvTutari.toStringAsFixed(2),
-                                          style: stil,
-                                        ),
-                                      ],
+                                    Text(
+                                      HarickenKdvTutari.toStringAsFixed(2),
+                                      style: stil,
                                     )
                                   ],
                                 ),
@@ -430,25 +446,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       "KDV Tutarı",
                                       style: stil2,
                                     ),
-                                    Row(
-                                      children: [
-                                        if (kdv == true)
-                                          Text(
-                                            "(%${hesapOran.toStringAsFixed(0)})",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.bold,
-                                                fontStyle: FontStyle.italic),
-                                          ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Text(
-                                          dahilkenKdvTutari.toStringAsFixed(2),
-                                          style: stil,
-                                        ),
-                                      ],
+                                    Text(
+                                      dahilkenKdvTutari.toStringAsFixed(2),
+                                      style: stil,
                                     )
                                   ],
                                 ),
@@ -485,6 +485,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                 )
               ],
             ),
+
+            //Tevkifat
+
             ListView(
               children: [
                 Padding(
@@ -502,7 +505,8 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                 keyboardType: TextInputType.numberWithOptions(
                                     decimal: true),
                                 inputFormatters: [
-                                  FilteringTextInputFormatter.deny(",")
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+\.?\d{0,2}')),
                                 ],
                                 controller: t3,
                                 style: TextStyle(
@@ -530,7 +534,8 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                               child: TextFormField(
                                 controller: t4,
                                 inputFormatters: [
-                                  FilteringTextInputFormatter.deny(",")
+                                  FilteringTextInputFormatter.digitsOnly,
+                                  LengthLimitingTextInputFormatter(2)
                                 ],
                                 keyboardType: TextInputType.numberWithOptions(
                                     decimal: true),
@@ -558,135 +563,438 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                 Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 36.5),
+                      padding: const EdgeInsets.symmetric(horizontal: 8.5),
                       child: Column(
                         children: [
                           Row(
-                            children: [
-                              ElevatedButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      if (t3.text.isNotEmpty &&
-                                          t4.text.isNotEmpty) {
-                                        mesaj =
-                                            "KDV tutarınız 2/10 oranına göre tevkif edilecektir.";
-                                        tevk = "2/10";
-                                        FocusScope.of(context)
-                                            .requestFocus(new FocusNode());
-                                        //haricTevk
-                                        matrahTevkifat = double.parse(t3.text);
-                                        oranTevkifat = double.parse(t4.text);
-                                        tevkifatOncesiKDV = (matrahTevkifat *
-                                            (oranTevkifat / 100));
-                                        kdvDahilTevkifatliToplamTutar =
-                                            matrahTevkifat + tevkifatOncesiKDV;
-
-                                        Tevkifat = (tevkifatOncesiKDV * 0.20);
-                                        TevkifatSonrasiKDV =
-                                            (tevkifatOncesiKDV - Tevkifat);
-                                        TevkifatliToplamTutar =
-                                            (matrahTevkifat +
-                                                TevkifatSonrasiKDV);
-                                        //dahiltevk
-                                        dahilMatrahTevkifat = matrahTevkifat /
-                                            ((oranTevkifat / 100) + 1);
-                                        dahilTevkifatOncesiKdv =
-                                            dahilMatrahTevkifat *
-                                                (oranTevkifat / 100);
-                                        dahilKdvDahilTevkifatliToplamTutar =
-                                            matrahTevkifat;
-
-                                        dahilTevkifat =
-                                            (dahilTevkifatOncesiKdv * 0.20);
-                                        dahilTevkifatSonrasiKdv =
-                                            (dahilTevkifatOncesiKdv -
-                                                dahilTevkifat);
-                                        dahilTevkifatToplamTutar =
-                                            dahilMatrahTevkifat +
-                                                dahilTevkifatSonrasiKdv;
-                                        t3.clear();
-                                        t4.clear();
-                                        tefkkdv = true;
-                                        toast();
-                                      } else {
-                                        mesaj = "Lütfen bir değer girin";
-                                        toast();
-                                      }
-                                    });
-                                  },
-                                  child: Text("2/10",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16))),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      if (t3.text.isNotEmpty &&
-                                          t4.text.isNotEmpty) {
-                                        mesaj =
-                                            "KDV tutarınız 3/10 oranına göre tevkif edilecektir.";
-                                        tevk = "3/10";
-                                        FocusScope.of(context)
-                                            .requestFocus(new FocusNode());
-                                        //haricTevk
-                                        matrahTevkifat = double.parse(t3.text);
-                                        oranTevkifat = double.parse(t4.text);
-                                        tevkifatOncesiKDV = (matrahTevkifat *
-                                            (oranTevkifat / 100));
-                                        kdvDahilTevkifatliToplamTutar =
-                                            matrahTevkifat + tevkifatOncesiKDV;
-
-                                        Tevkifat = (tevkifatOncesiKDV * 0.30);
-                                        TevkifatSonrasiKDV =
-                                            (tevkifatOncesiKDV - Tevkifat);
-                                        TevkifatliToplamTutar =
-                                            (matrahTevkifat +
-                                                TevkifatSonrasiKDV);
-                                        //dahiltevk
-                                        dahilMatrahTevkifat = matrahTevkifat /
-                                            ((oranTevkifat / 100) + 1);
-                                        dahilTevkifatOncesiKdv =
-                                            dahilMatrahTevkifat *
-                                                (oranTevkifat / 100);
-                                        dahilKdvDahilTevkifatliToplamTutar =
-                                            matrahTevkifat;
-
-                                        dahilTevkifat =
-                                            (dahilTevkifatOncesiKdv * 0.30);
-                                        dahilTevkifatSonrasiKdv =
-                                            (dahilTevkifatOncesiKdv -
-                                                dahilTevkifat);
-                                        dahilTevkifatToplamTutar =
-                                            dahilMatrahTevkifat +
-                                                dahilTevkifatSonrasiKdv;
-
-                                        t3.clear();
-                                        t4.clear();
-                                        tefkkdv = true;
-                                        toast();
-                                      } else {
-                                        mesaj = "Lütfen bir değer girin";
-                                        toast();
-                                      }
-                                    });
-                                  },
-                                  child: Text("3/10",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16))),
-                            ],
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                children: [
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          if (t3.text.isNotEmpty &&
+                                              t4.text.isNotEmpty) {
+                                            mesaj =
+                                                "KDV tutarınız 2/10 oranına göre tevkif edilecektir.";
+                                            tevk = "2/10";
+                                            FocusScope.of(context)
+                                                .requestFocus(new FocusNode());
+                                            //haricTevk
+                                            matrahTevkifat =
+                                                double.parse(t3.text);
+                                            oranTevkifat =
+                                                double.parse(t4.text);
+                                            tevkifatOncesiKDV =
+                                                (matrahTevkifat *
+                                                    (oranTevkifat / 100));
+                                            kdvDahilTevkifatliToplamTutar =
+                                                matrahTevkifat +
+                                                    tevkifatOncesiKDV;
+
+                                            Tevkifat =
+                                                (tevkifatOncesiKDV * 0.20);
+                                            TevkifatSonrasiKDV =
+                                                (tevkifatOncesiKDV - Tevkifat);
+                                            TevkifatliToplamTutar =
+                                                (matrahTevkifat +
+                                                    TevkifatSonrasiKDV);
+                                            //dahiltevk
+                                            dahilMatrahTevkifat =
+                                                matrahTevkifat /
+                                                    ((oranTevkifat / 100) + 1);
+                                            dahilTevkifatOncesiKdv =
+                                                dahilMatrahTevkifat *
+                                                    (oranTevkifat / 100);
+                                            dahilKdvDahilTevkifatliToplamTutar =
+                                                matrahTevkifat;
+
+                                            dahilTevkifat =
+                                                (dahilTevkifatOncesiKdv * 0.20);
+                                            dahilTevkifatSonrasiKdv =
+                                                (dahilTevkifatOncesiKdv -
+                                                    dahilTevkifat);
+                                            dahilTevkifatToplamTutar =
+                                                dahilMatrahTevkifat +
+                                                    dahilTevkifatSonrasiKdv;
+                                            t3.clear();
+                                            t4.clear();
+                                            tefkkdv = true;
+                                            toast();
+                                          } else {
+                                            mesaj = "Lütfen bir değer girin";
+                                            toast();
+                                          }
+                                        });
+                                      },
+                                      child: Text("2/10",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16))),
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          if (t3.text.isNotEmpty &&
+                                              t4.text.isNotEmpty) {
+                                            mesaj =
+                                                "KDV tutarınız 4/10 oranına göre tevkif edilecektir.";
+                                            tevk = "4/10";
+                                            FocusScope.of(context)
+                                                .requestFocus(new FocusNode());
+                                            //haricTevk
+                                            matrahTevkifat =
+                                                double.parse(t3.text);
+                                            oranTevkifat =
+                                                double.parse(t4.text);
+                                            tevkifatOncesiKDV =
+                                                (matrahTevkifat *
+                                                    (oranTevkifat / 100));
+                                            kdvDahilTevkifatliToplamTutar =
+                                                matrahTevkifat +
+                                                    tevkifatOncesiKDV;
+
+                                            Tevkifat =
+                                                (tevkifatOncesiKDV * 0.40);
+                                            TevkifatSonrasiKDV =
+                                                (tevkifatOncesiKDV - Tevkifat);
+                                            TevkifatliToplamTutar =
+                                                (matrahTevkifat +
+                                                    TevkifatSonrasiKDV);
+                                            //dahiltevk
+                                            dahilMatrahTevkifat =
+                                                matrahTevkifat /
+                                                    ((oranTevkifat / 100) + 1);
+                                            dahilTevkifatOncesiKdv =
+                                                dahilMatrahTevkifat *
+                                                    (oranTevkifat / 100);
+                                            dahilKdvDahilTevkifatliToplamTutar =
+                                                matrahTevkifat;
+
+                                            dahilTevkifat =
+                                                (dahilTevkifatOncesiKdv * 0.40);
+                                            dahilTevkifatSonrasiKdv =
+                                                (dahilTevkifatOncesiKdv -
+                                                    dahilTevkifat);
+                                            dahilTevkifatToplamTutar =
+                                                dahilMatrahTevkifat +
+                                                    dahilTevkifatSonrasiKdv;
+                                            t3.clear();
+                                            t4.clear();
+                                            tefkkdv = true;
+                                            toast();
+                                          } else {
+                                            mesaj = "Lütfen bir değer girin";
+                                            toast();
+                                          }
+                                        });
+                                      },
+                                      child: Text("4/10",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16))),
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          if (t3.text.isNotEmpty &&
+                                              t4.text.isNotEmpty) {
+                                            mesaj =
+                                                "KDV tutarınız 7/10 oranına göre tevkif edilecektir.";
+                                            tevk = "7/10";
+                                            FocusScope.of(context)
+                                                .requestFocus(new FocusNode());
+                                            //haricTevk
+                                            matrahTevkifat =
+                                                double.parse(t3.text);
+                                            oranTevkifat =
+                                                double.parse(t4.text);
+                                            tevkifatOncesiKDV =
+                                                (matrahTevkifat *
+                                                    (oranTevkifat / 100));
+                                            kdvDahilTevkifatliToplamTutar =
+                                                matrahTevkifat +
+                                                    tevkifatOncesiKDV;
+
+                                            Tevkifat =
+                                                (tevkifatOncesiKDV * 0.70);
+                                            TevkifatSonrasiKDV =
+                                                (tevkifatOncesiKDV - Tevkifat);
+                                            TevkifatliToplamTutar =
+                                                (matrahTevkifat +
+                                                    TevkifatSonrasiKDV);
+                                            //dahiltevk
+                                            dahilMatrahTevkifat =
+                                                matrahTevkifat /
+                                                    ((oranTevkifat / 100) + 1);
+                                            dahilTevkifatOncesiKdv =
+                                                dahilMatrahTevkifat *
+                                                    (oranTevkifat / 100);
+                                            dahilKdvDahilTevkifatliToplamTutar =
+                                                matrahTevkifat;
+
+                                            dahilTevkifat =
+                                                (dahilTevkifatOncesiKdv * 0.70);
+                                            dahilTevkifatSonrasiKdv =
+                                                (dahilTevkifatOncesiKdv -
+                                                    dahilTevkifat);
+                                            dahilTevkifatToplamTutar =
+                                                dahilMatrahTevkifat +
+                                                    dahilTevkifatSonrasiKdv;
+                                            t3.clear();
+                                            t4.clear();
+                                            tefkkdv = true;
+                                            toast();
+                                          } else {
+                                            mesaj = "Lütfen bir değer girin";
+                                            toast();
+                                          }
+                                        });
+                                      },
+                                      child: Text("7/10",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16))),
+                                ],
+                              ),
+                              if (tefkkdv == true)
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "Girilen Tutar ",
+                                      style: stil,
+                                    ),
+                                    Text(
+                                      "Girilen KDV Oranı",
+                                      style: stil,
+                                    ),
+                                    Text(
+                                      "KDV Tevkifat Oranı",
+                                      style: stil,
+                                    ),
+                                  ],
+                                ),
+                              if (tefkkdv == true)
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                        " : ${matrahTevkifat.toStringAsFixed(2)}₺",
+                                        style: stil2),
+                                    Text(
+                                        " : %${oranTevkifat.toStringAsFixed(0)}",
+                                        style: stil2),
+                                    Text(" : $tevk", style: stil2),
+                                  ],
+                                ),
+                              Column(
+                                children: [
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          if (t3.text.isNotEmpty &&
+                                              t4.text.isNotEmpty) {
+                                            mesaj =
+                                                "KDV tutarınız 3/10 oranına göre tevkif edilecektir.";
+                                            tevk = "3/10";
+                                            FocusScope.of(context)
+                                                .requestFocus(new FocusNode());
+                                            //haricTevk
+                                            matrahTevkifat =
+                                                double.parse(t3.text);
+                                            oranTevkifat =
+                                                double.parse(t4.text);
+                                            tevkifatOncesiKDV =
+                                                (matrahTevkifat *
+                                                    (oranTevkifat / 100));
+                                            kdvDahilTevkifatliToplamTutar =
+                                                matrahTevkifat +
+                                                    tevkifatOncesiKDV;
+
+                                            Tevkifat =
+                                                (tevkifatOncesiKDV * 0.30);
+                                            TevkifatSonrasiKDV =
+                                                (tevkifatOncesiKDV - Tevkifat);
+                                            TevkifatliToplamTutar =
+                                                (matrahTevkifat +
+                                                    TevkifatSonrasiKDV);
+                                            //dahiltevk
+                                            dahilMatrahTevkifat =
+                                                matrahTevkifat /
+                                                    ((oranTevkifat / 100) + 1);
+                                            dahilTevkifatOncesiKdv =
+                                                dahilMatrahTevkifat *
+                                                    (oranTevkifat / 100);
+                                            dahilKdvDahilTevkifatliToplamTutar =
+                                                matrahTevkifat;
+
+                                            dahilTevkifat =
+                                                (dahilTevkifatOncesiKdv * 0.30);
+                                            dahilTevkifatSonrasiKdv =
+                                                (dahilTevkifatOncesiKdv -
+                                                    dahilTevkifat);
+                                            dahilTevkifatToplamTutar =
+                                                dahilMatrahTevkifat +
+                                                    dahilTevkifatSonrasiKdv;
+
+                                            t3.clear();
+                                            t4.clear();
+                                            tefkkdv = true;
+                                            toast();
+                                          } else {
+                                            mesaj = "Lütfen bir değer girin";
+                                            toast();
+                                          }
+                                        });
+                                      },
+                                      child: Text("3/10",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16))),
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          if (t3.text.isNotEmpty &&
+                                              t4.text.isNotEmpty) {
+                                            mesaj =
+                                                "KDV tutarınız 5/10 oranına göre tevkif edilecektir.";
+                                            tevk = "5/10";
+                                            FocusScope.of(context)
+                                                .requestFocus(new FocusNode());
+                                            //haricTevk
+                                            matrahTevkifat =
+                                                double.parse(t3.text);
+                                            oranTevkifat =
+                                                double.parse(t4.text);
+                                            tevkifatOncesiKDV =
+                                                (matrahTevkifat *
+                                                    (oranTevkifat / 100));
+                                            kdvDahilTevkifatliToplamTutar =
+                                                matrahTevkifat +
+                                                    tevkifatOncesiKDV;
+
+                                            Tevkifat =
+                                                (tevkifatOncesiKDV * 0.50);
+                                            TevkifatSonrasiKDV =
+                                                (tevkifatOncesiKDV - Tevkifat);
+                                            TevkifatliToplamTutar =
+                                                (matrahTevkifat +
+                                                    TevkifatSonrasiKDV);
+                                            //dahiltevk
+                                            dahilMatrahTevkifat =
+                                                matrahTevkifat /
+                                                    ((oranTevkifat / 100) + 1);
+                                            dahilTevkifatOncesiKdv =
+                                                dahilMatrahTevkifat *
+                                                    (oranTevkifat / 100);
+                                            dahilKdvDahilTevkifatliToplamTutar =
+                                                matrahTevkifat;
+
+                                            dahilTevkifat =
+                                                (dahilTevkifatOncesiKdv * 0.50);
+                                            dahilTevkifatSonrasiKdv =
+                                                (dahilTevkifatOncesiKdv -
+                                                    dahilTevkifat);
+                                            dahilTevkifatToplamTutar =
+                                                dahilMatrahTevkifat +
+                                                    dahilTevkifatSonrasiKdv;
+                                            t3.clear();
+                                            t4.clear();
+                                            tefkkdv = true;
+                                            toast();
+                                          } else {
+                                            mesaj = "Lütfen bir değer girin";
+                                            toast();
+                                          }
+                                        });
+                                      },
+                                      child: Text("5/10",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16))),
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          if (t3.text.isNotEmpty &&
+                                              t4.text.isNotEmpty) {
+                                            mesaj =
+                                                "KDV tutarınız 9/10 oranına göre tevkif edilecektir.";
+                                            tevk = "9/10";
+                                            FocusScope.of(context)
+                                                .requestFocus(new FocusNode());
+                                            //haricTevk
+                                            matrahTevkifat =
+                                                double.parse(t3.text);
+                                            oranTevkifat =
+                                                double.parse(t4.text);
+                                            tevkifatOncesiKDV =
+                                                (matrahTevkifat *
+                                                    (oranTevkifat / 100));
+                                            kdvDahilTevkifatliToplamTutar =
+                                                matrahTevkifat +
+                                                    tevkifatOncesiKDV;
+
+                                            Tevkifat =
+                                                (tevkifatOncesiKDV * 0.90);
+                                            TevkifatSonrasiKDV =
+                                                (tevkifatOncesiKDV - Tevkifat);
+                                            TevkifatliToplamTutar =
+                                                (matrahTevkifat +
+                                                    TevkifatSonrasiKDV);
+                                            //dahiltevk
+                                            dahilMatrahTevkifat =
+                                                matrahTevkifat /
+                                                    ((oranTevkifat / 100) + 1);
+                                            dahilTevkifatOncesiKdv =
+                                                dahilMatrahTevkifat *
+                                                    (oranTevkifat / 100);
+                                            dahilKdvDahilTevkifatliToplamTutar =
+                                                matrahTevkifat;
+
+                                            dahilTevkifat =
+                                                (dahilTevkifatOncesiKdv * 0.90);
+                                            dahilTevkifatSonrasiKdv =
+                                                (dahilTevkifatOncesiKdv -
+                                                    dahilTevkifat);
+                                            dahilTevkifatToplamTutar =
+                                                dahilMatrahTevkifat +
+                                                    dahilTevkifatSonrasiKdv;
+                                            t3.clear();
+                                            t4.clear();
+                                            tefkkdv = true;
+                                            toast();
+                                          } else {
+                                            mesaj = "Lütfen bir değer girin";
+                                            toast();
+                                          }
+                                        });
+                                      },
+                                      child: Text("9/10",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16))),
+                                ],
+                              ),
+                            ],
                           ),
                           Row(
                             children: [
-                              ElevatedButton(
+                              Expanded(
+                                child: ElevatedButton(
                                   onPressed: () {
                                     setState(() {
                                       if (t3.text.isNotEmpty &&
                                           t4.text.isNotEmpty) {
                                         mesaj =
-                                            "KDV tutarınız 4/10 oranına göre tevkif edilecektir.";
-                                        tevk = "4/10";
+                                            "KDV tutarınız tam tevkifat oranına göre tevkif edilecektir.";
+                                        tevk = "10/10";
                                         FocusScope.of(context)
                                             .requestFocus(new FocusNode());
                                         //haricTevk
@@ -697,7 +1005,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                         kdvDahilTevkifatliToplamTutar =
                                             matrahTevkifat + tevkifatOncesiKDV;
 
-                                        Tevkifat = (tevkifatOncesiKDV * 0.40);
+                                        Tevkifat = (tevkifatOncesiKDV * 1);
                                         TevkifatSonrasiKDV =
                                             (tevkifatOncesiKDV - Tevkifat);
                                         TevkifatliToplamTutar =
@@ -713,7 +1021,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                             matrahTevkifat;
 
                                         dahilTevkifat =
-                                            (dahilTevkifatOncesiKdv * 0.40);
+                                            (dahilTevkifatOncesiKdv * 1);
                                         dahilTevkifatSonrasiKdv =
                                             (dahilTevkifatOncesiKdv -
                                                 dahilTevkifat);
@@ -730,249 +1038,13 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       }
                                     });
                                   },
-                                  child: Text("4/10",
+                                  child: Text("Tam Tevkifat (10/10)",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 16))),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      if (t3.text.isNotEmpty &&
-                                          t4.text.isNotEmpty) {
-                                        mesaj =
-                                            "KDV tutarınız 5/10 oranına göre tevkif edilecektir.";
-                                        tevk = "5/10";
-                                        FocusScope.of(context)
-                                            .requestFocus(new FocusNode());
-                                        //haricTevk
-                                        matrahTevkifat = double.parse(t3.text);
-                                        oranTevkifat = double.parse(t4.text);
-                                        tevkifatOncesiKDV = (matrahTevkifat *
-                                            (oranTevkifat / 100));
-                                        kdvDahilTevkifatliToplamTutar =
-                                            matrahTevkifat + tevkifatOncesiKDV;
-
-                                        Tevkifat = (tevkifatOncesiKDV * 0.50);
-                                        TevkifatSonrasiKDV =
-                                            (tevkifatOncesiKDV - Tevkifat);
-                                        TevkifatliToplamTutar =
-                                            (matrahTevkifat +
-                                                TevkifatSonrasiKDV);
-                                        //dahiltevk
-                                        dahilMatrahTevkifat = matrahTevkifat /
-                                            ((oranTevkifat / 100) + 1);
-                                        dahilTevkifatOncesiKdv =
-                                            dahilMatrahTevkifat *
-                                                (oranTevkifat / 100);
-                                        dahilKdvDahilTevkifatliToplamTutar =
-                                            matrahTevkifat;
-
-                                        dahilTevkifat =
-                                            (dahilTevkifatOncesiKdv * 0.50);
-                                        dahilTevkifatSonrasiKdv =
-                                            (dahilTevkifatOncesiKdv -
-                                                dahilTevkifat);
-                                        dahilTevkifatToplamTutar =
-                                            dahilMatrahTevkifat +
-                                                dahilTevkifatSonrasiKdv;
-                                        t3.clear();
-                                        t4.clear();
-                                        tefkkdv = true;
-                                        toast();
-                                      } else {
-                                        mesaj = "Lütfen bir değer girin";
-                                        toast();
-                                      }
-                                    });
-                                  },
-                                  child: Text("5/10",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16))),
+                                          fontSize: 16)),
+                                ),
+                              )
                             ],
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          ),
-                          Row(
-                            children: [
-                              ElevatedButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      if (t3.text.isNotEmpty &&
-                                          t4.text.isNotEmpty) {
-                                        mesaj =
-                                            "KDV tutarınız 7/10 oranına göre tevkif edilecektir.";
-                                        tevk = "7/10";
-                                        FocusScope.of(context)
-                                            .requestFocus(new FocusNode());
-                                        //haricTevk
-                                        matrahTevkifat = double.parse(t3.text);
-                                        oranTevkifat = double.parse(t4.text);
-                                        tevkifatOncesiKDV = (matrahTevkifat *
-                                            (oranTevkifat / 100));
-                                        kdvDahilTevkifatliToplamTutar =
-                                            matrahTevkifat + tevkifatOncesiKDV;
-
-                                        Tevkifat = (tevkifatOncesiKDV * 0.70);
-                                        TevkifatSonrasiKDV =
-                                            (tevkifatOncesiKDV - Tevkifat);
-                                        TevkifatliToplamTutar =
-                                            (matrahTevkifat +
-                                                TevkifatSonrasiKDV);
-                                        //dahiltevk
-                                        dahilMatrahTevkifat = matrahTevkifat /
-                                            ((oranTevkifat / 100) + 1);
-                                        dahilTevkifatOncesiKdv =
-                                            dahilMatrahTevkifat *
-                                                (oranTevkifat / 100);
-                                        dahilKdvDahilTevkifatliToplamTutar =
-                                            matrahTevkifat;
-
-                                        dahilTevkifat =
-                                            (dahilTevkifatOncesiKdv * 0.70);
-                                        dahilTevkifatSonrasiKdv =
-                                            (dahilTevkifatOncesiKdv -
-                                                dahilTevkifat);
-                                        dahilTevkifatToplamTutar =
-                                            dahilMatrahTevkifat +
-                                                dahilTevkifatSonrasiKdv;
-                                        t3.clear();
-                                        t4.clear();
-                                        tefkkdv = true;
-                                        toast();
-                                      } else {
-                                        mesaj = "Lütfen bir değer girin";
-                                        toast();
-                                      }
-                                    });
-                                  },
-                                  child: Text("7/10",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16))),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      if (t3.text.isNotEmpty &&
-                                          t4.text.isNotEmpty) {
-                                        mesaj =
-                                            "KDV tutarınız 9/10 oranına göre tevkif edilecektir.";
-                                        tevk = "9/10";
-                                        FocusScope.of(context)
-                                            .requestFocus(new FocusNode());
-                                        //haricTevk
-                                        matrahTevkifat = double.parse(t3.text);
-                                        oranTevkifat = double.parse(t4.text);
-                                        tevkifatOncesiKDV = (matrahTevkifat *
-                                            (oranTevkifat / 100));
-                                        kdvDahilTevkifatliToplamTutar =
-                                            matrahTevkifat + tevkifatOncesiKDV;
-
-                                        Tevkifat = (tevkifatOncesiKDV * 0.90);
-                                        TevkifatSonrasiKDV =
-                                            (tevkifatOncesiKDV - Tevkifat);
-                                        TevkifatliToplamTutar =
-                                            (matrahTevkifat +
-                                                TevkifatSonrasiKDV);
-                                        //dahiltevk
-                                        dahilMatrahTevkifat = matrahTevkifat /
-                                            ((oranTevkifat / 100) + 1);
-                                        dahilTevkifatOncesiKdv =
-                                            dahilMatrahTevkifat *
-                                                (oranTevkifat / 100);
-                                        dahilKdvDahilTevkifatliToplamTutar =
-                                            matrahTevkifat;
-
-                                        dahilTevkifat =
-                                            (dahilTevkifatOncesiKdv * 0.90);
-                                        dahilTevkifatSonrasiKdv =
-                                            (dahilTevkifatOncesiKdv -
-                                                dahilTevkifat);
-                                        dahilTevkifatToplamTutar =
-                                            dahilMatrahTevkifat +
-                                                dahilTevkifatSonrasiKdv;
-                                        t3.clear();
-                                        t4.clear();
-                                        tefkkdv = true;
-                                        toast();
-                                      } else {
-                                        mesaj = "Lütfen bir değer girin";
-                                        toast();
-                                      }
-                                    });
-                                  },
-                                  child: Text("9/10",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16))),
-                            ],
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        if (t3.text.isNotEmpty &&
-                                            t4.text.isNotEmpty) {
-                                          mesaj =
-                                              "KDV tutarınız tam tevkifat oranına göre tevkif edilecektir.";
-                                          tevk = "10/10";
-                                          FocusScope.of(context)
-                                              .requestFocus(new FocusNode());
-                                          //haricTevk
-                                          matrahTevkifat =
-                                              double.parse(t3.text);
-                                          oranTevkifat = double.parse(t4.text);
-                                          tevkifatOncesiKDV = (matrahTevkifat *
-                                              (oranTevkifat / 100));
-                                          kdvDahilTevkifatliToplamTutar =
-                                              matrahTevkifat +
-                                                  tevkifatOncesiKDV;
-
-                                          Tevkifat = (tevkifatOncesiKDV * 1);
-                                          TevkifatSonrasiKDV =
-                                              (tevkifatOncesiKDV - Tevkifat);
-                                          TevkifatliToplamTutar =
-                                              (matrahTevkifat +
-                                                  TevkifatSonrasiKDV);
-                                          //dahiltevk
-                                          dahilMatrahTevkifat = matrahTevkifat /
-                                              ((oranTevkifat / 100) + 1);
-                                          dahilTevkifatOncesiKdv =
-                                              dahilMatrahTevkifat *
-                                                  (oranTevkifat / 100);
-                                          dahilKdvDahilTevkifatliToplamTutar =
-                                              matrahTevkifat;
-
-                                          dahilTevkifat =
-                                              (dahilTevkifatOncesiKdv * 1);
-                                          dahilTevkifatSonrasiKdv =
-                                              (dahilTevkifatOncesiKdv -
-                                                  dahilTevkifat);
-                                          dahilTevkifatToplamTutar =
-                                              dahilMatrahTevkifat +
-                                                  dahilTevkifatSonrasiKdv;
-                                          t3.clear();
-                                          t4.clear();
-                                          tefkkdv = true;
-                                          toast();
-                                        } else {
-                                          mesaj = "Lütfen bir değer girin";
-                                          toast();
-                                        }
-                                      });
-                                    },
-                                    child: Text("Tam Tevkifat (10/10)",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16)),
-                                  ),
-                                )
-                              ],
-                            ),
                           ),
                         ],
                       ),
@@ -1034,25 +1106,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   "KDV Tutarı",
                                   style: stil2,
                                 ),
-                                Row(
-                                  children: [
-                                    if (tefkkdv == true)
-                                      Text(
-                                        "(%${oranTevkifat.toStringAsFixed(0)})",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.bold,
-                                            fontStyle: FontStyle.italic),
-                                      ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Text(
-                                      tevkifatOncesiKDV.toStringAsFixed(2),
-                                      style: stil,
-                                    ),
-                                  ],
+                                Text(
+                                  tevkifatOncesiKDV.toStringAsFixed(2),
+                                  style: stil,
                                 ),
                               ],
                             ),
@@ -1091,25 +1147,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   "Tevkifat Tutarı",
                                   style: stil2,
                                 ),
-                                Row(
-                                  children: [
-                                    if (tefkkdv == true)
-                                      Text(
-                                        "($tevk)",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.bold,
-                                            fontStyle: FontStyle.italic),
-                                      ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Text(
-                                      Tevkifat.toStringAsFixed(2),
-                                      style: stil,
-                                    ),
-                                  ],
+                                Text(
+                                  Tevkifat.toStringAsFixed(2),
+                                  style: stil,
                                 ),
                               ],
                             ),
@@ -1215,25 +1255,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   "KDV Tutarı",
                                   style: stil2,
                                 ),
-                                Row(
-                                  children: [
-                                    if (tefkkdv == true)
-                                      Text(
-                                        "(%${oranTevkifat.toStringAsFixed(0)})",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.bold,
-                                            fontStyle: FontStyle.italic),
-                                      ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Text(
-                                      dahilTevkifatOncesiKdv.toStringAsFixed(2),
-                                      style: stil,
-                                    ),
-                                  ],
+                                Text(
+                                  dahilTevkifatOncesiKdv.toStringAsFixed(2),
+                                  style: stil,
                                 ),
                               ],
                             ),
@@ -1272,25 +1296,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   "Tevkifat Tutarı",
                                   style: stil2,
                                 ),
-                                Row(
-                                  children: [
-                                    if (tefkkdv == true)
-                                      Text(
-                                        "($tevk)",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.bold,
-                                            fontStyle: FontStyle.italic),
-                                      ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Text(
-                                      dahilTevkifat.toStringAsFixed(2),
-                                      style: stil,
-                                    ),
-                                  ],
+                                Text(
+                                  dahilTevkifat.toStringAsFixed(2),
+                                  style: stil,
                                 ),
                               ],
                             ),

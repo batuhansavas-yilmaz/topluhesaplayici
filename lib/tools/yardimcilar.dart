@@ -42,6 +42,8 @@ var requesT = AdRequest(keywords: [
   "percentage",
 ]);
 // ignore: camel_case_types
+var hesapla = Text("HESAPLA",
+    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold));
 
 // ignore: must_be_immutable
 class GorevButton extends StatefulWidget {

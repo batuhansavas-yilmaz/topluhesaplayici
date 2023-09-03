@@ -20,6 +20,7 @@ class _YuzdeState extends State<Yuzde> {
   double yxinyuzdekacisonuc = 0.00;
   double azalim = 0.00;
   double artim = 0.00;
+
   TextEditingController t1 = TextEditingController(text: '');
   TextEditingController t2 = TextEditingController(text: '');
 
@@ -77,274 +78,268 @@ class _YuzdeState extends State<Yuzde> {
             "Yüzde Hesaplama",
           ),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Elinizdeki sayıların birbiriyle olan "
-                "yüzdeleme hesaplamalarını kolayca "
-                "elde edebilirsiniz.",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 7,
-              ),
-              Divider(
-                color: Colors.black,
-              ),
-              SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Text("1.SAYI",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20))),
-                        Flexible(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: TextFormField(
-                              keyboardType: TextInputType.numberWithOptions(
-                                  decimal: true),
-                              inputFormatters: [
-                                FilteringTextInputFormatter.deny(",")
-                              ],
-                              controller: t1,
-                              style: TextStyle(
-                                  fontSize: 25, fontWeight: FontWeight.bold),
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
+        body: ListView(
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              "Elinizdeki sayıların birbiriyle olan "
+              "yüzdeleme hesaplamalarını kolayca "
+              "elde edebilirsiniz.",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            Divider(
+              color: Colors.black,
+            ),
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                          child: Text("1.SAYI",
                               textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Text("2.SAYI",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20))),
-                        Flexible(
-                          child: Container(
-                            decoration: BoxDecoration(
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20))),
+                      Flexible(
+                        child: Container(
+                          decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: TextFormField(
-                              onFieldSubmitted: (value) {
-                                setState(() {
-                                  if (t1.text.isNotEmpty &&
-                                      t2.text.isNotEmpty) {
-                                    FocusScope.of(context)
-                                        .requestFocus(new FocusNode());
-                                    x = double.parse(t1.text);
-                                    y = double.parse(t2.text);
-                                    yxinyuzdekacisonuc = (y / x) * 100;
-                                    yninyuzdexisonuc = (x * (y / 100));
-                                    artim = (x + yninyuzdexisonuc);
-                                    azalim = (x - yninyuzdexisonuc);
-                                    sonuc = true;
-                                  } else {
-                                    mesaj = "Lütfen bir değer girin";
-                                    toast();
-                                  }
-                                });
-                              },
-                              controller: t2,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.deny(",")
-                              ],
-                              keyboardType: TextInputType.numberWithOptions(
-                                  decimal: true),
-                              style: TextStyle(
-                                  fontSize: 25, fontWeight: FontWeight.bold),
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: TextFormField(
+                            keyboardType:
+                                TextInputType.numberWithOptions(decimal: true),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.deny(",")
+                            ],
+                            controller: t1,
+                            style: TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.bold),
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              textAlign: TextAlign.center,
                             ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: Text("2.SAYI",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20))),
+                      Flexible(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: TextFormField(
+                            onFieldSubmitted: (value) {
+                              setState(() {
+                                if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
+                                  FocusScope.of(context)
+                                      .requestFocus(new FocusNode());
+                                  x = double.parse(t1.text);
+                                  y = double.parse(t2.text);
+                                  yxinyuzdekacisonuc = (y / x) * 100;
+                                  yninyuzdexisonuc = (x * (y / 100));
+                                  artim = (x + yninyuzdexisonuc);
+                                  azalim = (x - yninyuzdexisonuc);
+
+                                  sonuc = true;
+                                } else {
+                                  mesaj = "Lütfen bir değer girin";
+                                  toast();
+                                }
+                              });
+                            },
+                            controller: t2,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.deny(",")
+                            ],
+                            keyboardType:
+                                TextInputType.numberWithOptions(decimal: true),
+                            style: TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.bold),
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
-                      FocusScope.of(context).requestFocus(new FocusNode());
-                      x = double.parse(t1.text);
-                      y = double.parse(t2.text);
-                      yxinyuzdekacisonuc = (y / x) * 100;
-                      yninyuzdexisonuc = (x * (y / 100));
-                      artim = (x + yninyuzdexisonuc);
-                      azalim = (x - yninyuzdexisonuc);
-                      sonuc = true;
-                    } else {
-                      mesaj = "Lütfen bir değer girin";
-                      toast();
-                    }
-                  });
-                },
-                child: Text(
-                  "Hesapla",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20),
+            ),
+            SizedBox(height: 10),
+            Column(
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
+                        FocusScope.of(context).requestFocus(new FocusNode());
+                        x = double.parse(t1.text);
+                        y = double.parse(t2.text);
+                        yxinyuzdekacisonuc = (y / x) * 100;
+                        yninyuzdexisonuc = (x * (y / 100));
+                        artim = (x + yninyuzdexisonuc);
+                        azalim = (x - yninyuzdexisonuc);
+
+                        sonuc = true;
+                      } else {
+                        mesaj = "Lütfen bir değer girin";
+                        toast();
+                      }
+                    });
+                  },
+                  child: hesapla,
                 ),
-              ),
-              SizedBox(height: 10),
-              if (sonuc == true)
-                Column(
-                  children: [
-                    Row(
+              ],
+            ),
+            SizedBox(height: 10),
+            if (sonuc == true)
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.all(2),
+                          color: Colors.blue,
+                          child: Text(
+                            "SONUÇ",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                          child: Container(
-                            padding: EdgeInsets.all(2),
-                            color: Colors.blue,
-                            child: Text(
-                              "SONUÇ",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            ),
+                        Flexible(
+                          child: Text(
+                              "${t2.text} sayısı ${t1.text} sayısının % kaçıdır : ",
+                              style: TextStyle(fontSize: 18)),
+                        ),
+                        Flexible(
+                          child: Text(
+                            "% ${yxinyuzdekacisonuc.toStringAsPrecision(2)}",
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FontStyle.italic),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Flexible(
-                            child: Text(
-                                "${t2.text} sayısı ${t1.text} sayısının % kaçıdır : ",
-                                style: TextStyle(fontSize: 18)),
+                  ),
+                  Divider(
+                    color: Colors.black,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Text(
+                              "${t1.text} sayısının %${t2.text} değeri : ",
+                              style: TextStyle(fontSize: 18)),
+                        ),
+                        Flexible(
+                          child: Text(
+                            " ${yninyuzdexisonuc.toStringAsFixed(2)}",
+                            style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FontStyle.italic),
                           ),
-                          Flexible(
-                            child: Text(
-                              "% ${yxinyuzdekacisonuc.toStringAsPrecision(3)}",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.italic),
-                            ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    color: Colors.black,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Text(
+                              "${t1.text} sayısı %${t2.text} artınca : ",
+                              style: TextStyle(fontSize: 18)),
+                        ),
+                        Flexible(
+                          child: Text(
+                            " ${artim.toStringAsFixed(2)}",
+                            style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FontStyle.italic),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Divider(
-                      color: Colors.black,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Flexible(
-                            child: Text(
-                                "${t1.text} sayısının %${t2.text} değeri : ",
-                                style: TextStyle(fontSize: 18)),
+                  ),
+                  Divider(
+                    color: Colors.black,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Text(
+                              "${t1.text} sayısı %${t2.text} azalınca : ",
+                              style: TextStyle(fontSize: 18)),
+                        ),
+                        Flexible(
+                          child: Text(
+                            " ${azalim.toStringAsFixed(2)}",
+                            style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FontStyle.italic),
                           ),
-                          Flexible(
-                            child: Text(
-                              " ${yninyuzdexisonuc.toStringAsFixed(2)}",
-                              style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.italic),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Divider(
-                      color: Colors.black,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Flexible(
-                            child: Text(
-                                "${t1.text} sayısı %${t2.text} artınca : ",
-                                style: TextStyle(fontSize: 18)),
-                          ),
-                          Flexible(
-                            child: Text(
-                              " ${artim.toStringAsFixed(2)}",
-                              style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.italic),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      color: Colors.black,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Flexible(
-                            child: Text(
-                                "${t1.text} sayısı %${t2.text} azalınca : ",
-                                style: TextStyle(fontSize: 20)),
-                          ),
-                          Flexible(
-                            child: Text(
-                              " ${azalim.toStringAsFixed(2)}",
-                              style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.italic),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      color: Colors.black,
-                    ),
-                  ],
-                ),
-            ],
-          ),
+                  ),
+                  Divider(
+                    color: Colors.black,
+                  ),
+                ],
+              ),
+          ],
         ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(boxShadow: [

@@ -106,7 +106,8 @@ class _KomisyonState extends State<Komisyon> {
                             keyboardType:
                                 TextInputType.numberWithOptions(decimal: true),
                             inputFormatters: [
-                              FilteringTextInputFormatter.deny(",")
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'^\d+\.?\d{0,2}')),
                             ],
                             controller: t1,
                             style: TextStyle(
@@ -150,7 +151,8 @@ class _KomisyonState extends State<Komisyon> {
                           },
                           controller: t2,
                           inputFormatters: [
-                            FilteringTextInputFormatter.deny(",")
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'^\d+\.?\d{0,2}')),
                           ],
                           keyboardType:
                               TextInputType.numberWithOptions(decimal: true),
@@ -188,11 +190,7 @@ class _KomisyonState extends State<Komisyon> {
                     }
                   });
                 },
-                child: Text(
-                  "Hesapla",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20),
-                ),
+                child: hesapla,
               ),
               SizedBox(
                 height: 10,
@@ -242,7 +240,8 @@ class _KomisyonState extends State<Komisyon> {
                               borderRadius: BorderRadius.circular(10)),
                           child: TextFormField(
                             inputFormatters: [
-                              FilteringTextInputFormatter.deny(",")
+                              FilteringTextInputFormatter.allow(
+                                  RegExp(r'^\d+\.?\d{0,2}')),
                             ],
                             keyboardType:
                                 TextInputType.numberWithOptions(decimal: true),
@@ -287,7 +286,8 @@ class _KomisyonState extends State<Komisyon> {
                             });
                           },
                           inputFormatters: [
-                            FilteringTextInputFormatter.deny(",")
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'^\d+\.?\d{0,2}')),
                           ],
                           controller: t4,
                           keyboardType:
@@ -326,11 +326,7 @@ class _KomisyonState extends State<Komisyon> {
                     }
                   });
                 },
-                child: Text(
-                  "Hesapla",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20),
-                ),
+                child: hesapla,
               ),
               SizedBox(
                 height: 10,
@@ -341,7 +337,7 @@ class _KomisyonState extends State<Komisyon> {
                   color: Colors.blue,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
                         "Aldığınız Pay Tutarı :  ${AlinanPaySonuc.toStringAsFixed(2)} ₺",
