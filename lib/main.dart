@@ -318,13 +318,13 @@ class _HomePageState extends State<HomePage> {
           ),
           centerTitle: true,
         ),
-        body: GridView.count(
-          childAspectRatio: 0.9,
+        body: GridView.extent(
+          childAspectRatio: 0.85,
           primary: true,
-          crossAxisSpacing: 30,
-          mainAxisSpacing: 10,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 1,
           padding: EdgeInsets.all(30.0),
-          crossAxisCount: 2,
+          maxCrossAxisExtent: 200,
           children: [
             GorevButton(
               logo: "assets/percentage.png",

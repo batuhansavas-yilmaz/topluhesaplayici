@@ -56,6 +56,7 @@ var altblur = Container(
   height: 0.5,
 );
 
+//virgülden sonra doğru yuvarlama için
 extension Precision on double {
   double toPrecision(int fractionDigits) {
     num mod = pow(10, fractionDigits.toDouble());
@@ -99,17 +100,17 @@ class _GorevButtonState extends State<GorevButton> {
             padding: const EdgeInsets.all(8.0),
             child: Image.asset(
               widget.logo.toString(),
-              width: 250,
+              width: 132,
             ),
           ),
         ),
         SizedBox(
-          height: 6,
+          height: 10,
         ),
         Text(
           "${widget.altisim}",
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ],
     );

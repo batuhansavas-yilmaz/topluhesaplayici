@@ -199,7 +199,8 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
                               tamDepoKm = double.parse(t2.text);
                               yakitFiyati = double.parse(t3.text);
                               litreSonuc = (kapasite / tamDepoKm);
-                              yakitFiyatiSonuc = litreSonuc * yakitFiyati;
+                              yakitFiyatiSonuc = (litreSonuc * yakitFiyati);
+
                               sonuc = true;
                             } else {
                               showToast("Lütfen bir değer girin",
@@ -250,7 +251,8 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
                         tamDepoKm = double.parse(t2.text);
                         yakitFiyati = double.parse(t3.text);
                         litreSonuc = (kapasite / tamDepoKm);
-                        yakitFiyatiSonuc = litreSonuc * yakitFiyati;
+                        yakitFiyatiSonuc = (litreSonuc * yakitFiyati);
+
                         sonuc = true;
                       } else {
                         showToast("Lütfen bir değer girin",

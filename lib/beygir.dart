@@ -71,12 +71,12 @@ class _BeygirState extends State<Beygir> {
         ),
         body: ListView(
           children: [
-            SizedBox(
-              height: 20,
-            ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(
+                  height: 20,
+                ),
                 Text(
                   "Kilowatt (kW)",
                   style: TextStyle(

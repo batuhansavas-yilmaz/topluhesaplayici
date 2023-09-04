@@ -466,6 +466,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       toplamDahilTutar = 0.00;
                                       t1.clear();
                                       t2.clear();
+                                      kdv = false;
                                     });
                                   },
                                 )
@@ -936,8 +937,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                 (dahilMatrahTevkifat +
                                                         dahilTevkifatSonrasiKdv)
                                                     .toPrecision(2);
-                                            t3.clear();
-                                            t4.clear();
+
                                             tefkkdv = true;
                                             toast();
                                           } else {
@@ -1008,8 +1008,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                 (dahilMatrahTevkifat +
                                                         dahilTevkifatSonrasiKdv)
                                                     .toPrecision(2);
-                                            t3.clear();
-                                            t4.clear();
+
                                             tefkkdv = true;
                                             toast();
                                           } else {
@@ -1080,8 +1079,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                             (dahilMatrahTevkifat +
                                                     dahilTevkifatSonrasiKdv)
                                                 .toPrecision(2);
-                                        t3.clear();
-                                        t4.clear();
+
                                         tefkkdv = true;
                                         toast();
                                       } else {
