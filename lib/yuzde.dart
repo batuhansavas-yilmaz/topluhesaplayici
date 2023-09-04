@@ -143,10 +143,13 @@ class _YuzdeState extends State<Yuzde> {
                                       .requestFocus(new FocusNode());
                                   x = double.parse(t1.text);
                                   y = double.parse(t2.text);
-                                  yxinyuzdekacisonuc = (y / x) * 100;
-                                  yninyuzdexisonuc = (x * (y / 100));
-                                  artim = (x + yninyuzdexisonuc);
-                                  azalim = (x - yninyuzdexisonuc);
+                                  yxinyuzdekacisonuc =
+                                      ((y / x) * 100).toPrecision(2);
+                                  yninyuzdexisonuc =
+                                      (x * (y / 100)).toPrecision(2);
+                                  artim = (x + yninyuzdexisonuc).toPrecision(2);
+                                  azalim =
+                                      (x - yninyuzdexisonuc).toPrecision(2);
 
                                   sonuc = true;
                                 } else {
@@ -188,10 +191,10 @@ class _YuzdeState extends State<Yuzde> {
                         FocusScope.of(context).requestFocus(new FocusNode());
                         x = double.parse(t1.text);
                         y = double.parse(t2.text);
-                        yxinyuzdekacisonuc = (y / x) * 100;
-                        yninyuzdexisonuc = (x * (y / 100));
-                        artim = (x + yninyuzdexisonuc);
-                        azalim = (x - yninyuzdexisonuc);
+                        yxinyuzdekacisonuc = ((y / x) * 100).toPrecision(2);
+                        yninyuzdexisonuc = (x * (y / 100)).toPrecision(2);
+                        artim = (x + yninyuzdexisonuc).toPrecision(2);
+                        azalim = (x - yninyuzdexisonuc).toPrecision(2);
 
                         sonuc = true;
                       } else {

@@ -180,14 +180,15 @@ class _AquariumState extends State<Aquarium> {
                               en = double.parse(en_.text);
                               derinlik = double.parse(derinlik_.text);
                               kumCm_ = double.parse(kumCm.text);
-                              sonuc = (uzunluk * en * derinlik) / 1000;
-                              bitkisiz = sonuc * 0.25;
-                              bitkili = sonuc * 0.50;
-                              filtrasyonMin = sonuc * 2.50;
-                              filtrasyonMax = sonuc * 4.75;
-                              isitici = sonuc * 0.6667;
-                              kum = sonuc * 0.025;
-                              kumKg = kum * kumCm_;
+                              sonuc = ((uzunluk * en * derinlik) / 1000)
+                                  .toPrecision(2);
+                              bitkisiz = (sonuc * 0.25).toPrecision(2);
+                              bitkili = (sonuc * 0.50).toPrecision(2);
+                              filtrasyonMin = (sonuc * 2.50).toPrecision(2);
+                              filtrasyonMax = (sonuc * 4.75).toPrecision(2);
+                              isitici = (sonuc * 0.6667).toPrecision(2);
+                              kum = (sonuc * 0.025).toPrecision(2);
+                              kumKg = (kum * kumCm_).toPrecision(2);
                               replay = true;
                             } else {
                               mesaj = "Lütfen bir değer girin";
@@ -223,35 +224,62 @@ class _AquariumState extends State<Aquarium> {
               child: Column(children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: ElevatedButton(
-                    child: hesapla,
-                    onPressed: () {
-                      setState(() {
-                        if (uzunluk_.text.isNotEmpty &&
-                            en_.text.isNotEmpty &&
-                            derinlik_.text.isNotEmpty &&
-                            kumCm.text.isNotEmpty) {
-                          FocusScope.of(context)
-                              .requestFocus(new FocusNode()); // klavye kapatıcı
-                          uzunluk = double.parse(uzunluk_.text);
-                          en = double.parse(en_.text);
-                          derinlik = double.parse(derinlik_.text);
-                          kumCm_ = double.parse(kumCm.text);
-                          sonuc = (uzunluk * en * derinlik) / 1000;
-                          bitkisiz = sonuc * 0.25;
-                          bitkili = sonuc * 0.50;
-                          filtrasyonMin = sonuc * 2.50;
-                          filtrasyonMax = sonuc * 4.75;
-                          isitici = sonuc * 0.6667;
-                          kum = sonuc * 0.025;
-                          kumKg = kum * kumCm_;
-                          replay = true;
-                        } else {
-                          mesaj = "Lütfen bir değer girin";
-                          toast();
-                        }
-                      });
-                    },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 64,
+                      ),
+                      ElevatedButton(
+                        child: hesapla,
+                        onPressed: () {
+                          setState(() {
+                            if (uzunluk_.text.isNotEmpty &&
+                                en_.text.isNotEmpty &&
+                                derinlik_.text.isNotEmpty &&
+                                kumCm.text.isNotEmpty) {
+                              FocusScope.of(context).requestFocus(
+                                  new FocusNode()); // klavye kapatıcı
+                              uzunluk = double.parse(uzunluk_.text);
+                              en = double.parse(en_.text);
+                              derinlik = double.parse(derinlik_.text);
+                              kumCm_ = double.parse(kumCm.text);
+                              sonuc = ((uzunluk * en * derinlik) / 1000)
+                                  .toPrecision(2);
+                              bitkisiz = (sonuc * 0.25).toPrecision(2);
+                              bitkili = (sonuc * 0.50).toPrecision(2);
+                              filtrasyonMin = (sonuc * 2.50).toPrecision(2);
+                              filtrasyonMax = (sonuc * 4.75).toPrecision(2);
+                              isitici = (sonuc * 0.6667).toPrecision(2);
+                              kum = (sonuc * 0.025).toPrecision(2);
+                              kumKg = (kum * kumCm_).toPrecision(2);
+                              replay = true;
+                            } else {
+                              mesaj = "Lütfen bir değer girin";
+                              toast();
+                            }
+                          });
+                        },
+                      ),
+                      replay == true
+                          ? ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  shape: CircleBorder(eccentricity: 0.0)),
+                              child: Icon(Icons.replay),
+                              onPressed: () {
+                                setState(() {
+                                  _focusNode.requestFocus();
+                                  uzunluk_.clear();
+                                  derinlik_.clear();
+                                  en_.clear();
+                                  replay = false;
+                                });
+                              },
+                            )
+                          : SizedBox(
+                              width: 64,
+                            ),
+                    ],
                   ),
                 ),
               ]),
@@ -425,14 +453,19 @@ class _AquariumState extends State<Aquarium> {
                                         derinlik = double.parse(derinlik_.text);
                                         kumCm_ = double.parse(kumCm.text);
                                         sonuc =
-                                            (uzunluk * en * derinlik) / 1000;
-                                        bitkisiz = sonuc * 0.25;
-                                        bitkili = sonuc * 0.50;
-                                        filtrasyonMin = sonuc * 2.50;
-                                        filtrasyonMax = sonuc * 4.75;
-                                        isitici = sonuc * 0.6667;
-                                        kum = sonuc * 0.025;
-                                        kumKg = kum * kumCm_;
+                                            ((uzunluk * en * derinlik) / 1000)
+                                                .toPrecision(2);
+                                        bitkisiz =
+                                            (sonuc * 0.25).toPrecision(2);
+                                        bitkili = (sonuc * 0.50).toPrecision(2);
+                                        filtrasyonMin =
+                                            (sonuc * 2.50).toPrecision(2);
+                                        filtrasyonMax =
+                                            (sonuc * 4.75).toPrecision(2);
+                                        isitici =
+                                            (sonuc * 0.6667).toPrecision(2);
+                                        kum = (sonuc * 0.025).toPrecision(2);
+                                        kumKg = (kum * kumCm_).toPrecision(2);
                                         replay = true;
                                       } else {
                                         mesaj = "Lütfen bir değer girin";
@@ -479,24 +512,6 @@ class _AquariumState extends State<Aquarium> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  if (replay == true)
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(eccentricity: 0.0)),
-                      child: Icon(Icons.replay),
-                      onPressed: () {
-                        setState(() {
-                          _focusNode.requestFocus();
-                          uzunluk_.clear();
-                          derinlik_.clear();
-                          en_.clear();
-                          replay = false;
-                        });
-                      },
-                    ),
                   SizedBox(
                     height: 170,
                   ),

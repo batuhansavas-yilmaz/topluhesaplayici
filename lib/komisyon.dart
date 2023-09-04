@@ -138,7 +138,9 @@ class _KomisyonState extends State<Komisyon> {
                                       .requestFocus(new FocusNode());
                                   AnaPara = double.parse(t1.text);
                                   AlinanPay = double.parse(t2.text);
-                                  AlinanOranSonuc = (AlinanPay / AnaPara) * 100;
+                                  AlinanOranSonuc =
+                                      ((AlinanPay / AnaPara) * 100)
+                                          .toPrecision(2);
                                   oran = true;
                                 } else {
                                   mesaj = "Lütfen bir değer girin";
@@ -175,7 +177,8 @@ class _KomisyonState extends State<Komisyon> {
                         FocusScope.of(context).requestFocus(new FocusNode());
                         AnaPara = double.parse(t1.text);
                         AlinanPay = double.parse(t2.text);
-                        AlinanOranSonuc = (AlinanPay / AnaPara) * 100;
+                        AlinanOranSonuc =
+                            ((AlinanPay / AnaPara) * 100).toPrecision(2);
                         oran = true;
                       } else {
                         mesaj = "Lütfen bir değer girin";
@@ -267,7 +270,8 @@ class _KomisyonState extends State<Komisyon> {
                                   AnaPara = double.parse(t3.text);
                                   AlinanOran = double.parse(t4.text);
                                   AlinanPaySonuc =
-                                      (AnaPara * (AlinanOran / 100));
+                                      (AnaPara * (AlinanOran / 100))
+                                          .toPrecision(2);
                                   tutar = true;
                                 } else {
                                   mesaj = "Lütfen bir değer girin";
@@ -304,7 +308,8 @@ class _KomisyonState extends State<Komisyon> {
                         FocusScope.of(context).requestFocus(new FocusNode());
                         AnaPara = double.parse(t3.text);
                         AlinanOran = double.parse(t4.text);
-                        AlinanPaySonuc = (AnaPara * (AlinanOran / 100));
+                        AlinanPaySonuc =
+                            (AnaPara * (AlinanOran / 100)).toPrecision(2);
                         tutar = true;
                       } else {
                         mesaj = "Lütfen bir değer girin";

@@ -15,7 +15,7 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
   final TextEditingController t1 = TextEditingController();
   final TextEditingController t2 = TextEditingController();
   final TextEditingController t3 = TextEditingController();
-
+  final _focusNode = FocusNode();
   double litreSonuc = 0.00;
   double kapasite = 0.00;
   double tamDepoKm = 0.00;
@@ -55,7 +55,6 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
     _bannerAd!.dispose();
   }
 
-  final _focusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

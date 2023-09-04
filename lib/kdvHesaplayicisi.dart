@@ -73,6 +73,8 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
   TextEditingController t2 = TextEditingController(text: '');
   TextEditingController t3 = TextEditingController(text: '');
   TextEditingController t4 = TextEditingController(text: '');
+  final _focusNode1 = FocusNode();
+  final _focusNode2 = FocusNode();
   void initState() {
     super.initState();
     _loadBannerAd();
@@ -133,6 +135,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10)),
                               child: TextFormField(
+                                focusNode: _focusNode1,
                                 keyboardType: TextInputType.numberWithOptions(
                                   decimal: true,
                                 ),
@@ -177,20 +180,24 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır";
                                       //kdv haric
                                       HarickenKdvTutari =
-                                          (hesapTutar * (hesapOran / 100));
-                                      haricTutar = hesapTutar;
+                                          (hesapTutar * (hesapOran / 100))
+                                              .toPrecision(2);
+                                      haricTutar = hesapTutar.toPrecision(2);
                                       toplamHaricTutar =
-                                          HarickenKdvTutari + haricTutar;
+                                          (HarickenKdvTutari + haricTutar)
+                                              .toPrecision(2);
                                       //kdvdahil
                                       dahilTutar =
-                                          hesapTutar / ((hesapOran / 100) + 1);
+                                          (hesapTutar / ((hesapOran / 100) + 1))
+                                              .toPrecision(2);
                                       dahilkenKdvTutari =
-                                          hesapTutar - dahilTutar;
-                                      toplamDahilTutar = hesapTutar;
+                                          (hesapTutar - dahilTutar)
+                                              .toPrecision(2);
+                                      toplamDahilTutar =
+                                          hesapTutar.toPrecision(2);
 
                                       toast();
-                                      t1.clear();
-                                      t2.clear();
+
                                       kdv = true;
                                     } else {
                                       mesaj = "Lütfen bir değer girin";
@@ -222,35 +229,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                       SizedBox(
                         height: 5,
                       ),
-                      if (kdv == true)
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Girilen Tutar",
-                                  style: stil,
-                                ),
-                                Text(
-                                  "Girilen KDV Oranı",
-                                  style: stil,
-                                ),
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(" : ${hesapTutar.toStringAsFixed(2)}₺",
-                                    style: stil2),
-                                Text(" : %${hesapOran.toStringAsFixed(0)}",
-                                    style: stil2),
-                              ],
-                            )
-                          ],
-                        ),
                       ElevatedButton(
                           onPressed: () {
                             setState(() {
@@ -267,17 +245,20 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                     "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır";
                                 //kdv haric
                                 HarickenKdvTutari =
-                                    (hesapTutar * (hesapOran / 100));
-                                haricTutar = hesapTutar;
+                                    (hesapTutar * (hesapOran / 100))
+                                        .toPrecision(2);
+                                haricTutar = hesapTutar.toPrecision(2);
                                 toplamHaricTutar =
-                                    HarickenKdvTutari + haricTutar;
+                                    (HarickenKdvTutari + haricTutar)
+                                        .toPrecision(2);
                                 //kdvdahil
                                 dahilTutar =
-                                    hesapTutar / ((hesapOran / 100) + 1);
-                                dahilkenKdvTutari = hesapTutar - dahilTutar;
-                                toplamDahilTutar = hesapTutar;
-                                t1.clear();
-                                t2.clear();
+                                    (hesapTutar / ((hesapOran / 100) + 1))
+                                        .toPrecision(2);
+                                dahilkenKdvTutari =
+                                    (hesapTutar - dahilTutar).toPrecision(2);
+                                toplamDahilTutar = hesapTutar.toPrecision(2);
+
                                 toast();
                                 kdv = true;
                               } else {
@@ -466,6 +447,28 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                   ],
                                 ),
                               ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              if (kdv == true)
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      shape: CircleBorder(eccentricity: 0.0)),
+                                  child: Icon(Icons.replay),
+                                  onPressed: () {
+                                    setState(() {
+                                      haricTutar = 0.00;
+                                      HarickenKdvTutari = 0.00;
+                                      toplamHaricTutar = 0.00;
+                                      _focusNode1.requestFocus();
+                                      dahilTutar = 0.00;
+                                      dahilkenKdvTutari = 0.00;
+                                      toplamDahilTutar = 0.00;
+                                      t1.clear();
+                                      t2.clear();
+                                    });
+                                  },
+                                )
                             ],
                           ),
                         ),
@@ -495,6 +498,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10)),
                               child: TextFormField(
+                                focusNode: _focusNode2,
                                 keyboardType: TextInputType.numberWithOptions(
                                     decimal: true),
                                 inputFormatters: [
@@ -552,7 +556,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                       child: Column(
                         children: [
                           Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Column(
@@ -574,38 +578,48 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                 double.parse(t4.text);
                                             tevkifatOncesiKDV =
                                                 (matrahTevkifat *
-                                                    (oranTevkifat / 100));
+                                                        (oranTevkifat / 100))
+                                                    .toPrecision(2);
                                             kdvDahilTevkifatliToplamTutar =
-                                                matrahTevkifat +
-                                                    tevkifatOncesiKDV;
+                                                (matrahTevkifat +
+                                                        tevkifatOncesiKDV)
+                                                    .toPrecision(2);
 
                                             Tevkifat =
-                                                (tevkifatOncesiKDV * 0.20);
+                                                (tevkifatOncesiKDV * 0.20)
+                                                    .toPrecision(2);
                                             TevkifatSonrasiKDV =
-                                                (tevkifatOncesiKDV - Tevkifat);
+                                                (tevkifatOncesiKDV - Tevkifat)
+                                                    .toPrecision(2);
                                             TevkifatliToplamTutar =
                                                 (matrahTevkifat +
-                                                    TevkifatSonrasiKDV);
+                                                        TevkifatSonrasiKDV)
+                                                    .toPrecision(2);
                                             //dahiltevk
                                             dahilMatrahTevkifat =
-                                                matrahTevkifat /
-                                                    ((oranTevkifat / 100) + 1);
+                                                (matrahTevkifat /
+                                                        ((oranTevkifat / 100) +
+                                                            1))
+                                                    .toPrecision(2);
                                             dahilTevkifatOncesiKdv =
-                                                dahilMatrahTevkifat *
-                                                    (oranTevkifat / 100);
+                                                (dahilMatrahTevkifat *
+                                                        (oranTevkifat / 100))
+                                                    .toPrecision(2);
                                             dahilKdvDahilTevkifatliToplamTutar =
-                                                matrahTevkifat;
+                                                matrahTevkifat.toPrecision(2);
 
                                             dahilTevkifat =
-                                                (dahilTevkifatOncesiKdv * 0.20);
+                                                (dahilTevkifatOncesiKdv * 0.20)
+                                                    .toPrecision(2);
                                             dahilTevkifatSonrasiKdv =
                                                 (dahilTevkifatOncesiKdv -
-                                                    dahilTevkifat);
+                                                        dahilTevkifat)
+                                                    .toPrecision(2);
                                             dahilTevkifatToplamTutar =
-                                                dahilMatrahTevkifat +
-                                                    dahilTevkifatSonrasiKdv;
-                                            t3.clear();
-                                            t4.clear();
+                                                (dahilMatrahTevkifat +
+                                                        dahilTevkifatSonrasiKdv)
+                                                    .toPrecision(2);
+
                                             tefkkdv = true;
                                             toast();
                                           } else {
@@ -635,38 +649,48 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                 double.parse(t4.text);
                                             tevkifatOncesiKDV =
                                                 (matrahTevkifat *
-                                                    (oranTevkifat / 100));
+                                                        (oranTevkifat / 100))
+                                                    .toPrecision(2);
                                             kdvDahilTevkifatliToplamTutar =
-                                                matrahTevkifat +
-                                                    tevkifatOncesiKDV;
+                                                (matrahTevkifat +
+                                                        tevkifatOncesiKDV)
+                                                    .toPrecision(2);
 
                                             Tevkifat =
-                                                (tevkifatOncesiKDV * 0.40);
+                                                (tevkifatOncesiKDV * 0.40)
+                                                    .toPrecision(2);
                                             TevkifatSonrasiKDV =
-                                                (tevkifatOncesiKDV - Tevkifat);
+                                                (tevkifatOncesiKDV - Tevkifat)
+                                                    .toPrecision(2);
                                             TevkifatliToplamTutar =
                                                 (matrahTevkifat +
-                                                    TevkifatSonrasiKDV);
+                                                        TevkifatSonrasiKDV)
+                                                    .toPrecision(2);
                                             //dahiltevk
                                             dahilMatrahTevkifat =
-                                                matrahTevkifat /
-                                                    ((oranTevkifat / 100) + 1);
+                                                (matrahTevkifat /
+                                                        ((oranTevkifat / 100) +
+                                                            1))
+                                                    .toPrecision(2);
                                             dahilTevkifatOncesiKdv =
-                                                dahilMatrahTevkifat *
-                                                    (oranTevkifat / 100);
+                                                (dahilMatrahTevkifat *
+                                                        (oranTevkifat / 100))
+                                                    .toPrecision(2);
                                             dahilKdvDahilTevkifatliToplamTutar =
-                                                matrahTevkifat;
+                                                matrahTevkifat.toPrecision(2);
 
                                             dahilTevkifat =
-                                                (dahilTevkifatOncesiKdv * 0.40);
+                                                (dahilTevkifatOncesiKdv * 0.40)
+                                                    .toPrecision(2);
                                             dahilTevkifatSonrasiKdv =
                                                 (dahilTevkifatOncesiKdv -
-                                                    dahilTevkifat);
+                                                        dahilTevkifat)
+                                                    .toPrecision(2);
                                             dahilTevkifatToplamTutar =
-                                                dahilMatrahTevkifat +
-                                                    dahilTevkifatSonrasiKdv;
-                                            t3.clear();
-                                            t4.clear();
+                                                (dahilMatrahTevkifat +
+                                                        dahilTevkifatSonrasiKdv)
+                                                    .toPrecision(2);
+
                                             tefkkdv = true;
                                             toast();
                                           } else {
@@ -696,38 +720,48 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                 double.parse(t4.text);
                                             tevkifatOncesiKDV =
                                                 (matrahTevkifat *
-                                                    (oranTevkifat / 100));
+                                                        (oranTevkifat / 100))
+                                                    .toPrecision(2);
                                             kdvDahilTevkifatliToplamTutar =
-                                                matrahTevkifat +
-                                                    tevkifatOncesiKDV;
+                                                (matrahTevkifat +
+                                                        tevkifatOncesiKDV)
+                                                    .toPrecision(2);
 
                                             Tevkifat =
-                                                (tevkifatOncesiKDV * 0.70);
+                                                (tevkifatOncesiKDV * 0.70)
+                                                    .toPrecision(2);
                                             TevkifatSonrasiKDV =
-                                                (tevkifatOncesiKDV - Tevkifat);
+                                                (tevkifatOncesiKDV - Tevkifat)
+                                                    .toPrecision(2);
                                             TevkifatliToplamTutar =
                                                 (matrahTevkifat +
-                                                    TevkifatSonrasiKDV);
+                                                        TevkifatSonrasiKDV)
+                                                    .toPrecision(2);
                                             //dahiltevk
                                             dahilMatrahTevkifat =
-                                                matrahTevkifat /
-                                                    ((oranTevkifat / 100) + 1);
+                                                (matrahTevkifat /
+                                                        ((oranTevkifat / 100) +
+                                                            1))
+                                                    .toPrecision(2);
                                             dahilTevkifatOncesiKdv =
-                                                dahilMatrahTevkifat *
-                                                    (oranTevkifat / 100);
+                                                (dahilMatrahTevkifat *
+                                                        (oranTevkifat / 100))
+                                                    .toPrecision(2);
                                             dahilKdvDahilTevkifatliToplamTutar =
-                                                matrahTevkifat;
+                                                matrahTevkifat.toPrecision(2);
 
                                             dahilTevkifat =
-                                                (dahilTevkifatOncesiKdv * 0.70);
+                                                (dahilTevkifatOncesiKdv * 0.70)
+                                                    .toPrecision(2);
                                             dahilTevkifatSonrasiKdv =
                                                 (dahilTevkifatOncesiKdv -
-                                                    dahilTevkifat);
+                                                        dahilTevkifat)
+                                                    .toPrecision(2);
                                             dahilTevkifatToplamTutar =
-                                                dahilMatrahTevkifat +
-                                                    dahilTevkifatSonrasiKdv;
-                                            t3.clear();
-                                            t4.clear();
+                                                (dahilMatrahTevkifat +
+                                                        dahilTevkifatSonrasiKdv)
+                                                    .toPrecision(2);
+
                                             tefkkdv = true;
                                             toast();
                                           } else {
@@ -743,41 +777,33 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                 ],
                               ),
                               if (tefkkdv == true)
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      "Girilen Tutar ",
-                                      style: stil,
-                                    ),
-                                    Text(
-                                      "Girilen KDV Oranı",
-                                      style: stil,
-                                    ),
-                                    Text(
-                                      "KDV Tevkifat Oranı",
-                                      style: stil,
-                                    ),
-                                  ],
-                                ),
-                              if (tefkkdv == true)
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                        " : ${matrahTevkifat.toStringAsFixed(2)}₺",
-                                        style: stil2),
-                                    Text(
-                                        " : %${oranTevkifat.toStringAsFixed(0)}",
-                                        style: stil2),
-                                    Text(" : $tevk", style: stil2),
-                                  ],
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      shape: CircleBorder(eccentricity: 0.0)),
+                                  child: Icon(Icons.replay),
+                                  onPressed: () {
+                                    setState(() {
+                                      _focusNode2.requestFocus();
+                                      matrahTevkifat = 0.00;
+                                      TevkifatSonrasiKDV = 0.00;
+                                      kdvDahilTevkifatliToplamTutar = 0.00;
+                                      tevkifatOncesiKDV = 0.00;
+                                      Tevkifat = 0.00;
+                                      oranTevkifat = 0.00;
+                                      TevkifatliToplamTutar = 0.00;
+
+                                      //kdv dahil tevk
+                                      dahilMatrahTevkifat = 0.00;
+                                      dahilTevkifatOncesiKdv = 0.00;
+                                      dahilTevkifatToplamTutar = 0.00;
+                                      dahilKdvDahilTevkifatliToplamTutar = 0.00;
+                                      dahilTevkifat = 0.00;
+                                      dahilTevkifatSonrasiKdv = 0.00;
+                                      t3.clear();
+                                      t4.clear();
+                                      tefkkdv = false;
+                                    });
+                                  },
                                 ),
                               Column(
                                 children: [
@@ -798,39 +824,48 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                 double.parse(t4.text);
                                             tevkifatOncesiKDV =
                                                 (matrahTevkifat *
-                                                    (oranTevkifat / 100));
+                                                        (oranTevkifat / 100))
+                                                    .toPrecision(2);
                                             kdvDahilTevkifatliToplamTutar =
-                                                matrahTevkifat +
-                                                    tevkifatOncesiKDV;
+                                                (matrahTevkifat +
+                                                        tevkifatOncesiKDV)
+                                                    .toPrecision(2);
 
                                             Tevkifat =
-                                                (tevkifatOncesiKDV * 0.30);
+                                                (tevkifatOncesiKDV * 0.30)
+                                                    .toPrecision(2);
                                             TevkifatSonrasiKDV =
-                                                (tevkifatOncesiKDV - Tevkifat);
+                                                (tevkifatOncesiKDV - Tevkifat)
+                                                    .toPrecision(2);
                                             TevkifatliToplamTutar =
                                                 (matrahTevkifat +
-                                                    TevkifatSonrasiKDV);
+                                                        TevkifatSonrasiKDV)
+                                                    .toPrecision(2);
                                             //dahiltevk
                                             dahilMatrahTevkifat =
-                                                matrahTevkifat /
-                                                    ((oranTevkifat / 100) + 1);
+                                                (matrahTevkifat /
+                                                        ((oranTevkifat / 100) +
+                                                            1))
+                                                    .toPrecision(2);
                                             dahilTevkifatOncesiKdv =
-                                                dahilMatrahTevkifat *
-                                                    (oranTevkifat / 100);
+                                                (dahilMatrahTevkifat *
+                                                        (oranTevkifat / 100))
+                                                    .toPrecision(2);
                                             dahilKdvDahilTevkifatliToplamTutar =
-                                                matrahTevkifat;
+                                                matrahTevkifat.toPrecision(2);
 
                                             dahilTevkifat =
-                                                (dahilTevkifatOncesiKdv * 0.30);
+                                                (dahilTevkifatOncesiKdv * 0.30)
+                                                    .toPrecision(2);
                                             dahilTevkifatSonrasiKdv =
                                                 (dahilTevkifatOncesiKdv -
-                                                    dahilTevkifat);
+                                                        dahilTevkifat)
+                                                    .toPrecision(2);
                                             dahilTevkifatToplamTutar =
-                                                dahilMatrahTevkifat +
-                                                    dahilTevkifatSonrasiKdv;
+                                                (dahilMatrahTevkifat +
+                                                        dahilTevkifatSonrasiKdv)
+                                                    .toPrecision(2);
 
-                                            t3.clear();
-                                            t4.clear();
                                             tefkkdv = true;
                                             toast();
                                           } else {
@@ -860,36 +895,47 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                 double.parse(t4.text);
                                             tevkifatOncesiKDV =
                                                 (matrahTevkifat *
-                                                    (oranTevkifat / 100));
+                                                        (oranTevkifat / 100))
+                                                    .toPrecision(2);
                                             kdvDahilTevkifatliToplamTutar =
-                                                matrahTevkifat +
-                                                    tevkifatOncesiKDV;
+                                                (matrahTevkifat +
+                                                        tevkifatOncesiKDV)
+                                                    .toPrecision(2);
 
                                             Tevkifat =
-                                                (tevkifatOncesiKDV * 0.50);
+                                                (tevkifatOncesiKDV * 0.50)
+                                                    .toPrecision(2);
                                             TevkifatSonrasiKDV =
-                                                (tevkifatOncesiKDV - Tevkifat);
+                                                (tevkifatOncesiKDV - Tevkifat)
+                                                    .toPrecision(2);
                                             TevkifatliToplamTutar =
                                                 (matrahTevkifat +
-                                                    TevkifatSonrasiKDV);
+                                                        TevkifatSonrasiKDV)
+                                                    .toPrecision(2);
                                             //dahiltevk
                                             dahilMatrahTevkifat =
-                                                matrahTevkifat /
-                                                    ((oranTevkifat / 100) + 1);
+                                                (matrahTevkifat /
+                                                        ((oranTevkifat / 100) +
+                                                            1))
+                                                    .toPrecision(2);
                                             dahilTevkifatOncesiKdv =
-                                                dahilMatrahTevkifat *
-                                                    (oranTevkifat / 100);
+                                                (dahilMatrahTevkifat *
+                                                        (oranTevkifat / 100))
+                                                    .toPrecision(2);
                                             dahilKdvDahilTevkifatliToplamTutar =
-                                                matrahTevkifat;
+                                                matrahTevkifat.toPrecision(2);
 
                                             dahilTevkifat =
-                                                (dahilTevkifatOncesiKdv * 0.50);
+                                                (dahilTevkifatOncesiKdv * 0.50)
+                                                    .toPrecision(2);
                                             dahilTevkifatSonrasiKdv =
                                                 (dahilTevkifatOncesiKdv -
-                                                    dahilTevkifat);
+                                                        dahilTevkifat)
+                                                    .toPrecision(2);
                                             dahilTevkifatToplamTutar =
-                                                dahilMatrahTevkifat +
-                                                    dahilTevkifatSonrasiKdv;
+                                                (dahilMatrahTevkifat +
+                                                        dahilTevkifatSonrasiKdv)
+                                                    .toPrecision(2);
                                             t3.clear();
                                             t4.clear();
                                             tefkkdv = true;
@@ -921,36 +967,47 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                 double.parse(t4.text);
                                             tevkifatOncesiKDV =
                                                 (matrahTevkifat *
-                                                    (oranTevkifat / 100));
+                                                        (oranTevkifat / 100))
+                                                    .toPrecision(2);
                                             kdvDahilTevkifatliToplamTutar =
-                                                matrahTevkifat +
-                                                    tevkifatOncesiKDV;
+                                                (matrahTevkifat +
+                                                        tevkifatOncesiKDV)
+                                                    .toPrecision(2);
 
                                             Tevkifat =
-                                                (tevkifatOncesiKDV * 0.90);
+                                                (tevkifatOncesiKDV * 0.90)
+                                                    .toPrecision(2);
                                             TevkifatSonrasiKDV =
-                                                (tevkifatOncesiKDV - Tevkifat);
+                                                (tevkifatOncesiKDV - Tevkifat)
+                                                    .toPrecision(2);
                                             TevkifatliToplamTutar =
                                                 (matrahTevkifat +
-                                                    TevkifatSonrasiKDV);
+                                                        TevkifatSonrasiKDV)
+                                                    .toPrecision(2);
                                             //dahiltevk
                                             dahilMatrahTevkifat =
-                                                matrahTevkifat /
-                                                    ((oranTevkifat / 100) + 1);
+                                                (matrahTevkifat /
+                                                        ((oranTevkifat / 100) +
+                                                            1))
+                                                    .toPrecision(2);
                                             dahilTevkifatOncesiKdv =
-                                                dahilMatrahTevkifat *
-                                                    (oranTevkifat / 100);
+                                                (dahilMatrahTevkifat *
+                                                        (oranTevkifat / 100))
+                                                    .toPrecision(2);
                                             dahilKdvDahilTevkifatliToplamTutar =
-                                                matrahTevkifat;
+                                                matrahTevkifat.toPrecision(2);
 
                                             dahilTevkifat =
-                                                (dahilTevkifatOncesiKdv * 0.90);
+                                                (dahilTevkifatOncesiKdv * 0.90)
+                                                    .toPrecision(2);
                                             dahilTevkifatSonrasiKdv =
                                                 (dahilTevkifatOncesiKdv -
-                                                    dahilTevkifat);
+                                                        dahilTevkifat)
+                                                    .toPrecision(2);
                                             dahilTevkifatToplamTutar =
-                                                dahilMatrahTevkifat +
-                                                    dahilTevkifatSonrasiKdv;
+                                                (dahilMatrahTevkifat +
+                                                        dahilTevkifatSonrasiKdv)
+                                                    .toPrecision(2);
                                             t3.clear();
                                             t4.clear();
                                             tefkkdv = true;
@@ -986,33 +1043,43 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                         matrahTevkifat = double.parse(t3.text);
                                         oranTevkifat = double.parse(t4.text);
                                         tevkifatOncesiKDV = (matrahTevkifat *
-                                            (oranTevkifat / 100));
+                                                (oranTevkifat / 100))
+                                            .toPrecision(2);
                                         kdvDahilTevkifatliToplamTutar =
-                                            matrahTevkifat + tevkifatOncesiKDV;
+                                            (matrahTevkifat + tevkifatOncesiKDV)
+                                                .toPrecision(2);
 
-                                        Tevkifat = (tevkifatOncesiKDV * 1);
+                                        Tevkifat = (tevkifatOncesiKDV * 1)
+                                            .toPrecision(2);
                                         TevkifatSonrasiKDV =
-                                            (tevkifatOncesiKDV - Tevkifat);
+                                            (tevkifatOncesiKDV - Tevkifat)
+                                                .toPrecision(2);
                                         TevkifatliToplamTutar =
                                             (matrahTevkifat +
-                                                TevkifatSonrasiKDV);
+                                                    TevkifatSonrasiKDV)
+                                                .toPrecision(2);
                                         //dahiltevk
-                                        dahilMatrahTevkifat = matrahTevkifat /
-                                            ((oranTevkifat / 100) + 1);
+                                        dahilMatrahTevkifat = (matrahTevkifat /
+                                                ((oranTevkifat / 100) + 1))
+                                            .toPrecision(2);
                                         dahilTevkifatOncesiKdv =
-                                            dahilMatrahTevkifat *
-                                                (oranTevkifat / 100);
+                                            (dahilMatrahTevkifat *
+                                                    (oranTevkifat / 100))
+                                                .toPrecision(2);
                                         dahilKdvDahilTevkifatliToplamTutar =
-                                            matrahTevkifat;
+                                            matrahTevkifat.toPrecision(2);
 
                                         dahilTevkifat =
-                                            (dahilTevkifatOncesiKdv * 1);
+                                            (dahilTevkifatOncesiKdv * 1)
+                                                .toPrecision(2);
                                         dahilTevkifatSonrasiKdv =
                                             (dahilTevkifatOncesiKdv -
-                                                dahilTevkifat);
+                                                    dahilTevkifat)
+                                                .toPrecision(2);
                                         dahilTevkifatToplamTutar =
-                                            dahilMatrahTevkifat +
-                                                dahilTevkifatSonrasiKdv;
+                                            (dahilMatrahTevkifat +
+                                                    dahilTevkifatSonrasiKdv)
+                                                .toPrecision(2);
                                         t3.clear();
                                         t4.clear();
                                         tefkkdv = true;

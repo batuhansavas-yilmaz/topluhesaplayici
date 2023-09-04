@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -53,6 +55,13 @@ var altblur = Container(
       boxShadow: [BoxShadow(offset: Offset(-0.00, -0.10), blurRadius: 0.3)]),
   height: 0.5,
 );
+
+extension Precision on double {
+  double toPrecision(int fractionDigits) {
+    num mod = pow(10, fractionDigits.toDouble());
+    return ((this * mod).round().toDouble() / mod);
+  }
+}
 
 // ignore: must_be_immutable
 class GorevButton extends StatefulWidget {

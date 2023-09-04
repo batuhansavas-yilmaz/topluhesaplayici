@@ -15,7 +15,7 @@ class _BinekAracState extends State<BinekArac> {
   double kdvOran = 0.00;
 
   bool sonuc = false;
-
+  final _focusNode = FocusNode();
   double giderKabulEdilenMatrah = 0.00;
   double giderKabulEdilenKdv = 0.00;
   double giderKabulEdilenTutar = 0.00;
@@ -116,6 +116,7 @@ class _BinekAracState extends State<BinekArac> {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10)),
                             child: TextFormField(
+                              focusNode: _focusNode,
                               keyboardType: TextInputType.numberWithOptions(
                                   decimal: true),
                               inputFormatters: [
@@ -150,21 +151,26 @@ class _BinekAracState extends State<BinekArac> {
                                       .requestFocus(new FocusNode());
                                   tutar = double.parse(t1.text);
                                   kdvOran = double.parse(t2.text);
-                                  giderKabulEdilenTutar = (tutar * 0.70);
+
+                                  giderKabulEdilenTutar =
+                                      (tutar * 0.70).toPrecision(2);
                                   giderKabulEdilenMatrah =
                                       (giderKabulEdilenTutar /
-                                          ((kdvOran / 100) + 1));
-                                  giderKabulEdilenKdv = giderKabulEdilenTutar -
-                                      giderKabulEdilenMatrah;
-                                  giderKabulEdilmeyenTutar = (tutar * 0.30);
+                                              ((kdvOran / 100) + 1))
+                                          .toPrecision(2);
+                                  giderKabulEdilenKdv = (giderKabulEdilenTutar -
+                                          giderKabulEdilenMatrah)
+                                      .toPrecision(2);
+                                  giderKabulEdilmeyenTutar =
+                                      (tutar * 0.30).toPrecision(2);
                                   giderKabulEdilmeyenMatrah =
                                       (giderKabulEdilmeyenTutar /
                                           ((kdvOran / 100) + 1));
                                   giderKabulEdilmeyenKdv =
-                                      giderKabulEdilmeyenTutar -
-                                          giderKabulEdilmeyenMatrah;
-                                  t1.clear();
-                                  t2.clear();
+                                      (giderKabulEdilmeyenTutar -
+                                              giderKabulEdilmeyenMatrah)
+                                          .toPrecision(2);
+
                                   sonuc = true;
                                 } else {
                                   mesaj = "Lütfen bir değer girin";
@@ -197,34 +203,6 @@ class _BinekAracState extends State<BinekArac> {
                 SizedBox(
                   height: 2,
                 ),
-                if (sonuc == true)
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Girilen Tutar",
-                            style: stil,
-                          ),
-                          Text(
-                            "Girilen KDV Oranı",
-                            style: stil,
-                          ),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(" : ${tutar.toStringAsFixed(2)}₺", style: stil2),
-                          Text(" : %${kdvOran.toStringAsFixed(0)}",
-                              style: stil2),
-                        ],
-                      )
-                    ],
-                  ),
                 ElevatedButton(
                   onPressed: () {
                     setState(() {
@@ -232,18 +210,22 @@ class _BinekAracState extends State<BinekArac> {
                         FocusScope.of(context).requestFocus(new FocusNode());
                         tutar = double.parse(t1.text);
                         kdvOran = double.parse(t2.text);
-                        giderKabulEdilenTutar = (tutar * 0.70);
+
+                        giderKabulEdilenTutar = (tutar * 0.70).toPrecision(2);
                         giderKabulEdilenMatrah =
-                            (giderKabulEdilenTutar / ((kdvOran / 100) + 1));
+                            (giderKabulEdilenTutar / ((kdvOran / 100) + 1))
+                                .toPrecision(2);
                         giderKabulEdilenKdv =
-                            giderKabulEdilenTutar - giderKabulEdilenMatrah;
-                        giderKabulEdilmeyenTutar = (tutar * 0.30);
+                            (giderKabulEdilenTutar - giderKabulEdilenMatrah)
+                                .toPrecision(2);
+                        giderKabulEdilmeyenTutar =
+                            (tutar * 0.30).toPrecision(2);
                         giderKabulEdilmeyenMatrah =
                             (giderKabulEdilmeyenTutar / ((kdvOran / 100) + 1));
-                        giderKabulEdilmeyenKdv = giderKabulEdilmeyenTutar -
-                            giderKabulEdilmeyenMatrah;
-                        t1.clear();
-                        t2.clear();
+                        giderKabulEdilmeyenKdv = (giderKabulEdilmeyenTutar -
+                                giderKabulEdilmeyenMatrah)
+                            .toPrecision(2);
+
                         sonuc = true;
                       } else {
                         mesaj = "Lütfen bir değer girin";
@@ -405,6 +387,29 @@ class _BinekAracState extends State<BinekArac> {
                         ],
                       ),
                     ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    if (sonuc == true)
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: CircleBorder(eccentricity: 0.0)),
+                        child: Icon(Icons.replay),
+                        onPressed: () {
+                          setState(() {
+                            _focusNode.requestFocus();
+                            giderKabulEdilenMatrah = 0.00;
+                            giderKabulEdilenKdv = 0.00;
+                            giderKabulEdilenTutar = 0.00;
+                            giderKabulEdilmeyenMatrah = 0.00;
+                            giderKabulEdilmeyenKdv = 0.00;
+                            giderKabulEdilmeyenTutar = 0.00;
+                            t1.clear();
+                            t2.clear();
+                            sonuc = false;
+                          });
+                        },
+                      )
                   ],
                 ),
               ],

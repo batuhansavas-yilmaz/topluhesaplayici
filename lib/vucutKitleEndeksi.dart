@@ -119,7 +119,8 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                                   }
                                   kG = double.parse(kg.text);
                                   boY = double.parse(boy.text);
-                                  sonuc = kG / ((boY / 100) * (boY / 100));
+                                  sonuc = (kG / ((boY / 100) * (boY / 100)))
+                                      .toPrecision(2);
 
                                   sonucc = true;
                                 } else {
@@ -185,7 +186,8 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                         }
                         kG = double.parse(kg.text);
                         boY = double.parse(boy.text);
-                        sonuc = kG / ((boY / 100) * (boY / 100));
+                        sonuc =
+                            (kG / ((boY / 100) * (boY / 100))).toPrecision(2);
 
                         sonucc = true;
                       } else {
