@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:toplu_hesaplayici/tools/yardimcilar.dart';
 
@@ -22,6 +22,17 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
   double yakitFiyati = 0.00;
   double yakitFiyatiSonuc = 0.00;
   bool sonuc = false;
+  snack(String mesaj) {
+    final snackBar = SnackBar(
+      content: Text(mesaj, textAlign: TextAlign.center),
+      width: 200,
+      duration: Duration(seconds: 3),
+      elevation: 1,
+      behavior: SnackBarBehavior.floating,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   late BannerAd? _bannerAd;
   bool _isBannerAdReady = false;
   void _loadBannerAd() {
@@ -203,13 +214,7 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
 
                               sonuc = true;
                             } else {
-                              showToast("Lütfen bir değer girin",
-                                  context: context,
-                                  animation: StyledToastAnimation.fade,
-                                  curve: Curves.linear,
-                                  reverseCurve: Curves.linear,
-                                  duration: Duration(seconds: 4),
-                                  position: StyledToastPosition.center);
+                              snack("Lütfen bir değer girin");
                             }
                           });
                         },
@@ -255,13 +260,7 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
 
                         sonuc = true;
                       } else {
-                        showToast("Lütfen bir değer girin",
-                            context: context,
-                            animation: StyledToastAnimation.fade,
-                            curve: Curves.linear,
-                            reverseCurve: Curves.linear,
-                            duration: Duration(seconds: 4),
-                            position: StyledToastPosition.center);
+                        snack("Lütfen bir değer girin");
                       }
                     });
                   },

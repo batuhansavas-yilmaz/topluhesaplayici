@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'tools/yardimcilar.dart';
@@ -35,8 +35,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
     _bannerAd!.load();
   }
 
-  String tevk = ".../10";
-  late String mesaj;
   double hesapTutar = 0.00;
   double hesapOran = 0.00;
 
@@ -83,6 +81,17 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
   void dispose() {
     _bannerAd!.dispose();
     super.dispose();
+  }
+
+  snack(String mesaj) {
+    final snackBar = SnackBar(
+      content: Text(mesaj, textAlign: TextAlign.center),
+      width: 200,
+      duration: Duration(seconds: 3),
+      elevation: 1,
+      behavior: SnackBarBehavior.floating,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
@@ -176,8 +185,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       //Bu sayede hesap tutar ve hesap oran nesnelerini kullanarak matematiksel işlemleri yapabildik.
                                       hesapTutar = double.parse(t1.text);
                                       hesapOran = double.parse(t2.text);
-                                      mesaj =
-                                          "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır";
+
                                       //kdv haric
                                       HarickenKdvTutari =
                                           (hesapTutar * (hesapOran / 100))
@@ -196,12 +204,12 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                       toplamDahilTutar =
                                           hesapTutar.toPrecision(2);
 
-                                      toast();
+                                      snack(
+                                          "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır");
 
                                       kdv = true;
                                     } else {
-                                      mesaj = "Lütfen bir değer girin";
-                                      toast();
+                                      snack("Lütfen bir değer girin");
                                     }
                                   });
                                 },
@@ -241,8 +249,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                 //Bu sayede hesap tutar ve hesap oran nesnelerini kullanarak matematiksel işlemleri yapabildik.
                                 hesapTutar = double.parse(t1.text);
                                 hesapOran = double.parse(t2.text);
-                                mesaj =
-                                    "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır";
+
                                 //kdv haric
                                 HarickenKdvTutari =
                                     (hesapTutar * (hesapOran / 100))
@@ -259,11 +266,11 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                     (hesapTutar - dahilTutar).toPrecision(2);
                                 toplamDahilTutar = hesapTutar.toPrecision(2);
 
-                                toast();
+                                snack(
+                                    "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır");
                                 kdv = true;
                               } else {
-                                mesaj = "Lütfen bir değer girin";
-                                toast();
+                                snack("Lütfen bir değer girin");
                               }
                             });
                           },
@@ -567,9 +574,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                         setState(() {
                                           if (t3.text.isNotEmpty &&
                                               t4.text.isNotEmpty) {
-                                            mesaj =
-                                                "KDV tutarınız 2/10 oranına göre tevkif edilecektir.";
-                                            tevk = "2/10";
                                             FocusScope.of(context)
                                                 .requestFocus(new FocusNode());
                                             //haricTevk
@@ -622,10 +626,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                     .toPrecision(2);
 
                                             tefkkdv = true;
-                                            toast();
+                                            snack(
+                                                "KDV tutarınız 2/10 oranına göre tevkif edilecektir.");
                                           } else {
-                                            mesaj = "Lütfen bir değer girin";
-                                            toast();
+                                            snack("Lütfen bir değer girin");
                                           }
                                         });
                                       },
@@ -638,9 +642,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                         setState(() {
                                           if (t3.text.isNotEmpty &&
                                               t4.text.isNotEmpty) {
-                                            mesaj =
-                                                "KDV tutarınız 4/10 oranına göre tevkif edilecektir.";
-                                            tevk = "4/10";
                                             FocusScope.of(context)
                                                 .requestFocus(new FocusNode());
                                             //haricTevk
@@ -693,10 +694,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                     .toPrecision(2);
 
                                             tefkkdv = true;
-                                            toast();
+                                            snack(
+                                                "KDV tutarınız 4/10 oranına göre tevkif edilecektir.");
                                           } else {
-                                            mesaj = "Lütfen bir değer girin";
-                                            toast();
+                                            snack("Lütfen bir değer girin");
                                           }
                                         });
                                       },
@@ -709,9 +710,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                         setState(() {
                                           if (t3.text.isNotEmpty &&
                                               t4.text.isNotEmpty) {
-                                            mesaj =
-                                                "KDV tutarınız 7/10 oranına göre tevkif edilecektir.";
-                                            tevk = "7/10";
                                             FocusScope.of(context)
                                                 .requestFocus(new FocusNode());
                                             //haricTevk
@@ -764,10 +762,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                     .toPrecision(2);
 
                                             tefkkdv = true;
-                                            toast();
+                                            snack(
+                                                "KDV tutarınız 7/10 oranına göre tevkif edilecektir.");
                                           } else {
-                                            mesaj = "Lütfen bir değer girin";
-                                            toast();
+                                            snack("Lütfen bir değer girin");
                                           }
                                         });
                                       },
@@ -813,9 +811,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                         setState(() {
                                           if (t3.text.isNotEmpty &&
                                               t4.text.isNotEmpty) {
-                                            mesaj =
-                                                "KDV tutarınız 3/10 oranına göre tevkif edilecektir.";
-                                            tevk = "3/10";
                                             FocusScope.of(context)
                                                 .requestFocus(new FocusNode());
                                             //haricTevk
@@ -868,10 +863,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                     .toPrecision(2);
 
                                             tefkkdv = true;
-                                            toast();
+                                            snack(
+                                                "KDV tutarınız 3/10 oranına göre tevkif edilecektir.");
                                           } else {
-                                            mesaj = "Lütfen bir değer girin";
-                                            toast();
+                                            snack("Lütfen bir değer girin");
                                           }
                                         });
                                       },
@@ -884,9 +879,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                         setState(() {
                                           if (t3.text.isNotEmpty &&
                                               t4.text.isNotEmpty) {
-                                            mesaj =
-                                                "KDV tutarınız 5/10 oranına göre tevkif edilecektir.";
-                                            tevk = "5/10";
                                             FocusScope.of(context)
                                                 .requestFocus(new FocusNode());
                                             //haricTevk
@@ -939,10 +931,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                     .toPrecision(2);
 
                                             tefkkdv = true;
-                                            toast();
+                                            snack(
+                                                "KDV tutarınız 5/10 oranına göre tevkif edilecektir.");
                                           } else {
-                                            mesaj = "Lütfen bir değer girin";
-                                            toast();
+                                            snack("Lütfen bir değer girin");
                                           }
                                         });
                                       },
@@ -955,9 +947,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                         setState(() {
                                           if (t3.text.isNotEmpty &&
                                               t4.text.isNotEmpty) {
-                                            mesaj =
-                                                "KDV tutarınız 9/10 oranına göre tevkif edilecektir.";
-                                            tevk = "9/10";
                                             FocusScope.of(context)
                                                 .requestFocus(new FocusNode());
                                             //haricTevk
@@ -1010,10 +999,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                     .toPrecision(2);
 
                                             tefkkdv = true;
-                                            toast();
+                                            snack(
+                                                "KDV tutarınız 9/10 oranına göre tevkif edilecektir.");
                                           } else {
-                                            mesaj = "Lütfen bir değer girin";
-                                            toast();
+                                            snack("Lütfen bir değer girin");
                                           }
                                         });
                                       },
@@ -1033,9 +1022,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                     setState(() {
                                       if (t3.text.isNotEmpty &&
                                           t4.text.isNotEmpty) {
-                                        mesaj =
-                                            "KDV tutarınız tam tevkifat oranına göre tevkif edilecektir.";
-                                        tevk = "10/10";
                                         FocusScope.of(context)
                                             .requestFocus(new FocusNode());
                                         //haricTevk
@@ -1081,10 +1067,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                 .toPrecision(2);
 
                                         tefkkdv = true;
-                                        toast();
+                                        snack(
+                                            "KDV tutarınız tam tevkifat (10/10) oranına göre tevkif edilecektir.");
                                       } else {
-                                        mesaj = "Lütfen bir değer girin";
-                                        toast();
+                                        snack("Lütfen bir değer girin");
                                       }
                                     });
                                   },
@@ -1433,16 +1419,6 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
         ),
       ),
     );
-  }
-
-  toast() {
-    showToast("$mesaj",
-        context: context,
-        animation: StyledToastAnimation.fade,
-        curve: Curves.linear,
-        reverseCurve: Curves.linear,
-        duration: Duration(seconds: 4),
-        position: StyledToastPosition.center);
   }
 }
 

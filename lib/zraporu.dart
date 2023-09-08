@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:toplu_hesaplayici/tools/yardimcilar.dart';
 
@@ -14,20 +14,22 @@ class _ZRaporuState extends State<ZRaporu> {
   TextEditingController k1 = TextEditingController(text: '');
   TextEditingController k2 = TextEditingController(text: '');
   TextEditingController tutar = TextEditingController(text: '');
-  late String mesaj;
+
   double buyukKumul = 0.00;
   double kucukKumul = 0.00;
   double tuTar = 0.00;
   double sonuc = 0.00;
   bool sonucc = false;
-  toast() {
-    showToast("$mesaj",
-        context: context,
-        animation: StyledToastAnimation.fade,
-        curve: Curves.linear,
-        reverseCurve: Curves.linear,
-        duration: Duration(seconds: 4),
-        position: StyledToastPosition.center);
+
+  snack(String mesaj) {
+    final snackBar = SnackBar(
+      content: Text(mesaj, textAlign: TextAlign.center),
+      width: 200,
+      duration: Duration(seconds: 3),
+      elevation: 1,
+      behavior: SnackBarBehavior.floating,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   late BannerAd? _bannerAd;
@@ -273,8 +275,7 @@ class _ZRaporuState extends State<ZRaporu> {
 
                                       sonucc = true;
                                     } else {
-                                      mesaj = "Lütfen bir değer girin";
-                                      toast();
+                                      snack("Lütfen bir değer girin");
                                     }
                                   });
                                 },
@@ -325,8 +326,7 @@ class _ZRaporuState extends State<ZRaporu> {
 
                             sonucc = true;
                           } else {
-                            mesaj = "Lütfen bir değer girin";
-                            toast();
+                            snack("Lütfen bir değer girin");
                           }
                         });
                       },

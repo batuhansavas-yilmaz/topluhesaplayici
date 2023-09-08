@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'tools/yardimcilar.dart';
 import 'tools/endeksYorum.dart';
@@ -21,6 +21,18 @@ class KitleEndeksiState extends State<KitleEndeksi> {
   bool sonucc = false;
   int counter = 0;
   final _focusNode = FocusNode();
+
+  snack(String mesaj) {
+    final snackBar = SnackBar(
+      content: Text(mesaj, textAlign: TextAlign.center),
+      width: 200,
+      duration: Duration(seconds: 3),
+      elevation: 1,
+      behavior: SnackBarBehavior.floating,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     Yorum.yorum();
@@ -124,13 +136,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
 
                                   sonucc = true;
                                 } else {
-                                  showToast("Lütfen bir değer girin",
-                                      context: context,
-                                      animation: StyledToastAnimation.fade,
-                                      curve: Curves.linear,
-                                      reverseCurve: Curves.linear,
-                                      duration: Duration(seconds: 4),
-                                      position: StyledToastPosition.center);
+                                  snack("Lütfen bir değer girin");
                                 }
                               });
                             },
@@ -191,13 +197,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
 
                         sonucc = true;
                       } else {
-                        showToast("Lütfen bir değer girin",
-                            context: context,
-                            animation: StyledToastAnimation.fade,
-                            curve: Curves.linear,
-                            reverseCurve: Curves.linear,
-                            duration: Duration(seconds: 4),
-                            position: StyledToastPosition.center);
+                        snack("Lütfen bir değer girin");
                       }
                     });
                   },

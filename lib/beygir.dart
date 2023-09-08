@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'tools/yardimcilar.dart';
@@ -27,6 +27,17 @@ class _BeygirState extends State<Beygir> {
   final focushp = FocusNode();
   TextEditingController t1 = TextEditingController(text: '');
   TextEditingController t2 = TextEditingController(text: '');
+  snack(String mesaj) {
+    final snackBar = SnackBar(
+      content: Text(mesaj, textAlign: TextAlign.center),
+      width: 200,
+      duration: Duration(seconds: 3),
+      elevation: 1,
+      behavior: SnackBarBehavior.floating,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   late BannerAd? _bannerAd;
   bool _isBannerAdReady = false;
   void _loadBannerAd() {
@@ -106,13 +117,9 @@ class _BeygirState extends State<Beygir> {
                           kwSonucc = true;
                           t1.clear();
                         } else {
-                          showToast("Lütfen bir değer girin",
-                              context: context,
-                              animation: StyledToastAnimation.fade,
-                              curve: Curves.linear,
-                              reverseCurve: Curves.linear,
-                              duration: Duration(seconds: 4),
-                              position: StyledToastPosition.center);
+                          snack(
+                            "Lütfen bir değer girin",
+                          );
                         }
                       });
                     },
@@ -151,13 +158,9 @@ class _BeygirState extends State<Beygir> {
                         kwSonucc = true;
                         t1.clear();
                       } else {
-                        showToast("Lütfen bir değer girin",
-                            context: context,
-                            animation: StyledToastAnimation.fade,
-                            curve: Curves.linear,
-                            reverseCurve: Curves.linear,
-                            duration: Duration(seconds: 4),
-                            position: StyledToastPosition.center);
+                        snack(
+                          "Lütfen bir değer girin",
+                        );
                       }
                     });
                   },
@@ -364,13 +367,9 @@ class _BeygirState extends State<Beygir> {
                           hpSonucc = true;
                           t2.clear();
                         } else {
-                          showToast("Lütfen bir değer girin",
-                              context: context,
-                              animation: StyledToastAnimation.fade,
-                              curve: Curves.linear,
-                              reverseCurve: Curves.linear,
-                              duration: Duration(seconds: 4),
-                              position: StyledToastPosition.center);
+                          snack(
+                            "Lütfen bir değer girin",
+                          );
                         }
                       });
                     },
@@ -408,13 +407,9 @@ class _BeygirState extends State<Beygir> {
                         hpSonucc = true;
                         t2.clear();
                       } else {
-                        showToast("Lütfen bir değer girin",
-                            context: context,
-                            animation: StyledToastAnimation.fade,
-                            curve: Curves.linear,
-                            reverseCurve: Curves.linear,
-                            duration: Duration(seconds: 4),
-                            position: StyledToastPosition.center);
+                        snack(
+                          "Lütfen bir değer girin",
+                        );
                       }
                     });
                   },

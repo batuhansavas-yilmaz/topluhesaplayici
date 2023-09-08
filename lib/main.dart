@@ -1,4 +1,5 @@
 import 'package:advanced_in_app_review/advanced_in_app_review.dart';
+import 'package:device_preview/device_preview.dart';
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,10 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:toplu_hesaplayici/yakit.dart';
 import 'package:toplu_hesaplayici/yuzde.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import "beygir.dart";
 import 'kdvHesaplayicisi.dart';
@@ -53,7 +56,7 @@ void main() async {
   );
 
   runApp(
-    MyApp(),
+    DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp()),
   );
 }
 
@@ -86,9 +89,6 @@ class MyApp extends StatelessWidget {
         child: child!,
         breakpoints: [
           const Breakpoint(start: 0, end: 450, name: MOBILE),
-          const Breakpoint(start: 451, end: 800, name: TABLET),
-          const Breakpoint(start: 801, end: 1920, name: DESKTOP),
-          const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
         ],
       ),
       initialRoute: '/',
@@ -97,11 +97,7 @@ class MyApp extends StatelessWidget {
           case '/':
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: ResponsiveValue<double>(context, conditionalValues: [
-                  Condition.equals(name: MOBILE, value: 450),
-                  Condition.between(start: 800, end: 1100, value: 800),
-                  Condition.between(start: 1000, end: 1200, value: 1000),
-                ]).value,
+                width: 451,
                 child: BouncingScrollWrapper.builder(context, HomePage(),
                     dragWithMouse: true),
               );
@@ -109,11 +105,7 @@ class MyApp extends StatelessWidget {
           case '/kdv':
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: ResponsiveValue<double>(context, conditionalValues: [
-                  Condition.equals(name: MOBILE, value: 450),
-                  Condition.between(start: 800, end: 1100, value: 800),
-                  Condition.between(start: 1000, end: 1200, value: 1000),
-                ]).value,
+                width: 451,
                 child: BouncingScrollWrapper.builder(
                     context, KdvHesaplayicisi(),
                     dragWithMouse: true),
@@ -122,11 +114,7 @@ class MyApp extends StatelessWidget {
           case '/zraporu':
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: ResponsiveValue<double>(context, conditionalValues: [
-                  Condition.equals(name: MOBILE, value: 450),
-                  Condition.between(start: 800, end: 1100, value: 800),
-                  Condition.between(start: 1000, end: 1200, value: 1000),
-                ]).value,
+                width: 451,
                 child: BouncingScrollWrapper.builder(context, ZRaporu(),
                     dragWithMouse: true),
               );
@@ -134,11 +122,7 @@ class MyApp extends StatelessWidget {
           case '/binekarac':
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: ResponsiveValue<double>(context, conditionalValues: [
-                  Condition.equals(name: MOBILE, value: 450),
-                  Condition.between(start: 800, end: 1100, value: 800),
-                  Condition.between(start: 1000, end: 1200, value: 1000),
-                ]).value,
+                width: 451,
                 child: BouncingScrollWrapper.builder(context, BinekArac(),
                     dragWithMouse: true),
               );
@@ -146,11 +130,7 @@ class MyApp extends StatelessWidget {
           case '/komisyon':
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: ResponsiveValue<double>(context, conditionalValues: [
-                  Condition.equals(name: MOBILE, value: 450),
-                  Condition.between(start: 800, end: 1100, value: 800),
-                  Condition.between(start: 1000, end: 1200, value: 1000),
-                ]).value,
+                width: 451,
                 child: BouncingScrollWrapper.builder(context, Komisyon(),
                     dragWithMouse: true),
               );
@@ -158,11 +138,7 @@ class MyApp extends StatelessWidget {
           case '/akvaryum':
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: ResponsiveValue<double>(context, conditionalValues: [
-                  Condition.equals(name: MOBILE, value: 450),
-                  Condition.between(start: 800, end: 1100, value: 800),
-                  Condition.between(start: 1000, end: 1200, value: 1000),
-                ]).value,
+                width: 451,
                 child: BouncingScrollWrapper.builder(context, Aquarium(),
                     dragWithMouse: true),
               );
@@ -170,11 +146,7 @@ class MyApp extends StatelessWidget {
           case '/vucut':
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: ResponsiveValue<double>(context, conditionalValues: [
-                  Condition.equals(name: MOBILE, value: 450),
-                  Condition.between(start: 800, end: 1100, value: 800),
-                  Condition.between(start: 1000, end: 1200, value: 1000),
-                ]).value,
+                width: 451,
                 child: BouncingScrollWrapper.builder(context, KitleEndeksi(),
                     dragWithMouse: true),
               );
@@ -182,11 +154,7 @@ class MyApp extends StatelessWidget {
           case '/beygir':
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: ResponsiveValue<double>(context, conditionalValues: [
-                  Condition.equals(name: MOBILE, value: 450),
-                  Condition.between(start: 800, end: 1100, value: 800),
-                  Condition.between(start: 1000, end: 1200, value: 1000),
-                ]).value,
+                width: 451,
                 child: BouncingScrollWrapper.builder(context, Beygir(),
                     dragWithMouse: true),
               );
@@ -194,11 +162,7 @@ class MyApp extends StatelessWidget {
           case '/yakit':
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: ResponsiveValue<double>(context, conditionalValues: [
-                  Condition.equals(name: MOBILE, value: 450),
-                  Condition.between(start: 800, end: 1100, value: 800),
-                  Condition.between(start: 1000, end: 1200, value: 1000),
-                ]).value,
+                width: 451,
                 child: BouncingScrollWrapper.builder(context, YakitTuketimi(),
                     dragWithMouse: true),
               );
@@ -206,11 +170,7 @@ class MyApp extends StatelessWidget {
           case '/yuzde':
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: ResponsiveValue<double>(context, conditionalValues: [
-                  Condition.equals(name: MOBILE, value: 450),
-                  Condition.between(start: 800, end: 1100, value: 800),
-                  Condition.between(start: 1000, end: 1200, value: 1000),
-                ]).value,
+                width: 451,
                 child: BouncingScrollWrapper.builder(context, Yuzde(),
                     dragWithMouse: true),
               );
@@ -219,11 +179,7 @@ class MyApp extends StatelessWidget {
           default:
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: ResponsiveValue<double>(context, conditionalValues: [
-                  Condition.equals(name: MOBILE, value: 450),
-                  Condition.between(start: 800, end: 1100, value: 800),
-                  Condition.between(start: 1000, end: 1200, value: 1000),
-                ]).value,
+                width: 451,
                 child: BouncingScrollWrapper.builder(context, HomePage(),
                     dragWithMouse: true),
               );
@@ -318,18 +274,107 @@ class _HomePageState extends State<HomePage> {
           ),
           centerTitle: true,
         ),
-        body: GridView.extent(
-          childAspectRatio: 0.85,
+        body: GridView.count(
+          childAspectRatio: 0.75,
           primary: true,
           crossAxisSpacing: 20,
-          mainAxisSpacing: 1,
+          mainAxisSpacing: 10,
           padding: EdgeInsets.all(30.0),
-          maxCrossAxisExtent: 200,
+          crossAxisCount: 3,
           children: [
             GorevButton(
               logo: "assets/percentage.png",
-              altisim: "KDV \nHesaplayıcısı",
+              altisim: "KDV\nHesaplama",
               sayfaismi: '/kdv',
+            ),
+            GorevButton(
+              logo: "assets/zraporu.png",
+              altisim: "Eksik Z Raporu\nKurtarıcı",
+              sayfaismi: '/zraporu',
+            ),
+            GorevButton(
+              logo: "assets/commission.png",
+              altisim: "Komisyon\nHesaplama",
+              sayfaismi: '/komisyon',
+            ),
+            GorevButton(
+              logo: "assets/aquarium.png",
+              altisim: "Akvaryum\nGereksinimleri",
+              sayfaismi: '/akvaryum',
+            ),
+            Column(
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      showCupertinoModalPopup(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text(
+                            "From B.S.Y.",
+                            textAlign: TextAlign.center,
+                          ),
+                          content: Text(
+                            "Diğer uygulamalarımızı keşfetmek ve Instagram'dan bizi takip etmek için lütfen aşağıdaki butonları kullanın.",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                          actions: [
+                            IconButton(
+                                icon: FaIcon(FontAwesomeIcons.googlePlay),
+                                onPressed: () {
+                                  final Uri _url = Uri.parse(
+                                      "https://play.google.com/store/apps/dev?id=5406504893764763263&pli=1");
+
+                                  launchUrl(_url,
+                                      mode: LaunchMode.externalApplication);
+                                }),
+                            IconButton(
+                                icon: FaIcon(FontAwesomeIcons.instagram),
+                                onPressed: () {
+                                  final Uri _url = Uri.parse(
+                                      "https:instagram.com/from.b.s.y");
+
+                                  launchUrl(_url,
+                                      mode: LaunchMode.externalApplication);
+                                  Navigator.pop(context);
+                                }),
+                            IconButton(
+                                icon: Icon(Icons.close),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                }),
+                          ],
+                        ),
+                      );
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      "assets/info.png",
+                      width: 132,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "Keşfet",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            GorevButton(
+              logo: "assets/love.png",
+              altisim: "Vücut Kitle\nEndeksi",
+              sayfaismi: '/vucut',
             ),
             GorevButton(
               logo: "assets/car.png",
@@ -337,39 +382,19 @@ class _HomePageState extends State<HomePage> {
               sayfaismi: '/binekarac',
             ),
             GorevButton(
-              logo: "assets/aquarium.png",
-              altisim: "Akvaryum",
-              sayfaismi: '/akvaryum',
-            ),
-            GorevButton(
-              logo: "assets/zraporu.png",
-              altisim: "Eksik Z Raporu Kurtarıcı",
-              sayfaismi: '/zraporu',
-            ),
-            GorevButton(
-              logo: "assets/love.png",
-              altisim: "Vücut Kitle Endeksi",
-              sayfaismi: '/vucut',
-            ),
-            GorevButton(
               logo: "assets/horse-power.png",
               altisim: "kW ⇄ hp",
               sayfaismi: '/beygir',
             ),
             GorevButton(
-              logo: "assets/commission.png",
-              altisim: "Komisyon",
-              sayfaismi: '/komisyon',
+              logo: "assets/petrol.png",
+              altisim: "Yakıt\nTüketimi",
+              sayfaismi: '/yakit',
             ),
             GorevButton(
               logo: "assets/yuzde.png",
-              altisim: "Yüzde Hesaplama",
+              altisim: "Yüzde\nHesaplama",
               sayfaismi: '/yuzde',
-            ),
-            GorevButton(
-              logo: "assets/petrol.png",
-              altisim: "Yakıt Tüketimi",
-              sayfaismi: '/yakit',
             ),
             SizedBox(),
             SizedBox(),

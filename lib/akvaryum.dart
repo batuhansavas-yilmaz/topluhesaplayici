@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'tools/yardimcilar.dart';
 
@@ -26,15 +26,16 @@ class _AquariumState extends State<Aquarium> {
   double kumKg = 0.00;
   final _focusNode = FocusNode();
   bool replay = false;
-  late String mesaj;
-  toast() {
-    showToast("$mesaj",
-        context: context,
-        animation: StyledToastAnimation.fade,
-        curve: Curves.linear,
-        reverseCurve: Curves.linear,
-        duration: Duration(seconds: 4),
-        position: StyledToastPosition.center);
+
+  snack(String mesaj) {
+    final snackBar = SnackBar(
+      content: Text(mesaj, textAlign: TextAlign.center),
+      width: 200,
+      duration: Duration(seconds: 3),
+      elevation: 1,
+      behavior: SnackBarBehavior.floating,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   late BannerAd? _bannerAd;
@@ -191,8 +192,7 @@ class _AquariumState extends State<Aquarium> {
                               kumKg = (kum * kumCm_).toPrecision(2);
                               replay = true;
                             } else {
-                              mesaj = "Lütfen bir değer girin";
-                              toast();
+                              snack("Lütfen bir değer girin");
                             }
                           });
                         },
@@ -255,8 +255,7 @@ class _AquariumState extends State<Aquarium> {
                               kumKg = (kum * kumCm_).toPrecision(2);
                               replay = true;
                             } else {
-                              mesaj = "Lütfen bir değer girin";
-                              toast();
+                              snack("Lütfen bir değer girin");
                             }
                           });
                         },
@@ -468,8 +467,7 @@ class _AquariumState extends State<Aquarium> {
                                         kumKg = (kum * kumCm_).toPrecision(2);
                                         replay = true;
                                       } else {
-                                        mesaj = "Lütfen bir değer girin";
-                                        toast();
+                                        snack("Lütfen bir değer girin");
                                       }
                                     });
                                   },

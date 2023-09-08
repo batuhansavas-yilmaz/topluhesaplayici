@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'tools/yardimcilar.dart';
 
@@ -25,15 +25,15 @@ class _BinekAracState extends State<BinekArac> {
   TextEditingController t1 = TextEditingController(text: '');
   TextEditingController t2 = TextEditingController(text: '');
 
-  late String mesaj;
-  toast() {
-    showToast("$mesaj",
-        context: context,
-        animation: StyledToastAnimation.fade,
-        curve: Curves.linear,
-        reverseCurve: Curves.linear,
-        duration: Duration(seconds: 4),
-        position: StyledToastPosition.center);
+  snack(String mesaj) {
+    final snackBar = SnackBar(
+      content: Text(mesaj, textAlign: TextAlign.center),
+      width: 200,
+      duration: Duration(seconds: 3),
+      elevation: 1,
+      behavior: SnackBarBehavior.floating,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   late BannerAd? _bannerAd;
@@ -173,8 +173,7 @@ class _BinekAracState extends State<BinekArac> {
 
                                   sonuc = true;
                                 } else {
-                                  mesaj = "Lütfen bir değer girin";
-                                  toast();
+                                  snack("Lütfen bir değer girin");
                                 }
                               });
                             },
@@ -228,8 +227,7 @@ class _BinekAracState extends State<BinekArac> {
 
                         sonuc = true;
                       } else {
-                        mesaj = "Lütfen bir değer girin";
-                        toast();
+                        snack("Lütfen bir değer girin");
                       }
                     });
                   },
