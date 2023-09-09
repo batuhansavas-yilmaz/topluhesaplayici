@@ -1,5 +1,4 @@
 import 'package:advanced_in_app_review/advanced_in_app_review.dart';
-import 'package:device_preview/device_preview.dart';
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
@@ -56,7 +55,7 @@ void main() async {
   );
 
   runApp(
-    DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp()),
+    MyApp(),
   );
 }
 
