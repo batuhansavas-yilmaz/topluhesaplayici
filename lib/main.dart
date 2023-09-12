@@ -12,7 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gdpr_dialog/gdpr_dialog.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:toplu_hesaplayici/yakit.dart';
 import 'package:toplu_hesaplayici/yuzde.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -197,7 +197,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String status = 'none';
   void initialization() async {
     await Future.delayed(const Duration(milliseconds: 400));
     FlutterNativeSplash.remove();
@@ -230,7 +229,10 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     initialization();
     initPlatformState();
-    _checkIfSeenDialog();
+    GdprDialog.instance.showDialog(
+      isForTest: false,
+    );
+    GdprDialog.instance.getConsentStatus();
     AdvancedInAppReview()
         .setMinDaysBeforeRemind(7)
         .setMinDaysAfterInstall(1)
@@ -244,29 +246,6 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     super.dispose();
     // _bannerAd!.dispose();
-  }
-
-  void _checkIfSeenDialog() async {
-    final prefs = await SharedPreferences.getInstance();
-    final hasSeenDialog = prefs.getBool('hasSeenDialog') ?? false;
-
-    if (!hasSeenDialog) {
-      await prefs.setBool('hasSeenDialog', true);
-      _showDialog();
-    }
-  }
-
-  void _showDialog() {
-    Text("Show Dialog");
-    GdprDialog.instance.resetDecision();
-    GdprDialog.instance
-        .showDialog(isForTest: false, testDeviceId: '')
-        .then((onValue) {
-      setState(() => status = 'dialog result == $onValue');
-      GdprDialog.instance
-          .getConsentStatus()
-          .then((value) => setState(() => status = 'consent status == $value'));
-    });
   }
 
   // ignore: unused_field
