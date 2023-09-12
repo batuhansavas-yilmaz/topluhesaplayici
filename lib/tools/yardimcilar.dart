@@ -14,6 +14,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 // String yakitReklam = 'ca-app-pub-3940256099942544/6300978111';
 // String akvaryumReklam = 'ca-app-pub-3940256099942544/6300978111';
 // String yuzdeReklam = 'ca-app-pub-3940256099942544/6300978111';
+// String gecis = 'ca-app-pub-3940256099942544/1033173712';
 
 //orjinal
 String akvaryumReklam = 'ca-app-pub-2770541050741728/3957376202';
@@ -80,7 +81,51 @@ class GorevButton extends StatefulWidget {
 }
 
 class _GorevButtonState extends State<GorevButton> {
-  void mens() {}
+  // InterstitialAd? _interstitialAd;
+  // void _loadInterstitialAd() {
+  //   InterstitialAd.load(
+  //       adUnitId: gecis,
+  //       request: const AdRequest(),
+  //       adLoadCallback: InterstitialAdLoadCallback(
+  //         // Called when an ad is successfully received.
+  //         onAdLoaded: (InterstitialAd ad) {
+  //           ad.fullScreenContentCallback = FullScreenContentCallback(
+  //               // Called when the ad showed the full screen content.
+  //               onAdShowedFullScreenContent: (ad) {},
+  //               // Called when an impression occurs on the ad.
+  //               onAdImpression: (ad) {},
+  //               // Called when the ad failed to show full screen content.
+  //               onAdFailedToShowFullScreenContent: (ad, err) {
+  //                 ad.dispose();
+  //                 _interstitialAd = null;
+  //                 _loadInterstitialAd();
+  //               },
+  //               // Called when the ad dismissed full screen content.
+  //               onAdDismissedFullScreenContent: (ad) {
+  //                 ad.dispose();
+  //                 _interstitialAd = null;
+  //                 _loadInterstitialAd();
+  //               },
+  //               // Called when a click is recorded for an ad.
+  //               onAdClicked: (ad) {});
+
+  //           // Keep a reference to the ad so you can show it later.
+  //           _interstitialAd = ad;
+  //         },
+  //         // Called when an ad request failed.
+  //         onAdFailedToLoad: (LoadAdError error) {
+  //           // ignore: avoid_print
+  //           print('InterstitialAd failed to load: $error');
+  //         },
+  //       ));
+  // }
+
+  // void initState() {
+  //   _loadInterstitialAd();
+  //   super.initState();
+  // }
+
+  // int deneme = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -93,6 +138,12 @@ class _GorevButtonState extends State<GorevButton> {
           ),
           onPressed: () {
             setState(() {
+              // deneme++;
+
+              // if (deneme == 2) {
+              //   _interstitialAd?.show();
+              // }
+
               Navigator.pushNamed(context, widget.sayfaismi!);
             });
           },
