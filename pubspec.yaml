@@ -34,7 +34,8 @@ dependencies:
   firebase_crashlytics: ^3.3.5
   url_launcher: ^6.1.14
   font_awesome_flutter: ^10.5.0
-  gdpr_dialog: ^2.1.1
+  # gdpr_dialog: ^2.1.1
+  
 
   
   

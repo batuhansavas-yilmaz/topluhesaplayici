@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gdpr_dialog/gdpr_dialog.dart';
+// import 'package:gdpr_dialog/gdpr_dialog.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
@@ -44,6 +44,7 @@ void main() async {
     };
   }
   MobileAds.instance.initialize();
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -229,10 +230,9 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     initialization();
     initPlatformState();
-    GdprDialog.instance.showDialog(
-      isForTest: false,
-    );
-    GdprDialog.instance.getConsentStatus();
+    // GdprDialog.instance.showDialog(isForTest: false);
+    // GdprDialog.instance.getConsentStatus();
+
     AdvancedInAppReview()
         .setMinDaysBeforeRemind(7)
         .setMinDaysAfterInstall(1)
