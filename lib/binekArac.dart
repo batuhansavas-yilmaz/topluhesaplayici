@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'tools/yardimcilar.dart';
 
 class BinekArac extends StatefulWidget {
@@ -81,19 +82,24 @@ class _BinekAracState extends State<BinekArac> {
                 tooltip: "Bilgi",
                 icon: Icon(Icons.info),
                 onPressed: () {
-                  showCupertinoModalPopup(
+                  showCupertinoDialog(
+                    barrierDismissible: true,
                     context: context,
-                    builder: (context) => AlertDialog(
-                      title: Text("Bilgi"),
-                      content: Text(
-                          "Bu hesaplayıcı binek araç giderlerinin sadece %70'ini gider gösterebilen vergi mükellefleri içindir."),
-                      actions: [
-                        IconButton(
-                            icon: Icon(Icons.close),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            })
-                      ],
+                    builder: (context) => ResponsiveScaledBox(
+                      width: 450,
+                      child: AlertDialog(
+                        elevation: 1,
+                        title: Text("Bilgi"),
+                        content: Text(
+                            "Bu hesaplayıcı binek araç giderlerinin sadece %70'ini gider gösterebilen vergi mükellefleri içindir."),
+                        actions: [
+                          IconButton(
+                              icon: Icon(Icons.close),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              })
+                        ],
+                      ),
                     ),
                   );
                 }),

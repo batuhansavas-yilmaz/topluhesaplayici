@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:toplu_hesaplayici/tools/yardimcilar.dart';
 
 class ZRaporu extends StatefulWidget {
@@ -101,20 +102,25 @@ class _ZRaporuState extends State<ZRaporu> {
                         Expanded(
                             child: GestureDetector(
                           onTap: () {
-                            showCupertinoModalPopup(
+                            showCupertinoDialog(
+                              barrierDismissible: true,
                               context: context,
-                              builder: (context) => AlertDialog(
-                                content: Text(
-                                    "Birden Fazla Raporu Bulmak İstiyorsak:\n - Eksik Raporlar'ın 10,11,12,13 no'lu raporlar olduğunu kabul edersek, buraya yazılacak olan kümülatif tutarı 14 no'lu rapordan alacağız. \n \nTek Bir Raporu Bulmak İstiyorsak:\n - Eksik Raporun 10 no'lu rapor olduğunu kabul edersek buraya yazılacak olan kümülatif tutarı 11 no'lu rapordan alacağız."),
-                                actions: [
-                                  IconButton(
-                                    tooltip: "Kapat",
-                                    icon: Icon(Icons.close),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  )
-                                ],
+                              builder: (context) => ResponsiveScaledBox(
+                                width: 450,
+                                child: AlertDialog(
+                                  elevation: 1,
+                                  content: Text(
+                                      "Birden Fazla Raporu Bulmak İstiyorsak:\n - Eksik Raporlar'ın 10,11,12,13 no'lu raporlar olduğunu kabul edersek, buraya yazılacak olan kümülatif tutarı 14 no'lu rapordan alacağız. \n \nTek Bir Raporu Bulmak İstiyorsak:\n - Eksik Raporun 10 no'lu rapor olduğunu kabul edersek buraya yazılacak olan kümülatif tutarı 11 no'lu rapordan alacağız."),
+                                  actions: [
+                                    IconButton(
+                                      tooltip: "Kapat",
+                                      icon: Icon(Icons.close),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    )
+                                  ],
+                                ),
                               ),
                             );
                           },
@@ -218,20 +224,25 @@ class _ZRaporuState extends State<ZRaporu> {
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
-                              showCupertinoModalPopup(
+                              showCupertinoDialog(
+                                  barrierDismissible: true,
                                   context: context,
-                                  builder: (context) => AlertDialog(
-                                          content: Text(
-                                              "Birden Fazla Raporu Bulmak İstiyorsak:\n - Eksik Raporlar'ın 10,11,12,13 no'lu raporlar olduğunu kabul edersek, buraya yazılacak olan kümülatif tutarı 9 no'lu rapordan alacağız. \n \nTek Bir Raporu Bulmak İstiyorsak:\n - Eksik Raporun 20 no'lu rapor olduğunu kabul edersek buraya yazılacak olan kümülatif tutarı 19 no'lu rapordan alacağız."),
-                                          actions: [
-                                            IconButton(
-                                              tooltip: "Kapat",
-                                              icon: Icon(Icons.close),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                            )
-                                          ]));
+                                  builder: (context) => ResponsiveScaledBox(
+                                        width: 450,
+                                        child: AlertDialog(
+                                            elevation: 1,
+                                            content: Text(
+                                                "Birden Fazla Raporu Bulmak İstiyorsak:\n - Eksik Raporlar'ın 10,11,12,13 no'lu raporlar olduğunu kabul edersek, buraya yazılacak olan kümülatif tutarı 9 no'lu rapordan alacağız. \n \nTek Bir Raporu Bulmak İstiyorsak:\n - Eksik Raporun 20 no'lu rapor olduğunu kabul edersek buraya yazılacak olan kümülatif tutarı 19 no'lu rapordan alacağız."),
+                                            actions: [
+                                              IconButton(
+                                                tooltip: "Kapat",
+                                                icon: Icon(Icons.close),
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                              )
+                                            ]),
+                                      ));
                             },
                             child: Column(
                               children: [

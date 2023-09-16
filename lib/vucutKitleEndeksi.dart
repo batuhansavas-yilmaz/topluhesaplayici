@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:responsive_framework/responsive_scaled_box.dart';
 import 'tools/yardimcilar.dart';
 import 'tools/endeksYorum.dart';
 
@@ -111,23 +112,29 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                                       new FocusNode()); // klavye kapatıcı
                                   counter++;
                                   if (counter == 1) {
-                                    showCupertinoModalPopup(
+                                    showCupertinoDialog(
+                                        barrierDismissible: true,
                                         context: context,
-                                        builder: (context) => AlertDialog(
-                                                title: Text("Uyarı"),
-                                                content: Text(
-                                                    'Edindiğiniz sonuçlar formulize olarak doğru olsa bile '
-                                                    'sağlığınız açısından en güvenilir sonuçlar için diyetisyenlerden '
-                                                    'yardım almanızı öneririz.'),
-                                                actions: [
-                                                  IconButton(
-                                                    tooltip: "Kapat",
-                                                    icon: Icon(Icons.close),
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                  )
-                                                ]));
+                                        builder: (context) =>
+                                            ResponsiveScaledBox(
+                                              width: 450,
+                                              child: AlertDialog(
+                                                  elevation: 1,
+                                                  title: Text("Uyarı"),
+                                                  content: Text(
+                                                      'Edindiğiniz sonuçlar formulize olarak doğru olsa bile '
+                                                      'sağlığınız açısından en güvenilir sonuçlar için diyetisyenlerden '
+                                                      'yardım almanızı öneririz.'),
+                                                  actions: [
+                                                    IconButton(
+                                                      tooltip: "Kapat",
+                                                      icon: Icon(Icons.close),
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                    )
+                                                  ]),
+                                            ));
                                   }
                                   kG = double.parse(kg.text);
                                   boY = double.parse(boy.text);
@@ -172,23 +179,28 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                         counter++;
 
                         if (counter == 1) {
-                          showCupertinoModalPopup(
+                          showCupertinoDialog(
+                              barrierDismissible: true,
                               context: context,
-                              builder: (context) => AlertDialog(
-                                      title: Text("Uyarı"),
-                                      content: Text(
-                                          'Edindiğiniz sonuçlar formulize olarak doğru olsa bile '
-                                          'sağlığınız açısından en güvenilir sonuçlar için diyetisyenlerden '
-                                          'yardım almanızı öneririz.'),
-                                      actions: [
-                                        IconButton(
-                                          tooltip: "Kapat",
-                                          icon: Icon(Icons.close),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                        )
-                                      ]));
+                              builder: (context) => ResponsiveScaledBox(
+                                    width: 450,
+                                    child: AlertDialog(
+                                        elevation: 1,
+                                        title: Text("Uyarı"),
+                                        content: Text(
+                                            'Edindiğiniz sonuçlar formulize olarak doğru olsa bile '
+                                            'sağlığınız açısından en güvenilir sonuçlar için diyetisyenlerden '
+                                            'yardım almanızı öneririz.'),
+                                        actions: [
+                                          IconButton(
+                                            tooltip: "Kapat",
+                                            icon: Icon(Icons.close),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                          )
+                                        ]),
+                                  ));
                         }
                         kG = double.parse(kg.text);
                         boY = double.parse(boy.text);

@@ -1,5 +1,6 @@
 import 'package:advanced_in_app_review/advanced_in_app_review.dart';
 
+
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -318,43 +319,48 @@ class _HomePageState extends State<HomePage> {
                   ),
                   onPressed: () {
                     setState(() {
-                      showCupertinoModalPopup(
+                      showCupertinoDialog(
+                        barrierDismissible: true,
                         context: context,
-                        builder: (context) => AlertDialog(
-                          title: Text(
-                            "From B.S.Y.",
-                            textAlign: TextAlign.center,
-                          ),
-                          content: Text(
-                            "Diğer uygulamalarımızı keşfetmek ve Instagram'dan bizi takip etmek için lütfen aşağıdaki butonları kullanın.",
-                            style: TextStyle(fontSize: 15),
-                          ),
-                          actions: [
-                            IconButton(
-                                icon: FaIcon(FontAwesomeIcons.googlePlay),
-                                onPressed: () {
-                                  final Uri _url = Uri.parse(
-                                      "https://play.google.com/store/apps/dev?id=5406504893764763263&pli=1");
+                        builder: (context) => ResponsiveScaledBox(
+                          width: 450,
+                          child: AlertDialog(
+                            elevation: 1,
+                            title: Text(
+                              "From B.S.Y.",
+                              textAlign: TextAlign.center,
+                            ),
+                            content: Text(
+                              "Diğer uygulamalarımızı keşfetmek ve Instagram'dan bizi takip etmek için lütfen aşağıdaki butonları kullanın.",
+                              style: TextStyle(fontSize: 15),
+                            ),
+                            actions: [
+                              IconButton(
+                                  icon: FaIcon(FontAwesomeIcons.googlePlay),
+                                  onPressed: () {
+                                    final Uri _url = Uri.parse(
+                                        "https://play.google.com/store/apps/dev?id=5406504893764763263&pli=1");
 
-                                  launchUrl(_url,
-                                      mode: LaunchMode.externalApplication);
-                                }),
-                            IconButton(
-                                icon: FaIcon(FontAwesomeIcons.instagram),
-                                onPressed: () {
-                                  final Uri _url = Uri.parse(
-                                      "https:instagram.com/from.b.s.y");
+                                    launchUrl(_url,
+                                        mode: LaunchMode.externalApplication);
+                                  }),
+                              IconButton(
+                                  icon: FaIcon(FontAwesomeIcons.instagram),
+                                  onPressed: () {
+                                    final Uri _url = Uri.parse(
+                                        "https:instagram.com/from.b.s.y");
 
-                                  launchUrl(_url,
-                                      mode: LaunchMode.externalApplication);
-                                  Navigator.pop(context);
-                                }),
-                            IconButton(
-                                icon: Icon(Icons.close),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                }),
-                          ],
+                                    launchUrl(_url,
+                                        mode: LaunchMode.externalApplication);
+                                    Navigator.pop(context);
+                                  }),
+                              IconButton(
+                                  icon: Icon(Icons.close),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  }),
+                            ],
+                          ),
                         ),
                       );
                     });
