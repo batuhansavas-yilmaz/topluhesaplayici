@@ -1,9 +1,11 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:responsive_framework/responsive_scaled_box.dart';
 
 import 'tools/yardimcilar.dart';
 
@@ -35,6 +37,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
     _bannerAd!.load();
   }
 
+  int counter = 0;
   double hesapTutar = 0.00;
   double hesapOran = 0.00;
 
@@ -208,6 +211,56 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır");
 
                                       kdv = true;
+                                      counter++;
+
+                                      if (counter == 1) {
+                                        showCupertinoDialog(
+                                            barrierDismissible: true,
+                                            context: context,
+                                            builder:
+                                                (context) =>
+                                                    ResponsiveScaledBox(
+                                                      width: 450,
+                                                      child: AlertDialog(
+                                                          elevation: 1,
+                                                          title: Text("Öneri"),
+                                                          content: Text.rich(
+                                                            TextSpan(
+                                                              children: <TextSpan>[
+                                                                TextSpan(
+                                                                    text:
+                                                                        'Toplam tutarınıza indirim uygulamak isterseniz ',
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight.normal)),
+                                                                TextSpan(
+                                                                    text:
+                                                                        'İNDİRİM-KOMİSYON HESAPLA',
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                                TextSpan(
+                                                                    text:
+                                                                        ' sayfamızdan yararlanabilirsiniz.',
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight.normal)),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          actions: [
+                                                            IconButton(
+                                                              tooltip: "Kapat",
+                                                              icon: Icon(
+                                                                  Icons.close),
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                            )
+                                                          ]),
+                                                    ));
+                                      }
                                     } else {
                                       snack("Lütfen bir değer girin");
                                     }
@@ -269,6 +322,55 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                 snack(
                                     "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır");
                                 kdv = true;
+                                counter++;
+
+                                if (counter == 1) {
+                                  showCupertinoDialog(
+                                      barrierDismissible: true,
+                                      context: context,
+                                      builder: (context) => ResponsiveScaledBox(
+                                            width: 450,
+                                            child: AlertDialog(
+                                                elevation: 1,
+                                                title: Text("Öneri"),
+                                                content: Text.rich(
+                                                  TextSpan(
+                                                    children: <TextSpan>[
+                                                      TextSpan(
+                                                          text:
+                                                              'Toplam tutarınıza indirim uygulamak isterseniz ',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal)),
+                                                      TextSpan(
+                                                          text:
+                                                              'İNDİRİM-KOMİSYON HESAPLA',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                      TextSpan(
+                                                          text:
+                                                              ' sayfamızdan yararlanabilirsiniz.',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal)),
+                                                    ],
+                                                  ),
+                                                ),
+                                                actions: [
+                                                  IconButton(
+                                                    tooltip: "Kapat",
+                                                    icon: Icon(Icons.close),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  )
+                                                ]),
+                                          ));
+                                }
                               } else {
                                 snack("Lütfen bir değer girin");
                               }
@@ -286,7 +388,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                           children: [
                             Expanded(
                               child: Container(
-                                color: Color.fromARGB(255, 0, 135, 245),
+                                color: anaRenk,
                                 child: Padding(
                                   padding: const EdgeInsets.all(2.0),
                                   child: Text(
@@ -377,7 +479,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                           children: [
                             Expanded(
                               child: Container(
-                                color: Color.fromARGB(255, 0, 135, 245),
+                                color: anaRenk,
                                 child: Padding(
                                   padding: const EdgeInsets.all(2.0),
                                   child: Text(
@@ -626,6 +728,57 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                     .toPrecision(2);
 
                                             tefkkdv = true;
+                                            counter++;
+
+                                            if (counter == 1) {
+                                              showCupertinoDialog(
+                                                  barrierDismissible: true,
+                                                  context: context,
+                                                  builder:
+                                                      (context) =>
+                                                          ResponsiveScaledBox(
+                                                            width: 450,
+                                                            child: AlertDialog(
+                                                                elevation: 1,
+                                                                title: Text(
+                                                                    "Öneri"),
+                                                                content:
+                                                                    Text.rich(
+                                                                  TextSpan(
+                                                                    children: <TextSpan>[
+                                                                      TextSpan(
+                                                                          text:
+                                                                              'Toplam tutarınıza indirim uygulamak isterseniz ',
+                                                                          style:
+                                                                              TextStyle(fontWeight: FontWeight.normal)),
+                                                                      TextSpan(
+                                                                          text:
+                                                                              'İNDİRİM-KOMİSYON HESAPLA',
+                                                                          style:
+                                                                              TextStyle(fontWeight: FontWeight.bold)),
+                                                                      TextSpan(
+                                                                          text:
+                                                                              ' sayfamızdan yararlanabilirsiniz.',
+                                                                          style:
+                                                                              TextStyle(fontWeight: FontWeight.normal)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                actions: [
+                                                                  IconButton(
+                                                                    tooltip:
+                                                                        "Kapat",
+                                                                    icon: Icon(Icons
+                                                                        .close),
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                  )
+                                                                ]),
+                                                          ));
+                                            }
                                             snack(
                                                 "KDV tutarınız 2/10 oranına göre tevkif edilecektir.");
                                           } else {
@@ -694,6 +847,57 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                     .toPrecision(2);
 
                                             tefkkdv = true;
+                                            counter++;
+
+                                            if (counter == 1) {
+                                              showCupertinoDialog(
+                                                  barrierDismissible: true,
+                                                  context: context,
+                                                  builder:
+                                                      (context) =>
+                                                          ResponsiveScaledBox(
+                                                            width: 450,
+                                                            child: AlertDialog(
+                                                                elevation: 1,
+                                                                title: Text(
+                                                                    "Öneri"),
+                                                                content:
+                                                                    Text.rich(
+                                                                  TextSpan(
+                                                                    children: <TextSpan>[
+                                                                      TextSpan(
+                                                                          text:
+                                                                              'Toplam tutarınıza indirim uygulamak isterseniz ',
+                                                                          style:
+                                                                              TextStyle(fontWeight: FontWeight.normal)),
+                                                                      TextSpan(
+                                                                          text:
+                                                                              'İNDİRİM-KOMİSYON HESAPLA',
+                                                                          style:
+                                                                              TextStyle(fontWeight: FontWeight.bold)),
+                                                                      TextSpan(
+                                                                          text:
+                                                                              ' sayfamızdan yararlanabilirsiniz.',
+                                                                          style:
+                                                                              TextStyle(fontWeight: FontWeight.normal)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                actions: [
+                                                                  IconButton(
+                                                                    tooltip:
+                                                                        "Kapat",
+                                                                    icon: Icon(Icons
+                                                                        .close),
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                  )
+                                                                ]),
+                                                          ));
+                                            }
                                             snack(
                                                 "KDV tutarınız 4/10 oranına göre tevkif edilecektir.");
                                           } else {
@@ -762,6 +966,57 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                     .toPrecision(2);
 
                                             tefkkdv = true;
+                                            counter++;
+
+                                            if (counter == 1) {
+                                              showCupertinoDialog(
+                                                  barrierDismissible: true,
+                                                  context: context,
+                                                  builder:
+                                                      (context) =>
+                                                          ResponsiveScaledBox(
+                                                            width: 450,
+                                                            child: AlertDialog(
+                                                                elevation: 1,
+                                                                title: Text(
+                                                                    "Öneri"),
+                                                                content:
+                                                                    Text.rich(
+                                                                  TextSpan(
+                                                                    children: <TextSpan>[
+                                                                      TextSpan(
+                                                                          text:
+                                                                              'Toplam tutarınıza indirim uygulamak isterseniz ',
+                                                                          style:
+                                                                              TextStyle(fontWeight: FontWeight.normal)),
+                                                                      TextSpan(
+                                                                          text:
+                                                                              'İNDİRİM-KOMİSYON HESAPLA',
+                                                                          style:
+                                                                              TextStyle(fontWeight: FontWeight.bold)),
+                                                                      TextSpan(
+                                                                          text:
+                                                                              ' sayfamızdan yararlanabilirsiniz.',
+                                                                          style:
+                                                                              TextStyle(fontWeight: FontWeight.normal)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                actions: [
+                                                                  IconButton(
+                                                                    tooltip:
+                                                                        "Kapat",
+                                                                    icon: Icon(Icons
+                                                                        .close),
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                  )
+                                                                ]),
+                                                          ));
+                                            }
                                             snack(
                                                 "KDV tutarınız 7/10 oranına göre tevkif edilecektir.");
                                           } else {
@@ -863,6 +1118,57 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                     .toPrecision(2);
 
                                             tefkkdv = true;
+                                            counter++;
+
+                                            if (counter == 1) {
+                                              showCupertinoDialog(
+                                                  barrierDismissible: true,
+                                                  context: context,
+                                                  builder:
+                                                      (context) =>
+                                                          ResponsiveScaledBox(
+                                                            width: 450,
+                                                            child: AlertDialog(
+                                                                elevation: 1,
+                                                                title: Text(
+                                                                    "Öneri"),
+                                                                content:
+                                                                    Text.rich(
+                                                                  TextSpan(
+                                                                    children: <TextSpan>[
+                                                                      TextSpan(
+                                                                          text:
+                                                                              'Toplam tutarınıza indirim uygulamak isterseniz ',
+                                                                          style:
+                                                                              TextStyle(fontWeight: FontWeight.normal)),
+                                                                      TextSpan(
+                                                                          text:
+                                                                              'İNDİRİM-KOMİSYON HESAPLA',
+                                                                          style:
+                                                                              TextStyle(fontWeight: FontWeight.bold)),
+                                                                      TextSpan(
+                                                                          text:
+                                                                              ' sayfamızdan yararlanabilirsiniz.',
+                                                                          style:
+                                                                              TextStyle(fontWeight: FontWeight.normal)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                actions: [
+                                                                  IconButton(
+                                                                    tooltip:
+                                                                        "Kapat",
+                                                                    icon: Icon(Icons
+                                                                        .close),
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                  )
+                                                                ]),
+                                                          ));
+                                            }
                                             snack(
                                                 "KDV tutarınız 3/10 oranına göre tevkif edilecektir.");
                                           } else {
@@ -931,6 +1237,57 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                     .toPrecision(2);
 
                                             tefkkdv = true;
+                                            counter++;
+
+                                            if (counter == 1) {
+                                              showCupertinoDialog(
+                                                  barrierDismissible: true,
+                                                  context: context,
+                                                  builder:
+                                                      (context) =>
+                                                          ResponsiveScaledBox(
+                                                            width: 450,
+                                                            child: AlertDialog(
+                                                                elevation: 1,
+                                                                title: Text(
+                                                                    "Öneri"),
+                                                                content:
+                                                                    Text.rich(
+                                                                  TextSpan(
+                                                                    children: <TextSpan>[
+                                                                      TextSpan(
+                                                                          text:
+                                                                              'Toplam tutarınıza indirim uygulamak isterseniz ',
+                                                                          style:
+                                                                              TextStyle(fontWeight: FontWeight.normal)),
+                                                                      TextSpan(
+                                                                          text:
+                                                                              'İNDİRİM-KOMİSYON HESAPLA',
+                                                                          style:
+                                                                              TextStyle(fontWeight: FontWeight.bold)),
+                                                                      TextSpan(
+                                                                          text:
+                                                                              ' sayfamızdan yararlanabilirsiniz.',
+                                                                          style:
+                                                                              TextStyle(fontWeight: FontWeight.normal)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                actions: [
+                                                                  IconButton(
+                                                                    tooltip:
+                                                                        "Kapat",
+                                                                    icon: Icon(Icons
+                                                                        .close),
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                  )
+                                                                ]),
+                                                          ));
+                                            }
                                             snack(
                                                 "KDV tutarınız 5/10 oranına göre tevkif edilecektir.");
                                           } else {
@@ -999,6 +1356,57 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                     .toPrecision(2);
 
                                             tefkkdv = true;
+                                            counter++;
+
+                                            if (counter == 1) {
+                                              showCupertinoDialog(
+                                                  barrierDismissible: true,
+                                                  context: context,
+                                                  builder:
+                                                      (context) =>
+                                                          ResponsiveScaledBox(
+                                                            width: 450,
+                                                            child: AlertDialog(
+                                                                elevation: 1,
+                                                                title: Text(
+                                                                    "Öneri"),
+                                                                content:
+                                                                    Text.rich(
+                                                                  TextSpan(
+                                                                    children: <TextSpan>[
+                                                                      TextSpan(
+                                                                          text:
+                                                                              'Toplam tutarınıza indirim uygulamak isterseniz ',
+                                                                          style:
+                                                                              TextStyle(fontWeight: FontWeight.normal)),
+                                                                      TextSpan(
+                                                                          text:
+                                                                              'İNDİRİM-KOMİSYON HESAPLA',
+                                                                          style:
+                                                                              TextStyle(fontWeight: FontWeight.bold)),
+                                                                      TextSpan(
+                                                                          text:
+                                                                              ' sayfamızdan yararlanabilirsiniz.',
+                                                                          style:
+                                                                              TextStyle(fontWeight: FontWeight.normal)),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                actions: [
+                                                                  IconButton(
+                                                                    tooltip:
+                                                                        "Kapat",
+                                                                    icon: Icon(Icons
+                                                                        .close),
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                  )
+                                                                ]),
+                                                          ));
+                                            }
                                             snack(
                                                 "KDV tutarınız 9/10 oranına göre tevkif edilecektir.");
                                           } else {
@@ -1067,6 +1475,58 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                 .toPrecision(2);
 
                                         tefkkdv = true;
+                                        counter++;
+
+                                        if (counter == 1) {
+                                          showCupertinoDialog(
+                                              barrierDismissible: true,
+                                              context: context,
+                                              builder: (context) =>
+                                                  ResponsiveScaledBox(
+                                                    width: 450,
+                                                    child: AlertDialog(
+                                                        elevation: 1,
+                                                        title: Text("Öneri"),
+                                                        content: Text.rich(
+                                                          TextSpan(
+                                                            children: <TextSpan>[
+                                                              TextSpan(
+                                                                  text:
+                                                                      'Toplam tutarınıza indirim uygulamak isterseniz ',
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal)),
+                                                              TextSpan(
+                                                                  text:
+                                                                      'İNDİRİM-KOMİSYON HESAPLA',
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold)),
+                                                              TextSpan(
+                                                                  text:
+                                                                      ' sayfamızdan yararlanabilirsiniz.',
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal)),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        actions: [
+                                                          IconButton(
+                                                            tooltip: "Kapat",
+                                                            icon: Icon(
+                                                                Icons.close),
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                          )
+                                                        ]),
+                                                  ));
+                                        }
                                         snack(
                                             "KDV tutarınız tam tevkifat (10/10) oranına göre tevkif edilecektir.");
                                       } else {
@@ -1089,7 +1549,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                       children: [
                         Expanded(
                           child: Container(
-                            color: Color.fromARGB(255, 0, 135, 245),
+                            color: anaRenk,
                             child: Padding(
                               padding: const EdgeInsets.all(2.0),
                               child: Text(
@@ -1238,7 +1698,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                       children: [
                         Expanded(
                           child: Container(
-                            color: Color.fromARGB(255, 0, 135, 245),
+                            color: anaRenk,
                             child: Padding(
                               padding: const EdgeInsets.all(2.0),
                               child: Text(

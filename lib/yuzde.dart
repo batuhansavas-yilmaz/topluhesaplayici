@@ -213,7 +213,7 @@ class _YuzdeState extends State<Yuzde> {
                       Expanded(
                         child: Container(
                           padding: EdgeInsets.all(2),
-                          color: Color.fromARGB(255, 0, 135, 245),
+                          color: anaRenk,
                           child: Text(
                             "SONUÇ",
                             textAlign: TextAlign.center,

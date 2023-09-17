@@ -349,7 +349,7 @@ class _ZRaporuState extends State<ZRaporu> {
               ),
               if (sonucc == true)
                 Container(
-                  color: Color.fromARGB(255, 0, 135, 245),
+                  color: anaRenk,
                   padding: EdgeInsets.symmetric(horizontal: 2, vertical: 5),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,

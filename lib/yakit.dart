@@ -276,7 +276,7 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
                         Expanded(
                           child: Container(
                             padding: EdgeInsets.all(2),
-                            color: Color.fromARGB(255, 0, 135, 245),
+                            color: anaRenk,
                             child: Text(
                               "ARACINIZ KM BAŞINA ORTALAMA YAKIT TÜKETİMİ",
                               textAlign: TextAlign.center,

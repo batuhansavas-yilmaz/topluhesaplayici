@@ -243,7 +243,7 @@ class _BinekAracState extends State<BinekArac> {
                   height: 5,
                 ),
                 Container(
-                  color: Color.fromARGB(255, 0, 135, 245),
+                  color: anaRenk,
                   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
@@ -319,7 +319,7 @@ class _BinekAracState extends State<BinekArac> {
                       ),
                     ),
                     Container(
-                      color: Color.fromARGB(255, 0, 135, 245),
+                      color: anaRenk,
                       padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -417,6 +417,9 @@ class _BinekAracState extends State<BinekArac> {
                   ],
                 ),
               ],
+            ),
+            SizedBox(
+              height: 100,
             ),
           ],
         ),

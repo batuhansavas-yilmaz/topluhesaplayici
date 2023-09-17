@@ -27,6 +27,9 @@ String vucutKitleReklam = 'ca-app-pub-2770541050741728/1785921702';
 String zraporuReklam = 'ca-app-pub-2770541050741728/1183286472';
 String yakitReklam = 'ca-app-pub-2770541050741728/6419301289';
 String yuzdeReklam = 'ca-app-pub-2770541050741728/5078508883';
+
+var anaRenk = Color.fromARGB(255, 0, 135, 245);
+
 var requesT = AdRequest(
   // nonPersonalizedAds: true,
   keywords: [

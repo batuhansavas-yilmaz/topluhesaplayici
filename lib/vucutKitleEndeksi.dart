@@ -227,7 +227,7 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                       Expanded(
                         child: Container(
                           padding: EdgeInsets.all(2),
-                          color: Color.fromARGB(255, 0, 135, 245),
+                          color: anaRenk,
                           child: Text(
                             "VÜCUT KİTLE ENDEKSİNİZ : ${sonuc.toStringAsFixed(2)} ",
                             textAlign: TextAlign.center,

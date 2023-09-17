@@ -172,7 +172,7 @@ class _BeygirState extends State<Beygir> {
                 if (kwSonucc == true)
                   Container(
                     padding: EdgeInsets.all(5),
-                    color: Color.fromARGB(255, 0, 135, 245),
+                    color: anaRenk,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -295,7 +295,7 @@ class _BeygirState extends State<Beygir> {
                             Flexible(
                               child: Text(
                                 textAlign: TextAlign.center,
-                                "$kW kW : ",
+                                "$kW kW ",
                                 style: TextStyle(
                                     fontSize: 20, color: Colors.white),
                               ),
@@ -421,7 +421,7 @@ class _BeygirState extends State<Beygir> {
                 if (hpSonucc == true)
                   Container(
                     padding: EdgeInsets.all(5),
-                    color: Color.fromARGB(255, 0, 135, 245),
+                    color: anaRenk,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -584,6 +584,9 @@ class _BeygirState extends State<Beygir> {
                         });
                       },
                       child: Icon(Icons.replay)),
+                SizedBox(
+                  height: 150,
+                ),
               ],
             ),
           ],

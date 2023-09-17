@@ -1,6 +1,5 @@
 import 'package:advanced_in_app_review/advanced_in_app_review.dart';
 
-
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -20,7 +19,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import "beygir.dart";
 import 'kdvHesaplayicisi.dart';
-import 'komisyon.dart';
+import 'indirim-komisyon.dart';
 import 'zraporu.dart';
 import 'vucutKitleEndeksi.dart';
 import 'binekArac.dart';
@@ -57,7 +56,6 @@ void main() async {
       statusBarColor: Colors.transparent,
     ),
   );
-
   runApp(
     MyApp(),
   );
@@ -83,7 +81,7 @@ class MyApp extends StatelessWidget {
                 foregroundColor: Colors.black),
           ),
           appBarTheme: AppBarTheme(
-            backgroundColor: Color.fromARGB(255, 0, 135, 245),
+            backgroundColor: anaRenk,
             elevation: 1,
           )),
       title: "HesapMatik",
@@ -134,7 +132,7 @@ class MyApp extends StatelessWidget {
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
                 width: 451,
-                child: BouncingScrollWrapper.builder(context, Komisyon(),
+                child: BouncingScrollWrapper.builder(context, IndirimKomisyon(),
                     dragWithMouse: true),
               );
             });
@@ -301,7 +299,7 @@ class _HomePageState extends State<HomePage> {
             ),
             GorevButton(
               logo: "assets/commission.png",
-              altisim: "Komisyon\nHesaplama",
+              altisim: "İndirim\nKomisyon",
               sayfaismi: '/komisyon',
             ),
             GorevButton(
