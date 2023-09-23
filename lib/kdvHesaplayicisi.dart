@@ -145,6 +145,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
+                                  color: Colors.white,
                                   borderRadius: BorderRadius.circular(10)),
                               child: TextFormField(
                                 focusNode: _focusNode1,
@@ -174,6 +175,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
+                                color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: TextFormField(
@@ -606,6 +608,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
+                                  color: Colors.white,
                                   borderRadius: BorderRadius.circular(10)),
                               child: TextFormField(
                                 focusNode: _focusNode2,
@@ -632,6 +635,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
+                                color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: TextFormField(

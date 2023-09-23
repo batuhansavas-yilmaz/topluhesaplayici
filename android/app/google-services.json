@@ -29,6 +29,13 @@
             {
               "client_id": "738918140869-um05e7r8acubvb8ogif1lo9fsj8j6gla.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "738918140869-mg893p8v5pjgjovtlq1o9nc3vfoev91u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bsavasy.topluHesaplayici"
+              }
             }
           ]
         }

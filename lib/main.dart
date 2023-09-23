@@ -12,6 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // import 'package:gdpr_dialog/gdpr_dialog.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:toplu_hesaplayici/firebase_options.dart';
 
 import 'package:toplu_hesaplayici/yakit.dart';
 import 'package:toplu_hesaplayici/yuzde.dart';
@@ -31,7 +32,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   if (!kDebugMode) {
     FlutterError.onError = (errorDetails) {
@@ -50,9 +51,9 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
   SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
+    SystemUiOverlayStyle(
       systemNavigationBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: Color.fromARGB(255, 0, 135, 245),
+      systemNavigationBarColor: anaRenk,
       statusBarColor: Colors.transparent,
     ),
   );
@@ -280,11 +281,11 @@ class _HomePageState extends State<HomePage> {
           centerTitle: true,
         ),
         body: GridView.count(
-          childAspectRatio: 0.75,
+          childAspectRatio: 0.88,
           primary: true,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 10,
-          padding: EdgeInsets.all(30.0),
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 5,
+          padding: EdgeInsets.all(10.0),
           crossAxisCount: 3,
           children: [
             GorevButton(

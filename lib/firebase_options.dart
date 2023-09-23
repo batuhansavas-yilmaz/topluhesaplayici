@@ -17,13 +17,19 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -46,31 +52,11 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAqcURk5IAVrmdjqHOjOh10cAl_cK_19dI',
-    appId: '1:738918140869:web:d5ef28493e1788e05a19ac',
-    messagingSenderId: '738918140869',
-    projectId: 'hesapmatik-6c256',
-    authDomain: 'hesapmatik-6c256.firebaseapp.com',
-    storageBucket: 'hesapmatik-6c256.appspot.com',
-    measurementId: 'G-0JBVJT9Y52',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAvKq60wd38JHUbFK-O6-U2lD82yhd3Mu8',
     appId: '1:738918140869:android:163b10510ad7eb3e5a19ac',
     messagingSenderId: '738918140869',
     projectId: 'hesapmatik-6c256',
     storageBucket: 'hesapmatik-6c256.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCSetoh7o3CRIlJ_oRJpf3MnDVBqYoWPsU',
-    appId: '1:738918140869:ios:df4e3818cea878eb5a19ac',
-    messagingSenderId: '738918140869',
-    projectId: 'hesapmatik-6c256',
-    storageBucket: 'hesapmatik-6c256.appspot.com',
-    iosClientId: '738918140869-mg893p8v5pjgjovtlq1o9nc3vfoev91u.apps.googleusercontent.com',
-    iosBundleId: 'com.bsavasy.topluHesaplayici',
   );
 }
