@@ -1853,33 +1853,16 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
             ),
           ],
         ),
-        bottomNavigationBar: Container(
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-              color: Colors.white.withOpacity(0.9),
-              spreadRadius: 20,
-              blurRadius: 13,
-              offset: const Offset(0, 20),
-            )
-          ]),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _isBannerAdReady
-                  ? SizedBox(
-                      width: _bannerAd!.size.width.toDouble(),
-                      height: _bannerAd!.size.height.toDouble(),
-                      child: AdWidget(ad: _bannerAd!))
-                  : SizedBox(
-                      width: _bannerAd!.size.width.toDouble(),
-                      height: _bannerAd!.size.height.toDouble(),
-                    ),
-              const SizedBox(
-                height: 20,
-              ),
-              altblur
-            ],
-          ),
+        bottomNavigationBar: Reklam(
+          reklam: _isBannerAdReady
+              ? SizedBox(
+                  width: _bannerAd!.size.width.toDouble(),
+                  height: _bannerAd!.size.height.toDouble(),
+                  child: AdWidget(ad: _bannerAd!))
+              : SizedBox(
+                  width: _bannerAd!.size.width.toDouble(),
+                  height: _bannerAd!.size.height.toDouble(),
+                ),
         ),
       ),
     );

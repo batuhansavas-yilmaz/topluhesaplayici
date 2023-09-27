@@ -8,13 +8,12 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 // String binekAracReklam = 'ca-app-pub-3940256099942544/6300978111';
 // String kdvReklam = 'ca-app-pub-3940256099942544/6300978111';
 // String komisyonReklam = 'ca-app-pub-3940256099942544/6300978111';
-// // String mainReklam = 'ca-app-pub-3940256099942544/6300978111';
+// String mainReklam = 'ca-app-pub-3940256099942544/6300978111';
 // String vucutKitleReklam = 'ca-app-pub-3940256099942544/6300978111';
 // String zraporuReklam = 'ca-app-pub-3940256099942544/6300978111';
 // String yakitReklam = 'ca-app-pub-3940256099942544/6300978111';
 // String akvaryumReklam = 'ca-app-pub-3940256099942544/6300978111';
 // String yuzdeReklam = 'ca-app-pub-3940256099942544/6300978111';
-// String gecis = 'ca-app-pub-3940256099942544/1033173712';
 
 //orjinal
 String akvaryumReklam = 'ca-app-pub-2770541050741728/3957376202';
@@ -22,7 +21,7 @@ String beygirReklam = 'ca-app-pub-2770541050741728/5078886183';
 String binekAracReklam = 'ca-app-pub-2770541050741728/8870204809';
 String kdvReklam = 'ca-app-pub-2770541050741728/7896621210';
 String komisyonReklam = 'ca-app-pub-2770541050741728/2021478003';
-// String mainReklam = 'ca-app-pub-2770541050741728/5462029565';
+String mainReklam = 'ca-app-pub-2770541050741728~3828167702';
 String vucutKitleReklam = 'ca-app-pub-2770541050741728/1785921702';
 String zraporuReklam = 'ca-app-pub-2770541050741728/1183286472';
 String yakitReklam = 'ca-app-pub-2770541050741728/6419301289';
@@ -56,12 +55,6 @@ var hesapla = Text("HESAPLA",
 var formstil = TextStyle(fontSize: 23, fontWeight: FontWeight.bold);
 var hintstil = TextStyle(
     fontSize: 20, fontStyle: FontStyle.italic, fontWeight: FontWeight.normal);
-var altblur = Container(
-  decoration: const BoxDecoration(
-      color: Color.fromARGB(255, 0, 135, 245),
-      boxShadow: [BoxShadow(offset: Offset(-0.00, -0.10), blurRadius: 0.3)]),
-  height: 0.5,
-);
 
 //virgülden sonra doğru yuvarlama için
 extension Precision on double {
@@ -87,50 +80,6 @@ class GorevButton extends StatefulWidget {
 }
 
 class _GorevButtonState extends State<GorevButton> {
-  // InterstitialAd? _interstitialAd;
-  // void _loadInterstitialAd() {
-  //   InterstitialAd.load(
-  //       adUnitId: gecis,
-  //       request: const AdRequest(),
-  //       adLoadCallback: InterstitialAdLoadCallback(
-  //         // Called when an ad is successfully received.
-  //         onAdLoaded: (InterstitialAd ad) {
-  //           ad.fullScreenContentCallback = FullScreenContentCallback(
-  //               // Called when the ad showed the full screen content.
-  //               onAdShowedFullScreenContent: (ad) {},
-  //               // Called when an impression occurs on the ad.
-  //               onAdImpression: (ad) {},
-  //               // Called when the ad failed to show full screen content.
-  //               onAdFailedToShowFullScreenContent: (ad, err) {
-  //                 ad.dispose();
-  //                 _interstitialAd = null;
-  //                 _loadInterstitialAd();
-  //               },
-  //               // Called when the ad dismissed full screen content.
-  //               onAdDismissedFullScreenContent: (ad) {
-  //                 ad.dispose();
-  //                 _interstitialAd = null;
-  //                 _loadInterstitialAd();
-  //               },
-  //               // Called when a click is recorded for an ad.
-  //               onAdClicked: (ad) {});
-
-  //           // Keep a reference to the ad so you can show it later.
-  //           _interstitialAd = ad;
-  //         },
-  //         // Called when an ad request failed.
-  //         onAdFailedToLoad: (LoadAdError error) {
-  //           // ignore: avoid_print
-  //           print('InterstitialAd failed to load: $error');
-  //         },
-  //       ));
-  // }
-
-  // void initState() {
-  //   _loadInterstitialAd();
-  //   super.initState();
-  // }
-
   // int deneme = 0;
   @override
   Widget build(BuildContext context) {
@@ -144,12 +93,6 @@ class _GorevButtonState extends State<GorevButton> {
           ),
           onPressed: () {
             setState(() {
-              // deneme++;
-
-              // if (deneme == 2) {
-              //   _interstitialAd?.show();
-              // }
-
               Navigator.pushNamed(context, widget.sayfaismi!);
             });
           },
@@ -169,6 +112,47 @@ class _GorevButtonState extends State<GorevButton> {
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ],
+    );
+  }
+}
+
+class Reklam extends StatefulWidget {
+  final Widget reklam;
+  Reklam({required this.reklam, super.key});
+
+  @override
+  State<Reklam> createState() => _ReklamState();
+}
+
+class _ReklamState extends State<Reklam> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+          color: Colors.white.withOpacity(0.9),
+          spreadRadius: 20,
+          blurRadius: 13,
+          offset: const Offset(0, 20),
+        )
+      ]),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          widget.reklam,
+          const SizedBox(
+            height: 20,
+          ),
+          Container(
+            decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 0, 135, 245),
+                boxShadow: [
+                  BoxShadow(offset: Offset(-0.00, -0.10), blurRadius: 0.3)
+                ]),
+            height: 0.5,
+          )
+        ],
+      ),
     );
   }
 }

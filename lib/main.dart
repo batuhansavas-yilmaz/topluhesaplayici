@@ -199,53 +199,30 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   void initialization() async {
-    await Future.delayed(const Duration(milliseconds: 400));
+    await Future.delayed(const Duration(milliseconds: 350));
     FlutterNativeSplash.remove();
   }
 
-  // late BannerAd? _bannerAd;
-  // bool _isBannerAdReady = false;
-  // void _loadBannerAd() {
-  //   _bannerAd = BannerAd(
-  //     adUnitId: mainReklam,
-  //     size: AdSize.banner,
-  //     request: requesT,
-  //     listener: BannerAdListener(
-  //       onAdLoaded: (_) {
-  //         setState(() {
-  //           _isBannerAdReady = true;
-  //         });
-  //       },
-  //       onAdFailedToLoad: (ad, error) {
-  //         _bannerAd!.dispose();
-  //       },
-  //     ),
-  //   );
+  late BannerAd? _bannerAd;
+  bool _isBannerAdReady = false;
+  void _loadBannerAd() {
+    _bannerAd = BannerAd(
+      adUnitId: mainReklam,
+      size: AdSize.banner,
+      request: requesT,
+      listener: BannerAdListener(
+        onAdLoaded: (_) {
+          setState(() {
+            _isBannerAdReady = true;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          _bannerAd!.dispose();
+        },
+      ),
+    );
 
-  //   _bannerAd!.load();
-  // }
-
-  @override
-  void initState() {
-    super.initState();
-    initialization();
-    initPlatformState();
-    // GdprDialog.instance.showDialog(isForTest: false);
-    // GdprDialog.instance.getConsentStatus();
-
-    AdvancedInAppReview()
-        .setMinDaysBeforeRemind(7)
-        .setMinDaysAfterInstall(1)
-        .setMinLaunchTimes(1)
-        .setMinSecondsBeforeShowDialog(4)
-        .monitor();
-
-    // _loadBannerAd();
-  }
-
-  void dispose() {
-    super.dispose();
-    // _bannerAd!.dispose();
+    _bannerAd!.load();
   }
 
   // ignore: unused_field
@@ -271,175 +248,181 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  @override
+  void initState() {
+    super.initState();
+    initialization();
+    initPlatformState();
+    // GdprDialog.instance.showDialog(isForTest: false);
+    // GdprDialog.instance.getConsentStatus();
+
+    AdvancedInAppReview()
+        .setMinDaysBeforeRemind(7)
+        .setMinDaysAfterInstall(1)
+        .setMinLaunchTimes(1)
+        .setMinSecondsBeforeShowDialog(4)
+        .monitor();
+    _loadBannerAd();
+  }
+
+  void dispose() {
+    super.dispose();
+    _bannerAd!.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
-        extendBody: true,
-        appBar: AppBar(
-          title: Text(
-            "HesapMatik",
+      extendBody: true,
+      appBar: AppBar(
+        title: Text(
+          "HesapMatik",
+        ),
+        centerTitle: true,
+      ),
+      body: GridView.count(
+        childAspectRatio: 0.88,
+        primary: true,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 5,
+        padding: EdgeInsets.all(10.0),
+        crossAxisCount: 3,
+        children: [
+          GorevButton(
+            logo: "assets/percentage.png",
+            altisim: "KDV\nHesaplama",
+            sayfaismi: '/kdv',
           ),
-          centerTitle: true,
-        ),
-        body: GridView.count(
-          childAspectRatio: 0.88,
-          primary: true,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 5,
-          padding: EdgeInsets.all(10.0),
-          crossAxisCount: 3,
-          children: [
-            GorevButton(
-              logo: "assets/percentage.png",
-              altisim: "KDV\nHesaplama",
-              sayfaismi: '/kdv',
-            ),
-            GorevButton(
-              logo: "assets/zraporu.png",
-              altisim: "Eksik Z Raporu\nKurtarıcı",
-              sayfaismi: '/zraporu',
-            ),
-            GorevButton(
-              logo: "assets/commission.png",
-              altisim: "İndirim\nKomisyon",
-              sayfaismi: '/komisyon',
-            ),
-            GorevButton(
-              logo: "assets/aquarium.png",
-              altisim: "Akvaryum\nGereksinimleri",
-              sayfaismi: '/akvaryum',
-            ),
-            Column(
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      showCupertinoDialog(
-                        barrierDismissible: true,
-                        context: context,
-                        builder: (context) => ResponsiveScaledBox(
-                          width: 450,
-                          child: AlertDialog(
-                            elevation: 1,
-                            title: Text(
-                              "From B.S.Y.",
-                              textAlign: TextAlign.center,
-                            ),
-                            content: Text(
-                              "Diğer uygulamalarımızı keşfetmek ve Instagram'dan bizi takip etmek için lütfen aşağıdaki butonları kullanın.",
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            actions: [
-                              IconButton(
-                                  icon: FaIcon(FontAwesomeIcons.googlePlay),
-                                  onPressed: () {
-                                    final Uri _url = Uri.parse(
-                                        "https://play.google.com/store/apps/dev?id=5406504893764763263&pli=1");
-
-                                    launchUrl(_url,
-                                        mode: LaunchMode.externalApplication);
-                                  }),
-                              IconButton(
-                                  icon: FaIcon(FontAwesomeIcons.instagram),
-                                  onPressed: () {
-                                    final Uri _url = Uri.parse(
-                                        "https:instagram.com/from.b.s.y");
-
-                                    launchUrl(_url,
-                                        mode: LaunchMode.externalApplication);
-                                    Navigator.pop(context);
-                                  }),
-                              IconButton(
-                                  icon: Icon(Icons.close),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  }),
-                            ],
-                          ),
-                        ),
-                      );
-                    });
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.asset(
-                      "assets/info.png",
-                      width: 132,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "Keşfet",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            GorevButton(
-              logo: "assets/love.png",
-              altisim: "Vücut Kitle\nEndeksi",
-              sayfaismi: '/vucut',
-            ),
-            GorevButton(
-              logo: "assets/car.png",
-              altisim: "%70'lik Binek Araç Giderleri",
-              sayfaismi: '/binekarac',
-            ),
-            GorevButton(
-              logo: "assets/horse-power.png",
-              altisim: "kW ⇄ hp",
-              sayfaismi: '/beygir',
-            ),
-            GorevButton(
-              logo: "assets/petrol.png",
-              altisim: "Yakıt\nTüketimi",
-              sayfaismi: '/yakit',
-            ),
-            GorevButton(
-              logo: "assets/yuzde.png",
-              altisim: "Yüzde\nHesaplama",
-              sayfaismi: '/yuzde',
-            ),
-            SizedBox(),
-            SizedBox(),
-            SizedBox(),
-            SizedBox(),
-          ],
-        ),
-        bottomNavigationBar: Container(
-          // decoration: BoxDecoration(boxShadow: [
-          //   BoxShadow(
-          //     color: Colors.white.withOpacity(0.9),
-          //     spreadRadius: 20,
-          //     blurRadius: 13,
-          //     offset: const Offset(0, 20),
-          //   )
-          // ]),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+          GorevButton(
+            logo: "assets/zraporu.png",
+            altisim: "Eksik Z Raporu\nKurtarıcı",
+            sayfaismi: '/zraporu',
+          ),
+          GorevButton(
+            logo: "assets/commission.png",
+            altisim: "İndirim\nKomisyon",
+            sayfaismi: '/komisyon',
+          ),
+          GorevButton(
+            logo: "assets/aquarium.png",
+            altisim: "Akvaryum\nGereksinimleri",
+            sayfaismi: '/akvaryum',
+          ),
+          Column(
             children: [
-              // _isBannerAdReady
-              //     ? SizedBox(
-              //         width: _bannerAd!.size.width.toDouble(),
-              //         height: _bannerAd!.size.height.toDouble(),
-              //         child: AdWidget(ad: _bannerAd!))
-              //     : SizedBox(
-              //         width: _bannerAd!.size.width.toDouble(),
-              //         height: _bannerAd!.size.height.toDouble(),
-              //       ),
-              const SizedBox(
-                height: 20,
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                onPressed: () {
+                  setState(() {
+                    showCupertinoDialog(
+                      barrierDismissible: true,
+                      context: context,
+                      builder: (context) => ResponsiveScaledBox(
+                        width: 450,
+                        child: AlertDialog(
+                          elevation: 1,
+                          title: Text(
+                            "From B.S.Y.",
+                            textAlign: TextAlign.center,
+                          ),
+                          content: Text(
+                            "Diğer uygulamalarımızı keşfetmek ve Instagram'dan bizi takip etmek için lütfen aşağıdaki butonları kullanın.",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                          actions: [
+                            IconButton(
+                                icon: FaIcon(FontAwesomeIcons.googlePlay),
+                                onPressed: () {
+                                  final Uri _url = Uri.parse(
+                                      "https://play.google.com/store/apps/dev?id=5406504893764763263&pli=1");
+
+                                  launchUrl(_url,
+                                      mode: LaunchMode.externalApplication);
+                                }),
+                            IconButton(
+                                icon: FaIcon(FontAwesomeIcons.instagram),
+                                onPressed: () {
+                                  final Uri _url = Uri.parse(
+                                      "https:instagram.com/from.b.s.y");
+
+                                  launchUrl(_url,
+                                      mode: LaunchMode.externalApplication);
+                                  Navigator.pop(context);
+                                }),
+                            IconButton(
+                                icon: Icon(Icons.close),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                }),
+                          ],
+                        ),
+                      ),
+                    );
+                  });
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset(
+                    "assets/info.png",
+                    width: 132,
+                  ),
+                ),
               ),
-              altblur
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Keşfet",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
             ],
           ),
-        ));
+          GorevButton(
+            logo: "assets/love.png",
+            altisim: "Vücut Kitle\nEndeksi",
+            sayfaismi: '/vucut',
+          ),
+          GorevButton(
+            logo: "assets/car.png",
+            altisim: "%70'lik Binek Araç Giderleri",
+            sayfaismi: '/binekarac',
+          ),
+          GorevButton(
+            logo: "assets/horse-power.png",
+            altisim: "kW ⇄ hp",
+            sayfaismi: '/beygir',
+          ),
+          GorevButton(
+            logo: "assets/petrol.png",
+            altisim: "Yakıt\nTüketimi",
+            sayfaismi: '/yakit',
+          ),
+          GorevButton(
+            logo: "assets/yuzde.png",
+            altisim: "Yüzde\nHesaplama",
+            sayfaismi: '/yuzde',
+          ),
+          SizedBox(),
+          SizedBox(),
+          SizedBox(),
+          SizedBox(),
+        ],
+      ),
+      bottomNavigationBar: Reklam(
+        reklam: _isBannerAdReady
+            ? SizedBox(
+                width: _bannerAd!.size.width.toDouble(),
+                height: _bannerAd!.size.height.toDouble(),
+                child: AdWidget(ad: _bannerAd!))
+            : SizedBox(
+                width: _bannerAd!.size.width.toDouble(),
+                height: _bannerAd!.size.height.toDouble(),
+              ),
+      ),
+    );
   }
 }
