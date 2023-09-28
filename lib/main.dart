@@ -1,9 +1,7 @@
 import 'package:advanced_in_app_review/advanced_in_app_review.dart';
-
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -12,12 +10,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // import 'package:gdpr_dialog/gdpr_dialog.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:toplu_hesaplayici/firebase_options.dart';
-
-import 'package:toplu_hesaplayici/yakit.dart';
-import 'package:toplu_hesaplayici/yuzde.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'yakit.dart';
+import 'yuzde.dart';
 import "beygir.dart";
 import 'kdvHesaplayicisi.dart';
 import 'indirim-komisyon.dart';
@@ -25,7 +22,6 @@ import 'zraporu.dart';
 import 'vucutKitleEndeksi.dart';
 import 'binekArac.dart';
 import 'tools/yardimcilar.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'akvaryum.dart';
 
 void main() async {
@@ -99,7 +95,8 @@ class MyApp extends StatelessWidget {
           case '/':
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: 451,
+                width:
+                    MediaQuery.of(context).size.shortestSide < 600 ? 451 : 600,
                 child: BouncingScrollWrapper.builder(context, HomePage(),
                     dragWithMouse: true),
               );
@@ -107,7 +104,8 @@ class MyApp extends StatelessWidget {
           case '/kdv':
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: 451,
+                width:
+                    MediaQuery.of(context).size.shortestSide < 600 ? 451 : 600,
                 child: BouncingScrollWrapper.builder(
                     context, KdvHesaplayicisi(),
                     dragWithMouse: true),
@@ -116,7 +114,8 @@ class MyApp extends StatelessWidget {
           case '/zraporu':
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: 451,
+                width:
+                    MediaQuery.of(context).size.shortestSide < 600 ? 451 : 600,
                 child: BouncingScrollWrapper.builder(context, ZRaporu(),
                     dragWithMouse: true),
               );
@@ -124,7 +123,8 @@ class MyApp extends StatelessWidget {
           case '/binekarac':
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: 451,
+                width:
+                    MediaQuery.of(context).size.shortestSide < 600 ? 451 : 600,
                 child: BouncingScrollWrapper.builder(context, BinekArac(),
                     dragWithMouse: true),
               );
@@ -132,7 +132,8 @@ class MyApp extends StatelessWidget {
           case '/komisyon':
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: 451,
+                width:
+                    MediaQuery.of(context).size.shortestSide < 600 ? 451 : 600,
                 child: BouncingScrollWrapper.builder(context, IndirimKomisyon(),
                     dragWithMouse: true),
               );
@@ -140,7 +141,8 @@ class MyApp extends StatelessWidget {
           case '/akvaryum':
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: 451,
+                width:
+                    MediaQuery.of(context).size.shortestSide < 600 ? 451 : 600,
                 child: BouncingScrollWrapper.builder(context, Aquarium(),
                     dragWithMouse: true),
               );
@@ -148,7 +150,8 @@ class MyApp extends StatelessWidget {
           case '/vucut':
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: 451,
+                width:
+                    MediaQuery.of(context).size.shortestSide < 600 ? 451 : 600,
                 child: BouncingScrollWrapper.builder(context, KitleEndeksi(),
                     dragWithMouse: true),
               );
@@ -156,7 +159,8 @@ class MyApp extends StatelessWidget {
           case '/beygir':
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: 451,
+                width:
+                    MediaQuery.of(context).size.shortestSide < 600 ? 451 : 600,
                 child: BouncingScrollWrapper.builder(context, Beygir(),
                     dragWithMouse: true),
               );
@@ -164,7 +168,8 @@ class MyApp extends StatelessWidget {
           case '/yakit':
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: 451,
+                width:
+                    MediaQuery.of(context).size.shortestSide < 600 ? 451 : 600,
                 child: BouncingScrollWrapper.builder(context, YakitTuketimi(),
                     dragWithMouse: true),
               );
@@ -172,7 +177,8 @@ class MyApp extends StatelessWidget {
           case '/yuzde':
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: 451,
+                width:
+                    MediaQuery.of(context).size.shortestSide < 600 ? 451 : 600,
                 child: BouncingScrollWrapper.builder(context, Yuzde(),
                     dragWithMouse: true),
               );
@@ -181,7 +187,8 @@ class MyApp extends StatelessWidget {
           default:
             return CupertinoPageRoute(builder: (context) {
               return ResponsiveScaledBox(
-                width: 451,
+                width:
+                    MediaQuery.of(context).size.shortestSide < 600 ? 451 : 600,
                 child: BouncingScrollWrapper.builder(context, HomePage(),
                     dragWithMouse: true),
               );
@@ -274,154 +281,197 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(CupertinoIcons.question_circle),
+            onPressed: () {
+              setState(() {
+                showCupertinoDialog(
+                  barrierDismissible: true,
+                  context: context,
+                  builder: (context) => ResponsiveScaledBox(
+                    width: 450,
+                    child: AlertDialog(
+                      elevation: 1,
+                      title: Text(
+                        "From B.S.Y.",
+                        textAlign: TextAlign.center,
+                      ),
+                      content: Text(
+                        "Diğer uygulamalarımızı keşfetmeyi ve Instagram'dan bizi takip etmeyi unutmayın.",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      actions: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton.icon(
+                                onPressed: () {
+                                  final Uri _url = Uri.parse(
+                                      "https://docs.google.com/document/d/e/2PACX-1vSUf7RNSt6Zfvp2LReEQuMQSaw4eECqxhsDETX5xQ6GneMScVUL0uxY35kCMWeG6MbNYx60cyzulpCc/pub");
+
+                                  launchUrl(_url,
+                                      mode: LaunchMode.externalApplication);
+                                  Navigator.pop(context);
+                                },
+                                icon: Icon(Icons.policy),
+                                label: Text("Gizlilik Politikası")),
+                            Row(
+                              children: [
+                                IconButton(
+                                    icon: FaIcon(FontAwesomeIcons.googlePlay),
+                                    onPressed: () {
+                                      final Uri _url = Uri.parse(
+                                          "https://play.google.com/store/apps/dev?id=5406504893764763263&pli=1");
+
+                                      launchUrl(_url,
+                                          mode: LaunchMode.externalApplication);
+                                    }),
+                                IconButton(
+                                    icon: FaIcon(FontAwesomeIcons.instagram),
+                                    onPressed: () {
+                                      final Uri _url = Uri.parse(
+                                          "https:instagram.com/from.b.s.y");
+
+                                      launchUrl(_url,
+                                          mode: LaunchMode.externalApplication);
+                                      Navigator.pop(context);
+                                    }),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              });
+            }),
         title: Text(
           "HesapMatik",
         ),
         centerTitle: true,
       ),
       body: GridView.count(
-        childAspectRatio: 0.88,
-        primary: true,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 5,
-        padding: EdgeInsets.all(10.0),
-        crossAxisCount: 3,
-        children: [
-          GorevButton(
-            logo: "assets/percentage.png",
-            altisim: "KDV\nHesaplama",
-            sayfaismi: '/kdv',
-          ),
-          GorevButton(
-            logo: "assets/zraporu.png",
-            altisim: "Eksik Z Raporu\nKurtarıcı",
-            sayfaismi: '/zraporu',
-          ),
-          GorevButton(
-            logo: "assets/commission.png",
-            altisim: "İndirim\nKomisyon",
-            sayfaismi: '/komisyon',
-          ),
-          GorevButton(
-            logo: "assets/aquarium.png",
-            altisim: "Akvaryum\nGereksinimleri",
-            sayfaismi: '/akvaryum',
-          ),
-          Column(
-            children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+          childAspectRatio: 0.88,
+          primary: true,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 10,
+          padding: EdgeInsets.all(20.0),
+          crossAxisCount:
+              MediaQuery.of(context).size.shortestSide < 600 ? 2 : 3,
+          children: MediaQuery.of(context).size.shortestSide < 600
+              ? [
+                  GorevButton(
+                    logo: "assets/percentage.png",
+                    altisim: "KDV\nHesaplama",
+                    sayfaismi: '/kdv',
                   ),
-                ),
-                onPressed: () {
-                  setState(() {
-                    showCupertinoDialog(
-                      barrierDismissible: true,
-                      context: context,
-                      builder: (context) => ResponsiveScaledBox(
-                        width: 450,
-                        child: AlertDialog(
-                          elevation: 1,
-                          title: Text(
-                            "From B.S.Y.",
-                            textAlign: TextAlign.center,
-                          ),
-                          content: Text(
-                            "Diğer uygulamalarımızı keşfetmek ve Instagram'dan bizi takip etmek için lütfen aşağıdaki butonları kullanın.",
-                            style: TextStyle(fontSize: 15),
-                          ),
-                          actions: [
-                            IconButton(
-                                icon: FaIcon(FontAwesomeIcons.googlePlay),
-                                onPressed: () {
-                                  final Uri _url = Uri.parse(
-                                      "https://play.google.com/store/apps/dev?id=5406504893764763263&pli=1");
-
-                                  launchUrl(_url,
-                                      mode: LaunchMode.externalApplication);
-                                }),
-                            IconButton(
-                                icon: FaIcon(FontAwesomeIcons.instagram),
-                                onPressed: () {
-                                  final Uri _url = Uri.parse(
-                                      "https:instagram.com/from.b.s.y");
-
-                                  launchUrl(_url,
-                                      mode: LaunchMode.externalApplication);
-                                  Navigator.pop(context);
-                                }),
-                            IconButton(
-                                icon: Icon(Icons.close),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                }),
-                          ],
-                        ),
-                      ),
-                    );
-                  });
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset(
-                    "assets/info.png",
-                    width: 132,
+                  GorevButton(
+                    logo: "assets/car.png",
+                    altisim: "%70'lik Binek Araç Giderleri",
+                    sayfaismi: '/binekarac',
                   ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Keşfet",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          GorevButton(
-            logo: "assets/love.png",
-            altisim: "Vücut Kitle\nEndeksi",
-            sayfaismi: '/vucut',
-          ),
-          GorevButton(
-            logo: "assets/car.png",
-            altisim: "%70'lik Binek Araç Giderleri",
-            sayfaismi: '/binekarac',
-          ),
-          GorevButton(
-            logo: "assets/horse-power.png",
-            altisim: "kW ⇄ hp",
-            sayfaismi: '/beygir',
-          ),
-          GorevButton(
-            logo: "assets/petrol.png",
-            altisim: "Yakıt\nTüketimi",
-            sayfaismi: '/yakit',
-          ),
-          GorevButton(
-            logo: "assets/yuzde.png",
-            altisim: "Yüzde\nHesaplama",
-            sayfaismi: '/yuzde',
-          ),
-          SizedBox(),
-          SizedBox(),
-          SizedBox(),
-          SizedBox(),
-        ],
-      ),
+                  GorevButton(
+                    logo: "assets/yuzde.png",
+                    altisim: "Yüzde\nHesaplama",
+                    sayfaismi: '/yuzde',
+                  ),
+                  GorevButton(
+                    logo: "assets/zraporu.png",
+                    altisim: "Eksik Z Raporu\nKurtarıcı",
+                    sayfaismi: '/zraporu',
+                  ),
+                  GorevButton(
+                    logo: "assets/petrol.png",
+                    altisim: "Yakıt\nTüketimi",
+                    sayfaismi: '/yakit',
+                  ),
+                  GorevButton(
+                    logo: "assets/aquarium.png",
+                    altisim: "Akvaryum\nGereksinimleri",
+                    sayfaismi: '/akvaryum',
+                  ),
+                  GorevButton(
+                    logo: "assets/commission.png",
+                    altisim: "İndirim\nKomisyon",
+                    sayfaismi: '/komisyon',
+                  ),
+                  GorevButton(
+                    logo: "assets/love.png",
+                    altisim: "Vücut Kitle\nEndeksi",
+                    sayfaismi: '/vucut',
+                  ),
+                  GorevButton(
+                    logo: "assets/horse-power.png",
+                    altisim: "kW ⇄ hp",
+                    sayfaismi: '/beygir',
+                  ),
+                  SizedBox(),
+                  SizedBox(),
+                  SizedBox(),
+                  SizedBox(),
+                ]
+              : [
+                  GorevButton(
+                    logo: "assets/percentage.png",
+                    altisim: "KDV\nHesaplama",
+                    sayfaismi: '/kdv',
+                  ),
+                  GorevButton(
+                    logo: "assets/zraporu.png",
+                    altisim: "Eksik Z Raporu\nKurtarıcı",
+                    sayfaismi: '/zraporu',
+                  ),
+                  GorevButton(
+                    logo: "assets/commission.png",
+                    altisim: "İndirim\nKomisyon",
+                    sayfaismi: '/komisyon',
+                  ),
+                  GorevButton(
+                    logo: "assets/aquarium.png",
+                    altisim: "Akvaryum\nGereksinimleri",
+                    sayfaismi: '/akvaryum',
+                  ),
+                  GorevButton(
+                    logo: "assets/love.png",
+                    altisim: "Vücut Kitle\nEndeksi",
+                    sayfaismi: '/vucut',
+                  ),
+                  GorevButton(
+                    logo: "assets/yuzde.png",
+                    altisim: "Yüzde\nHesaplama",
+                    sayfaismi: '/yuzde',
+                  ),
+                  GorevButton(
+                    logo: "assets/car.png",
+                    altisim: "%70'lik Binek Araç Giderleri",
+                    sayfaismi: '/binekarac',
+                  ),
+                  GorevButton(
+                    logo: "assets/horse-power.png",
+                    altisim: "kW ⇄ hp",
+                    sayfaismi: '/beygir',
+                  ),
+                  GorevButton(
+                    logo: "assets/petrol.png",
+                    altisim: "Yakıt\nTüketimi",
+                    sayfaismi: '/yakit',
+                  ),
+                  SizedBox(),
+                  SizedBox(),
+                  SizedBox(),
+                  SizedBox(),
+                ]),
       bottomNavigationBar: Reklam(
-        reklam: _isBannerAdReady
-            ? SizedBox(
-                width: _bannerAd!.size.width.toDouble(),
-                height: _bannerAd!.size.height.toDouble(),
-                child: AdWidget(ad: _bannerAd!))
-            : SizedBox(
-                width: _bannerAd!.size.width.toDouble(),
-                height: _bannerAd!.size.height.toDouble(),
-              ),
+        ready: _isBannerAdReady,
+        reklam: SizedBox(
+            width: _bannerAd!.size.width.toDouble(),
+            height: _bannerAd!.size.height.toDouble(),
+            child: AdWidget(ad: _bannerAd!)),
+        bosluk: SizedBox(
+          width: _bannerAd!.size.width.toDouble(),
+          height: _bannerAd!.size.height.toDouble(),
+        ),
       ),
     );
   }

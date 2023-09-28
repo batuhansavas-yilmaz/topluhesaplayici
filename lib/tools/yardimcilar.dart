@@ -80,7 +80,6 @@ class GorevButton extends StatefulWidget {
 }
 
 class _GorevButtonState extends State<GorevButton> {
-  // int deneme = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -109,7 +108,10 @@ class _GorevButtonState extends State<GorevButton> {
         Text(
           "${widget.altisim}",
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              fontSize:
+                  MediaQuery.of(context).size.shortestSide < 600 ? 20 : 16,
+              fontWeight: FontWeight.bold),
         ),
       ],
     );
@@ -117,8 +119,14 @@ class _GorevButtonState extends State<GorevButton> {
 }
 
 class Reklam extends StatefulWidget {
-  final Widget reklam;
-  Reklam({required this.reklam, super.key});
+  final Widget? reklam;
+  final Widget? bosluk;
+  final bool? ready;
+  const Reklam(
+      {required this.reklam,
+      required this.bosluk,
+      required this.ready,
+      super.key});
 
   @override
   State<Reklam> createState() => _ReklamState();
@@ -128,29 +136,29 @@ class _ReklamState extends State<Reklam> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-          color: Colors.white.withOpacity(0.9),
-          spreadRadius: 20,
-          blurRadius: 13,
-          offset: const Offset(0, 20),
-        )
-      ]),
+      decoration: widget.ready!
+          ? BoxDecoration(boxShadow: [
+              BoxShadow(
+                color: Colors.white.withOpacity(0.9),
+                spreadRadius: 20,
+                blurRadius: 13,
+                offset: const Offset(0, 20),
+              )
+            ])
+          : null,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          widget.reklam,
+          widget.ready! ? widget.reklam! : widget.bosluk!,
           const SizedBox(
-            height: 20,
+            height: 10,
           ),
           Container(
-            decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 0, 135, 245),
-                boxShadow: [
-                  BoxShadow(offset: Offset(-0.00, -0.10), blurRadius: 0.3)
-                ]),
+            decoration: BoxDecoration(color: anaRenk, boxShadow: const [
+              BoxShadow(offset: Offset(-0.00, -0.10), blurRadius: 0.3)
+            ]),
             height: 0.5,
-          )
+          ),
         ],
       ),
     );

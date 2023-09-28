@@ -1854,15 +1854,15 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
           ],
         ),
         bottomNavigationBar: Reklam(
-          reklam: _isBannerAdReady
-              ? SizedBox(
-                  width: _bannerAd!.size.width.toDouble(),
-                  height: _bannerAd!.size.height.toDouble(),
-                  child: AdWidget(ad: _bannerAd!))
-              : SizedBox(
-                  width: _bannerAd!.size.width.toDouble(),
-                  height: _bannerAd!.size.height.toDouble(),
-                ),
+          ready: _isBannerAdReady,
+          reklam: SizedBox(
+              width: _bannerAd!.size.width.toDouble(),
+              height: _bannerAd!.size.height.toDouble(),
+              child: AdWidget(ad: _bannerAd!)),
+          bosluk: SizedBox(
+            width: _bannerAd!.size.width.toDouble(),
+            height: _bannerAd!.size.height.toDouble(),
+          ),
         ),
       ),
     );

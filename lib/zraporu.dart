@@ -55,6 +55,8 @@ class _ZRaporuState extends State<ZRaporu> {
     _bannerAd!.load();
   }
 
+  final _focusNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
@@ -148,6 +150,7 @@ class _ZRaporuState extends State<ZRaporu> {
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10)),
                               child: TextFormField(
+                                focusNode: _focusNode,
                                 controller: k1,
                                 keyboardType: TextInputType.numberWithOptions(
                                     decimal: true),
@@ -348,49 +351,74 @@ class _ZRaporuState extends State<ZRaporu> {
                 height: 10,
               ),
               if (sonucc == true)
-                Container(
-                  color: anaRenk,
-                  padding: EdgeInsets.symmetric(horizontal: 2, vertical: 5),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Eksik Rapor/Raporlardaki Toplam Tutar : ",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17),
+                Column(
+                  children: [
+                    Container(
+                      color: anaRenk,
+                      padding: EdgeInsets.symmetric(horizontal: 2, vertical: 5),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Eksik Rapor/Raporlardaki Toplam Tutar : ",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17),
+                          ),
+                          Flexible(
+                            child: Text(
+                              sonuc.toStringAsFixed(2),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic,
+                                  fontSize: 20),
+                            ),
+                          ),
+                        ],
                       ),
-                      Flexible(
-                        child: Text(
-                          sonuc.toStringAsFixed(2),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                              fontSize: 20),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: CircleBorder(eccentricity: 0.0)),
+                      child: Icon(Icons.replay),
+                      onPressed: () {
+                        setState(() {
+                          _focusNode.requestFocus();
+                          buyukKumul = 0.00;
+                          kucukKumul = 0.00;
+                          tuTar = 0.00;
+                          sonuc = 0.00;
+                          k1.clear();
+                          k2.clear();
+                          tutar.clear();
+                          sonucc = false;
+                        });
+                      },
+                    )
+                  ],
                 ),
             ],
           ),
         ],
       ),
       bottomNavigationBar: Reklam(
-        reklam: _isBannerAdReady
-            ? SizedBox(
-                width: _bannerAd!.size.width.toDouble(),
-                height: _bannerAd!.size.height.toDouble(),
-                child: AdWidget(ad: _bannerAd!))
-            : SizedBox(
-                width: _bannerAd!.size.width.toDouble(),
-                height: _bannerAd!.size.height.toDouble(),
-              ),
+        ready: _isBannerAdReady,
+        reklam: SizedBox(
+            width: _bannerAd!.size.width.toDouble(),
+            height: _bannerAd!.size.height.toDouble(),
+            child: AdWidget(ad: _bannerAd!)),
+        bosluk: SizedBox(
+          width: _bannerAd!.size.width.toDouble(),
+          height: _bannerAd!.size.height.toDouble(),
+        ),
       ),
     );
   }
