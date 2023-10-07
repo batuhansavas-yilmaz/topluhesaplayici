@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, unnecessary_statements
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_framework/responsive_scaled_box.dart';
 
+import 'main.dart';
 import 'tools/yardimcilar.dart';
 
 class KdvHesaplayicisi extends StatefulWidget {
@@ -86,19 +87,19 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
     super.dispose();
   }
 
-  snack(String mesaj) {
-    final snackBar = SnackBar(
-      content: Text(mesaj, textAlign: TextAlign.center),
-      width: 200,
-      duration: Duration(seconds: 3),
-      elevation: 1,
-      behavior: SnackBarBehavior.floating,
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
-
   @override
   Widget build(BuildContext context) {
+    TextStyle stil = TextStyle(
+        color: Theme.of(context).brightness == Brightness.light
+            ? Colors.black
+            : Colors.white,
+        fontSize: 18);
+    TextStyle stil2 = TextStyle(
+        color: Theme.of(context).brightness == Brightness.light
+            ? Colors.black
+            : Colors.white,
+        fontSize: 17,
+        fontWeight: FontWeight.bold);
     return DefaultTabController(
       initialIndex: 0,
       length: 2,
@@ -106,6 +107,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
         extendBody: true,
         appBar: AppBar(
           bottom: TabBar(
+            indicatorColor: Colors.white,
             indicatorWeight: 3,
             tabs: [
               Text(
@@ -143,148 +145,134 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                       Row(
                         children: [
                           Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: TextFormField(
-                                focusNode: _focusNode1,
-                                keyboardType: TextInputType.numberWithOptions(
-                                  decimal: true,
-                                ),
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp(r'^\d+\.?\d{0,2}')),
-                                ],
-                                controller: t1,
-                                style: formstil,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  hintText: "Tutar",
-                                  hintStyle: hintstil,
-                                ),
-                                textAlign: TextAlign.center,
+                            child: TextFormField(
+                              focusNode: _focusNode1,
+                              keyboardType: TextInputType.numberWithOptions(
+                                decimal: true,
                               ),
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'^\d+\.?\d{0,2}')),
+                              ],
+                              controller: t1,
+                              style: formstil,
+                              decoration: InputDecoration(
+                                hintText: "Tutar",
+                              ),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                           SizedBox(
                             width: 5,
                           ),
                           Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: TextFormField(
-                                onFieldSubmitted: (value) {
-                                  setState(() {
-                                    if (t1.text.isNotEmpty &&
-                                        t2.text.isNotEmpty) {
-                                      FocusScope.of(context)
-                                          .requestFocus(new FocusNode());
-                                      //Burda yatığımız , hesapla butonuna bastığımızda  t1 ve t2 nesnelerine yazılan verilerin,
-                                      //hesaptutar ve hesapOran nesnelerine aktarılmasını sağladık.
-                                      //Bu sayede hesap tutar ve hesap oran nesnelerini kullanarak matematiksel işlemleri yapabildik.
-                                      hesapTutar = double.parse(t1.text);
-                                      hesapOran = double.parse(t2.text);
+                            child: TextFormField(
+                              onFieldSubmitted: (value) {
+                                setState(() {
+                                  if (t1.text.isNotEmpty &&
+                                      t2.text.isNotEmpty) {
+                                    FocusScope.of(context)
+                                        .requestFocus(new FocusNode());
+                                    //Burda yatığımız , hesapla butonuna bastığımızda  t1 ve t2 nesnelerine yazılan verilerin,
+                                    //hesaptutar ve hesapOran nesnelerine aktarılmasını sağladık.
+                                    //Bu sayede hesap tutar ve hesap oran nesnelerini kullanarak matematiksel işlemleri yapabildik.
+                                    hesapTutar = double.parse(t1.text);
+                                    hesapOran = double.parse(t2.text);
 
-                                      //kdv haric
-                                      HarickenKdvTutari =
-                                          (hesapTutar * (hesapOran / 100))
-                                              .toPrecision(2);
-                                      haricTutar = hesapTutar.toPrecision(2);
-                                      toplamHaricTutar =
-                                          (HarickenKdvTutari + haricTutar)
-                                              .toPrecision(2);
-                                      //kdvdahil
-                                      dahilTutar =
-                                          (hesapTutar / ((hesapOran / 100) + 1))
-                                              .toPrecision(2);
-                                      dahilkenKdvTutari =
-                                          (hesapTutar - dahilTutar)
-                                              .toPrecision(2);
-                                      toplamDahilTutar =
-                                          hesapTutar.toPrecision(2);
+                                    //kdv haric
+                                    HarickenKdvTutari =
+                                        (hesapTutar * (hesapOran / 100))
+                                            .toPrecision(2);
+                                    haricTutar = hesapTutar.toPrecision(2);
+                                    toplamHaricTutar =
+                                        (HarickenKdvTutari + haricTutar)
+                                            .toPrecision(2);
+                                    //kdvdahil
+                                    dahilTutar =
+                                        (hesapTutar / ((hesapOran / 100) + 1))
+                                            .toPrecision(2);
+                                    dahilkenKdvTutari =
+                                        (hesapTutar - dahilTutar)
+                                            .toPrecision(2);
+                                    toplamDahilTutar =
+                                        hesapTutar.toPrecision(2);
+                                    HomePageState.simpleNativeToastPlugin
+                                        .showToast(
+                                      "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır",
+                                    );
 
-                                      snack(
-                                          "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır");
+                                    kdv = true;
+                                    counter++;
 
-                                      kdv = true;
-                                      counter++;
-
-                                      if (counter == 1) {
-                                        showCupertinoDialog(
-                                            barrierDismissible: true,
-                                            context: context,
-                                            builder:
-                                                (context) =>
-                                                    ResponsiveScaledBox(
-                                                      width: 450,
-                                                      child: AlertDialog(
-                                                          elevation: 1,
-                                                          title: Text("Öneri"),
-                                                          content: Text.rich(
-                                                            TextSpan(
-                                                              children: <TextSpan>[
-                                                                TextSpan(
-                                                                    text:
-                                                                        'Toplam tutarınıza indirim uygulamak isterseniz ',
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight.normal)),
-                                                                TextSpan(
-                                                                    text:
-                                                                        'İNDİRİM-KOMİSYON HESAPLA',
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight.bold)),
-                                                                TextSpan(
-                                                                    text:
-                                                                        ' sayfamızdan yararlanabilirsiniz.',
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight.normal)),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          actions: [
-                                                            IconButton(
-                                                              tooltip: "Kapat",
-                                                              icon: Icon(
-                                                                  Icons.close),
-                                                              onPressed: () {
-                                                                Navigator.pop(
-                                                                    context);
-                                                              },
-                                                            )
-                                                          ]),
-                                                    ));
-                                      }
-                                    } else {
-                                      snack("Lütfen bir değer girin");
+                                    if (counter == 1) {
+                                      showCupertinoDialog(
+                                          barrierDismissible: true,
+                                          context: context,
+                                          builder: (context) =>
+                                              ResponsiveScaledBox(
+                                                width: 450,
+                                                child: AlertDialog(
+                                                    elevation: 1,
+                                                    title: Text("Öneri"),
+                                                    content: Text.rich(
+                                                      TextSpan(
+                                                        children: <TextSpan>[
+                                                          TextSpan(
+                                                              text:
+                                                                  'Toplam tutarınıza indirim uygulamak isterseniz ',
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal)),
+                                                          TextSpan(
+                                                              text:
+                                                                  'İNDİRİM-KOMİSYON HESAPLA',
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                          TextSpan(
+                                                              text:
+                                                                  ' sayfamızdan yararlanabilirsiniz.',
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal)),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    actions: [
+                                                      IconButton(
+                                                        tooltip: "Kapat",
+                                                        icon: Icon(Icons.close),
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                      )
+                                                    ]),
+                                              ));
                                     }
-                                  });
-                                },
-                                controller: t2,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.digitsOnly,
-                                  LengthLimitingTextInputFormatter(2)
-                                ],
-                                keyboardType: TextInputType.numberWithOptions(
-                                    decimal: true),
-                                style: formstil,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  hintText: "KDV Oranı",
-                                  hintStyle: hintstil,
-                                ),
-                                textAlign: TextAlign.center,
+                                  } else {
+                                    HomePageState.simpleNativeToastPlugin
+                                        .showToast(
+                                      "Lütfen bir değer girin",
+                                    );
+                                  }
+                                });
+                              },
+                              controller: t2,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(2)
+                              ],
+                              keyboardType: TextInputType.numberWithOptions(
+                                  decimal: true),
+                              style: formstil,
+                              decoration: InputDecoration(
+                                hintText: "KDV Oranı",
                               ),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ],
@@ -321,8 +309,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                     (hesapTutar - dahilTutar).toPrecision(2);
                                 toplamDahilTutar = hesapTutar.toPrecision(2);
 
-                                snack(
-                                    "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır");
+                                HomePageState.simpleNativeToastPlugin.showToast(
+                                  "KDV'niz %${hesapOran.toStringAsFixed(0)} oranıyla hesaplanmıştır",
+                                );
                                 kdv = true;
                                 counter++;
 
@@ -374,7 +363,9 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                           ));
                                 }
                               } else {
-                                snack("Lütfen bir değer girin");
+                                HomePageState.simpleNativeToastPlugin.showToast(
+                                  "Lütfen bir değer girin",
+                                );
                               }
                             });
                           },
@@ -390,7 +381,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                           children: [
                             Expanded(
                               child: Container(
-                                color: anaRenk,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.light
+                                    ? anaRenk
+                                    : anaRenkDark,
                                 child: Padding(
                                   padding: const EdgeInsets.all(2.0),
                                   child: Text(
@@ -428,8 +422,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                 ),
                               ),
                               Divider(
-                                color: Colors.black,
-                              ),
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? Colors.black
+                                      : anaRenkDark),
                               Padding(
                                 padding: const EdgeInsets.only(
                                   left: 4,
@@ -450,8 +446,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                 ),
                               ),
                               Divider(
-                                color: Colors.black,
-                              ),
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? Colors.black
+                                      : anaRenkDark),
                               Padding(
                                 padding:
                                     const EdgeInsets.only(left: 4, bottom: 2),
@@ -481,7 +479,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                           children: [
                             Expanded(
                               child: Container(
-                                color: anaRenk,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.light
+                                    ? anaRenk
+                                    : anaRenkDark,
                                 child: Padding(
                                   padding: const EdgeInsets.all(2.0),
                                   child: Text(
@@ -519,8 +520,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                 ),
                               ),
                               Divider(
-                                color: Colors.black,
-                              ),
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? Colors.black
+                                      : anaRenkDark),
                               Padding(
                                 padding: const EdgeInsets.only(left: 4),
                                 child: Row(
@@ -539,8 +542,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                 ),
                               ),
                               Divider(
-                                color: Colors.black,
-                              ),
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? Colors.black
+                                      : anaRenkDark),
                               Padding(
                                 padding: const EdgeInsets.only(left: 4),
                                 child: Row(
@@ -606,56 +611,37 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                       Row(
                         children: [
                           Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: TextFormField(
-                                focusNode: _focusNode2,
-                                keyboardType: TextInputType.numberWithOptions(
-                                    decimal: true),
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp(r'^\d+\.?\d{0,2}')),
-                                ],
-                                controller: t3,
-                                style: formstil,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  hintText: "Tutar",
-                                  hintStyle: hintstil,
-                                ),
-                                textAlign: TextAlign.center,
+                            child: TextFormField(
+                              focusNode: _focusNode2,
+                              keyboardType: TextInputType.numberWithOptions(
+                                  decimal: true),
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'^\d+\.?\d{0,2}')),
+                              ],
+                              controller: t3,
+                              style: formstil,
+                              decoration: InputDecoration(
+                                hintText: "Tutar",
                               ),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                           SizedBox(width: 5),
                           Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
+                            child: TextFormField(
+                              controller: t4,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                                LengthLimitingTextInputFormatter(2)
+                              ],
+                              keyboardType: TextInputType.numberWithOptions(
+                                  decimal: true),
+                              style: formstil,
+                              decoration: InputDecoration(
+                                hintText: "KDV Oranı",
                               ),
-                              child: TextFormField(
-                                controller: t4,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.digitsOnly,
-                                  LengthLimitingTextInputFormatter(2)
-                                ],
-                                keyboardType: TextInputType.numberWithOptions(
-                                    decimal: true),
-                                style: formstil,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  hintText: "KDV Oranı",
-                                  hintStyle: hintstil,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ],
@@ -783,10 +769,17 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                                 ]),
                                                           ));
                                             }
-                                            snack(
-                                                "KDV tutarınız 2/10 oranına göre tevkif edilecektir.");
+
+                                            HomePageState
+                                                .simpleNativeToastPlugin
+                                                .showToast(
+                                                    "KDV tutarınız 2/10 oranına göre tevkif edilecektir.");
                                           } else {
-                                            snack("Lütfen bir değer girin");
+                                            HomePageState
+                                                .simpleNativeToastPlugin
+                                                .showToast(
+                                              "Lütfen bir değer girin",
+                                            );
                                           }
                                         });
                                       },
@@ -902,10 +895,16 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                                 ]),
                                                           ));
                                             }
-                                            snack(
-                                                "KDV tutarınız 4/10 oranına göre tevkif edilecektir.");
+                                            HomePageState
+                                                .simpleNativeToastPlugin
+                                                .showToast(
+                                                    "KDV tutarınız 4/10 oranına göre tevkif edilecektir.");
                                           } else {
-                                            snack("Lütfen bir değer girin");
+                                            HomePageState
+                                                .simpleNativeToastPlugin
+                                                .showToast(
+                                              "Lütfen bir değer girin",
+                                            );
                                           }
                                         });
                                       },
@@ -1021,10 +1020,16 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                                 ]),
                                                           ));
                                             }
-                                            snack(
-                                                "KDV tutarınız 7/10 oranına göre tevkif edilecektir.");
+                                            HomePageState
+                                                .simpleNativeToastPlugin
+                                                .showToast(
+                                                    "KDV tutarınız 7/10 oranına göre tevkif edilecektir.");
                                           } else {
-                                            snack("Lütfen bir değer girin");
+                                            HomePageState
+                                                .simpleNativeToastPlugin
+                                                .showToast(
+                                              "Lütfen bir değer girin",
+                                            );
                                           }
                                         });
                                       },
@@ -1173,10 +1178,16 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                                 ]),
                                                           ));
                                             }
-                                            snack(
-                                                "KDV tutarınız 3/10 oranına göre tevkif edilecektir.");
+                                            HomePageState
+                                                .simpleNativeToastPlugin
+                                                .showToast(
+                                                    "KDV tutarınız 3/10 oranına göre tevkif edilecektir.");
                                           } else {
-                                            snack("Lütfen bir değer girin");
+                                            HomePageState
+                                                .simpleNativeToastPlugin
+                                                .showToast(
+                                              "Lütfen bir değer girin",
+                                            );
                                           }
                                         });
                                       },
@@ -1292,10 +1303,16 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                                 ]),
                                                           ));
                                             }
-                                            snack(
-                                                "KDV tutarınız 5/10 oranına göre tevkif edilecektir.");
+                                            HomePageState
+                                                .simpleNativeToastPlugin
+                                                .showToast(
+                                                    "KDV tutarınız 5/10 oranına göre tevkif edilecektir.");
                                           } else {
-                                            snack("Lütfen bir değer girin");
+                                            HomePageState
+                                                .simpleNativeToastPlugin
+                                                .showToast(
+                                              "Lütfen bir değer girin",
+                                            );
                                           }
                                         });
                                       },
@@ -1411,10 +1428,16 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                                 ]),
                                                           ));
                                             }
-                                            snack(
-                                                "KDV tutarınız 9/10 oranına göre tevkif edilecektir.");
+                                            HomePageState
+                                                .simpleNativeToastPlugin
+                                                .showToast(
+                                                    "KDV tutarınız 9/10 oranına göre tevkif edilecektir.");
                                           } else {
-                                            snack("Lütfen bir değer girin");
+                                            HomePageState
+                                                .simpleNativeToastPlugin
+                                                .showToast(
+                                              "Lütfen bir değer girin",
+                                            );
                                           }
                                         });
                                       },
@@ -1531,10 +1554,14 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                                                         ]),
                                                   ));
                                         }
-                                        snack(
-                                            "KDV tutarınız tam tevkifat (10/10) oranına göre tevkif edilecektir.");
+                                        HomePageState.simpleNativeToastPlugin
+                                            .showToast(
+                                                "KDV tutarınız tam tevkifat (10/10) oranına göre tevkif edilecektir.");
                                       } else {
-                                        snack("Lütfen bir değer girin");
+                                        HomePageState.simpleNativeToastPlugin
+                                            .showToast(
+                                          "Lütfen bir değer girin",
+                                        );
                                       }
                                     });
                                   },
@@ -1553,7 +1580,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                       children: [
                         Expanded(
                           child: Container(
-                            color: anaRenk,
+                            color:
+                                Theme.of(context).brightness == Brightness.light
+                                    ? anaRenk
+                                    : anaRenkDark,
                             child: Padding(
                               padding: const EdgeInsets.all(2.0),
                               child: Text(
@@ -1593,8 +1623,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             ),
                           ),
                           Divider(
-                            color: Colors.black,
-                          ),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.black
+                                  : anaRenkDark),
                           Padding(
                             padding: const EdgeInsets.only(
                               left: 4,
@@ -1614,8 +1646,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             ),
                           ),
                           Divider(
-                            color: Colors.black,
-                          ),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.black
+                                  : anaRenkDark),
                           Padding(
                             padding: const EdgeInsets.only(
                               left: 4,
@@ -1636,8 +1670,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             ),
                           ),
                           Divider(
-                            color: Colors.black,
-                          ),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.black
+                                  : anaRenkDark),
                           Padding(
                             padding: const EdgeInsets.only(left: 4),
                             child: Row(
@@ -1655,8 +1691,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             ),
                           ),
                           Divider(
-                            color: Colors.black,
-                          ),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.black
+                                  : anaRenkDark),
                           Padding(
                             padding: const EdgeInsets.only(left: 4),
                             child: Row(
@@ -1674,8 +1712,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             ),
                           ),
                           Divider(
-                            color: Colors.black,
-                          ),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.black
+                                  : anaRenkDark),
                           Padding(
                             padding: const EdgeInsets.only(left: 4),
                             child: Row(
@@ -1702,7 +1742,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                       children: [
                         Expanded(
                           child: Container(
-                            color: anaRenk,
+                            color:
+                                Theme.of(context).brightness == Brightness.light
+                                    ? anaRenk
+                                    : anaRenkDark,
                             child: Padding(
                               padding: const EdgeInsets.all(2.0),
                               child: Text(
@@ -1742,8 +1785,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             ),
                           ),
                           Divider(
-                            color: Colors.black,
-                          ),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.black
+                                  : anaRenkDark),
                           Padding(
                             padding: const EdgeInsets.only(
                               left: 4,
@@ -1763,8 +1808,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             ),
                           ),
                           Divider(
-                            color: Colors.black,
-                          ),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.black
+                                  : anaRenkDark),
                           Padding(
                             padding: const EdgeInsets.only(
                               left: 4,
@@ -1785,8 +1832,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             ),
                           ),
                           Divider(
-                            color: Colors.black,
-                          ),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.black
+                                  : anaRenkDark),
                           Padding(
                             padding: const EdgeInsets.only(left: 4),
                             child: Row(
@@ -1804,8 +1853,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             ),
                           ),
                           Divider(
-                            color: Colors.black,
-                          ),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.black
+                                  : anaRenkDark),
                           Padding(
                             padding: const EdgeInsets.only(left: 4),
                             child: Row(
@@ -1823,8 +1874,10 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
                             ),
                           ),
                           Divider(
-                            color: Colors.black,
-                          ),
+                              color: Theme.of(context).brightness ==
+                                      Brightness.light
+                                  ? Colors.black
+                                  : anaRenkDark),
                           Padding(
                             padding: const EdgeInsets.only(left: 4),
                             child: Row(
@@ -1868,7 +1921,3 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
     );
   }
 }
-
-TextStyle stil = TextStyle(color: Colors.black, fontSize: 18);
-TextStyle stil2 =
-    TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold);

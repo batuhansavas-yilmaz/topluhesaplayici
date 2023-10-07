@@ -34,7 +34,7 @@ dependencies:
   google_mobile_ads: ^3.0.0
   responsive_framework: ^1.1.1
   url_launcher: ^6.1.14
-
+  simple_native_toast: ^0.0.1
 
 
 
@@ -44,7 +44,7 @@ flutter_native_splash:
   image: assets/splash_screen/splash.png
   branding: assets/splash_screen/branding_light.png
   color: "#ffffff"
-  color_dark: "#000000"
+  color_dark: "#545D63"
   image_dark: assets/splash_screen/splash.png
   branding_dark: assets/splash_screen/branding_dark.png
   ios: false
@@ -54,13 +54,14 @@ flutter_native_splash:
     image: assets/splash_screen/and12/and12splash.png
     branding: assets/splash_screen/and12/and12branding_light.png
     color: "#ffffff"
-    color_dark: "#000000"
+    color_dark: "#545D63"
     image_dark: assets/splash_screen/and12/and12splash.png
     branding_dark: assets/splash_screen/and12/and12branding_dark.png
 #dart run flutter_native_splash:create
 #dart run flutter_native_splash:remove
 
 dev_dependencies:
+
   flutter_test:
     sdk: flutter
 

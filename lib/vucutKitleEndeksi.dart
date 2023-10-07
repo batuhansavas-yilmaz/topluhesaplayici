@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_framework/responsive_scaled_box.dart';
+import 'main.dart';
 import 'tools/yardimcilar.dart';
 import 'tools/endeksYorum.dart';
 
@@ -22,17 +23,6 @@ class KitleEndeksiState extends State<KitleEndeksi> {
   bool sonucc = false;
   int counter = 0;
   final _focusNode = FocusNode();
-
-  snack(String mesaj) {
-    final snackBar = SnackBar(
-      content: Text(mesaj, textAlign: TextAlign.center),
-      width: 200,
-      duration: Duration(seconds: 3),
-      elevation: 1,
-      behavior: SnackBarBehavior.floating,
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,111 +48,90 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                         TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               ),
               Divider(
-                color: Colors.black,
-              ),
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Colors.black
+                      : anaRenkDark),
               Row(
                 children: [
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
+                      child: TextFormField(
+                        controller: kg,
+                        focusNode: _focusNode,
+                        style: formstil,
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r'^\d+\.?\d{0,2}')),
+                        ],
+                        decoration: InputDecoration(
+                          hintText: "Kilo",
                         ),
-                        child: TextFormField(
-                          controller: kg,
-                          focusNode: _focusNode,
-                          style: formstil,
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                                RegExp(r'^\d+\.?\d{0,2}')),
-                          ],
-                          decoration: InputDecoration(
-                            hintText: "Kilo",
-                            hintStyle: hintstil,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                        ),
-                        child: TextFormField(
-                          onFieldSubmitted: (value) {
-                            setState(() {
-                              if (kg.text.isNotEmpty && boy.text.isNotEmpty) {
-                                FocusScope.of(context).requestFocus(
-                                    new FocusNode()); // klavye kapatıcı
-                                counter++;
-                                if (counter == 1) {
-                                  showCupertinoDialog(
-                                      barrierDismissible: true,
-                                      context: context,
-                                      builder: (context) => ResponsiveScaledBox(
-                                            width: 450,
-                                            child: AlertDialog(
-                                                elevation: 1,
-                                                title: Text("Uyarı"),
-                                                content: Text(
-                                                    'Edindiğiniz sonuçlar formulize olarak doğru olsa bile '
-                                                    'sağlığınız açısından en güvenilir sonuçlar için diyetisyenlerden '
-                                                    'yardım almanızı öneririz.'),
-                                                actions: [
-                                                  IconButton(
-                                                    tooltip: "Kapat",
-                                                    icon: Icon(Icons.close),
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                  )
-                                                ]),
-                                          ));
-                                }
-                                kG = double.parse(kg.text);
-                                boY = double.parse(boy.text);
-                                sonuc = (kG / ((boY / 100) * (boY / 100)))
-                                    .toPrecision(2);
-
-                                sonucc = true;
-                              } else {
-                                snack("Lütfen bir değer girin");
+                      child: TextFormField(
+                        onFieldSubmitted: (value) {
+                          setState(() {
+                            if (kg.text.isNotEmpty && boy.text.isNotEmpty) {
+                              FocusScope.of(context).requestFocus(
+                                  new FocusNode()); // klavye kapatıcı
+                              counter++;
+                              if (counter == 1) {
+                                showCupertinoDialog(
+                                    barrierDismissible: true,
+                                    context: context,
+                                    builder: (context) => ResponsiveScaledBox(
+                                          width: 450,
+                                          child: AlertDialog(
+                                              elevation: 1,
+                                              title: Text("Uyarı"),
+                                              content: Text(
+                                                  'Edindiğiniz sonuçlar formulize olarak doğru olsa bile '
+                                                  'sağlığınız açısından en güvenilir sonuçlar için diyetisyenlerden '
+                                                  'yardım almanızı öneririz.'),
+                                              actions: [
+                                                IconButton(
+                                                  tooltip: "Kapat",
+                                                  icon: Icon(Icons.close),
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                )
+                                              ]),
+                                        ));
                               }
-                            });
-                          },
-                          controller: boy,
-                          style: formstil,
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                            LengthLimitingTextInputFormatter(3)
-                          ],
-                          decoration: InputDecoration(
-                            hintText: "Boy(cm)",
-                            hintStyle: hintstil,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          textAlign: TextAlign.center,
+                              kG = double.parse(kg.text);
+                              boY = double.parse(boy.text);
+                              sonuc = (kG / ((boY / 100) * (boY / 100)))
+                                  .toPrecision(2);
+
+                              sonucc = true;
+                            } else {
+                              HomePageState.simpleNativeToastPlugin.showToast(
+                                "Lütfen bir değer girin",
+                              );
+                            }
+                          });
+                        },
+                        controller: boy,
+                        style: formstil,
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(3)
+                        ],
+                        decoration: InputDecoration(
+                          hintText: "Boy(cm)",
                         ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),
@@ -207,7 +176,9 @@ class KitleEndeksiState extends State<KitleEndeksi> {
 
                       sonucc = true;
                     } else {
-                      snack("Lütfen bir değer girin");
+                      HomePageState.simpleNativeToastPlugin.showToast(
+                        "Lütfen bir değer girin",
+                      );
                     }
                   });
                 },
@@ -225,7 +196,9 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                     Expanded(
                       child: Container(
                         padding: EdgeInsets.all(2),
-                        color: anaRenk,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? anaRenk
+                            : anaRenkDark,
                         child: Text(
                           "VÜCUT KİTLE ENDEKSİNİZ : ${sonuc.toStringAsFixed(2)} ",
                           textAlign: TextAlign.center,
@@ -247,13 +220,18 @@ class KitleEndeksiState extends State<KitleEndeksi> {
                   textAlign: TextAlign.center,
                 ),
                 Divider(
-                  color: Colors.black,
-                ),
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? Colors.black
+                        : anaRenkDark),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Text(
                     sonucMetin,
-                    style: TextStyle(fontSize: 20, color: Colors.black),
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? Colors.black
+                            : Colors.white),
                   ),
                 ),
                 SizedBox(

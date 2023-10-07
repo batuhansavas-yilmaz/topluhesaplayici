@@ -1,10 +1,11 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, unnecessary_statements
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import 'main.dart';
 import 'tools/yardimcilar.dart';
 
 class IndirimKomisyon extends StatefulWidget {
@@ -29,16 +30,6 @@ class _IndirimKomisyonState extends State<IndirimKomisyon> {
   TextEditingController t4 = TextEditingController(text: '');
   final _focusNode1 = FocusNode();
   final _focusNode2 = FocusNode();
-  snack(String mesaj) {
-    final snackBar = SnackBar(
-      content: Text(mesaj, textAlign: TextAlign.center),
-      width: 200,
-      duration: Duration(seconds: 3),
-      elevation: 1,
-      behavior: SnackBarBehavior.floating,
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
 
   late BannerAd? _bannerAd;
   bool _isBannerAdReady = false;
@@ -103,78 +94,60 @@ class _IndirimKomisyonState extends State<IndirimKomisyon> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: TextFormField(
-                            focusNode: _focusNode1,
-                            keyboardType:
-                                TextInputType.numberWithOptions(decimal: true),
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r'^\d+\.?\d{0,2}')),
-                            ],
-                            controller: t1,
-                            style: formstil,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              hintText: "Ana Para",
-                              hintStyle: hintstil,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
                         child: TextFormField(
-                          onFieldSubmitted: (value) {
-                            setState(() {
-                              if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
-                                FocusScope.of(context)
-                                    .requestFocus(new FocusNode());
-                                AnaPara = double.parse(t1.text);
-                                IndirimKomisyonTutari = double.parse(t2.text);
-                                IndirimKomisyonOraniSonuc =
-                                    ((IndirimKomisyonTutari / AnaPara) * 100)
-                                        .toPrecision(2);
-
-                                OranIndirimSonuc = (AnaPara *
-                                        ((100 - IndirimKomisyonOraniSonuc) /
-                                            100))
-                                    .toPrecision(2);
-
-                                oran = true;
-                              } else {
-                                snack("Lütfen bir değer girin");
-                              }
-                            });
-                          },
-                          controller: t2,
+                          focusNode: _focusNode1,
+                          keyboardType:
+                              TextInputType.numberWithOptions(decimal: true),
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(
                                 RegExp(r'^\d+\.?\d{0,2}')),
                           ],
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
+                          controller: t1,
                           style: formstil,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            hintText: "Tutar (₺)",
-                            hintStyle: hintstil,
+                            hintText: "Ana Para",
                           ),
                           textAlign: TextAlign.center,
                         ),
+                      ),
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        onFieldSubmitted: (value) {
+                          setState(() {
+                            if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
+                              FocusScope.of(context)
+                                  .requestFocus(new FocusNode());
+                              AnaPara = double.parse(t1.text);
+                              IndirimKomisyonTutari = double.parse(t2.text);
+                              IndirimKomisyonOraniSonuc =
+                                  ((IndirimKomisyonTutari / AnaPara) * 100)
+                                      .toPrecision(2);
+
+                              OranIndirimSonuc = (AnaPara *
+                                      ((100 - IndirimKomisyonOraniSonuc) / 100))
+                                  .toPrecision(2);
+
+                              oran = true;
+                            } else {
+                              HomePageState.simpleNativeToastPlugin.showToast(
+                                "Lütfen bir değer girin",
+                              );
+                            }
+                          });
+                        },
+                        controller: t2,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r'^\d+\.?\d{0,2}')),
+                        ],
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        style: formstil,
+                        decoration: InputDecoration(
+                          hintText: "İndirim Tutarı (₺)",
+                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ],
@@ -198,7 +171,9 @@ class _IndirimKomisyonState extends State<IndirimKomisyon> {
 
                       oran = true;
                     } else {
-                      snack("Lütfen bir değer girin");
+                      HomePageState.simpleNativeToastPlugin.showToast(
+                        "Lütfen bir değer girin",
+                      );
                     }
                   });
                 },
@@ -210,7 +185,9 @@ class _IndirimKomisyonState extends State<IndirimKomisyon> {
               if (oran == true)
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  color: anaRenk,
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? anaRenk
+                      : anaRenkDark,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -283,29 +260,36 @@ class _IndirimKomisyonState extends State<IndirimKomisyon> {
                   ),
                 ),
               if (oran == true)
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      shape: CircleBorder(eccentricity: 0)),
-                  onPressed: () {
-                    setState(() {
-                      t1.clear();
-                      t2.clear();
-                      AnaPara = 0.00;
-                      IndirimKomisyonTutari = 0.00;
-                      IndirimKomisyonOraniSonuc = 0.00;
-                      OranIndirimSonuc = 0.00;
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: CircleBorder(eccentricity: 0)),
+                    onPressed: () {
+                      setState(() {
+                        t1.clear();
+                        t2.clear();
+                        AnaPara = 0.00;
+                        IndirimKomisyonTutari = 0.00;
+                        IndirimKomisyonOraniSonuc = 0.00;
+                        OranIndirimSonuc = 0.00;
 
-                      _focusNode1.requestFocus();
-                      oran = false;
-                    });
-                  },
-                  child: Icon(Icons.replay),
+                        _focusNode1.requestFocus();
+                        oran = false;
+                      });
+                    },
+                    child: Icon(Icons.replay),
+                  ),
                 ),
               SizedBox(
                 height: 10,
               ),
               Divider(
-                color: Colors.black,
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Colors.black
+                      : anaRenkDark),
+              SizedBox(
+                height: 10,
               ),
               Text(
                 "Tutar Hesaplaması",
@@ -321,75 +305,58 @@ class _IndirimKomisyonState extends State<IndirimKomisyon> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: TextFormField(
-                            focusNode: _focusNode2,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r'^\d+\.?\d{0,2}')),
-                            ],
-                            keyboardType:
-                                TextInputType.numberWithOptions(decimal: true),
-                            controller: t3,
-                            style: formstil,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              hintText: "Ana Para",
-                              hintStyle: hintstil,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
                         child: TextFormField(
-                          onFieldSubmitted: (value) {
-                            setState(() {
-                              if (t3.text.isNotEmpty && t4.text.isNotEmpty) {
-                                FocusScope.of(context)
-                                    .requestFocus(new FocusNode());
-                                AnaPara = double.parse(t3.text);
-                                IndirimKomisyonOrani = double.parse(t4.text);
-                                IndirimKomisyonTutariSonuc =
-                                    (AnaPara * (IndirimKomisyonOrani / 100))
-                                        .toPrecision(2);
-                                TutarIndirimSonuc =
-                                    (AnaPara - IndirimKomisyonTutariSonuc)
-                                        .toPrecision(2);
-                                tutar = true;
-                              } else {
-                                snack("Lütfen bir değer girin");
-                              }
-                            });
-                          },
+                          focusNode: _focusNode2,
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(
                                 RegExp(r'^\d+\.?\d{0,2}')),
                           ],
-                          controller: t4,
                           keyboardType:
                               TextInputType.numberWithOptions(decimal: true),
+                          controller: t3,
                           style: formstil,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            hintText: "Oran (%)",
-                            hintStyle: hintstil,
+                            hintText: "Ana Para",
                           ),
                           textAlign: TextAlign.center,
                         ),
+                      ),
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        onFieldSubmitted: (value) {
+                          setState(() {
+                            if (t3.text.isNotEmpty && t4.text.isNotEmpty) {
+                              FocusScope.of(context)
+                                  .requestFocus(new FocusNode());
+                              AnaPara = double.parse(t3.text);
+                              IndirimKomisyonOrani = double.parse(t4.text);
+                              IndirimKomisyonTutariSonuc =
+                                  (AnaPara * (IndirimKomisyonOrani / 100))
+                                      .toPrecision(2);
+                              TutarIndirimSonuc =
+                                  (AnaPara - IndirimKomisyonTutariSonuc)
+                                      .toPrecision(2);
+                              tutar = true;
+                            } else {
+                              HomePageState.simpleNativeToastPlugin.showToast(
+                                "Lütfen bir değer girin",
+                              );
+                            }
+                          });
+                        },
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r'^\d+\.?\d{0,2}')),
+                        ],
+                        controller: t4,
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        style: formstil,
+                        decoration: InputDecoration(
+                          hintText: "İndirim Oranı (%)",
+                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ],
@@ -409,7 +376,9 @@ class _IndirimKomisyonState extends State<IndirimKomisyon> {
                           (AnaPara - IndirimKomisyonTutariSonuc).toPrecision(2);
                       tutar = true;
                     } else {
-                      snack("Lütfen bir değer girin");
+                      HomePageState.simpleNativeToastPlugin.showToast(
+                        "Lütfen bir değer girin",
+                      );
                     }
                   });
                 },
@@ -421,7 +390,9 @@ class _IndirimKomisyonState extends State<IndirimKomisyon> {
               if (tutar == true)
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  color: anaRenk,
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? anaRenk
+                      : anaRenkDark,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -494,23 +465,26 @@ class _IndirimKomisyonState extends State<IndirimKomisyon> {
                   ),
                 ),
               if (tutar == true)
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      shape: CircleBorder(eccentricity: 0)),
-                  onPressed: () {
-                    setState(() {
-                      t3.clear();
-                      t4.clear();
-                      AnaPara = 0.00;
-                      IndirimKomisyonOrani = 0.00;
-                      IndirimKomisyonTutariSonuc = 0.00;
-                      TutarIndirimSonuc = 0.00;
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: CircleBorder(eccentricity: 0)),
+                    onPressed: () {
+                      setState(() {
+                        t3.clear();
+                        t4.clear();
+                        AnaPara = 0.00;
+                        IndirimKomisyonOrani = 0.00;
+                        IndirimKomisyonTutariSonuc = 0.00;
+                        TutarIndirimSonuc = 0.00;
 
-                      _focusNode2.requestFocus();
-                      tutar = false;
-                    });
-                  },
-                  child: Icon(Icons.replay),
+                        _focusNode2.requestFocus();
+                        tutar = false;
+                      });
+                    },
+                    child: Icon(Icons.replay),
+                  ),
                 ),
               SizedBox(
                 height: 100,

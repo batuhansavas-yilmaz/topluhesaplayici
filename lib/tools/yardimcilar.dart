@@ -28,7 +28,7 @@ String yakitReklam = 'ca-app-pub-2770541050741728/6419301289';
 String yuzdeReklam = 'ca-app-pub-2770541050741728/5078508883';
 
 var anaRenk = Color.fromARGB(255, 0, 135, 245);
-
+var anaRenkDark = Color(0xff383e42);
 var requesT = AdRequest(
   // nonPersonalizedAds: true,
   keywords: [
@@ -55,6 +55,11 @@ var hesapla = Text("HESAPLA",
 var formstil = TextStyle(fontSize: 23, fontWeight: FontWeight.bold);
 var hintstil = TextStyle(
     fontSize: 20, fontStyle: FontStyle.italic, fontWeight: FontWeight.normal);
+var hintstilDark = TextStyle(
+    fontSize: 20,
+    fontStyle: FontStyle.italic,
+    fontWeight: FontWeight.normal,
+    color: Colors.white);
 
 //virgülden sonra doğru yuvarlama için
 extension Precision on double {
@@ -139,7 +144,9 @@ class _ReklamState extends State<Reklam> {
       decoration: widget.ready!
           ? BoxDecoration(boxShadow: [
               BoxShadow(
-                color: Colors.white.withOpacity(0.9),
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.white.withOpacity(0.9)
+                    : Color(0xff383e42).withOpacity(0.6),
                 spreadRadius: 20,
                 blurRadius: 13,
                 offset: const Offset(0, 20),
@@ -151,12 +158,16 @@ class _ReklamState extends State<Reklam> {
         children: [
           widget.ready! ? widget.reklam! : widget.bosluk!,
           const SizedBox(
-            height: 10,
+            height: 8,
           ),
           Container(
-            decoration: BoxDecoration(color: anaRenk, boxShadow: const [
-              BoxShadow(offset: Offset(-0.00, -0.10), blurRadius: 0.3)
-            ]),
+            decoration: BoxDecoration(
+                color: Theme.of(context).brightness == Brightness.light
+                    ? anaRenk
+                    : anaRenkDark,
+                boxShadow: const [
+                  BoxShadow(offset: Offset(-0.00, -0.10), blurRadius: 0.3)
+                ]),
             height: 0.5,
           ),
         ],

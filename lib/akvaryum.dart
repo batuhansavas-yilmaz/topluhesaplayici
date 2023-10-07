@@ -1,7 +1,10 @@
+// ignore_for_file: unnecessary_statements
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'main.dart';
 import 'tools/yardimcilar.dart';
 
 class Aquarium extends StatefulWidget {
@@ -26,17 +29,6 @@ class _AquariumState extends State<Aquarium> {
   double kumKg = 0.00;
   final _focusNode = FocusNode();
   bool replay = false;
-
-  snack(String mesaj) {
-    final snackBar = SnackBar(
-      content: Text(mesaj, textAlign: TextAlign.center),
-      width: 200,
-      duration: Duration(seconds: 3),
-      elevation: 1,
-      behavior: SnackBarBehavior.floating,
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
 
   late BannerAd? _bannerAd;
   bool _isBannerAdReady = false;
@@ -89,8 +81,9 @@ class _AquariumState extends State<Aquarium> {
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           Divider(
-            color: Colors.black,
-          ),
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Colors.black
+                  : anaRenkDark),
           SizedBox(
             height: 10,
           ),
@@ -99,121 +92,87 @@ class _AquariumState extends State<Aquarium> {
             child: Row(
               children: [
                 Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(
-                      right: 5,
+                  child: TextFormField(
+                    focusNode: _focusNode,
+                    controller: derinlik_,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'^\d+\.?\d{0,2}')),
+                    ],
+                    style: formstil,
+                    keyboardType:
+                        TextInputType.numberWithOptions(decimal: true),
+                    decoration: InputDecoration(
+                      hintText: "Derinlik",
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    child: TextFormField(
-                      focusNode: _focusNode,
-                      controller: derinlik_,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                            RegExp(r'^\d+\.?\d{0,2}')),
-                      ],
-                      style: formstil,
-                      keyboardType:
-                          TextInputType.numberWithOptions(decimal: true),
-                      decoration: InputDecoration(
-                        hintText: "Derinlik",
-                        hintStyle: hintstil,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(left: 5, right: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    child: TextFormField(
-                      controller: en_,
-                      style: formstil,
-                      keyboardType:
-                          TextInputType.numberWithOptions(decimal: true),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                            RegExp(r'^\d+\.?\d{0,2}')),
-                      ],
-                      decoration: InputDecoration(
-                        hintText: "En",
-                        hintStyle: hintstil,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+                SizedBox(
+                  width: 10,
                 ),
                 Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(left: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
+                  child: TextFormField(
+                    controller: en_,
+                    style: formstil,
+                    keyboardType:
+                        TextInputType.numberWithOptions(decimal: true),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'^\d+\.?\d{0,2}')),
+                    ],
+                    decoration: InputDecoration(
+                      hintText: "En",
                     ),
-                    child: TextFormField(
-                      onFieldSubmitted: (value) {
-                        setState(() {
-                          if (uzunluk_.text.isNotEmpty &&
-                              en_.text.isNotEmpty &&
-                              derinlik_.text.isNotEmpty &&
-                              kumCm.text.isNotEmpty) {
-                            FocusScope.of(context).requestFocus(
-                                new FocusNode()); // klavye kapatıcı
-                            uzunluk = double.parse(uzunluk_.text);
-                            en = double.parse(en_.text);
-                            derinlik = double.parse(derinlik_.text);
-                            kumCm_ = double.parse(kumCm.text);
-                            sonuc = ((uzunluk * en * derinlik) / 1000)
-                                .toPrecision(2);
-                            bitkisiz = (sonuc * 0.25).toPrecision(2);
-                            bitkili = (sonuc * 0.50).toPrecision(2);
-                            filtrasyonMin = (sonuc * 2.50).toPrecision(2);
-                            filtrasyonMax = (sonuc * 4.75).toPrecision(2);
-                            isitici = (sonuc * 0.6667).toPrecision(2);
-                            kum = (sonuc * 0.025).toPrecision(2);
-                            kumKg = (kum * kumCm_).toPrecision(2);
-                            replay = true;
-                          } else {
-                            snack("Lütfen bir değer girin");
-                          }
-                        });
-                      },
-                      controller: uzunluk_,
-                      style: formstil,
-                      keyboardType:
-                          TextInputType.numberWithOptions(decimal: true),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                            RegExp(r'^\d+\.?\d{0,2}')),
-                      ],
-                      decoration: InputDecoration(
-                        hintText: "Uzunluk",
-                        hintStyle: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.normal),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      textAlign: TextAlign.center,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: TextFormField(
+                    onFieldSubmitted: (value) {
+                      setState(() {
+                        if (uzunluk_.text.isNotEmpty &&
+                            en_.text.isNotEmpty &&
+                            derinlik_.text.isNotEmpty &&
+                            kumCm.text.isNotEmpty) {
+                          FocusScope.of(context)
+                              .requestFocus(new FocusNode()); // klavye kapatıcı
+                          uzunluk = double.parse(uzunluk_.text);
+                          en = double.parse(en_.text);
+                          derinlik = double.parse(derinlik_.text);
+                          kumCm_ = double.parse(kumCm.text);
+                          sonuc =
+                              ((uzunluk * en * derinlik) / 1000).toPrecision(2);
+                          bitkisiz = (sonuc * 0.25).toPrecision(2);
+                          bitkili = (sonuc * 0.50).toPrecision(2);
+                          filtrasyonMin = (sonuc * 2.50).toPrecision(2);
+                          filtrasyonMax = (sonuc * 4.75).toPrecision(2);
+                          isitici = (sonuc * 0.6667).toPrecision(2);
+                          kum = (sonuc * 0.025).toPrecision(2);
+                          kumKg = (kum * kumCm_).toPrecision(2);
+                          replay = true;
+                        } else {
+                          HomePageState.simpleNativeToastPlugin.showToast(
+                            "Lütfen bir değer girin",
+                          );
+                        }
+                      });
+                    },
+                    controller: uzunluk_,
+                    style: formstil,
+                    keyboardType:
+                        TextInputType.numberWithOptions(decimal: true),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'^\d+\.?\d{0,2}')),
+                    ],
+                    decoration: InputDecoration(
+                      hintText: "Uzunluk",
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ],
@@ -255,7 +214,9 @@ class _AquariumState extends State<Aquarium> {
                             kumKg = (kum * kumCm_).toPrecision(2);
                             replay = true;
                           } else {
-                            snack("Lütfen bir değer girin");
+                            HomePageState.simpleNativeToastPlugin.showToast(
+                              "Lütfen bir değer girin",
+                            );
                           }
                         });
                       },
@@ -464,7 +425,10 @@ class _AquariumState extends State<Aquarium> {
                                       kumKg = (kum * kumCm_).toPrecision(2);
                                       replay = true;
                                     } else {
-                                      snack("Lütfen bir değer girin");
+                                      HomePageState.simpleNativeToastPlugin
+                                          .showToast(
+                                        "Lütfen bir değer girin",
+                                      );
                                     }
                                   });
                                 },
@@ -475,11 +439,6 @@ class _AquariumState extends State<Aquarium> {
                                 controller: kumCm,
                                 decoration: InputDecoration(
                                   hintText: "Kum",
-                                  hintStyle: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.normal),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
                                 ),
                               ),
                               SizedBox(

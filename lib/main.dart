@@ -10,6 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // import 'package:gdpr_dialog/gdpr_dialog.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:simple_native_toast/simple_native_toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -46,19 +47,18 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      systemNavigationBarIconBrightness: Brightness.light,
-      systemNavigationBarColor: anaRenk,
-      statusBarColor: Colors.transparent,
-    ),
-  );
+
   runApp(
     MyApp(),
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => MyAppState();
+}
+
+class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -70,7 +70,54 @@ class MyApp extends StatelessWidget {
       supportedLocales: [
         const Locale('tr', 'TR'), // Türkçe
       ],
+      darkTheme: ThemeData(
+        cardColor: anaRenkDark,
+        textSelectionTheme: TextSelectionThemeData(cursorColor: Colors.white),
+        brightness: Brightness.dark,
+        inputDecorationTheme: InputDecorationTheme(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            fillColor: anaRenkDark,
+            filled: true,
+            hintStyle: hintstilDark),
+        scaffoldBackgroundColor: Color.fromARGB(255, 84, 93, 99),
+        appBarTheme: AppBarTheme(
+          elevation: 1,
+          backgroundColor: anaRenkDark,
+          systemOverlayStyle: SystemUiOverlayStyle(
+            systemNavigationBarIconBrightness: Brightness.light,
+            systemNavigationBarColor: anaRenkDark,
+            statusBarColor: Colors.transparent,
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+              elevation: 1,
+              backgroundColor: Color(0xff383e42),
+              foregroundColor: Color.fromARGB(255, 253, 253, 253)),
+        ),
+      ),
+      themeMode: ThemeMode.system,
       theme: ThemeData(
+          textSelectionTheme: TextSelectionThemeData(cursorColor: anaRenk),
+          brightness: Brightness.light,
+          inputDecorationTheme: InputDecorationTheme(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: anaRenk),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            hintStyle: hintstil,
+            fillColor: Colors.white,
+            filled: true,
+          ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
                 elevation: 1,
@@ -78,6 +125,11 @@ class MyApp extends StatelessWidget {
                 foregroundColor: Colors.black),
           ),
           appBarTheme: AppBarTheme(
+            systemOverlayStyle: SystemUiOverlayStyle(
+              systemNavigationBarIconBrightness: Brightness.light,
+              systemNavigationBarColor: anaRenk,
+              statusBarColor: Colors.transparent,
+            ),
             backgroundColor: anaRenk,
             elevation: 1,
           )),
@@ -201,10 +253,10 @@ class MyApp extends StatelessWidget {
 
 class HomePage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   void initialization() async {
     await Future.delayed(const Duration(milliseconds: 350));
     FlutterNativeSplash.remove();
@@ -232,6 +284,7 @@ class _HomePageState extends State<HomePage> {
     _bannerAd!.load();
   }
 
+  static final simpleNativeToastPlugin = SimpleNativeToast();
   // ignore: unused_field
   String _platformVersion = 'Unknown';
   Future<void> initPlatformState() async {
@@ -240,6 +293,21 @@ class _HomePageState extends State<HomePage> {
     // We also handle the message potentially returning null.
     try {
       platformVersion = await AdvancedInAppReview.platformVersion ??
+          'Unknown platform version';
+    } on PlatformException {
+      platformVersion = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _platformVersion = platformVersion;
+    });
+    try {
+      platformVersion = await simpleNativeToastPlugin.getPlatformVersion() ??
           'Unknown platform version';
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';

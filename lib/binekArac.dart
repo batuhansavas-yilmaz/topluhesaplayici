@@ -1,9 +1,12 @@
+// ignore_for_file: unnecessary_statements
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'main.dart';
 import 'tools/yardimcilar.dart';
 
 class BinekArac extends StatefulWidget {
@@ -25,17 +28,6 @@ class _BinekAracState extends State<BinekArac> {
   double giderKabulEdilmeyenTutar = 0.00;
   TextEditingController t1 = TextEditingController(text: '');
   TextEditingController t2 = TextEditingController(text: '');
-
-  snack(String mesaj) {
-    final snackBar = SnackBar(
-      content: Text(mesaj, textAlign: TextAlign.center),
-      width: 200,
-      duration: Duration(seconds: 3),
-      elevation: 1,
-      behavior: SnackBarBehavior.floating,
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
 
   late BannerAd? _bannerAd;
   bool _isBannerAdReady = false;
@@ -72,6 +64,17 @@ class _BinekAracState extends State<BinekArac> {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle stil = TextStyle(
+        color: Theme.of(context).brightness == Brightness.light
+            ? Colors.black
+            : Colors.white,
+        fontSize: 18);
+    TextStyle stil2 = TextStyle(
+        color: Theme.of(context).brightness == Brightness.light
+            ? Colors.black
+            : Colors.white,
+        fontSize: 17,
+        fontWeight: FontWeight.bold);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -116,89 +119,71 @@ class _BinekAracState extends State<BinekArac> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: TextFormField(
-                            focusNode: _focusNode,
-                            keyboardType:
-                                TextInputType.numberWithOptions(decimal: true),
-                            inputFormatters: [
-                              FilteringTextInputFormatter.allow(
-                                  RegExp(r'^\d+\.?\d{0,2}')),
-                            ],
-                            controller: t1,
-                            style: formstil,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              hintText: "Toplam Tutar",
-                              hintStyle: hintstil,
-                            ),
-                            textAlign: TextAlign.center,
+                        child: TextFormField(
+                          focusNode: _focusNode,
+                          keyboardType:
+                              TextInputType.numberWithOptions(decimal: true),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'^\d+\.?\d{0,2}')),
+                          ],
+                          controller: t1,
+                          style: formstil,
+                          decoration: InputDecoration(
+                            hintText: "Toplam Tutar",
                           ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
                     Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: TextFormField(
-                          onFieldSubmitted: (value) {
-                            setState(() {
-                              if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
-                                FocusScope.of(context)
-                                    .requestFocus(new FocusNode());
-                                tutar = double.parse(t1.text);
-                                kdvOran = double.parse(t2.text);
+                      child: TextFormField(
+                        onFieldSubmitted: (value) {
+                          setState(() {
+                            if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
+                              FocusScope.of(context)
+                                  .requestFocus(new FocusNode());
+                              tutar = double.parse(t1.text);
+                              kdvOran = double.parse(t2.text);
 
-                                giderKabulEdilenTutar =
-                                    (tutar * 0.70).toPrecision(2);
-                                giderKabulEdilenMatrah =
-                                    (giderKabulEdilenTutar /
-                                            ((kdvOran / 100) + 1))
-                                        .toPrecision(2);
-                                giderKabulEdilenKdv = (giderKabulEdilenTutar -
-                                        giderKabulEdilenMatrah)
-                                    .toPrecision(2);
-                                giderKabulEdilmeyenTutar =
-                                    (tutar * 0.30).toPrecision(2);
-                                giderKabulEdilmeyenMatrah =
-                                    (giderKabulEdilmeyenTutar /
-                                        ((kdvOran / 100) + 1));
-                                giderKabulEdilmeyenKdv =
-                                    (giderKabulEdilmeyenTutar -
-                                            giderKabulEdilmeyenMatrah)
-                                        .toPrecision(2);
+                              giderKabulEdilenTutar =
+                                  (tutar * 0.70).toPrecision(2);
+                              giderKabulEdilenMatrah = (giderKabulEdilenTutar /
+                                      ((kdvOran / 100) + 1))
+                                  .toPrecision(2);
+                              giderKabulEdilenKdv = (giderKabulEdilenTutar -
+                                      giderKabulEdilenMatrah)
+                                  .toPrecision(2);
+                              giderKabulEdilmeyenTutar =
+                                  (tutar * 0.30).toPrecision(2);
+                              giderKabulEdilmeyenMatrah =
+                                  (giderKabulEdilmeyenTutar /
+                                      ((kdvOran / 100) + 1));
+                              giderKabulEdilmeyenKdv =
+                                  (giderKabulEdilmeyenTutar -
+                                          giderKabulEdilmeyenMatrah)
+                                      .toPrecision(2);
 
-                                sonuc = true;
-                              } else {
-                                snack("Lütfen bir değer girin");
-                              }
-                            });
-                          },
-                          controller: t2,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                            LengthLimitingTextInputFormatter(2)
-                          ],
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
-                          style: formstil,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            hintText: "KDV Oranı",
-                            hintStyle: hintstil,
-                          ),
-                          textAlign: TextAlign.center,
+                              sonuc = true;
+                            } else {
+                              HomePageState.simpleNativeToastPlugin.showToast(
+                                "Lütfen bir değer girin",
+                              );
+                            }
+                          });
+                        },
+                        controller: t2,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(2)
+                        ],
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        style: formstil,
+                        decoration: InputDecoration(
+                          hintText: "KDV Oranı",
                         ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ],
@@ -231,7 +216,9 @@ class _BinekAracState extends State<BinekArac> {
 
                       sonuc = true;
                     } else {
-                      snack("Lütfen bir değer girin");
+                      HomePageState.simpleNativeToastPlugin.showToast(
+                        "Lütfen bir değer girin",
+                      );
                     }
                   });
                 },
@@ -241,7 +228,9 @@ class _BinekAracState extends State<BinekArac> {
                 height: 5,
               ),
               Container(
-                color: anaRenk,
+                color: Theme.of(context).brightness == Brightness.light
+                    ? anaRenk
+                    : anaRenkDark,
                 padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
@@ -293,8 +282,10 @@ class _BinekAracState extends State<BinekArac> {
                           ),
                         ),
                         Divider(
-                          color: Colors.black,
-                        ),
+                            color:
+                                Theme.of(context).brightness == Brightness.light
+                                    ? Colors.black
+                                    : anaRenkDark),
                         Padding(
                           padding: const EdgeInsets.only(
                             left: 4,
@@ -317,7 +308,9 @@ class _BinekAracState extends State<BinekArac> {
                     ),
                   ),
                   Container(
-                    color: anaRenk,
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? anaRenk
+                        : anaRenkDark,
                     padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -367,8 +360,10 @@ class _BinekAracState extends State<BinekArac> {
                           ),
                         ),
                         Divider(
-                          color: Colors.black,
-                        ),
+                            color:
+                                Theme.of(context).brightness == Brightness.light
+                                    ? Colors.black
+                                    : anaRenkDark),
                         Padding(
                           padding: const EdgeInsets.only(left: 4, bottom: 2),
                           child: Row(
@@ -434,7 +429,3 @@ class _BinekAracState extends State<BinekArac> {
     );
   }
 }
-
-TextStyle stil = TextStyle(color: Colors.black, fontSize: 18);
-TextStyle stil2 =
-    TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.bold);

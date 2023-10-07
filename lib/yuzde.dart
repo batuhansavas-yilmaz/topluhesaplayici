@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import 'main.dart';
 import 'tools/yardimcilar.dart';
 
 class Yuzde extends StatefulWidget {
@@ -23,16 +24,6 @@ class _YuzdeState extends State<Yuzde> {
   final _focusNode = FocusNode();
   TextEditingController t1 = TextEditingController(text: '');
   TextEditingController t2 = TextEditingController(text: '');
-  snack(String mesaj) {
-    final snackBar = SnackBar(
-      content: Text(mesaj, textAlign: TextAlign.center),
-      width: 200,
-      duration: Duration(seconds: 3),
-      elevation: 1,
-      behavior: SnackBarBehavior.floating,
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
 
   bool sonuc = false;
   late BannerAd? _bannerAd;
@@ -90,8 +81,9 @@ class _YuzdeState extends State<Yuzde> {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           Divider(
-            color: Colors.black,
-          ),
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Colors.black
+                  : anaRenkDark),
           SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),
@@ -100,78 +92,60 @@ class _YuzdeState extends State<Yuzde> {
                 Row(
                   children: [
                     Flexible(
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: TextFormField(
-                          focusNode: _focusNode,
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                                RegExp(r'^\d+\.?\d{0,10}')),
-                          ],
-                          controller: t1,
-                          style: formstil,
-                          decoration: InputDecoration(
-                            hintText: "1.Sayı",
-                            hintStyle: hintstil,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          textAlign: TextAlign.center,
+                      child: TextFormField(
+                        focusNode: _focusNode,
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r'^\d+\.?\d{0,10}')),
+                        ],
+                        controller: t1,
+                        style: formstil,
+                        decoration: InputDecoration(
+                          hintText: "1.Sayı",
                         ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                     SizedBox(
                       width: 20,
                     ),
                     Flexible(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: TextFormField(
-                          onFieldSubmitted: (value) {
-                            setState(() {
-                              if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
-                                FocusScope.of(context)
-                                    .requestFocus(new FocusNode());
-                                x = double.parse(t1.text);
-                                y = double.parse(t2.text);
-                                yxinyuzdekacisonuc =
-                                    ((y / x) * 100).toPrecision(2);
-                                yninyuzdexisonuc =
-                                    (x * (y / 100)).toPrecision(2);
-                                artim = (x + yninyuzdexisonuc).toPrecision(2);
-                                azalim = (x - yninyuzdexisonuc).toPrecision(2);
+                      child: TextFormField(
+                        onFieldSubmitted: (value) {
+                          setState(() {
+                            if (t1.text.isNotEmpty && t2.text.isNotEmpty) {
+                              FocusScope.of(context)
+                                  .requestFocus(new FocusNode());
+                              x = double.parse(t1.text);
+                              y = double.parse(t2.text);
+                              yxinyuzdekacisonuc =
+                                  ((y / x) * 100).toPrecision(2);
+                              yninyuzdexisonuc = (x * (y / 100)).toPrecision(2);
+                              artim = (x + yninyuzdexisonuc).toPrecision(2);
+                              azalim = (x - yninyuzdexisonuc).toPrecision(2);
 
-                                sonuc = true;
-                              } else {
-                                snack("Lütfen bir değer girin");
-                              }
-                            });
-                          },
-                          controller: t2,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                                RegExp(r'^\d+\.?\d{0,10}')),
-                          ],
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
-                          style: formstil,
-                          decoration: InputDecoration(
-                            hintText: "2.Sayı",
-                            hintStyle: hintstil,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          textAlign: TextAlign.center,
+                              sonuc = true;
+                            } else {
+                              HomePageState.simpleNativeToastPlugin.showToast(
+                                "Lütfen bir değer girin",
+                              );
+                            }
+                          });
+                        },
+                        controller: t2,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                              RegExp(r'^\d+\.?\d{0,10}')),
+                        ],
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        style: formstil,
+                        decoration: InputDecoration(
+                          hintText: "2.Sayı",
                         ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ],
@@ -195,7 +169,9 @@ class _YuzdeState extends State<Yuzde> {
 
                       sonuc = true;
                     } else {
-                      snack("Lütfen bir değer girin");
+                      HomePageState.simpleNativeToastPlugin.showToast(
+                        "Lütfen bir değer girin",
+                      );
                     }
                   });
                 },
@@ -212,7 +188,9 @@ class _YuzdeState extends State<Yuzde> {
                     Expanded(
                       child: Container(
                         padding: EdgeInsets.all(2),
-                        color: anaRenk,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? anaRenk
+                            : anaRenkDark,
                         child: Text(
                           "SONUÇ",
                           textAlign: TextAlign.center,
@@ -249,8 +227,9 @@ class _YuzdeState extends State<Yuzde> {
                   ),
                 ),
                 Divider(
-                  color: Colors.black,
-                ),
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? Colors.black
+                        : anaRenkDark),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Row(
@@ -273,8 +252,9 @@ class _YuzdeState extends State<Yuzde> {
                   ),
                 ),
                 Divider(
-                  color: Colors.black,
-                ),
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? Colors.black
+                        : anaRenkDark),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Row(
@@ -297,8 +277,9 @@ class _YuzdeState extends State<Yuzde> {
                   ),
                 ),
                 Divider(
-                  color: Colors.black,
-                ),
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? Colors.black
+                        : anaRenkDark),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Row(
@@ -321,8 +302,9 @@ class _YuzdeState extends State<Yuzde> {
                   ),
                 ),
                 Divider(
-                  color: Colors.black,
-                ),
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? Colors.black
+                        : anaRenkDark),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       shape: CircleBorder(eccentricity: 0.0)),

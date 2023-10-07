@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:toplu_hesaplayici/tools/yardimcilar.dart';
 
+import 'main.dart';
+
 class YakitTuketimi extends StatefulWidget {
   const YakitTuketimi({super.key});
 
@@ -22,16 +24,6 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
   double yakitFiyati = 0.00;
   double yakitFiyatiSonuc = 0.00;
   bool sonuc = false;
-  snack(String mesaj) {
-    final snackBar = SnackBar(
-      content: Text(mesaj, textAlign: TextAlign.center),
-      width: 200,
-      duration: Duration(seconds: 3),
-      elevation: 1,
-      behavior: SnackBarBehavior.floating,
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
 
   late BannerAd? _bannerAd;
   bool _isBannerAdReady = false;
@@ -90,8 +82,9 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
                 height: 10,
               ),
               Divider(
-                color: Colors.black,
-              ),
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Colors.black
+                      : anaRenkDark),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -103,11 +96,8 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
                     ),
                   ),
                   Flexible(
-                    child: Container(
+                    child: SizedBox(
                       width: 150,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)),
                       child: TextFormField(
                         focusNode: _focusNode,
                         controller: t1,
@@ -121,13 +111,6 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
                         style: formstil,
                         decoration: InputDecoration(
                           hintText: 'LT',
-                          hintStyle: TextStyle(
-                              fontSize: 25,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.normal),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -149,11 +132,8 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
                     ),
                   ),
                   Flexible(
-                    child: Container(
+                    child: SizedBox(
                       width: 150,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)),
                       child: TextFormField(
                         keyboardType:
                             TextInputType.numberWithOptions(decimal: true),
@@ -165,13 +145,6 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
                         style: formstil,
                         decoration: InputDecoration(
                           hintText: 'KM',
-                          hintStyle: TextStyle(
-                              fontSize: 25,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.normal),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -193,11 +166,8 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
                     ),
                   ),
                   Flexible(
-                    child: Container(
+                    child: SizedBox(
                       width: 150,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)),
                       child: TextFormField(
                         onFieldSubmitted: (value) {
                           setState(() {
@@ -214,7 +184,9 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
 
                               sonuc = true;
                             } else {
-                              snack("Lütfen bir değer girin");
+                              HomePageState.simpleNativeToastPlugin.showToast(
+                                "Lütfen bir değer girin",
+                              );
                             }
                           });
                         },
@@ -228,13 +200,6 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
                         style: formstil,
                         decoration: InputDecoration(
                           hintText: '₺',
-                          hintStyle: TextStyle(
-                              fontSize: 25,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.normal),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -260,7 +225,9 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
 
                         sonuc = true;
                       } else {
-                        snack("Lütfen bir değer girin");
+                        HomePageState.simpleNativeToastPlugin.showToast(
+                          "Lütfen bir değer girin",
+                        );
                       }
                     });
                   },
@@ -276,7 +243,10 @@ class _YakitTuketimiState extends State<YakitTuketimi> {
                         Expanded(
                           child: Container(
                             padding: EdgeInsets.all(2),
-                            color: anaRenk,
+                            color:
+                                Theme.of(context).brightness == Brightness.light
+                                    ? anaRenk
+                                    : anaRenkDark,
                             child: Text(
                               "ARACINIZ KM BAŞINA ORTALAMA YAKIT TÜKETİMİ",
                               textAlign: TextAlign.center,

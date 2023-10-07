@@ -6,6 +6,8 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:toplu_hesaplayici/tools/yardimcilar.dart';
 
+import 'main.dart';
+
 class ZRaporu extends StatefulWidget {
   @override
   _ZRaporuState createState() => _ZRaporuState();
@@ -21,17 +23,6 @@ class _ZRaporuState extends State<ZRaporu> {
   double tuTar = 0.00;
   double sonuc = 0.00;
   bool sonucc = false;
-
-  snack(String mesaj) {
-    final snackBar = SnackBar(
-      content: Text(mesaj, textAlign: TextAlign.center),
-      width: 200,
-      duration: Duration(seconds: 3),
-      elevation: 1,
-      behavior: SnackBarBehavior.floating,
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
 
   late BannerAd? _bannerAd;
   bool _isBannerAdReady = false;
@@ -94,7 +85,10 @@ class _ZRaporuState extends State<ZRaporu> {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                 ],
               ),
-              Divider(color: Colors.black),
+              Divider(
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Colors.black
+                      : anaRenkDark),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -145,29 +139,20 @@ class _ZRaporuState extends State<ZRaporu> {
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: TextFormField(
-                                focusNode: _focusNode,
-                                controller: k1,
-                                keyboardType: TextInputType.numberWithOptions(
-                                    decimal: true),
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp(r'^\d+\.?\d{0,2}')),
-                                ],
-                                style: formstil,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  hintText: "Kümülatif",
-                                  hintStyle: hintstil,
-                                ),
-                                textAlign: TextAlign.center,
+                            child: TextFormField(
+                              focusNode: _focusNode,
+                              controller: k1,
+                              keyboardType: TextInputType.numberWithOptions(
+                                  decimal: true),
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'^\d+\.?\d{0,2}')),
+                              ],
+                              style: formstil,
+                              decoration: InputDecoration(
+                                hintText: "Kümülatif",
                               ),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),
@@ -195,28 +180,19 @@ class _ZRaporuState extends State<ZRaporu> {
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: TextFormField(
-                                controller: tutar,
-                                keyboardType: TextInputType.numberWithOptions(
-                                    decimal: true),
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp(r'^\d+\.?\d{0,2}')),
-                                ],
-                                style: formstil,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  hintText: "Tutar",
-                                  hintStyle: hintstil,
-                                ),
-                                textAlign: TextAlign.center,
+                            child: TextFormField(
+                              controller: tutar,
+                              keyboardType: TextInputType.numberWithOptions(
+                                  decimal: true),
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'^\d+\.?\d{0,2}')),
+                              ],
+                              style: formstil,
+                              decoration: InputDecoration(
+                                hintText: "Tutar",
                               ),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),
@@ -268,48 +244,41 @@ class _ZRaporuState extends State<ZRaporu> {
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: TextFormField(
-                                onFieldSubmitted: (value) {
-                                  setState(() {
-                                    if (k1.text.isNotEmpty &&
-                                        k2.text.isNotEmpty &&
-                                        tutar.text.isNotEmpty) {
-                                      buyukKumul = double.parse(k1.text);
-                                      kucukKumul = double.parse(k2.text);
-                                      tuTar = double.parse(tutar.text);
-                                      FocusScope.of(context)
-                                          .requestFocus(new FocusNode());
-                                      sonuc =
-                                          ((buyukKumul - kucukKumul) - tuTar)
-                                              .toPrecision(2);
+                            child: TextFormField(
+                              onFieldSubmitted: (value) {
+                                setState(() {
+                                  if (k1.text.isNotEmpty &&
+                                      k2.text.isNotEmpty &&
+                                      tutar.text.isNotEmpty) {
+                                    buyukKumul = double.parse(k1.text);
+                                    kucukKumul = double.parse(k2.text);
+                                    tuTar = double.parse(tutar.text);
+                                    FocusScope.of(context)
+                                        .requestFocus(new FocusNode());
+                                    sonuc = ((buyukKumul - kucukKumul) - tuTar)
+                                        .toPrecision(2);
 
-                                      sonucc = true;
-                                    } else {
-                                      snack("Lütfen bir değer girin");
-                                    }
-                                  });
-                                },
-                                controller: k2,
-                                keyboardType: TextInputType.numberWithOptions(
-                                    decimal: true),
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(
-                                      RegExp(r'^\d+\.?\d{0,2}')),
-                                ],
-                                style: formstil,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  hintText: "Kümülatif",
-                                  hintStyle: hintstil,
-                                ),
-                                textAlign: TextAlign.center,
+                                    sonucc = true;
+                                  } else {
+                                    HomePageState.simpleNativeToastPlugin
+                                        .showToast(
+                                      "Lütfen bir değer girin",
+                                    );
+                                  }
+                                });
+                              },
+                              controller: k2,
+                              keyboardType: TextInputType.numberWithOptions(
+                                  decimal: true),
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'^\d+\.?\d{0,2}')),
+                              ],
+                              style: formstil,
+                              decoration: InputDecoration(
+                                hintText: "Kümülatif",
                               ),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),
@@ -340,7 +309,9 @@ class _ZRaporuState extends State<ZRaporu> {
 
                             sonucc = true;
                           } else {
-                            snack("Lütfen bir değer girin");
+                            HomePageState.simpleNativeToastPlugin.showToast(
+                              "Lütfen bir değer girin",
+                            );
                           }
                         });
                       },
@@ -354,7 +325,9 @@ class _ZRaporuState extends State<ZRaporu> {
                 Column(
                   children: [
                     Container(
-                      color: anaRenk,
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? anaRenk
+                          : anaRenkDark,
                       padding: EdgeInsets.symmetric(horizontal: 2, vertical: 5),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,

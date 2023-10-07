@@ -1,8 +1,11 @@
+// ignore_for_file: unnecessary_statements
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import 'main.dart';
 import 'tools/yardimcilar.dart';
 
 class Beygir extends StatefulWidget {
@@ -27,16 +30,6 @@ class _BeygirState extends State<Beygir> {
   final focushp = FocusNode();
   TextEditingController t1 = TextEditingController(text: '');
   TextEditingController t2 = TextEditingController(text: '');
-  snack(String mesaj) {
-    final snackBar = SnackBar(
-      content: Text(mesaj, textAlign: TextAlign.center),
-      width: 200,
-      duration: Duration(seconds: 3),
-      elevation: 1,
-      behavior: SnackBarBehavior.floating,
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
 
   late BannerAd? _bannerAd;
   bool _isBannerAdReady = false;
@@ -98,11 +91,8 @@ class _BeygirState extends State<Beygir> {
               SizedBox(
                 height: 10,
               ),
-              Container(
+              SizedBox(
                 width: 300,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10)),
                 child: TextFormField(
                   focusNode: focuskw,
                   onFieldSubmitted: (value) {
@@ -117,7 +107,7 @@ class _BeygirState extends State<Beygir> {
                         kwSonucc = true;
                         t1.clear();
                       } else {
-                        snack(
+                        HomePageState.simpleNativeToastPlugin.showToast(
                           "Lütfen bir değer girin",
                         );
                       }
@@ -133,11 +123,7 @@ class _BeygirState extends State<Beygir> {
                   ],
                   style: formstil,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
                     hintText: "kW",
-                    hintStyle: hintstil,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -158,7 +144,7 @@ class _BeygirState extends State<Beygir> {
                       kwSonucc = true;
                       t1.clear();
                     } else {
-                      snack(
+                      HomePageState.simpleNativeToastPlugin.showToast(
                         "Lütfen bir değer girin",
                       );
                     }
@@ -172,7 +158,9 @@ class _BeygirState extends State<Beygir> {
               if (kwSonucc == true)
                 Container(
                   padding: EdgeInsets.all(5),
-                  color: anaRenk,
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? anaRenk
+                      : anaRenkDark,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -336,8 +324,9 @@ class _BeygirState extends State<Beygir> {
                     },
                     child: Icon(Icons.replay)),
               Divider(
-                color: Colors.black,
-              ),
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Colors.black
+                      : anaRenkDark),
               Text(
                 "Beygir Gücü (hp)",
                 style: TextStyle(
@@ -348,11 +337,8 @@ class _BeygirState extends State<Beygir> {
               SizedBox(
                 height: 10,
               ),
-              Container(
+              SizedBox(
                 width: 300,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10)),
                 child: TextFormField(
                   focusNode: focushp,
                   onFieldSubmitted: (value) {
@@ -367,7 +353,7 @@ class _BeygirState extends State<Beygir> {
                         hpSonucc = true;
                         t2.clear();
                       } else {
-                        snack(
+                        HomePageState.simpleNativeToastPlugin.showToast(
                           "Lütfen bir değer girin",
                         );
                       }
@@ -383,11 +369,8 @@ class _BeygirState extends State<Beygir> {
                   ],
                   style: formstil,
                   decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      hintText: "hp",
-                      hintStyle: hintstil),
+                    hintText: "hp",
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -407,7 +390,7 @@ class _BeygirState extends State<Beygir> {
                       hpSonucc = true;
                       t2.clear();
                     } else {
-                      snack(
+                      HomePageState.simpleNativeToastPlugin.showToast(
                         "Lütfen bir değer girin",
                       );
                     }
@@ -421,7 +404,9 @@ class _BeygirState extends State<Beygir> {
               if (hpSonucc == true)
                 Container(
                   padding: EdgeInsets.all(5),
-                  color: anaRenk,
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? anaRenk
+                      : anaRenkDark,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
