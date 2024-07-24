@@ -108,7 +108,7 @@ class _GorevButtonState extends State<GorevButton> {
           ),
         ),
         SizedBox(
-          height: 10,
+          height: 5,
         ),
         Text(
           "${widget.altisim}",

@@ -71,6 +71,7 @@ class MyAppState extends State<MyApp> {
         const Locale('tr', 'TR'), // Türkçe
       ],
       darkTheme: ThemeData(
+        useMaterial3: false,
         cardColor: anaRenkDark,
         textSelectionTheme: TextSelectionThemeData(cursorColor: Colors.white),
         brightness: Brightness.dark,
@@ -104,6 +105,7 @@ class MyAppState extends State<MyApp> {
       ),
       themeMode: ThemeMode.system,
       theme: ThemeData(
+          useMaterial3: false,
           textSelectionTheme: TextSelectionThemeData(cursorColor: anaRenk),
           brightness: Brightness.light,
           inputDecorationTheme: InputDecorationTheme(
@@ -351,6 +353,7 @@ class HomePageState extends State<HomePage> {
       appBar: AppBar(
         leading: IconButton(
             icon: Icon(CupertinoIcons.question_circle),
+            color: Colors.white,
             onPressed: () {
               setState(() {
                 showCupertinoDialog(
@@ -416,6 +419,7 @@ class HomePageState extends State<HomePage> {
             }),
         title: Text(
           "HesapMatik",
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
       ),
