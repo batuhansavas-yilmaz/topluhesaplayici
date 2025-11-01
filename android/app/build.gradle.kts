@@ -1,16 +1,26 @@
 import java.util.Properties
+import org.gradle.api.GradleException
 
 plugins {
     id("com.android.application")
-   id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.android")
     id("dev.flutter.flutter-gradle-plugin")
 }
 
-// key.properties dosyasını okumak için eklenen bölüm
-val keyPropertiesFile = rootProject.file("android/key.properties")
+val keyPropertiesFile = rootProject.file("key.properties")
 val keyProperties = Properties()
 if (keyPropertiesFile.exists()) {
     keyProperties.load(keyPropertiesFile.inputStream())
+} else {
+    throw GradleException("'key.properties' not found in android directory. Please ensure the file exists and contains the required signing information.")
+}
+
+fun getKeyProperty(key: String): String {
+    val property = keyProperties.getProperty(key)
+    if (property.isNullOrBlank()) { // Check for null or empty string
+        throw GradleException("Property '$key' is missing or empty in 'key.properties'.")
+    }
+    return property
 }
 
 android {
@@ -18,27 +28,13 @@ android {
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
-    buildFeatures {
-        buildConfig = true
-    }
-
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
-    }
-
-    // İmzalama yapılandırmaları
-    signingConfigs {
-        create("release") {
-            keyAlias = keyProperties["keyAlias"] as String?
-            keyPassword = keyProperties["keyPassword"] as String?
-            storeFile = if (keyProperties["storeFile"] != null) file(keyProperties["storeFile"] as String) else null
-            storePassword = keyProperties["storePassword"] as String?
-        }
+        jvmTarget = "1.8"
     }
 
     defaultConfig {
@@ -49,9 +45,21 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        create("release") {
+            try {
+                keyAlias = getKeyProperty("keyAlias")
+                keyPassword = getKeyProperty("keyPassword")
+                storeFile = file(getKeyProperty("storeFile"))
+                storePassword = getKeyProperty("storePassword")
+            } catch (e: Exception) {
+                throw GradleException("Failed to read key properties: ${e.message}")
+            }   
+        }
+    }
+
     buildTypes {
         release {
-            // Debug anahtarı yerine release imzasını kullan
             signingConfig = signingConfigs.getByName("release")
         }
     }
