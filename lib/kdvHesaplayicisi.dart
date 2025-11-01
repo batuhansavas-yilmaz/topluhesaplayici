@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+
 import 'package:responsive_framework/responsive_scaled_box.dart';
 
 import 'main.dart';
@@ -16,27 +16,7 @@ class KdvHesaplayicisi extends StatefulWidget {
 }
 
 class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
-  late BannerAd? _bannerAd;
-  bool _isBannerAdReady = false;
-  void _loadBannerAd() {
-    _bannerAd = BannerAd(
-      adUnitId: kdvReklam,
-      size: AdSize.banner,
-      request: requesT,
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          setState(() {
-            _isBannerAdReady = true;
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          _bannerAd!.dispose();
-        },
-      ),
-    );
 
-    _bannerAd!.load();
-  }
 
   int counter = 0;
   double hesapTutar = 0.00;
@@ -79,11 +59,11 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
   final _focusNode2 = FocusNode();
   void initState() {
     super.initState();
-    _loadBannerAd();
+  
   }
 
   void dispose() {
-    _bannerAd!.dispose();
+
     super.dispose();
   }
 
@@ -1906,17 +1886,7 @@ class KdvHesaplayicisiState extends State<KdvHesaplayicisi> {
             ),
           ],
         ),
-        bottomNavigationBar: Reklam(
-          ready: _isBannerAdReady,
-          reklam: SizedBox(
-              width: _bannerAd!.size.width.toDouble(),
-              height: _bannerAd!.size.height.toDouble(),
-              child: AdWidget(ad: _bannerAd!)),
-          bosluk: SizedBox(
-            width: _bannerAd!.size.width.toDouble(),
-            height: _bannerAd!.size.height.toDouble(),
-          ),
-        ),
+      
       ),
     );
   }

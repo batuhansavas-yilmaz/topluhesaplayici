@@ -8,7 +8,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // import 'package:gdpr_dialog/gdpr_dialog.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:simple_native_toast/simple_native_toast.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -41,7 +41,6 @@ void main() async {
       return true;
     };
   }
-  MobileAds.instance.initialize();
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -264,28 +263,6 @@ class HomePageState extends State<HomePage> {
     FlutterNativeSplash.remove();
   }
 
-  late BannerAd? _bannerAd;
-  bool _isBannerAdReady = false;
-  void _loadBannerAd() {
-    _bannerAd = BannerAd(
-      adUnitId: mainReklam,
-      size: AdSize.banner,
-      request: requesT,
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          setState(() {
-            _isBannerAdReady = true;
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          _bannerAd!.dispose();
-        },
-      ),
-    );
-
-    _bannerAd!.load();
-  }
-
   static final simpleNativeToastPlugin = SimpleNativeToast();
   // ignore: unused_field
   String _platformVersion = 'Unknown';
@@ -339,12 +316,10 @@ class HomePageState extends State<HomePage> {
         .setMinLaunchTimes(1)
         .setMinSecondsBeforeShowDialog(4)
         .monitor();
-    _loadBannerAd();
   }
 
   void dispose() {
     super.dispose();
-    _bannerAd!.dispose();
   }
 
   Widget build(BuildContext context) {
@@ -364,11 +339,11 @@ class HomePageState extends State<HomePage> {
                     child: AlertDialog(
                       elevation: 1,
                       title: Text(
-                        "From B.S.Y.",
+                        "B.S.Y.",
                         textAlign: TextAlign.center,
                       ),
                       content: Text(
-                        "Diğer uygulamalarımızı keşfetmeyi ve Instagram'dan bizi takip etmeyi unutmayın.",
+                        "Diğer uygulamalarımıza göz atmayı unutmayın.",
                         style: TextStyle(fontSize: 20),
                       ),
                       actions: [
@@ -396,16 +371,6 @@ class HomePageState extends State<HomePage> {
 
                                       launchUrl(_url,
                                           mode: LaunchMode.externalApplication);
-                                    }),
-                                IconButton(
-                                    icon: FaIcon(FontAwesomeIcons.instagram),
-                                    onPressed: () {
-                                      final Uri _url = Uri.parse(
-                                          "https:instagram.com/from.b.s.y");
-
-                                      launchUrl(_url,
-                                          mode: LaunchMode.externalApplication);
-                                      Navigator.pop(context);
                                     }),
                               ],
                             ),
@@ -534,17 +499,6 @@ class HomePageState extends State<HomePage> {
                   SizedBox(),
                   SizedBox(),
                 ]),
-      bottomNavigationBar: Reklam(
-        ready: _isBannerAdReady,
-        reklam: SizedBox(
-            width: _bannerAd!.size.width.toDouble(),
-            height: _bannerAd!.size.height.toDouble(),
-            child: AdWidget(ad: _bannerAd!)),
-        bosluk: SizedBox(
-          width: _bannerAd!.size.width.toDouble(),
-          height: _bannerAd!.size.height.toDouble(),
-        ),
-      ),
     );
   }
 }

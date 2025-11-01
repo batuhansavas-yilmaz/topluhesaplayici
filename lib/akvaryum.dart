@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+//import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'main.dart';
 import 'tools/yardimcilar.dart';
 
@@ -30,37 +30,16 @@ class _AquariumState extends State<Aquarium> {
   final _focusNode = FocusNode();
   bool replay = false;
 
-  late BannerAd? _bannerAd;
-  bool _isBannerAdReady = false;
-  void _loadBannerAd() {
-    _bannerAd = BannerAd(
-      adUnitId: akvaryumReklam,
-      size: AdSize.banner,
-      request: requesT,
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          setState(() {
-            _isBannerAdReady = true;
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          _bannerAd!.dispose();
-        },
-      ),
-    );
-
-    _bannerAd!.load();
-  }
 
   @override
   void initState() {
     super.initState();
-    _loadBannerAd();
+  
   }
 
   void dispose() {
     super.dispose();
-    _bannerAd!.dispose();
+ 
   }
 
   @override
@@ -473,17 +452,7 @@ class _AquariumState extends State<Aquarium> {
           ),
         ],
       ),
-      bottomNavigationBar: Reklam(
-        ready: _isBannerAdReady,
-        reklam: SizedBox(
-            width: _bannerAd!.size.width.toDouble(),
-            height: _bannerAd!.size.height.toDouble(),
-            child: AdWidget(ad: _bannerAd!)),
-        bosluk: SizedBox(
-          width: _bannerAd!.size.width.toDouble(),
-          height: _bannerAd!.size.height.toDouble(),
-        ),
-      ),
+     
     );
   }
 }

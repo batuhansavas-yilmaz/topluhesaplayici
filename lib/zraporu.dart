@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:toplu_hesaplayici/tools/yardimcilar.dart';
 
@@ -24,39 +24,19 @@ class _ZRaporuState extends State<ZRaporu> {
   double sonuc = 0.00;
   bool sonucc = false;
 
-  late BannerAd? _bannerAd;
-  bool _isBannerAdReady = false;
-  void _loadBannerAd() {
-    _bannerAd = BannerAd(
-      adUnitId: zraporuReklam,
-      size: AdSize.banner,
-      request: requesT,
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          setState(() {
-            _isBannerAdReady = true;
-          });
-        },
-        onAdFailedToLoad: (ad, error) {
-          _bannerAd!.dispose();
-        },
-      ),
-    );
-
-    _bannerAd!.load();
-  }
+  
 
   final _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    _loadBannerAd();
+
   }
 
   void dispose() {
     super.dispose();
-    _bannerAd!.dispose();
+
   }
 
   @override
@@ -382,17 +362,7 @@ class _ZRaporuState extends State<ZRaporu> {
           ),
         ],
       ),
-      bottomNavigationBar: Reklam(
-        ready: _isBannerAdReady,
-        reklam: SizedBox(
-            width: _bannerAd!.size.width.toDouble(),
-            height: _bannerAd!.size.height.toDouble(),
-            child: AdWidget(ad: _bannerAd!)),
-        bosluk: SizedBox(
-          width: _bannerAd!.size.width.toDouble(),
-          height: _bannerAd!.size.height.toDouble(),
-        ),
-      ),
+   
     );
   }
 }
